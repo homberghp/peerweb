@@ -1,0 +1,18 @@
+# comments
+# default allow anything text, including source, html, tex, css
+#
+text/plain
+text/x-java
+application/xml
+image/gif
+# allow one page per pdf file for tex includes
+application/pdf=1
+text/x-csrc
+text/html
+text/css
+application/x-php
+application/javascript
+application/xhtml+xml
+application/x-perl
+application/x-shellscript
+audio/x-vorbis+ogg
