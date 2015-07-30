@@ -1,0 +1,2107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="2424.3315"
+   height="747.59796"
+   id="svg5128"
+   sodipodi:version="0.32"
+   inkscape:version="0.45"
+   version="1.0"
+   inkscape:export-filename="/home/hom/testsite/peer/images/vouwvoorbeeld.png"
+   inkscape:export-xdpi="22.274181"
+   inkscape:export-ydpi="22.274181"
+   sodipodi:docbase="/home/hom/testsite/tex"
+   sodipodi:docname="vouwvoorbeeld.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   sodipodi:modified="TRUE">
+  <defs
+     id="defs5130">
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4141"
+       id="linearGradient4147"
+       x1="62.010136"
+       y1="508.81824"
+       x2="231.28021"
+       y2="416.44543"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4151"
+       id="linearGradient4157"
+       x1="173.63884"
+       y1="509.83554"
+       x2="62.685295"
+       y2="538.86389"
+       gradientUnits="userSpaceOnUse" />
+    <marker
+       inkscape:stockid="Arrow2Mstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Mstart"
+       style="overflow:visible">
+      <path
+         id="path10236"
+         style="font-size:12px;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.97309,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(0.6,0.6)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart"
+       style="overflow:visible">
+      <path
+         id="path10260"
+         d="M 0,0 L 5,-5 L -12.5,0 L 5,5 L 0,0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4141">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop4143" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0.33502537"
+         offset="1"
+         id="stop4145" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4151">
+      <stop
+         style="stop-color:#000000;stop-opacity:0.33502537"
+         offset="0"
+         id="stop4153" />
+      <stop
+         style="stop-color:#000000;stop-opacity:0;"
+         offset="1"
+         id="stop4155" />
+    </linearGradient>
+    <marker
+       inkscape:stockid="TriangleInL"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="TriangleInL"
+       style="overflow:visible">
+      <path
+         id="path10171"
+         d="M 5.77,0 L -2.88,5 L -2.88,-5 L 5.77,0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="scale(-0.8,-0.8)" />
+    </marker>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4151"
+       id="linearGradient11546"
+       gradientUnits="userSpaceOnUse"
+       x1="173.63884"
+       y1="509.83554"
+       x2="62.685295"
+       y2="538.86389" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4141"
+       id="linearGradient11548"
+       gradientUnits="userSpaceOnUse"
+       x1="62.010136"
+       y1="508.81824"
+       x2="231.28021"
+       y2="416.44543" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4151"
+       id="linearGradient11550"
+       gradientUnits="userSpaceOnUse"
+       x1="173.63884"
+       y1="509.83554"
+       x2="62.685295"
+       y2="538.86389" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4141"
+       id="linearGradient11552"
+       gradientUnits="userSpaceOnUse"
+       x1="62.010136"
+       y1="508.81824"
+       x2="231.28021"
+       y2="416.44543" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4151"
+       id="linearGradient11554"
+       gradientUnits="userSpaceOnUse"
+       x1="173.63884"
+       y1="509.83554"
+       x2="62.685295"
+       y2="538.86389" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4141"
+       id="linearGradient11556"
+       gradientUnits="userSpaceOnUse"
+       x1="62.010136"
+       y1="508.81824"
+       x2="231.28021"
+       y2="416.44543" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4151"
+       id="linearGradient11558"
+       gradientUnits="userSpaceOnUse"
+       x1="173.63884"
+       y1="509.83554"
+       x2="62.685295"
+       y2="538.86389" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4141"
+       id="linearGradient11560"
+       gradientUnits="userSpaceOnUse"
+       x1="62.010136"
+       y1="508.81824"
+       x2="231.28021"
+       y2="416.44543" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4151"
+       id="linearGradient11631"
+       gradientUnits="userSpaceOnUse"
+       x1="173.63884"
+       y1="509.83554"
+       x2="62.685295"
+       y2="538.86389" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4141"
+       id="linearGradient11633"
+       gradientUnits="userSpaceOnUse"
+       x1="62.010136"
+       y1="508.81824"
+       x2="231.28021"
+       y2="416.44543" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4151"
+       id="linearGradient11984"
+       gradientUnits="userSpaceOnUse"
+       x1="173.63884"
+       y1="509.83554"
+       x2="62.685295"
+       y2="538.86389" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4141"
+       id="linearGradient11986"
+       gradientUnits="userSpaceOnUse"
+       x1="62.010136"
+       y1="508.81824"
+       x2="231.28021"
+       y2="416.44543" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4151"
+       id="linearGradient11988"
+       gradientUnits="userSpaceOnUse"
+       x1="173.63884"
+       y1="509.83554"
+       x2="62.685295"
+       y2="538.86389" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4141"
+       id="linearGradient11990"
+       gradientUnits="userSpaceOnUse"
+       x1="62.010136"
+       y1="508.81824"
+       x2="231.28021"
+       y2="416.44543" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4151"
+       id="linearGradient11992"
+       gradientUnits="userSpaceOnUse"
+       x1="173.63884"
+       y1="509.83554"
+       x2="62.685295"
+       y2="538.86389" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4141"
+       id="linearGradient11994"
+       gradientUnits="userSpaceOnUse"
+       x1="62.010136"
+       y1="508.81824"
+       x2="231.28021"
+       y2="416.44543" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4151"
+       id="linearGradient12124"
+       gradientUnits="userSpaceOnUse"
+       x1="173.63884"
+       y1="509.83554"
+       x2="62.685295"
+       y2="538.86389" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4141"
+       id="linearGradient12126"
+       gradientUnits="userSpaceOnUse"
+       x1="62.010136"
+       y1="508.81824"
+       x2="231.28021"
+       y2="416.44543" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4151"
+       id="linearGradient12128"
+       gradientUnits="userSpaceOnUse"
+       x1="173.63884"
+       y1="509.83554"
+       x2="62.685295"
+       y2="538.86389" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4141"
+       id="linearGradient12130"
+       gradientUnits="userSpaceOnUse"
+       x1="62.010136"
+       y1="508.81824"
+       x2="231.28021"
+       y2="416.44543" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4151"
+       id="linearGradient12132"
+       gradientUnits="userSpaceOnUse"
+       x1="173.63884"
+       y1="509.83554"
+       x2="62.685295"
+       y2="538.86389" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4141"
+       id="linearGradient12134"
+       gradientUnits="userSpaceOnUse"
+       x1="62.010136"
+       y1="508.81824"
+       x2="231.28021"
+       y2="416.44543" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4151"
+       id="linearGradient12264"
+       gradientUnits="userSpaceOnUse"
+       x1="173.63884"
+       y1="509.83554"
+       x2="62.685295"
+       y2="538.86389" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4141"
+       id="linearGradient12266"
+       gradientUnits="userSpaceOnUse"
+       x1="62.010136"
+       y1="508.81824"
+       x2="231.28021"
+       y2="416.44543" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4151"
+       id="linearGradient12268"
+       gradientUnits="userSpaceOnUse"
+       x1="173.63884"
+       y1="509.83554"
+       x2="62.685295"
+       y2="538.86389" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4141"
+       id="linearGradient12270"
+       gradientUnits="userSpaceOnUse"
+       x1="62.010136"
+       y1="508.81824"
+       x2="231.28021"
+       y2="416.44543" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4151"
+       id="linearGradient12272"
+       gradientUnits="userSpaceOnUse"
+       x1="173.63884"
+       y1="509.83554"
+       x2="62.685295"
+       y2="538.86389" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4141"
+       id="linearGradient12274"
+       gradientUnits="userSpaceOnUse"
+       x1="62.010136"
+       y1="508.81824"
+       x2="231.28021"
+       y2="416.44543" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4151"
+       id="linearGradient12290"
+       gradientUnits="userSpaceOnUse"
+       x1="173.63884"
+       y1="509.83554"
+       x2="62.685295"
+       y2="538.86389" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4141"
+       id="linearGradient12292"
+       gradientUnits="userSpaceOnUse"
+       x1="62.010136"
+       y1="508.81824"
+       x2="231.28021"
+       y2="416.44543" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.73917278"
+     inkscape:cx="1245.5052"
+     inkscape:cy="176.96056"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     width="1052.3622px"
+     height="744.09448px"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:window-width="1912"
+     inkscape:window-height="1120"
+     inkscape:window-x="0"
+     inkscape:window-y="0">
+    <sodipodi:guide
+       orientation="vertical"
+       position="250.47566"
+       id="guide6107" />
+    <sodipodi:guide
+       orientation="vertical"
+       position="500.95131"
+       id="guide6109" />
+    <sodipodi:guide
+       orientation="vertical"
+       position="759.63929"
+       id="guide6111" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5133">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0.9980577,-0.4940376)">
+    <g
+       id="g12296">
+      <g
+         transform="matrix(1.0041162,0,0,1,4.1161866e-3,0)"
+         id="g10275">
+        <g
+           id="g9034">
+          <rect
+             y="46.660439"
+             x="-0.057223298"
+             height="700.34839"
+             width="999.34332"
+             id="rect5136"
+             style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.88555336;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             id="path6113"
+             d="M 250.47566,47.811175 L 250.47566,745.85809"
+             style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+          <path
+             id="path6115"
+             d="M 500.95131,46.579329 L 500.95131,747.08994"
+             style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+          <path
+             id="path6117"
+             d="M 759.63929,46.579329 L 759.63929,747.08994"
+             style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+          <text
+             transform="matrix(0,-1,1,0,0,0)"
+             sodipodi:linespacing="125%"
+             id="text8057"
+             y="428.05835"
+             x="-678.46356"
+             style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+             xml:space="preserve"><tspan
+               y="428.05835"
+               x="-678.46356"
+               id="tspan8059"
+               sodipodi:role="line">Pietje Puk</tspan></text>
+          <text
+             transform="matrix(0,1,-1,0,0,0)"
+             sodipodi:linespacing="125%"
+             id="text8061"
+             y="-576.73651"
+             x="115.2057"
+             style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+             xml:space="preserve"><tspan
+               y="-576.73651"
+               x="115.2057"
+               id="tspan8063"
+               sodipodi:role="line">Pietje Puk</tspan></text>
+        </g>
+        <path
+           style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 656.95774,36.612402 C 666.91806,27.758783 695.77658,3.1346577 783.48274,3.4113327 C 871.1889,3.6880087 896.00543,43.252615 896.00543,43.252615"
+           id="path10269"
+           sodipodi:nodetypes="csc" />
+        <path
+           style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 378.62212,34.699476 C 388.58244,25.845857 417.44096,1.221732 505.14712,1.498407 C 592.85328,1.775083 617.66981,41.339689 617.66981,41.339689"
+           id="path10271"
+           sodipodi:nodetypes="csc" />
+        <path
+           style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 107.48005,34.699475 C 117.44037,25.845856 146.29889,1.2217312 234.00505,1.4984062 C 321.71121,1.7750822 346.52774,41.339688 346.52774,41.339688"
+           id="path10273"
+           sodipodi:nodetypes="csc" />
+      </g>
+      <g
+         transform="matrix(0,0.3027167,-0.3027167,0,232.12629,76.41232)"
+         id="g10289">
+        <g
+           id="g10291">
+          <rect
+             y="46.660439"
+             x="-0.057223298"
+             height="700.34839"
+             width="999.34332"
+             id="rect10293"
+             style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.88555336;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             id="path10295"
+             d="M 250.47566,47.811175 L 250.47566,745.85809"
+             style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+          <path
+             id="path10297"
+             d="M 500.95131,46.579329 L 500.95131,747.08994"
+             style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+          <path
+             id="path10299"
+             d="M 759.63929,46.579329 L 759.63929,747.08994"
+             style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+          <text
+             transform="matrix(0,-1,1,0,0,0)"
+             sodipodi:linespacing="125%"
+             id="text10301"
+             y="428.05835"
+             x="-678.46356"
+             style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+             xml:space="preserve"><tspan
+               y="428.05835"
+               x="-678.46356"
+               id="tspan10303"
+               sodipodi:role="line">Pietje Puk</tspan></text>
+          <text
+             transform="matrix(0,1,-1,0,0,0)"
+             sodipodi:linespacing="125%"
+             id="text10305"
+             y="-576.73651"
+             x="115.2057"
+             style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+             xml:space="preserve"><tspan
+               y="-576.73651"
+               x="115.2057"
+               id="tspan10307"
+               sodipodi:role="line">Pietje Puk</tspan></text>
+        </g>
+        <path
+           style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 656.95774,36.612402 C 666.91806,27.758783 695.77658,3.1346577 783.48274,3.4113327 C 871.1889,3.6880087 896.00543,43.252615 896.00543,43.252615"
+           id="path10309"
+           sodipodi:nodetypes="csc" />
+        <path
+           style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 378.62212,34.699476 C 388.58244,25.845857 417.44096,1.221732 505.14712,1.498407 C 592.85328,1.775083 617.66981,41.339689 617.66981,41.339689"
+           id="path10311"
+           sodipodi:nodetypes="csc" />
+        <path
+           style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 107.48005,34.699475 C 117.44037,25.845856 146.29889,1.2217312 234.00505,1.4984062 C 321.71121,1.7750822 346.52774,41.339688 346.52774,41.339688"
+           id="path10313"
+           sodipodi:nodetypes="csc" />
+      </g>
+      <g
+         inkscape:transform-center-y="-89.924376"
+         inkscape:transform-center-x="53.954626"
+         transform="matrix(0,-0.3027167,0.3027167,0,770.10978,722.94613)"
+         id="g10315">
+        <g
+           id="g10317">
+          <rect
+             y="46.660439"
+             x="-0.057223298"
+             height="700.34839"
+             width="999.34332"
+             id="rect10319"
+             style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.88555336;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             id="path10321"
+             d="M 250.47566,47.811175 L 250.47566,745.85809"
+             style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+          <path
+             id="path10323"
+             d="M 500.95131,46.579329 L 500.95131,747.08994"
+             style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+          <path
+             id="path10325"
+             d="M 759.63929,46.579329 L 759.63929,747.08994"
+             style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+          <text
+             transform="matrix(0,-1,1,0,0,0)"
+             sodipodi:linespacing="125%"
+             id="text10327"
+             y="428.05835"
+             x="-678.46356"
+             style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+             xml:space="preserve"><tspan
+               y="428.05835"
+               x="-678.46356"
+               id="tspan10329"
+               sodipodi:role="line">Pietje Puk</tspan></text>
+          <text
+             transform="matrix(0,1,-1,0,0,0)"
+             sodipodi:linespacing="125%"
+             id="text10331"
+             y="-576.73651"
+             x="115.2057"
+             style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+             xml:space="preserve"><tspan
+               y="-576.73651"
+               x="115.2057"
+               id="tspan10333"
+               sodipodi:role="line">Pietje Puk</tspan></text>
+        </g>
+        <path
+           style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 656.95774,36.612402 C 666.91806,27.758783 695.77658,3.1346577 783.48274,3.4113327 C 871.1889,3.6880087 896.00543,43.252615 896.00543,43.252615"
+           id="path10335"
+           sodipodi:nodetypes="csc" />
+        <path
+           style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 378.62212,34.699476 C 388.58244,25.845857 417.44096,1.221732 505.14712,1.498407 C 592.85328,1.775083 617.66981,41.339689 617.66981,41.339689"
+           id="path10337"
+           sodipodi:nodetypes="csc" />
+        <path
+           style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 107.48005,34.699475 C 117.44037,25.845856 146.29889,1.2217312 234.00505,1.4984062 C 321.71121,1.7750822 346.52774,41.339688 346.52774,41.339688"
+           id="path10339"
+           sodipodi:nodetypes="csc" />
+      </g>
+      <g
+         id="g10341"
+         transform="matrix(-6.3221443e-2,0.2359456,-0.2359456,-6.3221443e-2,210.32759,565.4241)">
+        <g
+           id="g3145"
+           transform="translate(20.884806,-276.14355)">
+          <rect
+             transform="matrix(0.8424298,-0.5388061,0.52314,0.8522467,0,0)"
+             ry="0"
+             y="610.04987"
+             x="-262.9006"
+             height="179.78023"
+             width="606.12457"
+             id="rect2160"
+             style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.00017095;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <text
+             transform="matrix(0.9311866,-0.5938115,0.4021712,0.8174367,0,0)"
+             sodipodi:linespacing="125%"
+             id="text3133"
+             y="805.55231"
+             x="110.36131"
+             style="font-size:98.01990509px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+             xml:space="preserve"><tspan
+               y="805.55231"
+               x="110.36131"
+               id="tspan3135"
+               sodipodi:role="line">Pietje Puk</tspan></text>
+        </g>
+        <path
+           style="fill:url(#linearGradient11554);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 211.84306,538.5325 L 63.185297,528.45237 L 110.42267,510.33553 L 211.84306,538.5325 z "
+           id="path3168"
+           sodipodi:nodetypes="cccc" />
+        <path
+           style="fill:url(#linearGradient11556);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 118.15022,386.05673 L 73.265436,501.23535 L 210.88145,537.49578 L 118.15022,386.05673 z "
+           id="path3170"
+           sodipodi:nodetypes="cccc" />
+      </g>
+      <g
+         id="g10382"
+         transform="matrix(0,-0.2442689,0.2442689,0,821.65876,240.79992)">
+        <g
+           id="g10384"
+           transform="translate(20.884806,-276.14355)">
+          <rect
+             transform="matrix(0.8424298,-0.5388061,0.52314,0.8522467,0,0)"
+             ry="0"
+             y="610.04987"
+             x="-262.9006"
+             height="179.78023"
+             width="606.12457"
+             id="rect10386"
+             style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.00017095;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <text
+             transform="matrix(0.9311866,-0.5938115,0.4021712,0.8174367,0,0)"
+             sodipodi:linespacing="125%"
+             id="text10388"
+             y="805.55231"
+             x="110.36131"
+             style="font-size:98.01990509px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+             xml:space="preserve"><tspan
+               y="805.55231"
+               x="110.36131"
+               id="tspan10390"
+               sodipodi:role="line">Pietje Puk</tspan></text>
+        </g>
+        <path
+           style="fill:url(#linearGradient11558);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 211.84306,538.5325 L 63.185297,528.45237 L 110.42267,510.33553 L 211.84306,538.5325 z "
+           id="path10392"
+           sodipodi:nodetypes="cccc" />
+        <path
+           style="fill:url(#linearGradient11560);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 118.15022,386.05673 L 73.265436,501.23535 L 210.88145,537.49578 L 118.15022,386.05673 z "
+           id="path10394"
+           sodipodi:nodetypes="cccc" />
+      </g>
+      <path
+         id="path10400"
+         d="M 889.36468,254.49057 L 891.01317,381.42492"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#Arrow2Mstart);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         inkscape:transform-center-y="70.763728"
+         inkscape:transform-center-x="469.82193"
+         id="path11375"
+         d="M 123.27969,522.36996 L 121.6312,395.43561"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#Arrow2Mstart);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <g
+         id="g11791">
+        <g
+           id="g11434"
+           transform="matrix(9.3014291e-2,0,0,9.3014291e-2,17.398503,305.14356)">
+          <g
+             transform="matrix(1.0041162,0,0,1,4.1161866e-3,0)"
+             id="g11436">
+            <g
+               id="g11438">
+              <rect
+                 y="46.660439"
+                 x="-0.057223298"
+                 height="700.34839"
+                 width="999.34332"
+                 id="rect11440"
+                 style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.88555336;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+              <path
+                 id="path11442"
+                 d="M 250.47566,47.811175 L 250.47566,745.85809"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <path
+                 id="path11444"
+                 d="M 500.95131,46.579329 L 500.95131,747.08994"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <path
+                 id="path11446"
+                 d="M 759.63929,46.579329 L 759.63929,747.08994"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <text
+                 transform="matrix(0,-1,1,0,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text11448"
+                 y="428.05835"
+                 x="-678.46356"
+                 style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="428.05835"
+                   x="-678.46356"
+                   id="tspan11450"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+              <text
+                 transform="matrix(0,1,-1,0,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text11452"
+                 y="-576.73651"
+                 x="115.2057"
+                 style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="-576.73651"
+                   x="115.2057"
+                   id="tspan11454"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+            </g>
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 656.95774,36.612402 C 666.91806,27.758783 695.77658,3.1346577 783.48274,3.4113327 C 871.1889,3.6880087 896.00543,43.252615 896.00543,43.252615"
+               id="path11456"
+               sodipodi:nodetypes="csc" />
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 378.62212,34.699476 C 388.58244,25.845857 417.44096,1.221732 505.14712,1.498407 C 592.85328,1.775083 617.66981,41.339689 617.66981,41.339689"
+               id="path11458"
+               sodipodi:nodetypes="csc" />
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 107.48005,34.699475 C 117.44037,25.845856 146.29889,1.2217312 234.00505,1.4984062 C 321.71121,1.7750822 346.52774,41.339688 346.52774,41.339688"
+               id="path11460"
+               sodipodi:nodetypes="csc" />
+          </g>
+          <g
+             transform="matrix(0,0.3027167,-0.3027167,0,232.12629,76.41232)"
+             id="g11462">
+            <g
+               id="g11464">
+              <rect
+                 y="46.660439"
+                 x="-0.057223298"
+                 height="700.34839"
+                 width="999.34332"
+                 id="rect11466"
+                 style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.88555336;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+              <path
+                 id="path11468"
+                 d="M 250.47566,47.811175 L 250.47566,745.85809"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <path
+                 id="path11470"
+                 d="M 500.95131,46.579329 L 500.95131,747.08994"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <path
+                 id="path11472"
+                 d="M 759.63929,46.579329 L 759.63929,747.08994"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <text
+                 transform="matrix(0,-1,1,0,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text11474"
+                 y="428.05835"
+                 x="-678.46356"
+                 style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="428.05835"
+                   x="-678.46356"
+                   id="tspan11476"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+              <text
+                 transform="matrix(0,1,-1,0,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text11478"
+                 y="-576.73651"
+                 x="115.2057"
+                 style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="-576.73651"
+                   x="115.2057"
+                   id="tspan11480"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+            </g>
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 656.95774,36.612402 C 666.91806,27.758783 695.77658,3.1346577 783.48274,3.4113327 C 871.1889,3.6880087 896.00543,43.252615 896.00543,43.252615"
+               id="path11482"
+               sodipodi:nodetypes="csc" />
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 378.62212,34.699476 C 388.58244,25.845857 417.44096,1.221732 505.14712,1.498407 C 592.85328,1.775083 617.66981,41.339689 617.66981,41.339689"
+               id="path11484"
+               sodipodi:nodetypes="csc" />
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 107.48005,34.699475 C 117.44037,25.845856 146.29889,1.2217312 234.00505,1.4984062 C 321.71121,1.7750822 346.52774,41.339688 346.52774,41.339688"
+               id="path11486"
+               sodipodi:nodetypes="csc" />
+          </g>
+          <g
+             inkscape:transform-center-y="-89.924376"
+             inkscape:transform-center-x="53.954626"
+             transform="matrix(0,-0.3027167,0.3027167,0,770.10978,722.94613)"
+             id="g11488">
+            <g
+               id="g11490">
+              <rect
+                 y="46.660439"
+                 x="-0.057223298"
+                 height="700.34839"
+                 width="999.34332"
+                 id="rect11492"
+                 style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.88555336;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+              <path
+                 id="path11494"
+                 d="M 250.47566,47.811175 L 250.47566,745.85809"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <path
+                 id="path11496"
+                 d="M 500.95131,46.579329 L 500.95131,747.08994"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <path
+                 id="path11498"
+                 d="M 759.63929,46.579329 L 759.63929,747.08994"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <text
+                 transform="matrix(0,-1,1,0,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text11500"
+                 y="428.05835"
+                 x="-678.46356"
+                 style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="428.05835"
+                   x="-678.46356"
+                   id="tspan11502"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+              <text
+                 transform="matrix(0,1,-1,0,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text11504"
+                 y="-576.73651"
+                 x="115.2057"
+                 style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="-576.73651"
+                   x="115.2057"
+                   id="tspan11506"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+            </g>
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 656.95774,36.612402 C 666.91806,27.758783 695.77658,3.1346577 783.48274,3.4113327 C 871.1889,3.6880087 896.00543,43.252615 896.00543,43.252615"
+               id="path11508"
+               sodipodi:nodetypes="csc" />
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 378.62212,34.699476 C 388.58244,25.845857 417.44096,1.221732 505.14712,1.498407 C 592.85328,1.775083 617.66981,41.339689 617.66981,41.339689"
+               id="path11510"
+               sodipodi:nodetypes="csc" />
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 107.48005,34.699475 C 117.44037,25.845856 146.29889,1.2217312 234.00505,1.4984062 C 321.71121,1.7750822 346.52774,41.339688 346.52774,41.339688"
+               id="path11512"
+               sodipodi:nodetypes="csc" />
+          </g>
+          <g
+             id="g11514"
+             transform="matrix(-6.3221443e-2,0.2359456,-0.2359456,-6.3221443e-2,210.32759,565.4241)">
+            <g
+               id="g11516"
+               transform="translate(20.884806,-276.14355)">
+              <rect
+                 transform="matrix(0.8424298,-0.5388061,0.52314,0.8522467,0,0)"
+                 ry="0"
+                 y="610.04987"
+                 x="-262.9006"
+                 height="179.78023"
+                 width="606.12457"
+                 id="rect11518"
+                 style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.00017095;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+              <text
+                 transform="matrix(0.9311866,-0.5938115,0.4021712,0.8174367,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text11520"
+                 y="805.55231"
+                 x="110.36131"
+                 style="font-size:98.01990509px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="805.55231"
+                   x="110.36131"
+                   id="tspan11522"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+            </g>
+            <path
+               style="fill:url(#linearGradient11546);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 211.84306,538.5325 L 63.185297,528.45237 L 110.42267,510.33553 L 211.84306,538.5325 z "
+               id="path11524"
+               sodipodi:nodetypes="cccc" />
+            <path
+               style="fill:url(#linearGradient11548);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 118.15022,386.05673 L 73.265436,501.23535 L 210.88145,537.49578 L 118.15022,386.05673 z "
+               id="path11526"
+               sodipodi:nodetypes="cccc" />
+          </g>
+          <g
+             id="g11528"
+             transform="matrix(0,-0.2442689,0.2442689,0,821.65876,240.79992)">
+            <g
+               id="g11530"
+               transform="translate(20.884806,-276.14355)">
+              <rect
+                 transform="matrix(0.8424298,-0.5388061,0.52314,0.8522467,0,0)"
+                 ry="0"
+                 y="610.04987"
+                 x="-262.9006"
+                 height="179.78023"
+                 width="606.12457"
+                 id="rect11532"
+                 style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.00017095;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+              <text
+                 transform="matrix(0.9311866,-0.5938115,0.4021712,0.8174367,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text11534"
+                 y="805.55231"
+                 x="110.36131"
+                 style="font-size:98.01990509px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="805.55231"
+                   x="110.36131"
+                   id="tspan11536"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+            </g>
+            <path
+               style="fill:url(#linearGradient11550);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 211.84306,538.5325 L 63.185297,528.45237 L 110.42267,510.33553 L 211.84306,538.5325 z "
+               id="path11538"
+               sodipodi:nodetypes="cccc" />
+            <path
+               style="fill:url(#linearGradient11552);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 118.15022,386.05673 L 73.265436,501.23535 L 210.88145,537.49578 L 118.15022,386.05673 z "
+               id="path11540"
+               sodipodi:nodetypes="cccc" />
+          </g>
+          <path
+             id="path11542"
+             d="M 889.36468,254.49057 L 891.01317,381.42492"
+             style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#Arrow2Mstart);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             inkscape:transform-center-y="70.763728"
+             inkscape:transform-center-x="469.82193"
+             id="path11544"
+             d="M 123.27969,522.36996 L 121.6312,395.43561"
+             style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#Arrow2Mstart);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        </g>
+        <g
+           transform="matrix(8.8910155e-2,2.3823408e-2,-2.3823408e-2,8.8910155e-2,146.87026,304.74874)"
+           id="g11617"
+           inkscape:transform-center-x="203.92018"
+           inkscape:transform-center-y="214.99277">
+          <g
+             transform="translate(20.884806,-276.14355)"
+             id="g11619">
+            <rect
+               style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.00017095;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               id="rect11621"
+               width="606.12457"
+               height="179.78023"
+               x="-262.9006"
+               y="610.04987"
+               ry="0"
+               transform="matrix(0.8424298,-0.5388061,0.52314,0.8522467,0,0)" />
+            <text
+               xml:space="preserve"
+               style="font-size:98.01990509px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+               x="110.36131"
+               y="805.55231"
+               id="text11623"
+               sodipodi:linespacing="125%"
+               transform="matrix(0.9311866,-0.5938115,0.4021712,0.8174367,0,0)"><tspan
+                 sodipodi:role="line"
+                 id="tspan11625"
+                 x="110.36131"
+                 y="805.55231">Pietje Puk</tspan></text>
+          </g>
+          <path
+             sodipodi:nodetypes="cccc"
+             id="path11627"
+             d="M 211.84306,538.5325 L 63.185297,528.45237 L 110.42267,510.33553 L 211.84306,538.5325 z "
+             style="fill:url(#linearGradient11631);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             sodipodi:nodetypes="cccc"
+             id="path11629"
+             d="M 118.15022,386.05673 L 73.265436,501.23535 L 210.88145,537.49578 L 118.15022,386.05673 z "
+             style="fill:url(#linearGradient11633);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        </g>
+      </g>
+      <g
+         transform="matrix(-1,0,0,-1,222.48467,453.83778)"
+         id="g11856">
+        <g
+           id="g11858"
+           transform="matrix(9.3014291e-2,0,0,9.3014291e-2,17.398503,305.14356)">
+          <g
+             transform="matrix(1.0041162,0,0,1,4.1161866e-3,0)"
+             id="g11860">
+            <g
+               id="g11862">
+              <rect
+                 y="46.660439"
+                 x="-0.057223298"
+                 height="700.34839"
+                 width="999.34332"
+                 id="rect11864"
+                 style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.88555336;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+              <path
+                 id="path11866"
+                 d="M 250.47566,47.811175 L 250.47566,745.85809"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <path
+                 id="path11868"
+                 d="M 500.95131,46.579329 L 500.95131,747.08994"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <path
+                 id="path11870"
+                 d="M 759.63929,46.579329 L 759.63929,747.08994"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <text
+                 transform="matrix(0,-1,1,0,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text11872"
+                 y="428.05835"
+                 x="-678.46356"
+                 style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="428.05835"
+                   x="-678.46356"
+                   id="tspan11874"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+              <text
+                 transform="matrix(0,1,-1,0,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text11876"
+                 y="-576.73651"
+                 x="115.2057"
+                 style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="-576.73651"
+                   x="115.2057"
+                   id="tspan11878"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+            </g>
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 656.95774,36.612402 C 666.91806,27.758783 695.77658,3.1346577 783.48274,3.4113327 C 871.1889,3.6880087 896.00543,43.252615 896.00543,43.252615"
+               id="path11880"
+               sodipodi:nodetypes="csc" />
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 378.62212,34.699476 C 388.58244,25.845857 417.44096,1.221732 505.14712,1.498407 C 592.85328,1.775083 617.66981,41.339689 617.66981,41.339689"
+               id="path11882"
+               sodipodi:nodetypes="csc" />
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 107.48005,34.699475 C 117.44037,25.845856 146.29889,1.2217312 234.00505,1.4984062 C 321.71121,1.7750822 346.52774,41.339688 346.52774,41.339688"
+               id="path11884"
+               sodipodi:nodetypes="csc" />
+          </g>
+          <g
+             transform="matrix(0,0.3027167,-0.3027167,0,232.12629,76.41232)"
+             id="g11886">
+            <g
+               id="g11888">
+              <rect
+                 y="46.660439"
+                 x="-0.057223298"
+                 height="700.34839"
+                 width="999.34332"
+                 id="rect11890"
+                 style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.88555336;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+              <path
+                 id="path11892"
+                 d="M 250.47566,47.811175 L 250.47566,745.85809"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <path
+                 id="path11894"
+                 d="M 500.95131,46.579329 L 500.95131,747.08994"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <path
+                 id="path11896"
+                 d="M 759.63929,46.579329 L 759.63929,747.08994"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <text
+                 transform="matrix(0,-1,1,0,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text11898"
+                 y="428.05835"
+                 x="-678.46356"
+                 style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="428.05835"
+                   x="-678.46356"
+                   id="tspan11900"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+              <text
+                 transform="matrix(0,1,-1,0,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text11902"
+                 y="-576.73651"
+                 x="115.2057"
+                 style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="-576.73651"
+                   x="115.2057"
+                   id="tspan11904"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+            </g>
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 656.95774,36.612402 C 666.91806,27.758783 695.77658,3.1346577 783.48274,3.4113327 C 871.1889,3.6880087 896.00543,43.252615 896.00543,43.252615"
+               id="path11906"
+               sodipodi:nodetypes="csc" />
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 378.62212,34.699476 C 388.58244,25.845857 417.44096,1.221732 505.14712,1.498407 C 592.85328,1.775083 617.66981,41.339689 617.66981,41.339689"
+               id="path11908"
+               sodipodi:nodetypes="csc" />
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 107.48005,34.699475 C 117.44037,25.845856 146.29889,1.2217312 234.00505,1.4984062 C 321.71121,1.7750822 346.52774,41.339688 346.52774,41.339688"
+               id="path11910"
+               sodipodi:nodetypes="csc" />
+          </g>
+          <g
+             inkscape:transform-center-y="-89.924376"
+             inkscape:transform-center-x="53.954626"
+             transform="matrix(0,-0.3027167,0.3027167,0,770.10978,722.94613)"
+             id="g11912">
+            <g
+               id="g11914">
+              <rect
+                 y="46.660439"
+                 x="-0.057223298"
+                 height="700.34839"
+                 width="999.34332"
+                 id="rect11916"
+                 style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.88555336;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+              <path
+                 id="path11918"
+                 d="M 250.47566,47.811175 L 250.47566,745.85809"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <path
+                 id="path11920"
+                 d="M 500.95131,46.579329 L 500.95131,747.08994"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <path
+                 id="path11922"
+                 d="M 759.63929,46.579329 L 759.63929,747.08994"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <text
+                 transform="matrix(0,-1,1,0,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text11924"
+                 y="428.05835"
+                 x="-678.46356"
+                 style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="428.05835"
+                   x="-678.46356"
+                   id="tspan11926"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+              <text
+                 transform="matrix(0,1,-1,0,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text11928"
+                 y="-576.73651"
+                 x="115.2057"
+                 style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="-576.73651"
+                   x="115.2057"
+                   id="tspan11930"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+            </g>
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 656.95774,36.612402 C 666.91806,27.758783 695.77658,3.1346577 783.48274,3.4113327 C 871.1889,3.6880087 896.00543,43.252615 896.00543,43.252615"
+               id="path11932"
+               sodipodi:nodetypes="csc" />
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 378.62212,34.699476 C 388.58244,25.845857 417.44096,1.221732 505.14712,1.498407 C 592.85328,1.775083 617.66981,41.339689 617.66981,41.339689"
+               id="path11934"
+               sodipodi:nodetypes="csc" />
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 107.48005,34.699475 C 117.44037,25.845856 146.29889,1.2217312 234.00505,1.4984062 C 321.71121,1.7750822 346.52774,41.339688 346.52774,41.339688"
+               id="path11936"
+               sodipodi:nodetypes="csc" />
+          </g>
+          <g
+             id="g11938"
+             transform="matrix(-6.3221443e-2,0.2359456,-0.2359456,-6.3221443e-2,210.32759,565.4241)">
+            <g
+               id="g11940"
+               transform="translate(20.884806,-276.14355)">
+              <rect
+                 transform="matrix(0.8424298,-0.5388061,0.52314,0.8522467,0,0)"
+                 ry="0"
+                 y="610.04987"
+                 x="-262.9006"
+                 height="179.78023"
+                 width="606.12457"
+                 id="rect11942"
+                 style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.00017095;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+              <text
+                 transform="matrix(0.9311866,-0.5938115,0.4021712,0.8174367,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text11944"
+                 y="805.55231"
+                 x="110.36131"
+                 style="font-size:98.01990509px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="805.55231"
+                   x="110.36131"
+                   id="tspan11946"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+            </g>
+            <path
+               style="fill:url(#linearGradient11984);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 211.84306,538.5325 L 63.185297,528.45237 L 110.42267,510.33553 L 211.84306,538.5325 z "
+               id="path11948"
+               sodipodi:nodetypes="cccc" />
+            <path
+               style="fill:url(#linearGradient11986);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 118.15022,386.05673 L 73.265436,501.23535 L 210.88145,537.49578 L 118.15022,386.05673 z "
+               id="path11950"
+               sodipodi:nodetypes="cccc" />
+          </g>
+          <g
+             id="g11952"
+             transform="matrix(0,-0.2442689,0.2442689,0,821.65876,240.79992)">
+            <g
+               id="g11954"
+               transform="translate(20.884806,-276.14355)">
+              <rect
+                 transform="matrix(0.8424298,-0.5388061,0.52314,0.8522467,0,0)"
+                 ry="0"
+                 y="610.04987"
+                 x="-262.9006"
+                 height="179.78023"
+                 width="606.12457"
+                 id="rect11956"
+                 style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.00017095;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+              <text
+                 transform="matrix(0.9311866,-0.5938115,0.4021712,0.8174367,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text11958"
+                 y="805.55231"
+                 x="110.36131"
+                 style="font-size:98.01990509px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="805.55231"
+                   x="110.36131"
+                   id="tspan11960"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+            </g>
+            <path
+               style="fill:url(#linearGradient11988);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 211.84306,538.5325 L 63.185297,528.45237 L 110.42267,510.33553 L 211.84306,538.5325 z "
+               id="path11962"
+               sodipodi:nodetypes="cccc" />
+            <path
+               style="fill:url(#linearGradient11990);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 118.15022,386.05673 L 73.265436,501.23535 L 210.88145,537.49578 L 118.15022,386.05673 z "
+               id="path11964"
+               sodipodi:nodetypes="cccc" />
+          </g>
+          <path
+             id="path11966"
+             d="M 889.36468,254.49057 L 891.01317,381.42492"
+             style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#Arrow2Mstart);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             inkscape:transform-center-y="70.763728"
+             inkscape:transform-center-x="469.82193"
+             id="path11968"
+             d="M 123.27969,522.36996 L 121.6312,395.43561"
+             style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#Arrow2Mstart);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        </g>
+        <g
+           transform="matrix(8.8910155e-2,2.3823408e-2,-2.3823408e-2,8.8910155e-2,146.87026,304.74874)"
+           id="g11970"
+           inkscape:transform-center-x="203.92018"
+           inkscape:transform-center-y="214.99277">
+          <g
+             transform="translate(20.884806,-276.14355)"
+             id="g11972">
+            <rect
+               style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.00017095;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               id="rect11974"
+               width="606.12457"
+               height="179.78023"
+               x="-262.9006"
+               y="610.04987"
+               ry="0"
+               transform="matrix(0.8424298,-0.5388061,0.52314,0.8522467,0,0)" />
+            <text
+               xml:space="preserve"
+               style="font-size:98.01990509px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+               x="110.36131"
+               y="805.55231"
+               id="text11976"
+               sodipodi:linespacing="125%"
+               transform="matrix(0.9311866,-0.5938115,0.4021712,0.8174367,0,0)"><tspan
+                 sodipodi:role="line"
+                 id="tspan11978"
+                 x="110.36131"
+                 y="805.55231">Pietje Puk</tspan></text>
+          </g>
+          <path
+             sodipodi:nodetypes="cccc"
+             id="path11980"
+             d="M 211.84306,538.5325 L 63.185297,528.45237 L 110.42267,510.33553 L 211.84306,538.5325 z "
+             style="fill:url(#linearGradient11992);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             sodipodi:nodetypes="cccc"
+             id="path11982"
+             d="M 118.15022,386.05673 L 73.265436,501.23535 L 210.88145,537.49578 L 118.15022,386.05673 z "
+             style="fill:url(#linearGradient11994);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        </g>
+      </g>
+      <g
+         transform="matrix(-1,0,0,-1,1000.3341,798.01076)"
+         id="g11996">
+        <g
+           id="g11998"
+           transform="matrix(9.3014291e-2,0,0,9.3014291e-2,17.398503,305.14356)">
+          <g
+             transform="matrix(1.0041162,0,0,1,4.1161866e-3,0)"
+             id="g12000">
+            <g
+               id="g12002">
+              <rect
+                 y="46.660439"
+                 x="-0.057223298"
+                 height="700.34839"
+                 width="999.34332"
+                 id="rect12004"
+                 style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.88555336;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+              <path
+                 id="path12006"
+                 d="M 250.47566,47.811175 L 250.47566,745.85809"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <path
+                 id="path12008"
+                 d="M 500.95131,46.579329 L 500.95131,747.08994"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <path
+                 id="path12010"
+                 d="M 759.63929,46.579329 L 759.63929,747.08994"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <text
+                 transform="matrix(0,-1,1,0,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text12012"
+                 y="428.05835"
+                 x="-678.46356"
+                 style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="428.05835"
+                   x="-678.46356"
+                   id="tspan12014"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+              <text
+                 transform="matrix(0,1,-1,0,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text12016"
+                 y="-576.73651"
+                 x="115.2057"
+                 style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="-576.73651"
+                   x="115.2057"
+                   id="tspan12018"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+            </g>
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 656.95774,36.612402 C 666.91806,27.758783 695.77658,3.1346577 783.48274,3.4113327 C 871.1889,3.6880087 896.00543,43.252615 896.00543,43.252615"
+               id="path12020"
+               sodipodi:nodetypes="csc" />
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 378.62212,34.699476 C 388.58244,25.845857 417.44096,1.221732 505.14712,1.498407 C 592.85328,1.775083 617.66981,41.339689 617.66981,41.339689"
+               id="path12022"
+               sodipodi:nodetypes="csc" />
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 107.48005,34.699475 C 117.44037,25.845856 146.29889,1.2217312 234.00505,1.4984062 C 321.71121,1.7750822 346.52774,41.339688 346.52774,41.339688"
+               id="path12024"
+               sodipodi:nodetypes="csc" />
+          </g>
+          <g
+             transform="matrix(0,0.3027167,-0.3027167,0,232.12629,76.41232)"
+             id="g12026">
+            <g
+               id="g12028">
+              <rect
+                 y="46.660439"
+                 x="-0.057223298"
+                 height="700.34839"
+                 width="999.34332"
+                 id="rect12030"
+                 style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.88555336;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+              <path
+                 id="path12032"
+                 d="M 250.47566,47.811175 L 250.47566,745.85809"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <path
+                 id="path12034"
+                 d="M 500.95131,46.579329 L 500.95131,747.08994"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <path
+                 id="path12036"
+                 d="M 759.63929,46.579329 L 759.63929,747.08994"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <text
+                 transform="matrix(0,-1,1,0,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text12038"
+                 y="428.05835"
+                 x="-678.46356"
+                 style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="428.05835"
+                   x="-678.46356"
+                   id="tspan12040"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+              <text
+                 transform="matrix(0,1,-1,0,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text12042"
+                 y="-576.73651"
+                 x="115.2057"
+                 style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="-576.73651"
+                   x="115.2057"
+                   id="tspan12044"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+            </g>
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 656.95774,36.612402 C 666.91806,27.758783 695.77658,3.1346577 783.48274,3.4113327 C 871.1889,3.6880087 896.00543,43.252615 896.00543,43.252615"
+               id="path12046"
+               sodipodi:nodetypes="csc" />
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 378.62212,34.699476 C 388.58244,25.845857 417.44096,1.221732 505.14712,1.498407 C 592.85328,1.775083 617.66981,41.339689 617.66981,41.339689"
+               id="path12048"
+               sodipodi:nodetypes="csc" />
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 107.48005,34.699475 C 117.44037,25.845856 146.29889,1.2217312 234.00505,1.4984062 C 321.71121,1.7750822 346.52774,41.339688 346.52774,41.339688"
+               id="path12050"
+               sodipodi:nodetypes="csc" />
+          </g>
+          <g
+             inkscape:transform-center-y="-89.924376"
+             inkscape:transform-center-x="53.954626"
+             transform="matrix(0,-0.3027167,0.3027167,0,770.10978,722.94613)"
+             id="g12052">
+            <g
+               id="g12054">
+              <rect
+                 y="46.660439"
+                 x="-0.057223298"
+                 height="700.34839"
+                 width="999.34332"
+                 id="rect12056"
+                 style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.88555336;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+              <path
+                 id="path12058"
+                 d="M 250.47566,47.811175 L 250.47566,745.85809"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <path
+                 id="path12060"
+                 d="M 500.95131,46.579329 L 500.95131,747.08994"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <path
+                 id="path12062"
+                 d="M 759.63929,46.579329 L 759.63929,747.08994"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <text
+                 transform="matrix(0,-1,1,0,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text12064"
+                 y="428.05835"
+                 x="-678.46356"
+                 style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="428.05835"
+                   x="-678.46356"
+                   id="tspan12066"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+              <text
+                 transform="matrix(0,1,-1,0,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text12068"
+                 y="-576.73651"
+                 x="115.2057"
+                 style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="-576.73651"
+                   x="115.2057"
+                   id="tspan12070"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+            </g>
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 656.95774,36.612402 C 666.91806,27.758783 695.77658,3.1346577 783.48274,3.4113327 C 871.1889,3.6880087 896.00543,43.252615 896.00543,43.252615"
+               id="path12072"
+               sodipodi:nodetypes="csc" />
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 378.62212,34.699476 C 388.58244,25.845857 417.44096,1.221732 505.14712,1.498407 C 592.85328,1.775083 617.66981,41.339689 617.66981,41.339689"
+               id="path12074"
+               sodipodi:nodetypes="csc" />
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 107.48005,34.699475 C 117.44037,25.845856 146.29889,1.2217312 234.00505,1.4984062 C 321.71121,1.7750822 346.52774,41.339688 346.52774,41.339688"
+               id="path12076"
+               sodipodi:nodetypes="csc" />
+          </g>
+          <g
+             id="g12078"
+             transform="matrix(-6.3221443e-2,0.2359456,-0.2359456,-6.3221443e-2,210.32759,565.4241)">
+            <g
+               id="g12080"
+               transform="translate(20.884806,-276.14355)">
+              <rect
+                 transform="matrix(0.8424298,-0.5388061,0.52314,0.8522467,0,0)"
+                 ry="0"
+                 y="610.04987"
+                 x="-262.9006"
+                 height="179.78023"
+                 width="606.12457"
+                 id="rect12082"
+                 style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.00017095;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+              <text
+                 transform="matrix(0.9311866,-0.5938115,0.4021712,0.8174367,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text12084"
+                 y="805.55231"
+                 x="110.36131"
+                 style="font-size:98.01990509px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="805.55231"
+                   x="110.36131"
+                   id="tspan12086"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+            </g>
+            <path
+               style="fill:url(#linearGradient12124);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 211.84306,538.5325 L 63.185297,528.45237 L 110.42267,510.33553 L 211.84306,538.5325 z "
+               id="path12088"
+               sodipodi:nodetypes="cccc" />
+            <path
+               style="fill:url(#linearGradient12126);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 118.15022,386.05673 L 73.265436,501.23535 L 210.88145,537.49578 L 118.15022,386.05673 z "
+               id="path12090"
+               sodipodi:nodetypes="cccc" />
+          </g>
+          <g
+             id="g12092"
+             transform="matrix(0,-0.2442689,0.2442689,0,821.65876,240.79992)">
+            <g
+               id="g12094"
+               transform="translate(20.884806,-276.14355)">
+              <rect
+                 transform="matrix(0.8424298,-0.5388061,0.52314,0.8522467,0,0)"
+                 ry="0"
+                 y="610.04987"
+                 x="-262.9006"
+                 height="179.78023"
+                 width="606.12457"
+                 id="rect12096"
+                 style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.00017095;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+              <text
+                 transform="matrix(0.9311866,-0.5938115,0.4021712,0.8174367,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text12098"
+                 y="805.55231"
+                 x="110.36131"
+                 style="font-size:98.01990509px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="805.55231"
+                   x="110.36131"
+                   id="tspan12100"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+            </g>
+            <path
+               style="fill:url(#linearGradient12128);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 211.84306,538.5325 L 63.185297,528.45237 L 110.42267,510.33553 L 211.84306,538.5325 z "
+               id="path12102"
+               sodipodi:nodetypes="cccc" />
+            <path
+               style="fill:url(#linearGradient12130);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 118.15022,386.05673 L 73.265436,501.23535 L 210.88145,537.49578 L 118.15022,386.05673 z "
+               id="path12104"
+               sodipodi:nodetypes="cccc" />
+          </g>
+          <path
+             id="path12106"
+             d="M 889.36468,254.49057 L 891.01317,381.42492"
+             style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#Arrow2Mstart);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             inkscape:transform-center-y="70.763728"
+             inkscape:transform-center-x="469.82193"
+             id="path12108"
+             d="M 123.27969,522.36996 L 121.6312,395.43561"
+             style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#Arrow2Mstart);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        </g>
+        <g
+           transform="matrix(8.8910155e-2,2.3823408e-2,-2.3823408e-2,8.8910155e-2,146.87026,304.74874)"
+           id="g12110"
+           inkscape:transform-center-x="203.92018"
+           inkscape:transform-center-y="214.99277">
+          <g
+             transform="translate(20.884806,-276.14355)"
+             id="g12112">
+            <rect
+               style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.00017095;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               id="rect12114"
+               width="606.12457"
+               height="179.78023"
+               x="-262.9006"
+               y="610.04987"
+               ry="0"
+               transform="matrix(0.8424298,-0.5388061,0.52314,0.8522467,0,0)" />
+            <text
+               xml:space="preserve"
+               style="font-size:98.01990509px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+               x="110.36131"
+               y="805.55231"
+               id="text12116"
+               sodipodi:linespacing="125%"
+               transform="matrix(0.9311866,-0.5938115,0.4021712,0.8174367,0,0)"><tspan
+                 sodipodi:role="line"
+                 id="tspan12118"
+                 x="110.36131"
+                 y="805.55231">Pietje Puk</tspan></text>
+          </g>
+          <path
+             sodipodi:nodetypes="cccc"
+             id="path12120"
+             d="M 211.84306,538.5325 L 63.185297,528.45237 L 110.42267,510.33553 L 211.84306,538.5325 z "
+             style="fill:url(#linearGradient12132);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             sodipodi:nodetypes="cccc"
+             id="path12122"
+             d="M 118.15022,386.05673 L 73.265436,501.23535 L 210.88145,537.49578 L 118.15022,386.05673 z "
+             style="fill:url(#linearGradient12134);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        </g>
+      </g>
+      <g
+         transform="translate(780.50734,346.00523)"
+         id="g12136">
+        <g
+           id="g12138"
+           transform="matrix(9.3014291e-2,0,0,9.3014291e-2,17.398503,305.14356)">
+          <g
+             transform="matrix(1.0041162,0,0,1,4.1161866e-3,0)"
+             id="g12140">
+            <g
+               id="g12142">
+              <rect
+                 y="46.660439"
+                 x="-0.057223298"
+                 height="700.34839"
+                 width="999.34332"
+                 id="rect12144"
+                 style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.88555336;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+              <path
+                 id="path12146"
+                 d="M 250.47566,47.811175 L 250.47566,745.85809"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <path
+                 id="path12148"
+                 d="M 500.95131,46.579329 L 500.95131,747.08994"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <path
+                 id="path12150"
+                 d="M 759.63929,46.579329 L 759.63929,747.08994"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <text
+                 transform="matrix(0,-1,1,0,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text12152"
+                 y="428.05835"
+                 x="-678.46356"
+                 style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="428.05835"
+                   x="-678.46356"
+                   id="tspan12154"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+              <text
+                 transform="matrix(0,1,-1,0,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text12156"
+                 y="-576.73651"
+                 x="115.2057"
+                 style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="-576.73651"
+                   x="115.2057"
+                   id="tspan12158"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+            </g>
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 656.95774,36.612402 C 666.91806,27.758783 695.77658,3.1346577 783.48274,3.4113327 C 871.1889,3.6880087 896.00543,43.252615 896.00543,43.252615"
+               id="path12160"
+               sodipodi:nodetypes="csc" />
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 378.62212,34.699476 C 388.58244,25.845857 417.44096,1.221732 505.14712,1.498407 C 592.85328,1.775083 617.66981,41.339689 617.66981,41.339689"
+               id="path12162"
+               sodipodi:nodetypes="csc" />
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 107.48005,34.699475 C 117.44037,25.845856 146.29889,1.2217312 234.00505,1.4984062 C 321.71121,1.7750822 346.52774,41.339688 346.52774,41.339688"
+               id="path12164"
+               sodipodi:nodetypes="csc" />
+          </g>
+          <g
+             transform="matrix(0,0.3027167,-0.3027167,0,232.12629,76.41232)"
+             id="g12166">
+            <g
+               id="g12168">
+              <rect
+                 y="46.660439"
+                 x="-0.057223298"
+                 height="700.34839"
+                 width="999.34332"
+                 id="rect12170"
+                 style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.88555336;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+              <path
+                 id="path12172"
+                 d="M 250.47566,47.811175 L 250.47566,745.85809"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <path
+                 id="path12174"
+                 d="M 500.95131,46.579329 L 500.95131,747.08994"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <path
+                 id="path12176"
+                 d="M 759.63929,46.579329 L 759.63929,747.08994"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <text
+                 transform="matrix(0,-1,1,0,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text12178"
+                 y="428.05835"
+                 x="-678.46356"
+                 style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="428.05835"
+                   x="-678.46356"
+                   id="tspan12180"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+              <text
+                 transform="matrix(0,1,-1,0,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text12182"
+                 y="-576.73651"
+                 x="115.2057"
+                 style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="-576.73651"
+                   x="115.2057"
+                   id="tspan12184"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+            </g>
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 656.95774,36.612402 C 666.91806,27.758783 695.77658,3.1346577 783.48274,3.4113327 C 871.1889,3.6880087 896.00543,43.252615 896.00543,43.252615"
+               id="path12186"
+               sodipodi:nodetypes="csc" />
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 378.62212,34.699476 C 388.58244,25.845857 417.44096,1.221732 505.14712,1.498407 C 592.85328,1.775083 617.66981,41.339689 617.66981,41.339689"
+               id="path12188"
+               sodipodi:nodetypes="csc" />
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 107.48005,34.699475 C 117.44037,25.845856 146.29889,1.2217312 234.00505,1.4984062 C 321.71121,1.7750822 346.52774,41.339688 346.52774,41.339688"
+               id="path12190"
+               sodipodi:nodetypes="csc" />
+          </g>
+          <g
+             inkscape:transform-center-y="-89.924376"
+             inkscape:transform-center-x="53.954626"
+             transform="matrix(0,-0.3027167,0.3027167,0,770.10978,722.94613)"
+             id="g12192">
+            <g
+               id="g12194">
+              <rect
+                 y="46.660439"
+                 x="-0.057223298"
+                 height="700.34839"
+                 width="999.34332"
+                 id="rect12196"
+                 style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.88555336;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+              <path
+                 id="path12198"
+                 d="M 250.47566,47.811175 L 250.47566,745.85809"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <path
+                 id="path12200"
+                 d="M 500.95131,46.579329 L 500.95131,747.08994"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <path
+                 id="path12202"
+                 d="M 759.63929,46.579329 L 759.63929,747.08994"
+                 style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:12, 12;stroke-dashoffset:0;stroke-opacity:1" />
+              <text
+                 transform="matrix(0,-1,1,0,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text12204"
+                 y="428.05835"
+                 x="-678.46356"
+                 style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="428.05835"
+                   x="-678.46356"
+                   id="tspan12206"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+              <text
+                 transform="matrix(0,1,-1,0,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text12208"
+                 y="-576.73651"
+                 x="115.2057"
+                 style="font-size:120.65677643px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="-576.73651"
+                   x="115.2057"
+                   id="tspan12210"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+            </g>
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 656.95774,36.612402 C 666.91806,27.758783 695.77658,3.1346577 783.48274,3.4113327 C 871.1889,3.6880087 896.00543,43.252615 896.00543,43.252615"
+               id="path12212"
+               sodipodi:nodetypes="csc" />
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 378.62212,34.699476 C 388.58244,25.845857 417.44096,1.221732 505.14712,1.498407 C 592.85328,1.775083 617.66981,41.339689 617.66981,41.339689"
+               id="path12214"
+               sodipodi:nodetypes="csc" />
+            <path
+               style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#TriangleInL);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 107.48005,34.699475 C 117.44037,25.845856 146.29889,1.2217312 234.00505,1.4984062 C 321.71121,1.7750822 346.52774,41.339688 346.52774,41.339688"
+               id="path12216"
+               sodipodi:nodetypes="csc" />
+          </g>
+          <g
+             id="g12218"
+             transform="matrix(-6.3221443e-2,0.2359456,-0.2359456,-6.3221443e-2,210.32759,565.4241)">
+            <g
+               id="g12220"
+               transform="translate(20.884806,-276.14355)">
+              <rect
+                 transform="matrix(0.8424298,-0.5388061,0.52314,0.8522467,0,0)"
+                 ry="0"
+                 y="610.04987"
+                 x="-262.9006"
+                 height="179.78023"
+                 width="606.12457"
+                 id="rect12222"
+                 style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.00017095;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+              <text
+                 transform="matrix(0.9311866,-0.5938115,0.4021712,0.8174367,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text12224"
+                 y="805.55231"
+                 x="110.36131"
+                 style="font-size:98.01990509px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="805.55231"
+                   x="110.36131"
+                   id="tspan12226"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+            </g>
+            <path
+               style="fill:url(#linearGradient12264);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 211.84306,538.5325 L 63.185297,528.45237 L 110.42267,510.33553 L 211.84306,538.5325 z "
+               id="path12228"
+               sodipodi:nodetypes="cccc" />
+            <path
+               style="fill:url(#linearGradient12266);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 118.15022,386.05673 L 73.265436,501.23535 L 210.88145,537.49578 L 118.15022,386.05673 z "
+               id="path12230"
+               sodipodi:nodetypes="cccc" />
+          </g>
+          <g
+             id="g12232"
+             transform="matrix(0,-0.2442689,0.2442689,0,821.65876,240.79992)">
+            <g
+               id="g12234"
+               transform="translate(20.884806,-276.14355)">
+              <rect
+                 transform="matrix(0.8424298,-0.5388061,0.52314,0.8522467,0,0)"
+                 ry="0"
+                 y="610.04987"
+                 x="-262.9006"
+                 height="179.78023"
+                 width="606.12457"
+                 id="rect12236"
+                 style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.00017095;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+              <text
+                 transform="matrix(0.9311866,-0.5938115,0.4021712,0.8174367,0,0)"
+                 sodipodi:linespacing="125%"
+                 id="text12238"
+                 y="805.55231"
+                 x="110.36131"
+                 style="font-size:98.01990509px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+                 xml:space="preserve"><tspan
+                   y="805.55231"
+                   x="110.36131"
+                   id="tspan12240"
+                   sodipodi:role="line">Pietje Puk</tspan></text>
+            </g>
+            <path
+               style="fill:url(#linearGradient12268);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 211.84306,538.5325 L 63.185297,528.45237 L 110.42267,510.33553 L 211.84306,538.5325 z "
+               id="path12242"
+               sodipodi:nodetypes="cccc" />
+            <path
+               style="fill:url(#linearGradient12270);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 118.15022,386.05673 L 73.265436,501.23535 L 210.88145,537.49578 L 118.15022,386.05673 z "
+               id="path12244"
+               sodipodi:nodetypes="cccc" />
+          </g>
+          <path
+             id="path12246"
+             d="M 889.36468,254.49057 L 891.01317,381.42492"
+             style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#Arrow2Mstart);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             inkscape:transform-center-y="70.763728"
+             inkscape:transform-center-x="469.82193"
+             id="path12248"
+             d="M 123.27969,522.36996 L 121.6312,395.43561"
+             style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#Arrow2Mstart);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        </g>
+        <g
+           transform="matrix(8.8910155e-2,2.3823408e-2,-2.3823408e-2,8.8910155e-2,146.87026,304.74874)"
+           id="g12250"
+           inkscape:transform-center-x="203.92018"
+           inkscape:transform-center-y="214.99277">
+          <g
+             transform="translate(20.884806,-276.14355)"
+             id="g12252">
+            <rect
+               style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.00017095;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               id="rect12254"
+               width="606.12457"
+               height="179.78023"
+               x="-262.9006"
+               y="610.04987"
+               ry="0"
+               transform="matrix(0.8424298,-0.5388061,0.52314,0.8522467,0,0)" />
+            <text
+               xml:space="preserve"
+               style="font-size:98.01990509px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+               x="110.36131"
+               y="805.55231"
+               id="text12256"
+               sodipodi:linespacing="125%"
+               transform="matrix(0.9311866,-0.5938115,0.4021712,0.8174367,0,0)"><tspan
+                 sodipodi:role="line"
+                 id="tspan12258"
+                 x="110.36131"
+                 y="805.55231">Pietje Puk</tspan></text>
+          </g>
+          <path
+             sodipodi:nodetypes="cccc"
+             id="path12260"
+             d="M 211.84306,538.5325 L 63.185297,528.45237 L 110.42267,510.33553 L 211.84306,538.5325 z "
+             style="fill:url(#linearGradient12272);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             sodipodi:nodetypes="cccc"
+             id="path12262"
+             d="M 118.15022,386.05673 L 73.265436,501.23535 L 210.88145,537.49578 L 118.15022,386.05673 z "
+             style="fill:url(#linearGradient12274);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        </g>
+      </g>
+    </g>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:15.7638998;stroke-linecap:butt;stroke-linejoin:miter;marker-start:url(#Arrow2Mstart);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 1359.3764,373.3736 L 1109.2539,376.62195"
+       id="path12294" />
+    <g
+       transform="translate(1395.6386,75.554388)"
+       id="g13387">
+      <g
+         id="g13400">
+        <g
+           id="g13402"
+           transform="translate(20.884806,-276.14355)">
+          <rect
+             transform="matrix(0.8424298,-0.5388061,0.52314,0.8522467,0,0)"
+             ry="0"
+             y="610.04987"
+             x="-262.9006"
+             height="179.78023"
+             width="606.12457"
+             id="rect13404"
+             style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.00017095;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+          <text
+             transform="matrix(0.9311866,-0.5938115,0.4021712,0.8174367,0,0)"
+             sodipodi:linespacing="125%"
+             id="text13406"
+             y="805.55231"
+             x="110.36131"
+             style="font-size:98.01990509px;font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Charter"
+             xml:space="preserve"><tspan
+               y="805.55231"
+               x="110.36131"
+               id="tspan13408"
+               sodipodi:role="line">Pietje Puk</tspan></text>
+        </g>
+        <path
+           style="fill:url(#linearGradient4157);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 211.84306,538.5325 L 63.185297,528.45237 L 110.42267,510.33553 L 211.84306,538.5325 z "
+           id="path13410"
+           sodipodi:nodetypes="cccc" />
+        <path
+           style="fill:url(#linearGradient4147);fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 118.15022,386.05673 L 73.265436,501.23535 L 210.88145,537.49578 L 118.15022,386.05673 z "
+           id="path13412"
+           sodipodi:nodetypes="cccc" />
+      </g>
+      <path
+         sodipodi:nodetypes="cc"
+         transform="translate(62.185297,57.838267)"
+         id="path12609"
+         d="M 11.302636,443.13039 L 99.334879,398.93312"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+  </g>
+</svg>
