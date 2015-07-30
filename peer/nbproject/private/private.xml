@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group name="Group 20140701-08:41:33">
+            <file>file:/home/hom/testsite/peer/templates/imail.html</file>
+            <file>file:/home/hom/testsite/peer/groupresult.php</file>
+            <file>file:/home/hom/testsite/peer/absenten.php</file>
+            <file>file:/home/hom/testsite/peer/imail.php</file>
+        </group>
+        <group>
+            <file>file:/home/hom/testsite/peer/peerlib/searchquery2.php</file>
+            <file>file:/home/hom/testsite/peer/classmaker.php</file>
+            <file>file:/home/hom/testsite/peer/peerlib/studentpicker.php</file>
+            <file>file:/home/hom/testsite/peer/peerlib/peerutils.inc</file>
+            <file>file:/home/hom/testsite/peer/peerlib/ste.php</file>
+            <file>file:/home/hom/testsite/peer/addtoclass.php</file>
+            <file>file:/home/hom/testsite/peer/templates/addtoclass.html</file>
+            <file>file:/home/hom/testsite/peer/student_admin.php</file>
+            <file>file:/home/hom/testsite/peer/classlist.php</file>
+            <file>file:/home/hom/testsite/peer/peerlib/peerpgdbconnection.php</file>
+            <file>file:/home/hom/testsite/peer/templates/classmaker.html</file>
+            <file>file:/home/hom/testsite/peer/peerlib/searchquery3.php</file>
+            <file>file:/home/hom/testsite/peer/addindividual.php</file>
+            <file>file:/home/hom/testsite/peer/peerlib/ClassSelectorClass.php</file>
+        </group>
+    </open-files>
+</project-private>

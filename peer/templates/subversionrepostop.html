@@ -1,0 +1,13 @@
+<?=$cmd_result?>
+<?=$executionResult?>
+<p>This page allows you to create a subversion repository for a project.</p>
+<p>The created repository contains a directory per group that is
+    readable and writable by the group and readable by all tutors. The
+    names of the repositories is derived from the group aliases. For
+    rights management and configuration of the repository the subversion
+    subdirs <code>conf</code> and <code>hooks</code> are also versioned
+    and read/write for the tutors. This allows you as a tutor to update
+    group rights in the repository.</p>
+<p>First you must select the project:</p>
+<?= $prj_id_selector ?>
+<?= $reposTable ?>

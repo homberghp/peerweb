@@ -1,0 +1,44 @@
+<fieldset><legend>Compose mail and select addressees.</legend>
+    
+    <form name='mailer' method='post' action='<?=$PHP_SELF?>'>
+        Datum meeloopdag:<input type="text" name="meeloop_datum" value='<?=$meeloop_datum?>' id ='meeloop_datum' style='width:10ex;'/>
+        <table><tr><td>
+                    <table border='1' style='border-collapse:collapse;'>
+                        <tr><th>Mail text for German (DE) potentials</th></tr>
+                        <tr>
+                            <td valign='top' colspan='2'>
+                                subject:&nbsp;<input type='text' name='subject_de' size='80' value='<?= $subject_de ?>'/>
+                            </td>
+                        </tr>
+                        <tr><th valign='top' align='left'  colspan='2'>Body text:</th></tr>
+                        <tr><td valign='top' colspan='2'>
+                                <textarea name='mailbody_de' cols='120' rows='40'><?= $mailbody_de ?>
+                                </textarea>
+                            </td>
+                        </tr>
+                        <tr><td>text committed by <?=$mail_author?></td></tr>
+                    </table>
+                </td><td>
+                    <table border='1' style='border-collapse:collapse;'>
+                        <tr><th>Mail text for Dutch (NL) potentials </th></tr>
+                        <tr>
+                            <td valign='top' colspan='2'>
+                                subject:&nbsp;<input type='text' name='subject_nl' size='80' value='<?= $subject_nl ?>'/>
+                            </td>
+                        </tr>
+                        <tr><th valign='top' align='left'  colspan='2'>Body text:</th></tr>
+                        <tr><td valign='top' colspan='2'>
+                                <textarea name='mailbody_nl' cols='120' rows='40'><?= $mailbody_nl ?>
+                                </textarea>
+                            </td>
+                        </tr>
+                        <tr><td>text committed by <?=$mail_author?></td></tr>
+                    </table>
+                    
+                </td>
+            </tr></table>
+        <p>De tabel bevat de namen van potentiële studenten die nog niet hebben deelgenomen aan een meeloopdag.</p>
+        <?=$rtable?><br/>
+       <input type='submit' name='domail' value='Send mail'/>
+    </form>
+</fieldset>

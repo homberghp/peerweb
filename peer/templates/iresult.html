@@ -1,0 +1,13 @@
+<div id='content' style='padding:1em;'>
+    <?= $prjList ?>
+    <div class='navleft selected'>
+        <fieldset class="control"><legend>The assessment result by the students in your group</legend>
+            <h2 >Assessment result for <?= $afko ?> <? $year ?> <?= $description ?> group <?= $grp_num ?> <?= $alias ?></h2>
+
+            <?=$formOrNop?>
+            <h3>Fellow students:</h3><div>
+                <?=$fellowTable?>
+            </div>
+        </fieldset>
+    </div>
+</div>

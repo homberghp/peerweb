@@ -1,0 +1,10 @@
+body
+{
+     font-family: Verdana, Arial, Helvetica, Sans-serif;
+     font-size: 10px;
+}
+
+a:link {color: black; text-decoration: none; } 
+a:active {color: black; text-decoration: none; position: relative; top:1px;left: 1px;}
+a:hover {color: black; text-decoration: none; } 
+a:visited {color: black; text-decoration: none; }        

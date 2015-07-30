@@ -1,0 +1,14 @@
+<fieldset><legend>Edit <?=$filename?>.</legend>
+    <p><?=$description?></p>
+    <form method='post' name='confeditform' id='confeditform' action='<?=$PHP_SELF?>'>
+        <input type='reset'/>&nbsp;
+        <input type='submit' name='save_confeditform' value='Save'/><br/>
+        <input type='hidden' name='<?=$filenameField?>' value='<?=$filename?>'/>
+        <input type='hidden' name='repos_id' value='<?=$repos_id?>'/><?=$repos_id?>
+        <textarea id='confeditor_content' name='confeditor_content'></textarea>
+        <div id='confeditor'><?php if ( is_file( $fileToEdit ) ) { readfile( $fileToEdit );} ?></div>
+<br/>File path is <?=$fileToEdit?><br/>
+        <input type='reset'/>&nbsp;
+        <input type='submit' name='save_confeditform' value='Save'/><br/>
+    </form>
+</fieldset>

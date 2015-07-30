@@ -1,0 +1,261 @@
+/* $Id: peertreestyle.css 1770 2014-08-01 10:16:19Z hom $ */
+@media print{ 
+    body, div, table { 
+        font-family: Verdana, Arial, sans-serif; font-size:9pt; 
+        margin:	0; 
+        padding:0; } 
+    .nav { display:none; }
+    div#navtop,div.navtop { display:none; }
+    div#navopening,div.navopening { display:none; }
+    div#navcol,div.navcol { display:none; }
+    div#navtop,div.navtop { display:none; }
+    table.tabledata { border-collapse:collapse; }
+    td,th { padding:.2em; }
+    h1 { font-size:16pt; }
+    h3 { font-size:12pt; font-weight:bold; padding:0.2em;}
+    input,select { border:0; border-collapse:collapse;}
+    td.classmate:hover > div.mateinfo { 
+        /* shows extra info in div */
+        display: none;
+    }
+    td.classmate div.mateinfo{
+        display: none;
+    } 
+    .noprint { 
+        display: none;
+    }
+    img.pasfoto{
+        width:100px;
+        height:auto;
+    }
+    img.minifoto{
+        width:24px;
+        height:auto;
+    }
+}
+
+@media screen {
+    body, div, table { font-family: Verdana, Arial, sans-serif; font-size:8pt;}
+    body.local {background:#fc8 url(images/local.png);}
+    body.test {background:#cfc url(images/test.png);}
+    body{ margin:0; 
+          padding:0;
+    }
+
+    h1 { font-size:14pt; }
+    h2 { font-size:12pt; }
+    h3,h4 { font-size:10pt; }
+    h3 { font-weight:bold; }
+    table.tabledata { border-collapse:collapse; }
+    td.navcol,th.navcol {padding-left:20px; }	
+    .thl { text-align:left;}
+    .thl, .num, .thr { text-align:right;}
+    div.intro, div.navopening,div#tutorhelper { left:0;right:0px;border: 0px solid black; 
+                                                height:auto; padding: 6px; 
+                                                z-index:1;}
+    .navopening{background: #002266; color:white; font-weight: bold;}
+    .tutorhelper table {width:100%;}
+    div#navtop { margin:0; padding:1em; width:100%; color:white;
+                 background:#002266;
+    }
+    div.navtop { border: 0px solid blue;
+                 padding: 8px 6px 3px 20px; margin:0; width:auto; display:inline;
+    } 
+    .navhrule { margin:-3px; padding:0; height:6px; background: #000066;}
+    div.hbox { padding:0; margin:0; height:auto; display:inline; border: 0px solid purple;}
+    div.vbox { padding:0; margin:0; width: auto; height:auto; display:block; }
+    .absent { background:rgba(255,60,60,0.6);}
+    .present { background: rgba(60,255,60,0.6);}
+    .reason { background:rgba(255,255,60,0.6);}
+    .navcol { margin: 3px 0 3px 0 ;border-width:0; border-collapse:collapse; width:auto; 
+              padding: 2px 2px 2px 16px; border-right: 1px solid #ccc;}
+    .navcol.selected { margin: 3px -3px 3px 0; border-top: 1px solid #ccc; 
+                       border-bottom:3px solid #888; border-right:0px;}
+    /*  th.prel {position:relative;}*/
+    .simpletable tr:nth-child(even) {background: rgba(255,255,255,0.3)}
+    .simpletable tr:nth-child(odd) {background: rgba(192,192,255,0.3)}
+
+    th.prel div.grpinfo { 
+        display: none;
+        font-size: 0.8em;
+        width: 17em;
+        min-width: 10em;
+        max-width: 30em;
+        /*    position: absolute;
+              left: 100%; */
+        right: 0;
+        top: 0;
+        bottom: auto;
+        z-index: 100;
+
+    } 
+    div.grpinfo{
+        margin:3px;
+        color: #000000;
+        background: #ffffff;
+        opacity:0.75;
+        padding: 0.5em;
+    }
+    th.prel:hover >div.grpinfo { 
+        /* shows extra info in div */
+        z-index:100;
+        display: block;
+        position: absolute; top:auto; /*width:160px;*/
+        border: solid #999999 1px;
+        text-align:left;
+    }
+    tr.barchart{
+        color:white;
+        text-align:center
+    }
+    checkbox {
+        vertical-align: bottom;
+    }
+    td.classmate { 
+        /*position:relative; */
+        width: 140px;
+        /*	height:340px;*/
+        /*min-width: 100px;
+          max-width: 140px;*/
+    }
+    tr.even {background:rgba(80,80,80,0.2);}
+    tr.odd {background:rgba(224,224,255,0.2);}
+    a:active {color: black; text-decoration: none; 
+              position: relative; top:1px;left: 1px;}
+    .navtop > a:link, 
+    .navtop > a:visited, 
+    .navcol > a:link, 
+    .navcol > a:visited,
+    .navcol > a:hover,
+    .navopening > a:hover { text-decoration:none; }
+
+    div#navtop{ margin:0; width:auto; height:auto; border: 0px solid green; padding:0;}
+    div#navrow { margin:0 0 -3px 0; padding:6px; width:auto; color:white;
+                 background:#002266;}
+    div#navcol { position:absolute; left:0; width: 15%; margin: 0 auto 0 0;  height:auto;}
+    div#navmain {left:0; margin:0; width:auto; height:auto; padding:0; z-index:10;}
+    h1.normal {padding: 0.2em;background:#002266; color:white; }
+    .theadleft { padding-left: 20px; text-align: left; background: rgba(255,255,255,0.5); }
+    /* use right part, end should not show on normal displays */
+    .theadmid { padding-right: 20px; margin-right:-2px; text-align:left; background: rgba(255,255,255,0.5); }
+    .theadright { padding-right: 20px; text-align: right; background: rgba(255,255,255,0.5);
+                  background-position:right;  }
+    .naviconleft{ border:0; margin:0; padding: 0 6px 0 6px ; }
+    p {text-align: justify;}
+    p:first-letter {font-size:140%; font-weight:bold; font-family: script serif;color:#800; } 
+    fieldset { margin:1em 1em 1em 2em; }
+    *.joinable { background:red; }
+    div.notice { float: left; padding:0.5em; margin:0.5em;font-size:12pt;
+                 font-weight:bold;color:gold;background:#002266;}
+    .invalid {border: medium double rgb(250,120,0); background:#faa;}
+
+    /* background-image in top right position. Supply css tag for image in page. */
+    .hasnote{
+        background-position: right top;
+        background-repeat:no-repeat;
+    }
+
+    fieldset {border: 1px solid black; 
+              border-top-left-radius: 12px;
+              border-top-right-radius: 0px;
+              border-bottom-left-radius: 12px;
+              border-bottom-right-radius: 12px;
+              -webkit-border-radius:12px; box-shadow:rgba(0,00,80,0.5) 10px 10px 5px;
+              -webkit-box-shadow:#777 10px 10px 5px; background: rgba(80,80,0,0.2);}
+    legend { border-top: 1px solid black;
+             border-left: 1px solid black;
+             border-right: 1px solid black;
+             padding: 0 8px 0 8px;
+             margin: 2px 2px 2px 2px;
+             border-top-left-radius: 5px;
+             border-top-right-radius: 5px;
+             border-bottom-left-radius: 2px;
+             border-bottom-right-radius: 2px;
+             background: rgba(80,80,80,0.2);
+             box-shadow: rgba(0,0,80,0.5) 5px -5px 8px;
+             text-shadow: 1px 1px 1px #FFF;
+    }
+    fieldset fieldset {
+        border: 1px solid black;
+        border-radius:8px;
+        text-shadow:none;
+        box-shadow:none;
+        /*background: none;*/
+    }
+    legend.button,fieldset.outer fieldset legend { 
+        font-size:110%; font-weight:bold; border: 0px;box-shadow:none;
+        background: none;
+    }
+    th.detail,td.legend {background:rgba(128,128,128,0.5);}
+    th.detail, td.detail {background:rgba(255,255,255,0.5);}
+    button {color:black; text-shadow: 1px 1px 1px #ccc;
+            /*  border-radius:5px 5px 5px 5px;*/
+    }
+    button, input[type=submit], input[type=reset]{
+        background: -moz-linear-gradient(top,#0cc,#c);
+        background: -webkit-linear-gradient(top,#ccc,#888);
+        background: -ms-linear-gradient(top,#0cc,#08c);
+        background: -o-linear-gradient(top,#0cc,#08c);
+        background: linear-gradient(top,#0cc,#08c);
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+    }
+    td.abs { background:#8F8;}
+    option{ font-weight:bold;}
+    option.fixed {color:#600;}
+    option.moveable {color:#060;}
+    option.disabled {color:#F88;font-style:italic;}
+    option.active {color:#000;font-style:italic;}
+    option.inactive {color:#888;font-style:italic;}
+    option.cold  {color:#66D;font-style:italic;}
+    .ace_editor, .ace_editor * {
+        font-family: "Monaco", "Menlo", "Ubuntu Mono", "Droid Sans Mono", "Consolas", monospace !important;
+        font-size: 12px !important;
+        font-weight: 400 !important;
+        letter-spacing: 0 !important;
+    }
+    textarea,input {background:#EEE;}
+    #confeditor { text-align:left;}
+    @-webkit-keyframes target {
+        from { background:#ffffff; }
+        50% { background:#FFB;}
+        to { background:#ffffff; }
+
+    }
+
+    textarea:focus, input:focus, button:focus { 
+        background:white; 
+        box-shadow: rgba(255,255,255,0.5) 3px 3px 5px;
+        font-weight: bolder;
+        -webkit-animation:target .45s ease-in-out ;
+    } 
+    div.remarks dd dd { background: white; color:#008; font-style: italic;}
+    dd dt:first-letter {font-size:140%; font-weight:bold; font-family: script serif;color:#800; }
+    div.remarks dl {margin-top: 0pt;}
+    div.remarks dl dt { font-size:110%; font-weight: bold;}
+    div.remarks dl dd dt { font-size:100%; color:black;}
+    div.remarks dl dd { border-bottom:  1px solid black;}
+    img.minifoto{
+        width:24px;
+        height:auto;
+    }
+
+    .journalbox{
+        border-style:solid inset;
+        border-width:6px;
+        border-color:#ccd9d8;
+        background-color:#080808;
+        color:#5fba3d;
+        font-family:monospace, prestige;
+
+
+    }
+    .birthday{
+        background-position:center; 
+        background-color:#003;
+        background-image:url(images/fireworks015.gif); 
+        margin-top:2em;padding:0.2em;
+        background-repeat: repeat;
+    }
+}
+

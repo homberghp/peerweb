@@ -1,0 +1,7 @@
+#!/bin/bash
+# $Id: deploy,v 1.8 2005/08/01 22:27:50 hom Exp $
+buildtag=BUILD$(date +%Y%m%d%H%M)
+PEERHOME=/home/f/fontysvenlo.org
+for deploydir in ${PEERHOME}/peerweb/{peer,subversion}; do
+    (cd ${deploydir}; pwd; echo ${buildtag} > BUILD; svn update)
+done 

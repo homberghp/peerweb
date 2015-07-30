@@ -1,0 +1,35 @@
+<!-- $Id: studentgroupresult.html 1806 2014-09-29 09:09:11Z hom $ -->
+<?=$prjList?>
+<fieldset>
+    <legend>Individual result for this project.</legend>
+    <h2 align='center'>Assessment for <?=$afko?> <?=$year?> <?=$description?> <br/>group <?=$grp_num?> (<?=$alias?>)</h2>
+    <?=$viewresult?>
+    <form class='nav' method='get' id='pgrade' action='<?=$PHP_SELF?>'>
+        <p>Group average or product grade:<input type='text' size='3' name='productgrade' 
+                                                 style='text-align:right' 
+                                                 value='<?=$productgrade?>'
+                                                 title='This grade is used to compute the individual final grade.' 
+                                                 onchange='submit()'/>
+            <input type='submit' name='bsumbit' value='Recalculate'/>&nbsp;Use this to get an proposal for the individual grades based on the group grades.
+            <input type='hidden' name='prjm_id' value="<?=$prjm_id?>"/>
+        </p>
+    </form>
+    <table class='navleft selected' width='100%'>
+        <tr><td width='50%' valign='top' style='border-width:0pt;'>
+                <h3>Criteria legends</h3>
+                <table class='tabledata'>
+
+                    <?=$criteriaList?>
+                </table>
+            </td>
+            <td width='50%' valign='top' style='border-width:0pt;'>
+                <h3>Explanation</h3>
+                <p>In the table above you find the average score per criterion/column. Note that the last (rightmost) 
+                    overall column is influenced by the group grade you enter in the top right field. 
+                    The average is by definition equal to the group grade (budget) you entered and not the average of 
+                    the grades in the other columns</p>
+                <p>The default for the group grade is a 7.</p>
+            </td>
+        </tr>
+    </table>
+</fieldset>

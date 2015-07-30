@@ -1,0 +1,16 @@
+<fieldset>
+    <legend style='font-weight:bold;'>Edit the description of your repository</legend>
+    <form method='post' action='<?=$PHP_SELF?>' id='edit_form' name='edit_form'>
+        <input type='submit' name='bsubmit' value='Save'/>
+        <input type='reset'/>        
+        <input type='submit' name='bclose' value='Close' onclick="closeAction()"/><br/>
+        <textarea name='description' cols='80' rows='4'>
+                  <?=$description?>
+        </textarea>
+        <br/>
+        <input type='hidden' name='fileNr' value='<?=$fileNr?>'/>
+        <input type='submit' name='bsubmit' value='Save'/>
+        <input type='reset'/>        
+        <input type='submit' name='bclose' value='Close' onclick="closeAction()"/>
+    </form>
+</fieldset>

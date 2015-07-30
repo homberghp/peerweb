@@ -1,0 +1,14 @@
+<div id='navmain' style='padding:1em;'>
+    <p>Add an individual student to a class. Note that this is a <i>move</i> operation, that is, move the student from any class to the selected destination class.</p>
+    <fieldset><legend>Select destination class</legend>
+        <form method="get"><label for="newclass_id">Select destination class</label><?=$classSelectorWidget?>
+            <input type='hidden' name='newsnummer' value='<?=$newsnummer?>'/>
+        </form>
+    </fieldset>
+    <?= $studentPicker ?>
+    <div>
+        <fieldset><legend>Current class members</legend>
+            <?= $memberTable ?>
+        </fieldset>
+    </div>
+</div>

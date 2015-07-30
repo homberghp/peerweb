@@ -1,0 +1,36 @@
+/* $Id: newstyle.css 1723 2014-01-03 08:34:59Z hom $ */
+@media screen {
+  body, div, table { font-family: Verdana, Arial, sans-serif; font-size:9pt;}
+  body{ margin:	0; padding:0; background:url(/peerweb/images/navcolbackselected.png)#ccc; background-repeat:  repeat-y;z-index:0;}
+  td.navcol,th.navcol {padding-left:20px; }	
+  .thl { text-align:left;}
+  .thl.num .thr { text-align:right;}
+  div.navopening { margin-top:0px; padding: .5em 1em 1em 1em; background: #4d95ba url(/peerweb/images/navopening.png) repeat-x; color:white;}
+  *.navcol.selected { margin-right:-3px; background:url(/peerweb/images/navcolbackselected.png) #ccc; }
+  .navcol img {padding-right:5px; border:0;}
+  div#tutorhelper {width:100%;}
+  .tutorhelper table {width:100%;}
+  div#navtop {margin:0; padding:1em; width:100%; color:white;
+      background:#F88 url(/peerweb/images/navopening.png); background-repeat: repeat-x;}
+  *.navtop { background: 0 0 no-repeat fixed;
+    padding: 3px 6px 3px 20px; margin: 0pt;
+  } 
+  .navtop.leftoff{ background: #f2f2df url(/peerweb/images/tabs-left-off.gif); } 
+  .navtop.lefton { background: #4d95ba url(/peerweb/images/tabs-left-on.gif); } 
+  .navtop.midonoff { background: #f2f2df url(/peerweb/images/tabs-middle-off-onleft.gif); } 
+  .navtop.midon { background: #4d95ba url(/peerweb/images/tabs-middle-on.gif); } 
+  .navtop.midoff { background: #f2f2df url(/peerweb/images/tabs-middle-off.gif); } 
+  .navtop.righton { background: white url(/peerweb/images/tabs-right-on.gif) no-repeat; padding-left:6px; } 
+  .navtop.rightoff { background: white url(/peerweb/images/tabs-right-off.gif) no-repeat; padding-left:6px;} 
+  div#navmid {margin:0; padding:0; width: auto; border-width:3px; border-color:red; z-index:5;background: url(/peerweb/images/navcolback.png)#88F; background-repeat: repeat-y;}
+  .navcol h1 {padding-left:20px;}
+  div#navcol {position:absolute; left:0; width: 15%; margin: 0 auto auto 0;  height:auto;
+    background: url(/peerweb/images/navcolback.png)#88F; background-repeat: repeat-y; z-index:5;}
+  table.navcol {border-width:0; border-collapse:collapse; width:100% ;}
+  div#navmain {position:absolute; left:15%; margin:0; padding:1em; z-index:10;}
+  h1.normal {padding: 0.2em;background:#acf; }
+  .theadleft { padding-left: 20px; text-align: left; background: #f2f2df url(/peerweb/images/tableheaderleft.png); }
+  /* use right part, end should not show on normal displays */
+  .theadmid { padding-right: 20px; margin-right:-2px; text-align:left; background: #f2f2df url(/peerweb/images/tableheaderright.png); }
+  .theadright { padding-right: 20px; text-align: right; background: #f2f2df url(/peerweb/images/tableheaderright.png); background-position:right;  }
+}

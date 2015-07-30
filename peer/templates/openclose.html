@@ -1,0 +1,42 @@
+<div id='navmain' style='padding:1em;'>
+  <fieldset><legend>Open or close an assessment.</legend>
+  <p>Use this form to open or close an assessment.</p>
+  <form method='post' name='grpmembers' action='$PHP_SELF'> 
+  <table class='layout' summary='layout'>
+    <tr>
+      <td class='layout' valign='top'>
+	$prjm_id_selector
+      </td>
+    </tr>
+    <tr><td>
+      <p>Current state of groups:</p>
+    </td></tr>
+    <tr>
+      <td>
+	$grpTutorString
+      </td>
+    </tr>
+  </table>
+  </form>
+  </fieldset>
+  
+  <fieldset><legend>Invite participants</legend>
+    <p>You cab use the mail from below to invite the
+    participants. The words with a '$'-prefix will be mapped to the
+    actual participants data.
+    You may change the mail text to your liking, which will then be
+    used for the mail you send.</p>
+  <form method='post' name='invite' action='$PHP_SELF'>
+  <table>
+    <tr><td style='font-weight:bold;text-align:right'>subject:</td>
+    <td><input type='text' size='84' name='mailsubject' value='$mailsubject'/></td>
+  </tr>
+  <tr><td colspan='2'>
+    <textarea cols='120' rows='20' name='mailbody' id='mailbody'>$mailbody</textarea>
+  </td>
+</tr>
+</table>
+<button id='invite' name='invite'>Send invitations</button>
+</form>
+</fieldset>
+</div>

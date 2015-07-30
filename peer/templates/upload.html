@@ -1,0 +1,76 @@
+<div style='padding:1em;'>
+  <?php
+  if ( $uploadMessage != '' ) {
+    ?>
+    <fieldset><legend>Last upload status:</legend>
+      <?= $uploadMessage ?>
+    </fieldset>
+  <?php } ?>
+  <p>This page can be used to add (upload) project files to your digital portfolio. It allows share data without having to mail around
+    lots of files to the stake holders (fellow students and tutor), just filling up mailboxes. Once you upload a file here, the stakeholder will receive a mail
+    just containing a link to your uploaded file.</p>
+  <fieldset>
+      <legend>On behalf of project</legend>
+      <p>Here you can select projects that have deliverable defined. Once you selected the project, select the type of deliverable,
+        give the document a title of your choice and the upload the file from your local file system (using the browse button)</p>
+      <form action='<?= $PHP_SELF; ?>' method='get'><?= $prjList ?>
+        <input type='submit' value='Get project'/><?= $prj_id ?>M<?= $milestone ?> (<?= $prjm_id ?>)
+      </form>
+      <h4><?= $prjSel->getSelectionDetails() ?></h4>
+      <h4>Document type(s) you can upload for this project and milestone</h4>
+      <?= $doc_table ?>
+    </fieldset>
+    <?php
+    if ( ($pd_count > 0 ) ) {
+      ?>
+      <fieldset>
+        <legend>Select file to upload</legend>
+        <p>You may upload two kinds of files: reports, preferably in
+          pdf format, or archives containing project files in zip
+          format. This is the only accepted format that is legally
+          readable on all platforms. The <strong
+            style="color:#400;">RAR</strong>-format is explicitly
+          forbidden.</p>
+        <p>Note that the file type should preferably be .pdf
+          (Adobe portable document file, readable with acrobat
+          reader). You can create pdf files with various programs
+          such as <a href='http://www.adobe.com'>acrobat or adobe
+            distiller</a>,
+          <a href='http://sourceforge.net/projects/pdfcreator'>pdfcreator</a>
+          (with any windows program by printing to a special
+          printer driver), <a
+            href='http://www.openoffice.org'>openoffice</a>
+          and <a href='http://www.ntg.nl'>pdfL<sub>a</sub>T<sub>e</sub>X</a>.
+          If possible, add line numbers to your documents.
+          This help reviewers to give feedback on your product in a
+          compact and precise form. In Microsoft Word look at 'page
+          setup', tab line numbers. Other word or text processing
+          packages have similar possibilities.</p>
+        <p>For text documents (reports), always make sure your document has your author name(s)
+          in the document and and a page number on each page.</p>
+        <p>The file size limit is <?= $filesizelimit ?>
+          bytes (<?= $filesizelimit / 1000000 ?> Million bytes) or 1000x1000 (w x h) pixels for jpeg files (photographs).
+          Photographs that are bigger then these dimensions are shrunk on upload, preserving the aspect ratio.</p>
+        <form enctype="multipart/form-data" action='<?= $PHP_SELF; ?>' method="post">
+          <table border='0'>
+            <!-- MAX_FILE_SIZE must precede the file input field -->
+            <tr><td>Deliverable type of this document:<input type="hidden" name="MAX_FILE_SIZE" value="<?= $filesizelimit ?>" />
+              </td>
+              <td><?= $doctypeSelect ?></td></tr>
+            <?= $coauthor_table ?>
+            <tr><td>Title of document</td><td><input type='text' size='64' name='title' value=''/></td></tr>
+            <!-- Name of input element determines name in $_FILES array -->
+            <tr><td>Local file to upload:</td><td><input name="userfile" type="file" size='64'/>
+                <input type='hidden' name='prj_id_milestone' value='<?= $prj_id ?>:<?= $milestone ?>'/>
+              </td></tr>
+            <tr><td>Read access</td><td>Group<input type='checkbox' name='groupread' value='t'/>
+                Project <input type='checkbox' name='projectread' value='t'/>&nbsp;
+                <b>Email group members</b>&nbsp;<input type='checkbox' name='groupmail' value='f'/></td>
+              <td><input type="submit" value="Upload File" /></td></tr>
+          </table>
+        </form>
+      </fieldset><?php
+  } else {
+    ?><p>It looks like you are not assigned to projects that have defined deliverables. If this is incorrect, please contact your tutor.</p>
+    <?php }  ?>
+</div>

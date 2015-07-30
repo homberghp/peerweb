@@ -1,0 +1,14 @@
+<fieldset><legend>Set the capabilities of a peerweb user.</legend>
+  <?=$student_picker_text?>
+  
+  <form  method='POST' action='<?=$PHP_SELF?>'> 
+    <?=$bitset_widget?>
+    
+    <p>found <?=$caps?></p>
+    <?=$newsnummer?>
+    
+    <input type='hidden' name='newsnummer' value='<?=$newsnummer?>'/>
+    <input type='submit' name='setcap' value='Set Cap'/></form>
+    <p>Note that any changes are only effective after a (new) login. This to prevent you to cut the branch you are currently sitting on. So make sure the changes are in order before you log out or close the browser.</p>
+</fieldset>
+<?=$dbMsg?>

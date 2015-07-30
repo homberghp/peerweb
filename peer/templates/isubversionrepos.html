@@ -1,0 +1,27 @@
+<?=$executionResult?>
+<fieldset><legend>
+        This page allows you to create a personal subversion repositories.</legend>
+    <?php if ( $reposTable == '' ) { ?>
+    <form method="get" name="project" action="<?= $PHP_SELF; ?>">
+        <p>You do not have a root repository yet. </p>
+        <p>This root repository can be used for normal work but will also contain the
+            subversion <b>conf</b> subdirectory of all subsequent repositories.</p>
+        <p>Shall I create a root repository for you? If so press the button
+            <input type='hidden' name='repos_name' value='svnroot'/>
+            <input type='submit' name='bcreate' value='Create repos'/></p>
+    </form>
+    <?php } else { ?>
+    <?= $reposTable ?>
+    <form method="get" name="project" action="<?= $PHP_SELF; ?>">
+        <p>Create a new repository? Then enter the name and press the button below.</p>
+        <p>The name of the repository should be <input type='text' name='repos_name' />
+            <input type='submit' name='bcreate' value='Create repos'/></p>
+    </form>
+    <?php
+    }
+    ?>
+</fieldset>
+
+<?php if ( is_file( $authzfile ) ) {  $fileeditor->show();
+}
+?>

@@ -1,0 +1,63 @@
+<div id='navmain' style='padding:1em;'>
+  <fieldset>
+    <legend>Project data <?=$prj_id?> M<?=$milestone?> </legend>
+    <form method="get" name="project" action="<?=$PHP_SELF;?>">
+      Project and milestone <?=$prj_id_selector?>
+      <?=$prjSelectionDetails?>
+    </form>
+    <h3>Documents, version limit and Due dates</h3>
+    <strong style='color:#800;font-size:120%'>For uploading to work for the students, the project
+      must still be valid i.e.,
+      the <i><a href='https://www.fontysvenlo.org/peerweb/alterproject.php'
+      target='_blank'>project</a></i> attribute 'valid until'
+      must be past today.</strong>
+    <p>Here you can define the documents that can be handed in by the student. 
+      The document types can be defined at the bottom of the page.
+      The kind of document, type and spelling is completely up to you.</p> 
+    <p>Of all documents that students upload, a version is
+      retained, even if the student upload a document with the same
+      type or title twice.    
+      This is a very simple method of keeping in touch with what
+      they upload. The students cannot remove the documents. 
+      To prevent students to overload the server with files, each
+      document type has a version limit. A version limit of 0 says that the document
+      cannot be uploaded and is not required.</p> 
+    <p>Format for due date is yyyy-mm-dd. Default is 28 days from
+      now. The due date is the last date a document can be uploaded
+      and still be in time.</p>
+    <p>If a document should be readable by group members  
+      before the due date, select publish early. The default is
+      not to publish early.</p> 
+    <p>Rights are divided into three groups: <b>G</b>roup,
+      <b>P</b>roject or module participant and <b>W</b>orld. The
+      order is G &lt; P &lt; W, that is, group is 
+      the smallest, then Project participants then world (all
+      others). World does not yet have any effect. The idea is that
+      if G is set, team members of the group may read the
+      document. Project says that all participants in the project or
+      module may read the document.  
+      World allows read access to all that have acces to peerweb</p>
+    <p>Column <b>Indiv group</b> determines if the version limit is counted against a person or a group. Default is to count against an individual.</p>
+    <form method="post" name="deliverables" action="<?=$PHP_SELF;?>">
+      <?=$rtable?>
+      <table width='100%' border='0' summary='form add doc type'><tr>
+	  <td><input type='submit' name='update'/></td>
+	  <td align='right'><input type='reset' name='reset' value='Reset form'/></td>
+      </tr></table>
+    </form>
+  </fieldset>
+  <fieldset><legend>Add document type Boe</legend>
+    <form method="post" name="uploadtypes" action="<?=$PHP_SELF;?>">
+      <table class='layout' summary='layout'>
+	<tr><th align='left'>Description(<= 40 char) </th>
+					    <td><input type='text' name='upload_description' value='' size='40' align='left'/></td>
+	  <th>&nbsp;warn members:&nbsp;<input type='checkbox' name='warn_members' value= 'true' <?=$checked?>/></th></tr>
+
+	<tr>
+	  <td><input type='reset' name='reset' value='reset form'/></td>
+	  <td align='right'><input type='submit' name='baddtype' value='Add Document'/></td>
+	</tr>
+      </table>
+    </form>
+  </fieldset>
+</div>

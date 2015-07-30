@@ -1,0 +1,44 @@
+<fieldset><legend>Groups as defined in the project</legend><?= $grpLists ?></fieldset>
+<fieldset><legend>Create a repository</legend>
+    <p>The name of the repository 'repos_name' determines the tail of
+    the url as in <strong style='color:#008;'>'<?= $repoURL ?>'</strong>. This name should be unique
+    within the year.<br/> If you keep to the convention of one repository per
+    project milestone, the suggested name (which is the default)
+    automatically agrees with that constraint.</p>
+    <p>The rights can be manipulated by downloading the conf dir and
+      changing and commiting the <code>authz</code> file.</p>
+  <p>Note that students names in the
+    directory names of individual repositories are transformed by
+    replacing 'Deutsche Sonderzeichen' such as ä=&gt;ae, ü=&gt;ue, ö=&gt;oe and ß=&gt;ss.</p>
+  <form method="post" name="crepos" action="<?= $PHP_SELF; ?>">
+        <table>
+            <col align='justify' width='300px' />
+            <col/>
+            <tr><td><p>Repository name (leave empty for default)</p></td><td><input type='text'
+            name='new_repos_name' value='<?= $new_repos_name ?>'
+            placeholder='<?=$afko_lc?>m1'/>&nbsp;Grey placeholder is
+            default value.</td></tr>
+            <tr><td><p>Individual repository per
+            student</p></td><td><input type='checkbox'
+            name='repos_individual' value='individual'/> if
+            checked. 
+            </td></tr>
+            <tr><td><p>Subdirs (optional) under
+            trunk <i><br/>(enclosed in {} and comma separated
+            like <code>{task1,task2}</code>)</i></p></td><td><input type='text'
+            name='twigs' size='80' value='<?= $twigs ?>' placeholder='{task1,task2}'/>
+                </td></tr>
+            <tr><td><p>The repository is created when you press </p></td>
+                <td><input type='submit' name='bcreate' value='Create'/><input type='hidden' name='setname' value='true'/></td></tr>
+        </table>
+        <p>The options subdirs parameter is passed to the <code>mkdir -p trunk/&lt;subdirs&gt;</code>. This allows you to create a complete forest under trunk if you feel inclined to. E.g. 
+            subdirs=<code>{task1,task2,task3}/{java,sql,html}</code> would create three subdirs task1,task2 and task 3 each with subdirs java,sql and html.</p>
+        <p>A typical informatics project could have a directory structure like:<br/>
+            <code style='background:#FFF;
+            font-size:120%;font-weight:bold;'>{10projectplan,20qualityplan,20requirements,30analysis,40design,50testplan,60implementation,80manreport,90miscellaneous,99texincludes}</code><br/>
+            or <br/><code  style='background:#FFF;
+            font-size:120%;font-weight:bold;'>{task1,task2,task3,task4,task5,task6,task7}</code>
+        </p>
+    </form>
+    <?= $cmd_result ?>
+</fieldset>

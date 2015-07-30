@@ -1,0 +1,19 @@
+<div id='navmain' style='padding:1em;'>
+  <fieldset><legend>Select project</legend>
+    <form method='get' name='project' action='$PHP_SELF'>
+      $prj_id_selector
+	
+	csv:
+	<input type='checkbox' name='csvout' $csvout_checked value='Y' />
+	<input type='submit' name='get' value='Get' /><br/>
+	$selection_details
+
+    </form>
+  </fieldset>
+  <div align='center' id='presencetable'>
+    <div id='taskoverviewtable' align='left' style='margin:0 10ex 0 10ex'>
+    
+    Tasks completed for project $afko, $year: $description prjm_id=$prjm_id prj_id=$prj_id milestone $milestone<br/>
+    $task_table
+  </div>
+</div>

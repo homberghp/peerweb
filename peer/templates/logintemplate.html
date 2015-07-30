@@ -1,0 +1,100 @@
+<? xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+    'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'><head>
+        <meta http-equiv='Content-type' content='text/html; charset: utf-8'/>
+        <meta http-equiv='Content-Script-Type' content='text/javascript'/>
+        <meta http-equiv='Content-Style-Type' content='text/css'/>
+        <meta name='GENERATOR' content='(x)emacs'/>
+        <link rel='stylesheet' type='text/css' href='$root_url/style/peertreestyle.css'/>
+        <title>Peerweb login</title>
+
+    </head>
+    <body class='{$body_class}' style='{$body_background}'>
+        <div id='content'>
+            <div class='navopening'><h1>Login first</h1></div>
+
+            <div id='navmain' class='navleft selected' style='padding:1em 1em 1em 1em;'>
+                <fieldset style='padding:0.5em;'>
+                    <legend>Login</legend>
+                    <p>To continue you must login. </p>
+                    <p>Students login using their student number, Campus Venlo staff with their pcn.</p>
+                    <table>
+                        <tr>
+                            <td>
+                                <form method='post' name='login' action='$action_uri'>
+                                    <table width='40%'>
+                                        <tr>
+                                            <td>peer_id</td>
+                                            <td>
+                                                <input type='text' name='peer_id' value='' title='student number or pcn '/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>password</td>
+                                            <td>
+                                                <input type='password' name='peer_pw' value='' title='as provided by doing and authentication request'/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <input type='submit' name='login' value='login'/>
+                                </form>
+                            </td>
+                            <td>
+                            </td></tr></table>
+                </fieldset>
+                <div style='padding:2em;'><h2>Documentation</h2>
+                    <p>     You can find a short user guide by following this <a
+                            href='http://www.fontysvenlo.org/pdf_files/peerweb.pdf'>link:
+                            <img src='$pdficon' border='0'/ alt='pdf'></a>. There is
+                        also a <a
+                            href='http://www.fontysvenlo.org/pdf_files/peerweb_sheets.pdf'>pdf
+                            presentation&nbsp;<img src='$pdficon' border='0' alt='pdf'/></a> 
+                        on the subject, given to the HR managers of the
+                        minis 2006 on 5 and 12 October 2006.  
+
+                    </p>
+                    <a name='Authorization'/><h2 class='normal'>Authorization</h2>
+                    <p>You can be allowed to this web site if you are a student of the Fontys Hogescholen in Venlo and your data have been entered by the administration of your faculty.</p>
+                    <h2 class='normal'>No admission, forgot your password?</h2>
+                    <p>No admission? Request a (new) password.
+                        This will be sent to the registered university email address.</p>
+                </div>
+                <fieldset>
+                    <legend>Authentication request</legend>
+                    <form name='accessrequest' method='post' action='$PHP_SELF?'>
+                        <table class='layout'>
+                            <tr>
+                                <td>Logincode (student number if you are a student, pcn if you are staff member) </td>
+                                <td><input type='text' name='newlogincode'/></td>
+                            </tr>
+                            <tr>
+                                <td>Date of birth (format yyyy-mm-dd like 1970-01-24)</td>
+                                <td><input type='password' name='secret'/></td>
+                            </tr>
+                            <tr>
+                                <td>Click the button</td>
+                                <td><input type='submit' name='baccessrequest' value='Submit'/></td>
+                            </tr>
+                        </table> 
+                    </form>
+                    <p>$result</p>
+                    <div class='notice' style='width:15%'><img src='$ktipicon' alt='tip'/>Why my birthday?</div>
+                    <p>In case you wonder why I want your birthday: Not asking for some kind of 'secret' would make it to trivial
+                        for script kiddies to make this service into a <i>denial of service</i> for the intended users. 
+                        The new authentication becomes effective immediately, so someone could generate passwords faster then you can read your mail.
+                        A birthday combined with an id is secret enough and at the same time known to the user. 
+                        We already have the information in the database. We just use it as a check to make
+                        (almost) sure that the right person is requesting the new authentication code.</p>
+                </fieldset>
+                <!--div>
+                     <fieldset><legend>Peerweb  video tutorial on YouTube</legend>
+                     <p>The tutorial below was prepared by Rob Thuyls, Lecturer at Fontys International Hogeschool voor Economie.</p>
+                <object width='960' height='745'><param name='movie' value='http://www.youtube.com/v/XYtDEdirs6Y?fs=1&amp;hl=en_US&amp;hd=1'></param><param name='allowFullScreen' value='true'></param><param name='allowscriptaccess' value='always'></param><embed src='http://www.youtube.com/v/XYtDEdirs6Y?fs=1&amp;hl=en_US&amp;hd=1' type='application/x-shockwave-flash' allowscriptaccess='always' allowfullscreen='true' width='960' height='745'></embed></object>
+                     </fieldset>
+                </div-->
+            </div>
+        </div>
+    </body>
+    <!-- \$Id: logintemplate.html 1769 2014-08-01 10:04:30Z hom $ <?= $db_name ?>-->
+</html>

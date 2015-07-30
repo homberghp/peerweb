@@ -1,0 +1,15 @@
+<fieldset><legend>Edit <?=$filename?>.</legend>
+    <?=$description?>
+    <form method='get' name='closeform' action='<?=$client?>'><input type='submit' name='Close' value='close' /></form>
+    <form method='post' name='confeditform' id='confeditform' action='<?=$PHP_SELF?>'>
+        <input type='submit' name='save_confeditform' value='Save'/>&nbsp;
+        <input type='hidden' name='<?=$filenameField?>' value='<?=$filename?>'/>
+        <input type='submit' name='save_confeditform' value='Save'/><br/>
+        <textarea id='<?=$textName?>' name='<?=$textName?>'></textarea>
+        <div id='<?=$editorName?>'><?php if ( is_file( $fileToEdit ) ) { readfile( $fileToEdit );} ?></div>
+        <input type='reset'/>&nbsp;
+    </form>
+    <form method='get' name='closeform' action='<?=$client?>'>
+        <input type='submit' name='Close' value='close' /></form>
+<br/><?=$fileToEdit?><br/>
+</fieldset>

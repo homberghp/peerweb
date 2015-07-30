@@ -1,0 +1,34 @@
+<div class='navopening'>
+  <h1>Critique editor for critique $critique_id_text <button onClick='javascript:bye()'>Close</button></h1>
+</div>
+<div style='padding: 0 2em 0 2em; align:center;' class='critique'>
+  <p>Feedback for document \"<i>$title</i>\" by <b>$author</b>,<br/> document upload_id $doc_id.</p>
+  <h3>How to enter critique</h3>
+  <p>If the author was smart he added page and even linenumbers to the document, so you can use those as coordinates to 
+    those spots in the documents you want to critisize.</p>
+  
+  <form name='new_critique' action='$PHP_SELF' method='post' onsubmit='return submitForm();'>
+    <input type='hidden' name='critique_id' value='$critique_id'/>
+    <input type='hidden' name='doc_id' value='$doc_id'/>
+    <textarea name='critique_text' cols='80' rows='15'>$critique_text</textarea>
+
+  <p>Click submit to post the form and reload with your critique content.</p>
+  <p>    
+  <input type='submit' name='bsubmit_critique' value='Submit' onClick='return edit_submit()'/>
+  <button onClick='javascript:bye()'>Close</button>
+  <input type='reset' name='reset' value='Reset'/></p>
+  
+</form>
+  Current redering:
+  <div class='critique' style='background:#ffffe0;'>
+    <fieldset>
+      <legend>Critique $critique_id_text by $roepnaam $voorvoegsel $achternaam ($critiquer)&nbsp;</legend>
+      <table class='layout'>
+	<tr><td>Group</td><th align='left'>$critiquer_grp ($afko $year) </th></tr>
+	<tr><td>Critique time</td><th align='left'> $critique_time</th></tr>
+	<tr><td>Last edit</td><th align='left'> $edit_time</th></tr>
+      </table>
+      $editor_result
+    </fieldset>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+@media screen{
+  body, div, table { font-family: Verdana, Arial, sans-serif; font-size:9pt;}
+  body { margin: 0pt; padding: 0pt; border:0;background:green;}
+  p{ margin:0.3em; }
+  h1 { font-size: 14pt; }
+  h2 { font-size:12pt; }
+  h3 { font-size:10pt; }
+  fieldset { padding:0.5em; }
+  body{ background: #f2f2df url(/peerweb/images/navcolbackselected.png) repeat-y; }
+  .num { text-align:right; }
+  td { border-width:1px;}
+  .layout { border-collapse:collapse; 
+    table { border-color:black; }
+    padding:0pt; border-width:0pt; 
+    margin: 0pt;}
+  .tabledata { border-width:1pt; padding: 0.2em; border-color:black; 
+    font-family: helvetica; font-size:10pt; border-collapse:collapse;}
+/*  body{ background: white url(/peerweb/images/bg1.jpg) 0 0 no-repeat fixed; } */
+/*  div#content { background: white url(/peerweb/images/bg2.jpg) 0 0 no-repeat fixed;}*/
+  div#content{  margin:0; border:0pt; padding:0; border:0;}
+  div.notice { float: left; padding:0.5em; margin:0.5em;font-size:12;
+  font-weight:bold;color:white;background:#48A;}
+  h1.normal, h2.normal, h3.normal { color:white; 
+    background: #48A; padding:0.2em 1em 0.2em 1em;}
+  .navleft { border-collapse:collapse;
+  } 
+  .navleft.selected { }
+  .navtop { background: 0 0 no-repeat fixed;
+    padding: 3px 6px 3px 20px; margin: 0pt;
+  } 
+  .navtop.leftoff{ background: #f2f2df url(/peerweb/images/tabs-left-off.gif); } 
+  .navtop.lefton { background: #4d95ba url(/peerweb/images/tabs-left-on.gif); } 
+  .navtop.midonoff { background: #f2f2df url(/peerweb/images/tabs-middle-off-onleft.gif); } 
+  .navtop.midon { background: #4d95ba url(/peerweb/images/tabs-middle-on.gif); } 
+  .navtop.midoff { background: #f2f2df url(/peerweb/images/tabs-middle-off.gif); } 
+  .navtop.righton { background: white url(/peerweb/images/tabs-right-on.gif) no-repeat; padding-left:6px; } 
+  .navtop.rightoff { background: white url(/peerweb/images/tabs-right-off.gif) no-repeat; padding-left:6px;} 
+  .backdrop{ background: white; border:0pt; border-collapse:collapse; padding:0; margin:0}
+  div#navhead{ position: absolute; left:0; height:100px; }
+  div.navopening { margin-top:0px; padding: 0.2em 0.5em 0.2em 0.2em; background: #4d95ba url(/peerweb/images/navopening.png) repeat-x; color:white;}
+  .navcol{ padding:0.5em 0.2em 0.2em 0.5em;margin:0; border-width:0; border-collapse:collapse; background:#d5e9f3 url(/peerweb/images/navcolback.png)
+    repeat-y; color:white; width:100%;}
+  td.navcol img { padding-right:1em; padding-left:1em;}
+  .navcol.selected { background: #f2f2df url(/peerweb/images/navcolbackselected.png);}
+  div#navcol { position: relative; left:0;top:100px; width:15%; height:100%; color:red; background: url(/peerweb/images/navcolback.png) repeat-y;}
+  div#content { margin: 0 ;padding: 0 ;background:#f2f2df url(/peerweb/images/navcolbackselected.png) #f2f2df; }
+  div#main { margin: 0 ;padding: 0 ;background:#f2f2df url(/peerweb/images/navcolbackselected.png) #f2f2df; 
+    position:absolute; left:15%; top:120px; height:100%;}
+  div.navcolstarter { position:static; top:0; left:0; width:15%; height:30px;padding:0.5em 0.1em 0.1em 1.2em ; background:#d5e9f3 url(/peerweb/images/navcolstarter.png)
+    repeat-y; color:white; }
+  div.intro { margin:-2px 0 -20px 0; padding: .5em 1em 1em 1em; background: #4d95ba url(/peerweb/images/navopening.png) repeat-x; color:white;}
+  h1.intro{ color:white; }
+  div.critique { border-width:2pt; border-color:#ff00ff; padding:0.2em; margin:0.3em;}
+  div.critique h1, div.critique h2, div.critique h3 { background:#ffffc0; color:black; 
+    padding:0.2em; margin:0.3em;}  
+  link[title] { cursor: help; border-bottom:1px dotted gray; }
+}

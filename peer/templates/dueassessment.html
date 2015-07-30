@@ -1,0 +1,17 @@
+<div id='navmain' style='padding:1em;'>
+<h2 class='normal'>Select the students you would like to warn by mail.</h2>
+<p>The student names shown here have missed the deadline for a <i style='color:red'>still open</i> assessment. If the assessment is closed, the student names will 
+<i style='color:red'>not</i> show up, not even if they missed to fill in their assessment form.</p>
+<form name='mailer' method='post' action='$PHP_SELF'>
+$selecttable
+subject:<input type='text' name='formsubject' size='60' value='$formsubject'/><br/>
+<p>Body text</p>
+
+<textarea name='mailbody' cols='64' rows='20'>$mailbody</textarea><br/>
+<input type='submit' name='submit' value='Submit'/>
+</form>
+<!--?php echo $dbConn->getLogHtml();?-->
+</div>
+</body>
+<!-- db_name=$db_name-->
+</html>

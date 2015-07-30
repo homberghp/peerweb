@@ -1,0 +1,18 @@
+<div id='navmain' style='padding:1em;'>
+  <fieldset><legend>Select project</legend>
+    <form method='get' name='project' action='$PHP_SELF'>
+      $prj_id_selector
+	
+	csv:
+	<input type='checkbox' name='csvout' $csvout_checked value='Y' />
+	<input type='submit' name='get' value='Get' /><br/>
+	$selection_details
+
+    </form>
+  </fieldset>
+  <div id='presencetable' align='left' style='margin:0 10ex 0 10ex'>
+
+    Presence for project $afko, $year: $description prjm_id=$prjm_id prj_id=$prj_id milestone $milestone<br/>
+    $presence_table
+  </div>
+</div>

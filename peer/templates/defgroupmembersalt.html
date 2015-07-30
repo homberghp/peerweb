@@ -1,0 +1,27 @@
+<div id='navmain' style='padding:1em;'>
+    <?= $prjSel->getWidget() ?>
+    <p>This page provides and alternate UI to assing students to groups or move students between groups.<br/>
+        alternatively you can use <a href='defgroupmembers2.php'>Assign groups</a> page.
+    </p>
+    <fieldset><legend>Choose students</legend>
+        <form method="post" name="participants" action="<?= $PHP_SELF ?>">
+            <table class='layout' style='border-width:0;'>
+                <tr><th colspan='1'>Group</th><th colspan='2'>Move to group</th></tr>
+                <tr><td>
+                        <select name='oldprjtg_id' title='select from group' onchange='submit()'>
+                            <?= $oldGroupOptionsList ?>
+                        </select></td>
+                    <td><input type='submit' name='get' value='Get group'/></td>
+                    <td><select name='newprjtg_id' title='select to group'>
+                            <?= $newGroupOptionList ?>
+                        </select></td>
+                    <td><input type="submit" name="update" value="Move" title="move the selected student(s)"/></td>
+                    <td><input type="submit" name="delete" value="Delete" title="remove selected student(s) from project"/></td>
+                    <td><input type="reset" name="reset" value="Reset" title="reset form"/></td></tr>
+            </table>
+            <hr/>
+            <span>prjtg_id = <?= $oldprjtg_id ?></span><br/>
+            <?=$memberTable?>
+        </form>
+    </fieldset>
+</div>

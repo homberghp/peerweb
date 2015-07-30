@@ -1,0 +1,45 @@
+<?= $prjList ?>
+<fieldset><legend>Data of project <?= $afko ?> <?= $year ?> group <?= $grp_num ?> (<?= $alias ?>)</legend>
+    <form name='project_data' method='post' action='<?=$PHP_SELF?>'>
+        <table summary='student roles' border='0' style='border-collapse:collapse'>
+            <tr><th valign='top' style='text-align:right'>prj_id</th><td valign='top'><?= $prj_id ?> <?= $afko ?>: <?= $description ?>
+                    <input type='hidden' name='prj_id_milestone_grp_num' value='$prj_id_milestone_grp_num'/></td><td></td></tr>
+            <tr><th valign='top' style='text-align:right'>milestone:</th><td valign='top' style='text-align:right'><?= $milestone ?></td><td></td></tr>
+            <tr><th valign='top' style='text-align:right'>grp_num</th><td valign='top' style='text-align:right'><?=$grp_num?>, current alias <?= $alias ?></td><td></td></tr>
+            <tr><th valign='top' style='text-align:right'>alias</th><td valign='top'>
+                    <?=$field_alias?>  max 15 char</td></tr>
+            <tr><th valign='top' style='text-align:right'><?= $role ?></th>
+                <td valign='top'><a href='mailto:<?=$email1?>' title='student number <?= $gmnumber ?>'><?= $roepnaam ?> <?= $voorvoegsel ?> <?= $achternaam ?></a></td></tr>
+            <tr><th valign='top' style='text-align:right'>long name</th><td valign='top' colspan='2'>
+                    <?=$field_long_name?>  max 40 char</td></tr>
+            <tr><th valign='top' style='text-align:right'>productname</th><td valign='top' colspan='2'>
+                    <?=$field_productname?>  max 128 char</td></tr>
+            <tr><th valign='top' style='text-align:right'>current&nbsp;weblink</th><td valign='top'><a href='$website'><?= $website ?></a></td></tr>
+            <tr><th valign='top'
+            style='text-align:right'>current&nbsp;youtube&nbsp;link</th><td valign='top'><a href='<?=$youtube_link?>'
+            target='_blank'><?= $youtube_link ?></a></td></tr>
+            <tr><th valign='top' style='text-align:right'>website-url</th><td valign='top' colspan='2'>
+                    <?=$field_website?>  max 128 char</td></tr>
+            <tr><th valign='top' style='text-align:right'>youtube&nbsp;link</th><td valign='top' colspan='2'>
+                    <?=$field_youtube_link?>  max 128 char</td></tr>
+            <tr><th valign='top' style='text-align:right'>youtube&nbsp;icon&nbsp;url</th><td valign='top' colspan='2'>
+                    <?=$field_youtube_icon_url?>  max 128 char</td></tr>
+            <tr><td>&nbsp;</td><td colspan='2'><?= $changeButton ?></td></tr>
+        </table>
+    </form>
+    <p>The weblink on the <a href='activeprojects.php'>active projects page</a> is composed of the 
+        <i>website-url</i> of the form <b>http://server/website</b> and the <i>long name</i>. You must use a complete url, 
+        that is, <br/><strong>including</strong> the <span style='font-size:120%;font-weight:bold;color:#c00'>http://</span> part, 
+        otherwise the visiting browsers think it is a page on this server, relative to peerweb.
+        And that, dear people, is quite unlikely.</p>
+    <p>Also remember to use a proper youtube link like
+    <code style='font-weight:bold;color:#800;'>http://www.youtube.com/watch?v=&lt;someCode&gt;</code> because from this
+    link we derive the intro picture on our overview pages such as <a href='http://mini.fontysvenlo.org'>http://mini.fontysvenlo.org</a>.</p>
+    <p>To be visible on this page, a project must have roles and at least one person with role number 1.</p>
+    
+    <h3>Current members</h3>
+    <?=$memberTable?>
+    <h3>Project group attributes or performance indicators</h3>
+    <?=$attributeTable?>
+</fieldset>
+

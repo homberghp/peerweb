@@ -1,0 +1,45 @@
+<div id='navmain' style='padding:1em;'>
+  <table class='layout' summary='layout'>
+    <tr>
+      <td class='layout' valign='top'>
+	$prjm_id_selector
+      </td>
+    </tr>
+    <tr>
+      <td>
+	<fieldset><legend>Deep copy a project/milestone </legend>
+	  <p>Copy the selected project-milestone with all its
+	  attributes, settings and members into a project/milestone.<br/>
+	  This is particularly handy if you start
+	  a project with the same set of students. Note that all is
+	  copied from the source project, including tutors, group
+	  names and roles.<br/>
+	  The base data of the target project/milestone must exists.</p>
+	  <form method='post' name='dupform' action='$PHP_SELF'>
+	    <table summary='layout'>
+	      <tr>
+		<td><p>Select target project/milestone&nbsp;<select name='dup_prjm_id'>
+		    $dupPrjList
+		  </select>from the list of available empty ones and 
+		  <input type='submit' name='dup' value='Copy' 
+			 title='Use this to copy groups into a new
+				project - milestone'/>
+		  <input type='hidden' name='prjm_id' value='$prjm_id'/></p>
+		</td>
+	      </tr>
+	    </table>
+	  </form>
+	  <p>The list of target projects is the set of
+	    project-milestones that have no members yet and are owned
+	    by you.<br/>
+	  If this list is empty, then you can 
+	    either <a href='defproject.php'><img src='images/blank.png' border='0' alt='new'/>create a new
+	      project</a>
+	    or <a href='addmilestone.php'><img src='images/milestone1.png'
+	    border='0' alt='milestone'/> add a
+	      milestone</a> to an existing project. 
+	  </p>
+	</fieldset>
+    </td></tr>
+  </table>
+</div>

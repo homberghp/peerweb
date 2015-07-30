@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel='stylesheet' type='text/css'
+              href='style/peertreestyle.css'/>
+        <style type='text/css'>
+            .big {font-weight:bold; font-size:200%;}
+            tr.big {height: 90px;}
+            .midsize {font-weight:bold; font-size:160%;}
+            tr.even{background:rgba(128,255,128,0.5);}
+            tr.odd{background:rgba(128,128,255,0.5);}
+            .legend {background:rgba(128,128,128,0.5);}
+            .detail {background:rgba(255,255,255,0.5);}
+            td.itemtext{ text-align:right; }
+            td.button{ text-align:center;}
+            button {width:100px;height:80px;}
+            .scancode { font-size:140%; font-weight:bold;
+                        font-family:courier;}
+            tr.history {font-weight:bold; font-size:100%;}
+            div.top{
+                position: relative;
+            }
+            .Gestart { color:#FFF; font-weight:bold; background:#800;}
+            .Ingeleverd { color:black; font-weight:bold; background:#FF0;}
+            .Voltooid { color:#080; font-weight:bold; }
+            .Vrijstelling { color:#080; font-weight:bold; }
+        </style>
+        <script type="text/javascript">
+            <!-- toggle off and on, used for big buttons to checkbox connections -->
+            function toggle(checkname) {
+                var box = document.getElementById(checkname);
+                box.checked = ! box.checked;
+            }
+        </script>
+        <title>Buit</title>
+    </head>
+
+
+    <body class='<?=BODY_CLASS?>'>
+        <div id='navopening' class='navopening'>
+
+            <div style='position:relative;top:5px;left:5px'>
+                <a class='logout'
+                   href='index.php' 
+                   target='_top' 
+                   title='goto peerweb home page'>
+                    <img src='images/home.png' border='0'
+                         alt='home'/>
+                </a>&nbsp;&nbsp;
+                <a class='print' 
+                   href='buit.php' 
+                   target='_blank' 
+                   title='print this page'>
+                    <img src='images/printer.png' border='0'
+                         alt='print'/>
+                </a>
+            </div>
+            <h1 align='center'>Jaag scherm</h1>
+            <div style='position:relative;top:8px;right:5px;text-align:right;'>
+                logoff
+                <a class='logout'
+                   href='logout.php'
+                   title='logout'
+                   target='_top'>
+                    <img src='images/close_1.png' 
+                         border='0' 
+                         alt='logout'
+                         align='middle'/>
+                </a><br/>
+            </div>
+        </div>
+        <div id='navmain' class='navmain'>
+
+            <table style='border-collapse:collapse' border='1'>
+                <tr class='legend'><th>In te leveren documenten</th>
+                    <th >Studentgegevens</th></tr>
+                <tr><td valign='top'>
+                        <form action='vang.php'>
+                            <table style='border-collapse:collapse' border='0'>
+                                <tr>
+                                    <th colspan='3'>Jaag actie</th>
+                                    <td rowspan='7'><br/>
+                                        <button type='submit' style='width:80px;height:540px;font-weight:bold;font-size:200%'>OK</button>
+                                    </td>
+                                </tr>
+                                <?= $boxes['diplvo'] ?>
+                                <?= $boxes['cijfer'] ?>
+                                <?= $boxes['betbew'] ?>
+                                <?= $boxes['pasprt'] ?>
+                                <?= $boxes['uittre'] ?>
+                                <?= $boxes['renrij'] ?>
+                            </table>
+                            <input type='hidden' name='id' value='<?= $id ?>'/>
+                        </form>
+                        <form action='<?= $PHP_SELF ?>'>
+                            <table><tr ><td colspan='4'>Scancode<input type='text' class='scancode'
+                                                                       name='newscancode' id='scancode' size='20' value=''/></td></tr></table>
+                        </form>
+                    </td><td valign='top'>
+
+                        <table style='border-collapse:collapse' width='100%' border='1'>
+                            <tr class='midsize'><td class='legend'>id</td><td class='detail'><?= $id ?></td>
+                                <th rowspan='9' class='detail' style='vertical-align:middle'><img src='<?= $foto ?>'/></th></tr>
+                            <tr class='midsize'><td class='legend'>Naam</td><td class='detail'><?= $name ?></td></tr>
+                            <tr class='midsize'><td class='legend'>Geb. datum</td><td class='detail'><?= $gebdat ?></td></tr>
+                            <tr class='midsize'><td class='legend'>Adres</td><td class='detail'><?= $adres ?></td></tr>
+                            <tr class='midsize'><td class='legend'>Postcode</td><td class='detail'><?= $postcode ?></td></tr>
+                            <tr class='midsize'><td class='legend'>Plaats</td><td class='detail'><?= $plaats ?></td></tr>
+                            <tr class='midsize'><td class='legend'>Land</td><td class='detail'><?= $land ?></td></tr>
+                            <tr class='midsize'><td class='legend'>Studierichting</td><td class='detail'><?= $omschrijving_studieprog ?></td></tr>
+                            <tr class='midsize'><td class='legend'>Cohort</td><td class='detail'><?=$cohort?></td></tr>
+                            <tr class='midsize'><td class='legend'>Status</td><td class='detail'><?=$status?></td></tr>
+                        </table>
+                        <h2>Jaag geschiedenis:</h2>
+                        <!--?php echo simpletable($dbConn,$sqlhistory,"<table border='1' --
+                          --style='border-collapse:collapse;'>" ); ?-->
+                        <?= $hisTable ?>
+                    </td></tr></table>
+        </div>
+        <script type="text/javascript">
+            document.getElementById('scancode').focus();
+        </script>
+    </body>
+</html>

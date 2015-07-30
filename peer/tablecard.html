@@ -1,0 +1,33 @@
+<div id='navopening' class='navopening'>
+<h1>Define your own table card <a href='index.php' title='go back to peerweb'>
+<img src='images/home.png' alt='home' border='0'/></a>&nbsp;<a href='logout.php' title='logout'><img src='".IMAGEROOT."/close_1.png' border='0' alt='logout'/></a></h1></div>
+<div style='padding:2em'>
+<fieldset id='form1'><legend><b>Enter the table card data</b></legend>
+<form method='POST' name='tablecard' action='$PHP_SELF' target='_blank'>
+<p>The table card is a piece of paper which you can fold and put before you on your desk or meeting table. This script produces a pdf file
+with just the right contents</p>
+<table align='center' style='text-align: left;'  border='0' cellpadding='2' cellspacing='2' summary='tablecard data'>
+    <tr>
+      <td>1<sup>st</sup> line</td>
+      <td><input size='30' name='line1' value='$line1'></td>
+     </tr>
+    <tr>
+      <td>2<sup>nd</sup> line</td>
+      <td><input size='30' name='line2' value='$line2'></td>
+    </tr>
+    <tr>
+      <td>3<sup>rd</sup> line</td>
+      <td><input size='30' name='line3' value='$line3'></td>
+    </tr>
+    <tr>
+      <th colspan='3'><button type='submit' name='bsubmit' value='submit'>Submit</button></th>
+      <th colspan='3'><button type='reset' name='reset'>Reset</button></th>
+    </tr>
+</table>
+</form>
+</fieldset><center>
+<fieldset><legend>And then some tinkering...</legend>
+<img src='images/vouwvoorbeeld.png' alt='vouwvoorbeeld'/>
+</fieldset>
+</center>
+</div>

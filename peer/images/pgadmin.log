@@ -1,0 +1,18 @@
+2005-06-25 13:57:51 ERROR  : ERROR:  invalid input syntax for integer: "idle"
+
+2005-06-25 14:04:31 ERROR  : ERROR:  column "now" does not exist
+
+2005-06-25 14:04:42 ERROR  : ERROR:  column "start_time" is of type timestamp without time zone but default expression is of type text
+HINT:  You will need to rewrite or cast the expression.
+
+2005-06-25 22:33:59 ERROR  : ERROR:  column "now" does not exist
+
+2005-06-25 22:34:18 ERROR  : ERROR:  column "stop_time" is of type timestamp without time zone but default expression is of type text
+HINT:  You will need to rewrite or cast the expression.
+
+2005-06-25 22:34:43 ERROR  : ERROR:  column "stop_time" contains null values
+
+2005-07-24 00:19:05 ERROR  : ERROR:  column "milstone" specified in USING clause does not exist in left table
+
+2005-07-24 00:21:00 ERROR  : ERROR:  column "prj_grp.open" must appear in the GROUP BY clause or be used in an aggregate function
+

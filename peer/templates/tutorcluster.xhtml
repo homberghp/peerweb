@@ -1,0 +1,16 @@
+<fieldset><legend>Set the class clusters the tutor can select from.</legend>
+  <?=$tutor_picker_text?>
+  
+  <form  method='POST' action='<?=$PHP_SELF?>'> 
+    <?=$newuserid?>
+    <table border='0'><tr><td width='50%'><?=$cluster_widget?></td>
+            <td width='30%' style='vertical-align: top'>
+                <p>In the table on the left you can activate the class clusters that a tutor sees in the class selector menus.</p>
+                <p>A 0 means the classes in the cluster are not shown,
+            any other positive integer determine the order in which the clusters are shown, in ascending number order.</p>
+            <p>For the tutor, a smaller list is simpler to use.</p></td></tr></table>
+    <input type='hidden' name='newuserid' value='<?=$newuserid?>'/>
+    <input type='submit' name='setcap' value='activate clusters'/>
+    </form>
+</fieldset>
+<?=$dbMsg?>

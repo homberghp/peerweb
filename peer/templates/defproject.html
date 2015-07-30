@@ -1,0 +1,38 @@
+$successReport
+
+<p style='margin:2em'>Project and module/course are used interchangeably in this site. Using the PROGRESS code as project or module code is convenient.<br/>
+ Make sure that the combination of study, project code and year  is unique.</p>
+
+<p style='margin:2em'>Please do not reuse projects, but make new ones. Use the <a href='alterproject.php' target='mainframe'>alter a project</a> page if
+you want to change (correct) any of the fields for this project definition.</p>
+
+<fieldset id='form1'><legend><b>Project or module data</b></legend>
+<form method='post' name='newproject' action='$PHP_SELF'>
+<table border='0' style='empty-cells:show;border-collapse:collapse' summary='project definition form'>
+  <thead> 
+    <tr><th >New project</th><th class='theadright'>New project</th></tr>
+    <tr><th >Project </th><th class='theadright'>$prj_id $afko $description $year</th></tr>
+  </thead>
+
+  <tr><th >Copy data from project</th>
+    <td>$project_selector</td>  </tr>
+  <tr><th >1. Module or project code (<= 10 char.)</th>
+    <td><input type='text' name='afko' title='Progress module code' size='10' maxlength='10'/></td>
+  </tr>
+  <tr><th title='use the actule year as in now'>2. Year.</th><td>$input_year</td></tr>
+  <tr><th >3. Project description.(<= 30 char.)</th><td>$input_description</td></tr>
+  <tr><th title='defines the audience'>4. study </th><td>$input_course</td></tr>
+  <tr><th title='used to show project in overviews'>5. Valid until</th><td>$input_valid_until</td></tr>
+  <tr><th title='use to recored presence and task completions'>5. Activity project</th><td>$input_activity_project</td></tr>
+
+  <tr><th align='top left'>6. Comment</th><td>$input_comment</td></tr>
+  <tr><td ><input type='reset' name='reset' value='Reset form' title='reset form to default'/></td>
+    <td><input type='submit' name='bsubmit' value='New' title='Define this as new project; a new project will be defined with 1..3'/></td></tr>
+    <tr><th >Owning tutor</th><th class='theadright'>$owner_id:&nbsp;$roepnaam $voorvoegsel $achternaam</th></tr>
+</table>
+    
+    
+    
+</form>
+</fieldset>
+<p style='margin:2em'>By selecting a project in the above form you can use that as example or template.</p>

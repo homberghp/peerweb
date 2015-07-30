@@ -1,0 +1,25 @@
+/* $Id: critique.css 1723 2014-01-03 08:34:59Z hom $ */
+@media print{ 
+  body, div, table { 
+    font-family: Verdana, Arial, sans-serif; font-size:9pt; 
+    margin:	0; 
+    padding:0; 
+  }
+  div#navtop,div.navtop { diplay:none; }
+  div#navopening,div.navopening { diplay:none; }
+  div#navcol,div.navcol { diplay:none; }
+  div#navtop,div.navtop { diplay:none; }
+  h1 { font-size:16pt; }
+ }
+@media screen {
+  body, div, table { font-family: Verdana, Arial, sans-serif; font-size:9pt;}
+  h1 { font-size:14pt; }
+  h2 { font-size:12pt; }
+  h3,h4 { font-size:10pt; }
+  h3 { font-weight:bold; }
+  body { margin: 0; padding:0.5em; background:#ffffe0; }
+  .critique { background:ffffe0; }
+  td.navcol,th.navcol {padding-left:20px; }	
+  .thl { text-align:left;}
+  .thl.num, .thr { text-align:right;}
+}
