@@ -1,0 +1,13 @@
+#!/bin/bash
+if [ 1 -gt $# ] 
+then
+	echo usage: " <dir>/<file>" 
+	exit 1
+fi
+# accept dir
+dir=$(dirname $1)
+# and dir/file.tex 
+file=$(basename $1 .tex)
+shift # remove first arg
+pdflatex $@ -interaction=batchmode -output-directory=${dir} ${dir}/${file}.tex
+#pdflatex $@ -interaction=batchmode -output-directory=${dir} ${dir}/${file}.tex

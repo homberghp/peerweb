@@ -1,0 +1,17 @@
+\usepackage[utf8]{inputenc}
+\usepackage{calc}
+\usepackage[pdftex]{graphicx}
+\usepackage{mydate}
+\usepackage{helvet}
+\usepackage{verbatim}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\lstset{language=sql}
+\newcounter{pages}
+\newcounter{hours}
+\newcounter{minutes}
+\newcommand\printtime{\setcounter{hours}{\time/60}%
+  \setcounter{minutes}{\time-\value{hours}*60}%
+    \thehours{}:\theminutes{}}
+\newcommand\headLogo{\includegraphics[height=12pt]{../figures/RubberReport.png}}

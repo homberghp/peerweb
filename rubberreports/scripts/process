@@ -1,0 +1,10 @@
+#!/bin/bash
+dir=$(basename $(pwd))
+# ensure out dir
+mkdir -p out
+ts=$(date +%Y%m%d%H%M%S)
+file=out/${dir}-${ts}
+texfile=${file}.tex
+logfile=${file}.plog
+../scripts/process_query.pl >${texfile} 2>${logfile}
+../scripts/process_latex ${texfile} 1>&2>>${logfile}

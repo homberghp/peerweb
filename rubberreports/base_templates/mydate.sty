@@ -1,0 +1,12 @@
+\def\@setcurrentdate#1/#2/#3/{%
+  \year=#1%
+  \month=#2%
+  \day=#3%
+  \relax
+}
+\newcommand{\Date}[1]{{%
+    \expandafter\@setcurrentdate#1/%
+    \today
+  }}
+%% Converts iso8601
+

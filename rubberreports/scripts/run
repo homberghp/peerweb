@@ -1,0 +1,28 @@
+#!/bin/bash
+if [ 1 -gt $# ] 
+then
+	echo usage: " <dir>" 
+	exit 1
+fi
+dir=$1
+#operator=$2
+rubberbase=/home/hom/testsite/rubberreports
+
+rubberbase=/home/hom/testsite/rubberreports
+
+scriptdir=${rubberbase}/scripts
+
+cd ${scriptdir}
+
+target=$(basename ${dir})
+
+
+targetdir=${rubberbase}/${target}
+
+(   cd ${targetdir};
+    echo $(date +%Y-%m-%d-%T:%N) run with target $target >> runlog.txt
+    ${scriptdir}/process
+)
+
+
+

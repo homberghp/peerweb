@@ -1,0 +1,67 @@
+%% Combine column values to \Name
+\renewcommand\Name{@-$roepnaam-@ @-$tussenvoegsel-@ @-$achternaam-@}
+\chead[\sf{}@-$id-@]{\sf{}@-$id-@}
+\lhead[\Large\bf\sf \Name]{\Large\bf\sf \Name}
+\rhead[\sf{}@-$omschrijving_studieprog-@/@-$groep-@]{\sf{}@-$omschrijving_studieprog-@/@-$groep-@}
+
+% show date and picture flush left
+\begin{flushright}
+  Venlo, \today
+
+\includegraphics[width=2.5cm]{../../peer/fotos/@-$snummer-@.jpg}
+\end{flushright}
+
+% anrede is computed in the query or through the config file.
+@-$anrede-@ \Name,
+
+\NL{je hebt je ingeschreven bij Fontys Hogeschool techniek en logistiek
+  voor de opleiding \textsc{@-$omschrijving_studieprog-@}.}
+\DE{Sie haben sich an der Fontys Hogeschool Techniek en Logistiek (Fontys
+  Fachhochschule Technik und Logistik) eingeschrieben für den Studiengang
+  \textsc{@-$omschrijving_studieprog-@}.}
+\NL{Om echter definitief
+    ingeschreven te worden en recht te hebben om je studie bij FHTenL te
+    continueren is het noodzakelijk om op korte termijn aan de
+    inschrijfvoorwaarden te voldoen.}
+\DE{Damit Sie vollständig eingeschrieben sind und damit Ihr Studium bei uns
+    fortsetzen können, ist es notwendig, dass Sie in kürzester Zeit die
+    restlichen Anforderungen an Ihre Einschreibung erfüllen.}
+
+\NL{Uit onze administratie blijkt dat je nog niet volledig aan de
+  inschrijfvoorwaarden hebt voldaan.}
+\DE{Unsere Verwaltung hat festgestellt, dass Sie noch nicht alle
+  Anforderungen für die Einschreibung erfüllt haben.}
+
+\vspace{1cm}
+\begin{center}\Large
+  \textbf{\DE{Wir ersuchen Sie hiermit dringend, dass Sie innerhalb
+      von 2 Tagen untenstehende Dokumente zusammen mit diesem Formular
+      bei der Studentenverwaltung am Service Desk, Gebäude w1, Raum
+      0.84 vorlegen.}
+    \NL{We verzoeken je dan ook dringend om binnen 2 dagen
+      onderstaande documenten, inclusief dit formulier, te overleggen bij de
+      Service Balie, gebouw W1 kamer 0.84.}
+  }
+\end{center}
+
+\vspace{1.2cm}
+\NL{Je studentgegevens zijn}\DE{Ihre Studentdaten sind}:\\
+\begin{tabbing}
+Geboortedatum \= 31 December 1991 \kill % longest line
+Id \>@-$snummer-@\\
+\NL{klas}\DE{Klasse} \> @-$hoofdgrp-@\\
+\NL{Geboortedatum}\DE{Geburtsdatum} \> \Date{@-$gebdat_tex-@}
+
+\end{tabbing}
+\vspace{1cm}
+\NL{Nog in te leveren documenten}\DE{Noch abzugebende Dokumente}:
+@-$itemlist-@
+
+%\vspace{1cm}
+\NL{Wij willen je er op wijzen dat, wanneer deze documenten niet tijdig
+  worden ingeleverd, je het risico loopt dat je je studie moet staken.}
+\DE{Wir möchten Sie vorsorglich darauf hinweisen, dass Sie, wenn Sie diese
+  Dokumente nicht rechtzeitig abgeben, das Risiko eingehen, Ihr gerade
+  begonnenes Studium beenden zu müssen.}
+
+\newpage

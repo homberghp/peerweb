@@ -1,0 +1,52 @@
+# commentaar begint steeds met een #
+# default taal is Nederlands
+# andere talen zijn aangeduid met DE voor Duits, EN voor Engels etc.
+# Als een vertaling niet bestaat word default gekozen en anders wordt
+# de waarde simpelweg weergegeven.
+# de waarde _drop_ heeft de byzondere betekenis dat de waarde weggegooid
+# wordt en niet in het document vertoond wordt.
+# in de jaaglijst (stand 2010-09-09) betekend Voltooid dat een item
+# klaar is en niet vermeld hoeft te worden.
+
+itemize = toela,betbew,pasreg,diplvo,cijfer,pasprt,uittre
+
+toela.Voltooid.default = _drop_
+toela.Vrijstelling.default = _drop_
+toela.Gestart.default = Ontheffing vooropleidingseisen
+toela.Gestart.DE = Befreiung von den Zulassungsbedingungen
+
+betbew.Voltooid.default = _drop_
+betbew.Vrijstelling.default = _drop_
+betbew.Gestart.default = Betalingsbewijs
+betbew.Gestart.DE = Zahlungsnachweis
+
+pasreg.Voltooid.default = _drop_
+pasreg.Vrijstelling.default = _drop_
+pasreg.Gestart.default = Pasfoto registratieformulier
+pasreg.Gestart.DE = Passfoto für das Registrierungsformular
+
+diplvo.Voltooid.default = _drop_
+diplvo.Vrijstelling.default = _drop_
+diplvo.Gestart.default = Diploma vooropleiding (gewaarmerkt)
+diplvo.Gestart.DE = Beglaubigtes Abschlusszeugnis
+
+cijfer.Voltooid.default = _drop_
+cijfer.Vrijstelling.default = _drop_
+cijfer.Gestart.default = Kopie cijferlijst (gewaarmerkt)
+cijfer.Gestart.DE = Beglaubigtes Zeugnis inkl. Notenliste
+
+pasprt.Voltooid.default = _drop_
+pasprt.Vrijstelling.default = _drop_
+pasprt.Gestart.default = Kopie paspoort
+pasprt.Gestart.DE = Kopie des Personalausweises
+
+uittre.Voltooid.default = _drop_
+uittre.Vrijstelling.default = _drop_
+uittre.Gestart.default = Uitreksel bevolkingsregister
+uittre.Gestart.DE = Bestätigung vom Einwohnermeldeamt über Geburtsdatum
+
+# 'Anrede in DE afh van geslacht.
+sex.M.default = Beste
+sex.F.default = Beste
+sex.M.DE = Lieber
+sex.F.DE = Liebe
