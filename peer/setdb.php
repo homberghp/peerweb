@@ -1,4 +1,5 @@
 <?php
+
 /**
  * this file determines the database to use (test or production) as well as some
  * other settings.
@@ -6,10 +7,10 @@
  * $Id: setdb.php,v 1.15 2009/01/03 08:01:49 hom Exp $
  */
 $db_name = 'peer2';
-$site_userdir='/home/hom/';
-$site_home=$site_userdir.'peerweb/';
-$server_url='https://www.fontysvenlo.org';
-define('ADMIN_EMAILADDRESS','p.vandenhombergh@fontys.nl');
-$root_url='/peertest'; // as seen from the browser
+$site_userdir = '/home/hom/';
+$site_home = $site_userdir . 'peerweb/';
+$server_url = 'https://www.fontysvenlo.org';
+define('ADMIN_EMAILADDRESS', 'p.vandenhombergh@fontys.nl');
+$root_url = '/peertest'; // as seen from the browser
+$bgstyle = 'peer'; // possible values: peer (default), test and local.
 require_once 'configure.php';
-
