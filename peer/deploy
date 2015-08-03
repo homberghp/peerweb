@@ -3,5 +3,5 @@
 buildtag=BUILD$(date +%Y%m%d%H%M)
 PEERHOME=/home/f/fontysvenlo.org
 for deploydir in ${PEERHOME}/peerweb/{peer,subversion}; do
-    (cd ${deploydir}; pwd; echo ${buildtag} > BUILD; svn update)
+    (cd ${deploydir}; pwd; echo ${buildtag} > BUILD; git pull)
 done 
