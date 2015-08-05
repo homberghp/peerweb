@@ -8,6 +8,10 @@
             <file>file:/home/hom/testsite/peer/absenten.php</file>
             <file>file:/home/hom/testsite/peer/imail.php</file>
         </group>
-        <group/>
+        <group>
+            <file>file:/home/hom/peerweb/peer/configure.php</file>
+            <file>file:/home/hom/peerweb/peer/setdb.php</file>
+            <file>file:/home/hom/peerweb/peer/peerlibtests/peerlib/peerpgdbconnectionTest.php</file>
+        </group>
     </open-files>
 </project-private>
