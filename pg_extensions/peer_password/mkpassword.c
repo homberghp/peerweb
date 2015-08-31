@@ -14,7 +14,7 @@ main(int argc, char * argv[])
   
   strncpy(template,base_template,sizeof(template)-1);
   if (argc > 1) {
-    if (strchr("aA@&bB1~.",argv[1][0]) == NULL){
+    if (strchr("aA@&bB1~.x",argv[1][0]) == NULL){
       usage(argc,argv);
       exit(1);
     }
