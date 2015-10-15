@@ -201,13 +201,12 @@
         -moz-border-radius: 10px;
     }
     td.abs { background:#8F8;}
-    option{ font-weight:bold;}
-    option.fixed {color:#600;}
-    option.moveable {color:#060;}
-    option.disabled {color:#F88;font-style:italic;}
-    option.active {color:#000;font-style:italic;}
-    option.inactive {color:#888;font-style:italic;}
-    option.cold  {color:#66D;font-style:italic;}
+    .fixed {color:#600;}
+    .moveable {color:#060;}
+    .disabled {color:#F88;}
+    .active {color:#000;}
+    .inactive {color:#888;background-color: #eee;}
+    .cold  {background-color:#66D;}
     .ace_editor, .ace_editor * {
         font-family: "Monaco", "Menlo", "Ubuntu Mono", "Droid Sans Mono", "Consolas", monospace !important;
         font-size: 12px !important;
@@ -256,6 +255,12 @@
         background-image:url(images/fireworks015.gif); 
         margin-top:2em;padding:0.2em;
         background-repeat: repeat;
+    }
+    /* avoid unwanted spinners in number feilds/ */
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
     }
 }
 
