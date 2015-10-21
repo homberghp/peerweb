@@ -27,8 +27,9 @@ class MyRowFactory implements RowFactory {
         if ($this->old_grp_num != $grp_num) {
             $this->old_grp_num = $grp_num;
             $this->rowColor = $this->rainbow->getNext();
-            $grpnamecel = "\t<td class='tabledata num' style='font-size:200%;vertical-align:top' rowspan='$grp_size'>$grp_num"
-                    //."<input type='button' style='height:100%;width:100%' clas='grp_but' onclick='function(){ $(\".p$grp_id\").checked=true; }' value='$grp_name'/>"
+            $grpnamecel = "\t<td class='tabledata num' style='font-size:200%;vertical-align:top' rowspan='$grp_size'>"
+                    ."<button type='button' style='height:100%;width:100%' clas='grp_but' "
+                    ." onclick='function(){ $(\".p{$grp_id}\").checked=true; } return false; ' value='{$grp_name}'>{$grp_num}</button>"
                     ."</td>\n"
                     ."";
         }
