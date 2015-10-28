@@ -46,7 +46,7 @@ char * mkPasswd(int pwlen, char * template, char newpasswd[]){
     case '1':  newpasswd[i] = ANYOF( digits );     break;
     case '~':  newpasswd[i] = ANYOF( anyletter );  break;
     case '.':  newpasswd[i] = ANYOF( punct );      break;
-    default:   newpasswd[i]=ANYOF( anychar );      break;
+    default:   newpasswd[i] = ANYOF( anychar );    break;
     }
   }
   newpasswd[i]='\0';

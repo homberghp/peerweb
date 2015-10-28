@@ -10,7 +10,7 @@ if ( isSet( $_REQUEST['prjtg_id_id'] ) ) {
     $class_id = validate( $_REQUEST['prjtg_id'], 'integer', $prjtg_id );
 }
 
-$sql = "select substr(now()::text,1,16) as ts,rtrim(afko)||'-'||year as project,tutor, coalesce(alias,'g'||grp_num) as grp_name\n"
+$sql = "select substr(now()::text,1,16) as ts,rtrim(afko)||'-'||year as project,tutor, coalesce(grp_name,'g'||grp_num) as grp_name\n"
         . "from all_prj_tutor where prjtg_id=$prjtg_id";
 $resultSet = $dbConn->Execute( $sql );
 extract( $resultSet->fields );
