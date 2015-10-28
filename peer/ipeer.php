@@ -35,7 +35,7 @@ if ($resultSet === false) {
 if (!$resultSet->EOF)
     extract($resultSet->fields, EXTR_PREFIX_ALL, 'judge');
 $lang = strtolower($judge_lang);
-$student_data="$judge_roepnaam $judge_voorvoegsel $judge_achternaam ($judge_snummer)";
+$student_data = "$judge_roepnaam $judge_voorvoegsel $judge_achternaam ($judge_snummer)";
 $page_opening = "Assessment entry form for $student_data";
 $page = new PageContainer();
 $page->setTitle('Peer assessment entry form');
@@ -69,6 +69,25 @@ $page->addBodyComponent(new Component(ob_get_clean()));
 $page->addBodyComponent($nav);
 ob_start();
 
+/**
+ * Use peer database function try_close to try and close the group.
+ * @global type $dbConn
+ * @param type $gid group id
+ * @param type $stid student/judge
+ * @return boolean true is this call closed the group.
+ */
+function tryClose($gid, $stid) {
+    global $dbConn;
+    $sql = "select try_close($gid,$stid)";
+    $resultSet = $dbConn->Execute($sql);
+    if ($resultSet === false) {
+        die("<br>Cannot execute \"" . $sql . '", cause ' . $dbConn->ErrorMsg() . "<br>");
+    } else {
+        return $resultSet->fields['try_close'] === 't';
+    }
+    return false;
+}
+
 // see if there is a reopen request
 if ($isTutor && isSet($_REQUEST['reopen'])) {
 
@@ -97,7 +116,7 @@ if ($grp_open && isSet($_POST['peerdata'])) {
         $cc = intval($c / count($_POST['contestant']));
         $ci = 0;
         // every 'criteria-count' times , increment contestent index.
-        for ($i = 0; $i < $c; $i++,$ci+=($i % $cc)?0:1) {
+        for ($i = 0; $i < $c; $i++, $ci+=($i % $cc) ? 0 : 1) {
             $contestant = $_POST['contestant'][$ci];
             $criterium = $_POST['criterium'][$i];
             $grade = $_POST['grade'][$i];
@@ -110,7 +129,6 @@ if ($grp_open && isSet($_POST['peerdata'])) {
                     . "prjtg_id=$prjtg_id and "
                     . "contestant=$contestant and judge=$judge and "
                     . "criterium=$criterium;\n";
-            
         }
         $cc = count($_POST['contestant']);
         // drop old remarks
@@ -135,22 +153,10 @@ if ($grp_open && isSet($_POST['peerdata'])) {
             $replyText = '<span style=\'color:#080;font-weight:bold\'>' . $langmap['thanks'][$lang] . '</span>';
         }
         // now check if group needs to be closed
-        $sql = "select should_close from should_close_group_tutor where prjtg_id=$prjtg_id";
-        $dbConn->log($sql);
-        $resultSet = $dbConn->Execute($sql);
-        if ($resultSet === false) {
-            print 'error getting zerocount with $sql: ' . $dbConn->ErrorMsg() . '<BR>';
-        }
-        //	if (!$resultSet->EOF) $dbConn->log(" must close=".$resultSet->fields['should_close']);
-        if (!$resultSet->EOF && ($resultSet->fields['should_close'] == 't')) {
+        if (tryClose($prjtg_id, $judge)) {
             // close group
             $dbConn->log('close group ' . $prjtg_id);
-            $sql = "update prj_tutor pt set prj_tutor_open = false,assessment_complete=true where prjtg_id=$prjtg_id;\n";
-            $resultSet = $dbConn->Execute($sql);
-            if ($resultSet === false) {
-                print 'error closing prj_grp with $sql ' . $dbConn->ErrorMsg() . '<BR>';
-            }
-
+            // if so, notify tutor and members.
             $sql = "select email1 as altemail from project_tutor_owner where prj_id=$prj_id";
             $resultSet = $dbConn->Execute($sql);
             if ($resultSet === false) {
@@ -290,7 +296,7 @@ if ($grp_open) {
 } else {
     $colspan = count($criteria);
 }
-$bottomrow='';
+$bottomrow = '';
 if ($grp_open) {
     $toprow = "<tr><th></th><td align='right' colspan='$colspan'>$replyText<input type='reset' name='resetlow' value='Reset form'/></td></tr>";
     $bottomrow = "<tr><td><input type='hidden' name='peerdata' value='grade'/>
@@ -312,8 +318,8 @@ if ($grp_open) {
             <fieldset class="control">
                 <legend>Assessment form</legend>
                 <h2 align='center'>Assessment for <?= $afko ?> <?= $year ?> <?= $description ?>
-                <br/>group <?= $grp_num ?> (<?= $grp_alias ?>)
-                <br/>for Student <?=$student_data?>
+                    <br/>group <?= $grp_num ?> (<?= $grp_alias ?>)
+                    <br/>for Student <?= $student_data ?>
                 </h2>
                 <form method="post" name="assessment" action="<?= $PHP_SELF ?>" onsubmit="return confirm('Are you sure you want to submit these data?')">
                     <h4 align='center'><?= $gradetype ?></h4>
