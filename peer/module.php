@@ -18,8 +18,8 @@ $ste->setShowQuery(true)
         ->setMenuName('module')
         ->setKeyColumns(array('module_id'))
         ->setNameExpression("semester||':'||rtrim(progress_code)")
-        ->setListRowTemplate(array('semester', 'progress_code','module_description'))
-        ->setOrderList(array('semester', 'progress_code','module_description'))
+        ->setListRowTemplate(array('semester', 'module_id', 'progress_code', 'module_description'))
+        ->setOrderList(array('semester', 'progress_code', 'module_description'))
         ->setFormTemplate('templates/module.html')
         ->show();
 
