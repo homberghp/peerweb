@@ -165,15 +165,19 @@ if ($resultSet !== false) {
     }
 }
 $pp['grpLists'] = '';
+$all=array();
 foreach ($groups as $grp => $list) {
     //echo implode(' ',$list);
     if (isSet($list) && is_array($list)) {
         $grpStr = join(',', $list);
+        $all[] = join(',',$list);
     } else {
         $grpStr = '';
     }
     $pp['grpLists'] .= "<span>$grp=$grpStr</span><br/>\n";
 }
+$allMembers = join(',',$all);
+$pp['grpLists'] .="<span>all={$allMembers}</span><br/>\n";
 $pp['afko_lc'] = strtolower($afko);
 $prjSel->setSubmitOnChange(true);
 $pp['prj_id_selector'] = $prjSel->getWidget();
@@ -187,4 +191,4 @@ if (isSet($pp['fileeditor'])) {
 }
 $page->addHtmlFragment('templates/subversionreposbottom.html', $pp);
 $page->show();
-?>
+
