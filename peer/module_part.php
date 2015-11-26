@@ -6,6 +6,8 @@
  * $Id: module_part.php 1724 2014-01-03 09:06:02Z hom $
  */
 require_once("ste.php");
+$title = "Module Part Editor On DB $db_name ";
+
 $page = new PageContainer("Module part on DB $db_name ");
 $ste = new SimpleTableEditor($dbConn, $page);
 $ste->setShowQuery(true)

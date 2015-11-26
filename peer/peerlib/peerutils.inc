@@ -959,7 +959,7 @@ function fakemail($to, $sub, $msg, $head) {
     extract($dbConn->Execute($sql)->fields);
     //mail($email1, $sub, $msg, $head);
     echo "<hr/><pre style='color:#004;font-weight:bold;font-family:courier'>FAKE EMAIL\nHEAD:" . htmlentities($head) . "\nRCPT:"
-    . htmlentities($to) . "\n\nSubject:$sub\nBody:" . htmlentities($msg) . "</pre><hr/>\n";
+    . htmlentities($to) . "\n\nSubject:{$sub}\nBody:" . htmlentities($msg) . "</pre><hr/>\n";
 }
 
 /**
@@ -1011,7 +1011,7 @@ function dopeermail($to, $sub, $msg, $head, $altto = ADMIN_EMAILADDRESS) {
     if ($db_name == 'peer')
         mail($to, $sub, $msg, $head);
     else {
-        mail($altto, $sub, $msg, $head);
+        domail($to, $sub, $msg, $head);
     }
 }
 
@@ -1246,8 +1246,8 @@ $_VALIDATORMAP = $validator->getValidMap();
 $tutor_navtable = array();
 $tabInterestCount = 0;
 // set some default values.
-$prj_id=1;
-$prjtg_id=1;
-$prjm_id=0;
+$prj_id = 1;
+$prjtg_id = 1;
+$prjm_id = 0;
 
 /* EOF */
