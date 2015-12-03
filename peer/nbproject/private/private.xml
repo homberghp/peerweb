@@ -8,6 +8,8 @@
             <file>file:/home/hom/testsite/peer/absenten.php</file>
             <file>file:/home/hom/testsite/peer/imail.php</file>
         </group>
-        <group/>
+        <group>
+            <file>file:/home/hom/peerweb/peer/peerlib/openBarChart2.php</file>
+        </group>
     </open-files>
 </project-private>
