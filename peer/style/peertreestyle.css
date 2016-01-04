@@ -206,7 +206,7 @@
     .disabled {color:#F88;}
     .active {color:#000;}
     .inactive {color:#888;background-color: #eee;}
-    .cold  {background-color:#66D;}
+    .cold  {color:#66D;}
     .ace_editor, .ace_editor * {
         font-family: "Monaco", "Menlo", "Ubuntu Mono", "Droid Sans Mono", "Consolas", monospace !important;
         font-size: 12px !important;

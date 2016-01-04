@@ -30,7 +30,7 @@ function groupOpenerBarChart2($dbConn, $prjm_id, $tutorOwner = false) {
         extract($resultSet->fields);
         $open_prjtg_id = $prjtg_id;
         if ($resultSet->fields['prj_tutor_open'] == 't') {
-            $backgnd = '#080';
+            $backgnd = '#008';
             $grpTutorString3 .= $contin . "\t\t<th><input type='checkbox' name='opengrp[]' " .
                     "value='$open_prjtg_id' checked title='open or close assessment for group'/>" .
                     "<input type='hidden' name='openclose_candidate[]' value='$open_prjtg_id'/>";
@@ -100,7 +100,7 @@ function checkThem(ref,state){
             "<p>The assesment is closed for those groups that show " .
             "<span style='background:red;font-weight:bold;color:white'>red</span> and have their tickmark unset.<br/> The group is automatically closed when alle students in the group have filled in their assessment input.<br/>This is shown with the bar chart reaching the top in red and the ready value equal to the count.</p>" .
             "<p>The assesment is open for those groups that show " .
-            "<span style='background:green;font-weight:bold;color:white'>green</span> and have their tickmark set.</p>" .
+            "<span style='background:#008;font-weight:bold;color:white'>blue</span> and have their tickmark set.</p>" .
             "<p>The normal way of working is: select all then press submit.</p>" .
             "\n</td></tr></table>" .
             "</div>\n";
