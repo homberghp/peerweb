@@ -17,7 +17,7 @@ $ste->setShowQuery(true)
         ->setMenuName('module_part')
         ->setKeyColumns(array('module_part_id'))
         ->setNameExpression("rtrim(progress_code)||':'||rtrim(part_description)")
-        ->setListRowTemplate(array('progress_code','part_description'))
+        ->setListRowTemplate(array('progress_code', 'part_description', 'credits'))
         ->setOrderList(array('progress_code'))
         ->setFormTemplate('templates/module_part.html')
         ->show();

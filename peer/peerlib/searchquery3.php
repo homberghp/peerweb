@@ -11,7 +11,7 @@
  * To be able to pick the relevant elements from the $_POST array, the column names must be given in a list.
  * @package prafda2
  */
-class SearchQuery {
+class SearchQuery3 {
 
     /**
      * string the relation to search in e.g. MEDEWERKERS
@@ -422,7 +422,7 @@ class SearchQuery {
  *
  * An update query is used to update a record  in the database.
  */
-class UpdateQuery extends SearchQuery {
+class UpdateQuery3 extends SearchQuery3 {
 
     /**
      * The update set is the set of column-names,columnvalues that have to be updated
@@ -521,7 +521,7 @@ class UpdateQuery extends SearchQuery {
 /**
  * Insert queries are special in that you have to verify that all key columns are set.
  */
-class InsertQuery extends SearchQuery {
+class InsertQuery3 extends SearchQuery3 {
 
     /**
      * build an array of the requested updates.
@@ -595,7 +595,7 @@ class InsertQuery extends SearchQuery {
  * To delete no more than intended mak sure taht all key columns are set so that only
  * one record is deleted
  */
-class DeleteQuery extends UpdateQuery {
+class DeleteQuery3 extends UpdateQuery3 {
 
     /**
      * build an array of the requested updates.
@@ -637,7 +637,7 @@ class DeleteQuery extends UpdateQuery {
  * to keys of another. The join is normally a left join. See the relevant database literature for
  * an exposee on left joins.
  */
-class SupportingJoinQuery {
+class SupportingJoinQuery3 {
 
     protected $relation;
 

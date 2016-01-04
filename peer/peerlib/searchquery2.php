@@ -521,6 +521,7 @@ class InsertQuery extends SearchQuery {
         $result = true;
         for ($i = 0; $i < count($this->keyColumns); $i++) {
             if (!isSet($this->updateSet[$this->keyColumns[$i]]) || $this->updateSet[$this->keyColumns[$i]] == '') {
+                error_log("key columns not all set");
                 return false;
             }
         }
