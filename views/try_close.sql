@@ -10,20 +10,27 @@ BEGIN
    -- close for this judge
    UPDATE prj_grp SET written=true,prj_grp_open=false WHERE prjtg_id=gid AND snummer=stid;
    SELECT bool_and(written) AS allwritten,
-   bool_or(prj_grp_open) AS any_open, 
-   prj_tutor.prj_tutor_open, prj_tutor.assessment_complete
+          bool_or(prj_grp_open) AS any_open, 
+          prj_tutor.prj_tutor_open, prj_tutor.assessment_complete
    INTO allwritten,any_open,prj_tutor_open,assessment_complete
-   FROM public.prj_grp JOIN prj_tutor USING(prjtg_id)
-   WHERE prjtg_id=gid GROUP by prjtg_id,prj_tutor.prj_tutor_open,prj_tutor.assessment_complete;
+   FROM public.prj_grp 
+   JOIN prj_tutor USING(prjtg_id)
+   WHERE prjtg_id=gid 
+   GROUP by prjtg_id,prj_tutor.prj_tutor_open,prj_tutor.assessment_complete;
    
    -- if nothing to be done, return false
-   IF (not allwritten or any_open) and not prj_tutor_open and assessment_complete THEN
+   IF (NOT allwritten OR any_open) 
+      AND NOT prj_tutor_open 
+      OR assessment_complete THEN
    -- nothing to do
-   RETURN FALSE; END IF;
-
+      RETURN FALSE; 
+   ELSE 
    -- else, lose
-   update prj_tutor set prj_tutor_open=false, assessment_complete=true where prjtg_id=gid;
-   return true;
+      UPDATE prj_tutor SET prj_tutor_open=FALSE, assessment_complete=TRUE 
+      WHERE prjtg_id=gid;
+      RETURN TRUE;
+   END IF;
+
 
 end $try_close$ language plpgsql;
 comment on function try_close(integer,integer) is 'Close prj_grp assessment when all other 
