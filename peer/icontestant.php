@@ -7,6 +7,7 @@ include_once 'navigation2.inc';
 require_once 'GroupPhoto.class.php';
 require_once 'studentPrjMilestoneSelector.php';
 require_once './peerlib/contestant_table.php';
+require_once 'remarklist.php';
 $prj_id = 1;
 $milestone = 1;
 $prjm_id = 0;
@@ -54,6 +55,7 @@ $criteria = getCriteria($prjm_id);
 $rainbow=new RainBow();
 $criteriaList = getCriterialist($criteria, $lang, $rainbow);
 $rainbow = new RainBow(STARTCOLOR, COLORINCREMENT_RED, COLORINCREMENT_GREEN, COLORINCREMENT_BLUE);
+$remarkList='no remarks';
 if (isSet($prjtg_id)) {
     $sqlC = "SELECT judge,roepnaam||coalesce(' '||voorvoegsel,'')||' '||achternaam||coalesce(' ('||role||')','') as naam ,ja.prj_id,\n" .
             "grp_num,criterium,milestone,grade from judge_assessment ja \n" .
@@ -62,6 +64,7 @@ if (isSet($prjtg_id)) {
             " where contestant=$judge and prjtg_id=$prjtg_id \n" .
             "order by achternaam,judge,criterium";
     $gcTable = groupContestantTable($dbConn, $sqlC, false, $criteria, $lang, $rainbow);
+    $remarkList=remarkListIndividual($dbConn,$prjtg_id,$contestant_snummer);
 } else {
     $gcTable = "<p>No project group selected</p>";
 }
@@ -70,36 +73,15 @@ $groupPhotos = $pg->getGroupPhotos();
 ob_start();
 //
 ?>
-<div id="content" style='padding:1em;'>
-    <?= $prjSel->getWidget() ?>
-    <?php
-    if (!$prjSel->isEmptySelector()) {
-        ?><div class='navleft selected' style='padding-left:0pt;'>
+<div id='content' style='padding:1em;'>
+  <?= $prjSel->getWidget() ?>
+  <?php
 
-            <fieldset class="control">
-                <legend>Received assessment grades</legend>
-                <table >
-                    <tr>
-                        <td><img src='fotos/<?= $snummer ?>.jpg' width='128px' style='border-radius: 15px; box-shadow: 3px 3px 5px #024'/></td>
-                        <td style='padding:1em;'><h1 >Assessment grades received by  <?= $contestant_roepnaam ?> <?= $contestant_voorvoegsel ?> <?= $contestant_achternaam ?> <br/>(<?=$snummer?>) <h1>
-                                    <h2 ><?= $afko ?> <?= $year ?> <?= $description ?> <br/>group <?= $grp_num ?> (<?= $grp_alias ?>)</h2>
-                                    </td></tr></table>
-                                    <div width='80%'><?= $groupPhotos ?></div>
-                                    <table><tr><td>
-                                                <table align='center' class='navleft'>
-                                                    <tr><th><?= $langmap['criteria'][$lang] ?></th>
-                                                        <th><?= $langmap['verklaring'][$lang] ?></th></tr>
-                                                    <?= $criteriaList ?>
-                                                </table></td>
-                                            <td><table align='center' class='tabledata' border='1'>
-                                                    <?= $gcTable ?>
-                                                </table></td></tr></table>
-                                    </fieldset>
-                                    </div>
-                                    </div>
-                                    <!-- db_name=<?= $db_name ?> $Id: icontestant.php 1825 2014-12-27 14:57:05Z hom $ -->
-                                    <?php
-                                }
-                                $page->addBodyComponent(new Component(ob_get_clean()));
-                                $page->show();
-                                ?>
+if (!$prjSel->isEmptySelector()) {
+  include_once 'templates/icontestant.html';
+}
+?>
+</div><?php
+$page->addBodyComponent(new Component(ob_get_clean()));
+$page->show();
+
