@@ -1,0 +1,33 @@
+<div class='navleft selected' style='padding-left:0pt;'>
+  
+  <fieldset class="control">
+    <legend>Received assessment grades</legend>
+    <table >
+      <tr>
+        <td><img src='fotos/<?= $snummer ?>.jpg' width='128px' style='border-radius: 15px; box-shadow: 3px 3px 5px #024'/></td>
+        <td style='padding:1em;'>
+	  <h1 >Assessment grades received by  <?= $contestant_roepnaam ?> <?= $contestant_voorvoegsel ?> <?= $contestant_achternaam ?> <br/>(<?=$snummer?>) </h1>
+          <h2 ><?= $afko ?> <?= $year ?> <?= $description ?> <br/>group <?= $grp_num ?> (<?= $grp_alias ?>)</h2>
+	</td>
+      </tr>
+    </table>
+    <div width='80%'><?= $groupPhotos ?></div>
+    <table><tr>
+        <td>
+	  <table align='center' class='tabledata' border='1'>
+            <?= $gcTable ?>
+          </table>
+	</td>
+	<td>
+          <table align='center' class='navleft'>
+            <tr><th><?= $langmap['criteria'][$lang] ?></th>
+              <th><?= $langmap['verklaring'][$lang] ?></th></tr>
+            <?= $criteriaList ?>
+          </table>
+	  </td>
+      </tr>
+      <tr><td colspan='2'><?=$remarkList?></td></tr>
+    </table>
+  </fieldset>
+</div>
+<!-- db_name=<?= $db_name ?> $Id: icontestant.php 1825 2014-12-27 14:57:05Z hom $ -->

@@ -33,12 +33,12 @@ class GroupPhoto {
 
     function getGroupPhotos() {
         $result = "<!-- get group photos -->\n";
-        $sql = "select afko,year,description,pt.grp_num,p.prj_id," .
-                "pm.prjm_id,ga.alias as grp_alias,pm.milestone,pt.prjtg_id\n" .
-                " from project p join prj_milestone pm using(prj_id) " .
-                "join prj_tutor pt using(prjm_id) join prj_grp pg using(prjtg_id) " .
-                "left join grp_alias ga using(prjtg_id)\n"
-                . "where prjtg_id=" . $this->prjtg_id;
+        $sql = "select afko,year,description,pt.grp_num,p.prj_id," 
+	  ." pm.prjm_id,ga.alias as grp_alias,pm.milestone,pt.prjtg_id,tut.tutor\n" 
+          ." from project p join prj_milestone pm using(prj_id) " 
+          ."join prj_tutor pt using(prjm_id) join prj_grp pg using(prjtg_id) join tutor tut on(pt.tutor_id=tut.userid) " 
+          ."left join grp_alias ga using(prjtg_id)\n"
+	  . "where prjtg_id=" . $this->prjtg_id;
         $resultSet = $this->dbConn->Execute($sql);
         if ($resultSet === false) {
             die("<br>Cannot get student data with \"" . $sql . '", cause ' .
@@ -68,9 +68,9 @@ class GroupPhoto {
         $colcount = 0;
         $rowcount = 0;
         $tablehead = "<table align='center' width='100%' border='0' style='border-collapse:collapse'>\n"
-                . "<thead>\n\t<caption style='font-weight:bold;'>Group photos for project $afko: $description $year-" . ($year + 1)
-                . " prj_id=" . $prj_id . "  milestone " . $milestone . " (prjm_id=$prjm_id) grp " . $grp_num
-                . " (prjtg_id=$prjtg_id) " . $grp_alias
+                . "<thead>\n\t<caption style='font-weight:bold;font-size:120%'>Group photos for project $afko: $description $year-" . ($year + 1)
+                . " prj_id={$prj_id}  milestone {$milestone} (prjm_id={$prjm_id}) grp {$grp_num}"
+                . " (prjtg_id={$prjtg_id}) {$grp_alias} tutor {$tutor}"
                 . "</caption>\n</thead>\n";
         while (!$resultSet->EOF) {
             if ($rowcount == 0 && $colcount == 0) {
