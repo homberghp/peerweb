@@ -17,15 +17,20 @@ class SpreadSheetWriter {
     private $query;
     private $url = 'http://www.fontysvenlo.org';
     private $linkText = 'Peerweb';
-    private $name='spreadsheetwidget';
+    private $name = 'spreadsheetwidget';
+    private $weights = null;
+    private $firstWeightsColumn = -1;
+    private $weightSumsColumn = -1;
+
     public function getQuery() {
         return $this->query;
     }
 
-    public function setName($n){
-      $this->name=$n;
-      return $this;
+    public function setName($n) {
+        $this->name = $n;
+        return $this;
     }
+
     public function setQuery($query) {
         $this->query = $query;
     }
@@ -36,6 +41,21 @@ class SpreadSheetWriter {
 
     public function setUrl($url) {
         $this->url = $url;
+    }
+
+    public function setWeights($weights) {
+        $this->weights = $weights;
+        return $this;
+    }
+
+    public function setFirstWeightsColumn($firstWeightsColumn) {
+        $this->firstWeightsColumn = $firstWeightsColumn;
+        return $this;
+    }
+
+    public function setWeightSumsColumn($weightSumsColumn) {
+        $this->weightSumsColumn = $weightSumsColumn;
+        return $this;
     }
 
     private $title = 'Set a title';
@@ -131,6 +151,9 @@ class SpreadSheetWriter {
                     ->setLinkText($this->linkText)
                     ->setLinkUrl($this->url)
                     ->setAutoZebra($this->autoZebra)
+                    ->setWeights($this->weights)
+                    ->setWeightedSumsColumn($this->weightSumsColumn)
+                    ->setFirstWeightColumn($this->firstWeightsColumn)
                     ->setExcelFormat($excelFormat);
             if (isSet($this->rowparser)) {
                 $xlsWriter->setRowParser($this->rowparser);

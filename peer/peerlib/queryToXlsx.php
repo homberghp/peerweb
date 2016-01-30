@@ -39,9 +39,19 @@ class XLSWriter {
     private $columnTypes;
 
     /**
+     * weights : array used as weights in number fields
+     * @var type 
+     */
+    private $weights = null;
+    private $firstWeightColumn = -1;
+    private $weightedSumsColumn = -1;
+    private $weigthsRow = -1; // computed
+
+    /**
      * Construct a writer for a query.
      * @param type $dbC 
      */
+
     public function __construct($dbC) {
         $this->dbConn = $dbC;
         $this->rainBow = new RainBow();
@@ -123,8 +133,47 @@ class XLSWriter {
         return $this;
     }
 
+    /**
+     * Set the weights for a weighted table.
+     * @param type $w weights array
+     * @return \XLSWriter
+     */
+    public function setWeights($w) {
+        $this->weights = $w;
+        return $this;
+    }
+
+    /**
+     * Set the column, x based of the first column of the weighted data.
+     * @param type $c
+     * @return \XLSWriter
+     */
+    public function setFirstWeightColumn($c) {
+        $this->firstWeightColumn = $c;
+        return $this;
+    }
+
+    public function setWeightedSumsColumn($weightedSumsColumn) {
+        $this->weightedSumsColumn = $weightedSumsColumn;
+        return $this;
+    }
+
+    /**
+     * get the excel coordinate of a row and column.
+     * @param type $column
+     * @param type $row
+     * @return type
+     */
     static function cellCoordinate($column, $row) {
         return PHPExcel_Cell::stringFromColumnIndex($column) . $row;
+    }
+
+    static function cellCoordinateAbsoluteRow($column, $row) {
+        return PHPExcel_Cell::stringFromColumnIndex($column) . '$' . $row;
+    }
+
+    static function cellCoordinateAbsolute($column, $row) {
+        return '$' . PHPExcel_Cell::stringFromColumnIndex($column) . '$' . $row;
     }
 
     /**
@@ -230,6 +279,36 @@ class XLSWriter {
             ),
         );
         $oldValue = '';
+
+        if ($this->firstWeightColumn > 0) {
+            $this->weigthsRow = $row;
+            $coor = XLSWriter::cellCoordinate($this->firstWeightColumn - 1, $row);
+            $objPHPExcel->getActiveSheet()
+                    ->setCellValue(
+                            $coor, 'Weights', PHPExcel_Cell_DataType::TYPE_STRING);
+            $objPHPExcel->getActiveSheet()->getStyle($coor)->applyFromArray($headerStyles);
+            $weightSum = 0;
+            $w = 0;
+            $$weightLast = count($this->weights) - 1;
+            for (; $w < count($this->weights); $w++) {
+                $coor = XLSWriter::cellCoordinate($this->firstWeightColumn + $w, $row);
+                $weightSum +=$this->weights[$w];
+                $objPHPExcel->getActiveSheet()
+                        ->setCellValue(
+                                $coor, $this->weights[$w], PHPExcel_Cell_DataType::TYPE_NUMERIC);
+                $objPHPExcel->getActiveSheet()->getStyle($coor)->applyFromArray($headerStyles);
+            }
+            $coor = XLSWriter::cellCoordinate($this->weightedSumsColumn, $row);
+            $wBegin = XLSWriter::cellCoordinate($this->firstWeightColumn, $row);
+            $wEnd = XLSWriter::cellCoordinate($this->firstWeightColumn + $$weightLast, $row);
+            $formula = "=SUM($wBegin:$wEnd)";
+            $objPHPExcel->getActiveSheet()
+                    ->setCellValue(
+                            $coor, $formula, PHPExcel_Cell_DataType::TYPE_FORMULA);
+            $objPHPExcel->getActiveSheet()->getStyle($coor)->applyFromArray($headerStyles);
+
+            $row++;
+        }
         while (!$resultSet->EOF) {
             $rowData = $this->rowParser->parse($resultSet);
 
@@ -247,7 +326,8 @@ class XLSWriter {
                 $cellStyleArray['fill']['color']['argb'] = $this->rainBow->getCurrentAsARGBString();
                 $this->rainBow->getNext();
             }
-            for ($i = 0; $i < $headCount; $i++) {
+            $i = 0;
+            for (; $i < $headCount; $i++) {
                 $value = $rowData[$i];
                 $coor = XLSWriter::cellCoordinate($i, $row);
                 $xlstype = isSet($XlsTypes[$i]) ? $XlsTypes[$i] : PHPExcel_Cell_DataType::TYPE_STRING;
@@ -267,6 +347,20 @@ class XLSWriter {
                 }
 
 
+                $objPHPExcel->getActiveSheet()->getStyle($coor)->applyFromArray($cellStyleArray);
+            }
+            if ($this->weightedSumsColumn >= 0) {
+                $weightLast = count($this->weights) - 1;
+                $coor = XLSWriter::cellCoordinate($this->weightedSumsColumn, $row);
+                $wBegin = XLSWriter::cellCoordinateAbsoluteRow($this->firstWeightColumn, $this->weigthsRow);
+                $wEnd = XLSWriter::cellCoordinateAbsoluteRow($this->firstWeightColumn + $weightLast, $this->weigthsRow);
+                $rBegin = XLSWriter::cellCoordinate($this->firstWeightColumn, $row);
+                $rEnd = XLSWriter::cellCoordinate($this->firstWeightColumn + $weightLast, $row);
+                $wSumCoor = XLSWriter::cellCoordinateAbsolute($this->weightedSumsColumn, $this->weigthsRow);
+                $formula = "=SUMPRODUCT({$wBegin}:{$wEnd},{$rBegin}:{$rEnd})/$wSumCoor";
+                $objPHPExcel->getActiveSheet()
+                        ->setCellValueExplicit(
+                                $coor, $formula, PHPExcel_Cell_DataType::TYPE_FORMULA);
                 $objPHPExcel->getActiveSheet()->getStyle($coor)->applyFromArray($cellStyleArray);
             }
             $row++;
@@ -305,7 +399,9 @@ class XLSWriter {
             $objPHPExcel->getActiveSheet()->getColumnDimension($i)->setAutoSize(true);
 //            $objPHPExcel->getActiveSheet()->getStyle($i . '2')->applyFromArray($styleArray);
         }
-
+        PHPExcel_Calculation::getInstance()->clearCalculationCache();
+        PHPExcel_Calculation::getInstance()->disableCalculationCache();
+        PHPExcel_Calculation::getInstance()->calculate();
         switch ($this->excelFormat) {
             case 'Excel2007':
                 $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
@@ -322,6 +418,7 @@ class XLSWriter {
         }
 
         $tempFile = tempnam('/tmp/', 'PHPEXCEL'); // '/tmp/'.$filename;
+        $objWriter->setPreCalculateFormulas(true);
         $objWriter->save($tempFile);
 
         $fp = @fopen($tempFile, 'r');
