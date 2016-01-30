@@ -280,7 +280,7 @@ class XLSWriter {
         );
         $oldValue = '';
 
-        if ($this->firstWeightColumn > 0) {
+        if ($this->firstWeightColumn > 0) {// add weights row
             $this->weigthsRow = $row;
             $coor = XLSWriter::cellCoordinate($this->firstWeightColumn - 1, $row);
             $objPHPExcel->getActiveSheet()
@@ -306,7 +306,11 @@ class XLSWriter {
                     ->setCellValue(
                             $coor, $formula, PHPExcel_Cell_DataType::TYPE_FORMULA);
             $objPHPExcel->getActiveSheet()->getStyle($coor)->applyFromArray($headerStyles);
-
+            $coor = XLSWriter::cellCoordinate($this->weightedSumsColumn, $row - 1);
+            $objPHPExcel->getActiveSheet()
+                    ->setCellValue(
+                            $coor, 'Total WT', PHPExcel_Cell_DataType::TYPE_STRING);
+            $objPHPExcel->getActiveSheet()->getStyle($coor)->applyFromArray($headerStyles);
             $row++;
         }
         while (!$resultSet->EOF) {
