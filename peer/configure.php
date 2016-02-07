@@ -1,4 +1,5 @@
 <?php
+
 //
 // do not change anything below this line
 //
@@ -41,11 +42,11 @@ define('BODY_CLASS', $body_class);
 require_once('peerpgdbconnection.php');
 $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 require_once'/home/etc/peerpassword';
-$host = 'localhost';
+$host = '';
 $proto = 'pgsql';
 $tutor_code = '';
 $dbConn = new PeerPGDBConnection($proto);
-if (!$dbConn->Connect('localhost', $dbUser, $pass, $db_name)) {
+if (!$dbConn->Connect($host, $dbUser, $pass, $db_name)) {
     die("sorry, cannot connect to database $db_name because " . $dbConn->ErrorMsg());
 }
 // get database time
