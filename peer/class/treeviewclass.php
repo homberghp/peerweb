@@ -55,7 +55,7 @@ class TreeView {
   var $special_sign_names = array("å","ä","ö","Å","Ä","Ö","á","ü","Ü","ß","§","€");
   var $special_sign_values = array("&aring;" ,"&auml;", "&ouml;", "&Aring;", "&Auml;", "&Ouml;", "&acute;", "&uuml;", "&Uuml;", "&szlig;", "&sect;", "&euro;");
 
-  function TreeView($id)
+  public function __construct($id)
   {
     $this->treeviewid = $id;
     $this->defaultopenedimage = TREEVIEW_SOURCE."media/opened.gif";              
