@@ -32,7 +32,7 @@ if (isSet($hoofdgrp)) {
 $fdate = date('Y-m-d');
 $sql = "select tutor from tutor where userid=$slb";
 $rs = $dbConn->Execute($sql);
-$tutorCode= $rs->fields['tutor'];
+$tutorCode = $rs->fields['tutor'];
 
 $sqlhead = "select distinct snummer," .
         "achternaam||rtrim(coalesce(', '||voorvoegsel,'')::text) as achternaam ,roepnaam, " .
@@ -40,8 +40,7 @@ $sqlhead = "select distinct snummer," .
         "studieplan_short as studieplan,cohort,sclass,hoofdgrp ,\n" .
         "straat,huisnr,plaats,phone_gsm,phone_home,sort1\n" .
         "from \n";
-$sqltail =
-        " join student_class using(class_id) left join tutor t on (s.slb=t.userid)\n" .
+$sqltail = " join student_class using(class_id) left join tutor t on (s.slb=t.userid)\n" .
         " left join studieplan using(studieplan)\n" .
         " left join faculty f on(f.faculty_id=s.faculty_id)\n" .
         "where slb='$slb' and snummer not in (select userid from tutor) order by cohort desc,sclass,achternaam,roepnaam\n";
@@ -52,8 +51,9 @@ $filename = 'slb_list_' . $faculty_short . '_' . $tutorCode . '-' . date('Y-m-d'
 
 $spreadSheetWriter->setFilename($filename)
         ->setTitle("Slb groep list  $faculty_short $tutorCode $fdate")
-        ->setLinkUrl($server_url . $PHP_SELF )
-        ->setFilename($filename);
+        ->setLinkUrl($server_url . $PHP_SELF)
+        ->setFilename($filename)
+        ->setAutoZebra(true);
 
 $spreadSheetWriter->processRequest();
 $spreadSheetWidget = $spreadSheetWriter->getWidget();
