@@ -1,5 +1,4 @@
-<!DOCTYPE public "-//w3c//dtd html 4.01 transitional//en"
-    "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="<?= STYLEFILE ?>">
@@ -11,12 +10,12 @@
 
             <div class='intro'>
                 <form action="close.html">
-                    <h1 style='color:white'>Document <?= $doc_id ?> is not available to you, <?=$student_name?>.
+                    <h1 style='color:white'>Document <?= $doc_id ?> is not available to you, <?= $student_name ?>.
                         <input type="image" src="<?= IMAGEROOT ?>/error.png" onClick='self.close()' alt="Close"></h1>
                 </form>
             </div>
             <div class='navleft selected' style='padding:1em;'>
-                File "<b><?=$fname?></b>" is not accessible.<br/>
+                File "<b><?= $fname ?></b>" is not accessible.<br/>
                 This may have several reasons: 
                 <ol>
                     <li>The document is simply not on the server.</li>
@@ -26,7 +25,7 @@
                             <li>You are not tutor <i>or</i></li>
                             <li>You are not member of the project group that this document belongs to <i>or</i></li>
                             <li>You are participating in the project in a different and the document's due date has not yet expired,</li>
-                            <li>The tutor selected to prevent group visibilty before the due date</li>
+                            <li>The tutor selected to prevent group visibility before the due date</li>
                         </ul>
                     </li>
                     in no particular order.
