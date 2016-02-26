@@ -4,4 +4,9 @@ peer/setdb.php
 tex/out/
 tex/tablecard_out/
 log
+tex/*
 *~
+peer/BUILD
+subversion/BUILD
+upload/
+
