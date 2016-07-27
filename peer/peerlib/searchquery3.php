@@ -592,7 +592,7 @@ class InsertQuery3 extends SearchQuery3 {
 }
 
 /**
- * To delete no more than intended mak sure taht all key columns are set so that only
+ * To delete no more than intended make sure that all key columns are set so that only
  * one record is deleted
  */
 class DeleteQuery3 extends UpdateQuery3 {
