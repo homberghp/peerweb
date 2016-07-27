@@ -21,7 +21,7 @@ class Navigation extends HtmlContainer {
     var $extra_opening_line = '';
     var $navtable = array();
 
-    function Navigation($navtable, $page, $pageOpening) {
+    function __construct($navtable, $page, $pageOpening) {
         global $LOGINDATA;
         global $root_url;
         $this->pageOpening = $pageOpening;
