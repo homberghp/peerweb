@@ -1,10 +1,12 @@
 <?php
 require_once 'validators.inc';
-  /**
-   * @param $login code: known user id on database, either studentnumber (snummer) or userid.
-   * @return string with result description. To be displayed to the user.
-   * @precondition: peerutils is included, database connection is setup and has name $dbConn
-   */
+require_once 'Mail.php' ;
+require_once 'Mail/mime.php' ;
+/**
+ * @param $login code: known user id on database, either studentnumber (snummer) or userid.
+ * @return string with result description. To be displayed to the user.
+ * @precondition: peerutils is included, database connection is setup and has name $dbConn
+ */
 function makenewlogincode($logincode,$secret) {
   global $dbConn;
   $result='Creation of a new authentication code failed for '.$logincode.'. You are unknown to this service.';
@@ -83,34 +85,28 @@ function mkpasswordmail( $email,$logincode,$roepnaam,$voorvoegsel,$achternaam,$p
   }
   return $result; 
 }
+
+
 function mail_attachment($filename,$path, $mailto, $from_mail, $from_name, $replyto, $subject, $message) {
-  $file=$path.$filename;
-  $file_size = filesize($file);
-  $handle = fopen($file, "r");
-  $content = fread($handle, $file_size);
-  fclose($handle);
-  $content = chunk_split(base64_encode($content));
-  $uid = md5(uniqid(time()));
-  $name = basename($file);
-  $header = "From: ".$from_name." <".$from_mail.">\r\n";
-  $header .= "Reply-To: ".$replyto."\r\n";
-  $header .= "MIME-Version: 1.0\r\n";
-  $header .= "Content-Type: multipart/mixed; boundary=\"".$uid."\"\r\n\r\n";
-  $header .= "This is a multi-part message in MIME format.\r\n";
-  $header .= "--".$uid."\r\n";
-  $header .= "Content-type:text/plain; charset=iso-8859-1\r\n";
-  $header .= "Content-Transfer-Encoding: 7bit\r\n\r\n";
-  $header .= $message."\r\n\r\n";
-  $header .= "--".$uid."\r\n";
-  $header .= "Content-Type: application/pdf; name=\"".$filename."\"\r\n"; // use different content types here
-  $header .= "Content-Transfer-Encoding: base64\r\n";
-  $header .= "Content-Disposition: attachment; filename=\"".$filename."\"\r\n\r\n";
-  $header .= $content."\r\n\r\n";
-  $header .= "--".$uid."--";
-  if (mail($mailto, $subject, "", $header)) {
-    echo "mail send ... OK"; // or use booleans here
-  } else {
-    echo "mail send ... ERROR!";
-  }
+  $html = "<html><body>{$message}</body></html>";
+  $file = $path.'/'.$filename;
+  $crlf = "\n";
+  $hdrs = array(
+		'From'    => "{$from_name} <{$from_mail}>",
+		'Subject' => $subject
+		);
+  
+  $mime = new Mail_mime(array('eol' => $crlf));
+  
+  $mime->setTXTBody($message);
+  $mime->setHTMLBody($html);
+  $mime->addAttachment($file, 'application/pdf');
+  
+  $body = $mime->get();
+  $hdrs = $mime->headers($hdrs);
+  
+  $mail = Mail::factory('mail');
+  $mail->send($mailto, $hdrs, $body);
+  
 }
 ?>

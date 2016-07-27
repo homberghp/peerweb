@@ -49,7 +49,11 @@ class PeerPGDBConnection {
     function Connect($host, $user, $pass, $db_name) {
 
         $this->db_name = $db_name;
-        $result = $this->connection = pg_connect("host={$host} user={$user} password={$pass} dbname={$db_name}");
+        $hostString = "host={$host} ";
+        if ($host == '' || $host == 'localhost') {
+            $hostString = '';
+        }
+        $result = $this->connection = pg_connect("{$hostString}user={$user} password={$pass} dbname={$db_name}");
         if ($result === false) {
             die("cannot establish connection\n" . pg_last_error());
         }

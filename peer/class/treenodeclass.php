@@ -47,7 +47,7 @@ class TreeNode
   var $underline = false;
   var $font_color = "";
    
-  function TreeNode($id, $name = "No name", $onClickInformation = "",$displayName="A nice Menu")
+  public function __construct($id, $name = "No name", $onClickInformation = "",$displayName="A nice Menu")
   {
     $this->id = $id;                
     $this->parentid = -1;                

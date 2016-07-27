@@ -49,19 +49,20 @@ $filename = 'hoofdgrp_list_' . $faculty_short . '_' . $hoofdgrp . '-' . date('Y-
 
 $spreadSheetWriter->setFilename($filename)
         ->setTitle("Hoofd groep list  $faculty_short $hoofdgrp $fdate")
-        ->setLinkUrl($server_url . $PHP_SELF . '?hoofdgrp=' . $hoofdgrp)
-        ->setFilename($filename);
+        ->setLinkUrl("{$server_url}{$PHP_SELF}?hoofdgrp={$hoofdgrp}")
+        ->setFilename($filename)
+        ->setAutoZebra(true);
 
 $spreadSheetWriter->processRequest();
 $spreadSheetWidget = $spreadSheetWriter->getWidget();
 
-$sqlhead = "select distinct '<a href=''student_admin.php?snummer='||snummer||'''target=''_blank''>'||snummer||'</a>' as snummer,\n" 
-        ."'<img src='''||photo||''' style=''height:24px;width:auto;''/>' as foto,\n"
-        ."achternaam||rtrim(coalesce(', '||voorvoegsel,'')::text) as achternaam ,roepnaam, \n" 
-        ."pcn,cohort,t.tutor as slb,gebdat as birth_date,rtrim(email1) as email1,\n" 
-        ."studieplan_short as studieplan,faculty_short as facul,sclass,hoofdgrp,\n" 
-        ."straat,huisnr,plaats,phone_gsm,phone_home\n" 
-        ." from \n";
+$sqlhead = "select distinct '<a href=''student_admin.php?snummer='||snummer||'''target=''_blank''>'||snummer||'</a>' as snummer,\n"
+        . "'<img src='''||photo||''' style=''height:24px;width:auto;''/>' as foto,\n"
+        . "achternaam||rtrim(coalesce(', '||voorvoegsel,'')::text) as achternaam ,roepnaam, \n"
+        . "pcn,cohort,t.tutor as slb,gebdat as birth_date,rtrim(email1) as email1,\n"
+        . "studieplan_short as studieplan,faculty_short as facul,sclass,hoofdgrp,\n"
+        . "straat,huisnr,plaats,phone_gsm,phone_home\n"
+        . " from \n";
 $sql2 = $sqlhead . ' student_email s natural join portrait ' . $sqltail;
 //$dbConn->log($sql2);
 $scripts = '<script type="text/javascript" src="js/jquery.js"></script>
