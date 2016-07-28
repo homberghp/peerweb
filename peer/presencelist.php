@@ -28,10 +28,10 @@ class MyRowFactory implements RowFactory {
             $this->old_grp_num = $grp_num;
             $this->rowColor = $this->rainbow->getNext();
             $grpnamecel = "\t<td class='tabledata num' style='font-size:200%;vertical-align:top' rowspan='$grp_size'>"
-                    ."<button type='button' style='height:100%;width:100%' clas='grp_but' "
-                    ." onclick='function(){ $(\".p{$grp_id}\").checked=true; } return false; ' value='{$grp_name}'>{$grp_num}</button>"
-                    ."</td>\n"
-                    ."";
+                    . "<button type='button' style='height:100%;width:100%' clas='grp_but' "
+                    . " onclick='function(){ $(\".p{$grp_id}\").checked=true; } return false; ' value='{$grp_name}'>{$grp_num}</button>"
+                    . "</td>\n"
+                    . "";
         }
         $result = "<tr style='background-color:" . $this->rowColor . "'>\n\t<td>" . $this->rowCounter . "</td>\n"
                 //. "\t<td class='tabledata num'>$grp_name</td>\n"
@@ -112,15 +112,14 @@ extract($_SESSION);
 
 $prjSel = new PrjMilestoneSelector2($dbConn, $peer_id, $prjm_id);
 $prjSel->setJoin(' all_project_scribe aps using(prj_id) ');
-$prjSel->setWhere(' ' . $peer_id . '=aps.scribe');
+$prjSel->setWhere(" {$peer_id} =aps.scribe ");
 extract($prjSel->getSelectedData());
 $_SESSION['prj_id'] = $prj_id;
 $_SESSION['prjm_id'] = $prjm_id;
 $_SESSION['milestone'] = $milestone;
 
 if (isSet($_REQUEST['act_id'])) {
-    $_SESSION['act_id'] =
-            $act_id = validate($_REQUEST['act_id'], 'integer', $act_id);
+    $_SESSION['act_id'] = $act_id = validate($_REQUEST['act_id'], 'integer', $act_id);
 } else if (!defined($_SESSION['act_id'])) {
     // get last defined activity for project milestone
     $sql = "select max(act_id) as act_id from activity where prjm_id=$prjm_id";
@@ -141,8 +140,7 @@ if (isSet($act_id) && ($act_id >= 0)) {
     if (!$rs->EOF) {
         extract($rs->fields);
     }
-}
-else
+} else
     $act_id = 1;
 
 if (isSet($_REQUEST['bsubmit']) && isSet($_REQUEST['participant']) && isProjectScribe($prj_id, $peer_id)) {
@@ -200,14 +198,15 @@ function clickGrp(grpId){
 ';
 // get group tables for a project
 pagehead2('Get presence list', $script);
-$page_opening = "Presence list for students attending activities";
+$page_opening = "Presence list for students attending activities xyz";
 $nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $nav->show();
 $sql3 = "select datum||', '||' ('||act_id||', #'||coalesce(apc.count,0)||') '||act_type_descr||' '||rtrim(short)" .
         "||'*'||part||': '||rtrim(description) as name, act_id as value," .
         "to_char(datum,'IYYY')||':'||milestone as namegrp\n" .
-        " from activity natural join activity_type natural join prj_milestone left join act_part_count apc using(act_id) \n\t" .
+        " from activity join activity_type using(act_type) join prj_milestone using(prjm_id) ".
+        "left join act_part_count apc using(act_id) \n\t" .
         " where prjm_id=$prjm_id\n" .
         "order by namegrp desc,datum desc,part asc";
 $actSel = new Selector($dbConn, 'act_id', $sql3, $act_id);
@@ -217,8 +216,7 @@ $sql = "select snummer as participant from activity_participant where act_id=$ac
 $resultSet = $dbConn->Execute($sql);
 if ($resultSet === false) {
     print "error fetching participant data with $sql : " . $dbConn->ErrorMsg() . "<br/>\n";
-}
-else
+} else
     while (!$resultSet->EOF) {
         array_push($participant, $resultSet->fields['participant']);
         $resultSet->moveNext();
@@ -229,40 +227,23 @@ $resultSet = $dbConn->Execute($sql);
 if ($resultSet === false) {
     print "error fetching count data with $sql : " . $dbConn->ErrorMsg() . "<br/>\n";
 }
-$present = $resultSet->fields['present'];
-$sql = "select coalesce(alias,'g'||apt.grp_num::text) as sgroup,st.snummer,size as grp_size,\n" .
-                    "achternaam||', '||roepnaam||coalesce(' '||voorvoegsel,'') as name," .
-                    "'<img src=\"'||photo||'\" width=32 height=48/>' as face,\n" .
-                    "snummer as participant,ap.presence,ar.reason as comment,apt.grp_num\n" .
-                    ",coalesce(alias,'g'||apt.grp_num) as grp_name, 'g'||apt.grp_num as grp_id" .
-                    " from prj_grp pg join all_prj_tutor apt using(prjtg_id) join grp_size using(prjtg_id)\n" .
-                    " natural join student st " .
-                    " natural join portrait \n" .
-                    "left join (select snummer,presence from activity_participant \n" .
-                    "            where act_id=$act_id) ap using(snummer)\n" .
-                    " left join (select snummer,reason from absence_reason \n" .
-                    "            where act_id=$act_id) ar using(snummer) \n" .
-                    " where prjm_id=$prjm_id \n" .
-                    " order by apt.grp_num,achternaam,roepnaam\n";
-            $myRowFactory = new MyRowFactory();
-            $tableBuilder = new TableBuilder($dbConn, $myRowFactory);
-            
-?>
-<div id='navmain' style='padding:1em;'>
-    <?= $prjSel->getWidget() ?>
-    <fieldset><legend>Select activity</legend>
-        <p>Presence list:<a href='attendanceforms.php?act_id=<?= $act_id ?>'>Pdf version of presence list</a></p>
-        <form method="post" id="activity" action="<?= $PHP_SELF; ?>">
-            <p>Select activity</p>
-            <?= $act_id_selector ?><input type='submit' name='sbm' value='Get'>
-            <p>Activity <span style='font-size:120%;font-weight:bold'><?= $act_id ?>, <?= $datum ?> <?= $start_time ?> <?= $part ?> <?= $short ?> <?= $description ?></span>
-            </p>
-            <p>Number of students present: <?= $present ?></p>
-            <?=$tableBuilder->getTable($sql, 'snummer')?>
-            <input type='submit' name='bsubmit' value='submit'/>
-        </form>
-    </fieldset>
-</div>
-<!-- db_name=<?= $db_name ?> -->
-</body>
-</html>
+{
+    $present = $resultSet->fields['present'];
+    $sql = "select coalesce(alias,'g'||apt.grp_num::text) as sgroup,st.snummer,size as grp_size,\n" .
+            "achternaam||', '||roepnaam||coalesce(' '||voorvoegsel,'') as name," .
+            "'<img src=\"'||photo||'\" width=32 height=48/>' as face,\n" .
+            "snummer as participant,ap.presence,ar.reason as comment,apt.grp_num\n" .
+            ",coalesce(alias,'g'||apt.grp_num) as grp_name, 'g'||apt.grp_num as grp_id" .
+            " from prj_grp pg join all_prj_tutor apt using(prjtg_id) join grp_size using(prjtg_id)\n" .
+            " natural join student st " .
+            " natural join portrait \n" .
+            "left join (select snummer,presence from activity_participant \n" .
+            "            where act_id=$act_id) ap using(snummer)\n" .
+            " left join (select snummer,reason from absence_reason \n" .
+            "            where act_id=$act_id) ar using(snummer) \n" .
+            " where prjm_id=$prjm_id \n" .
+            " order by apt.grp_num,achternaam,roepnaam\n";
+    $myRowFactory = new MyRowFactory();
+    $tableBuilder = new TableBuilder($dbConn, $myRowFactory);
+    include 'templates/presencelist.html';
+}
