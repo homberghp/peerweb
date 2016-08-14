@@ -74,8 +74,9 @@ function mkpasswordmail( $email,$logincode,$roepnaam,$voorvoegsel,$achternaam,$p
   fclose($handle);
   //  $result = @`$makemailcmd`;
   mail_attachment($pdffilename,$texoutdir,$email,'peerweb@fontysvenlo.org','Peerweb service','peerweb authentication',"authentication data in attachement for $root_url using database $db_name.");
+  $cpassword = password_hash($password,PASSWORD_BCRYPT);
   $sql ="begin work;\n".
-      "update passwd set password =crypt('$password',gen_salt('des')) where userid='$logincode';\n".
+      "update passwd set password ='{$cpassword}' where userid='$logincode';\n".
       "insert into password_request (userid) values('$logincode');".
       "commit;";
   $resultSet= $dbConn->execute($sql);

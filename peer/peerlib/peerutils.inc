@@ -668,7 +668,7 @@ function authenticate($uid, $pw) {
         return 2;
     // user must be in user table
     $sql = "select userid as username,rtrim(password) as password,\n" .
-            " capabilities,tutor.tutor from passwd left join tutor using (userid) where userid='$uid'";
+            " capabilities,tutor.tutor from passwd left join tutor using (userid) where userid='{$uid}'";
     $resultSet = $dbConn->execute($sql);
     // if no result, fail
     if ($resultSet === false) {
@@ -683,6 +683,16 @@ function authenticate($uid, $pw) {
     $cpasswd = crypt($pw, $password);
     if ($cpasswd != $password)
         return 5;
+    // update password to bluefish
+    if (substr($cpasswd, 0, 4) != '$2y$') {
+        $c2pw = password_hash($pw, PASSWORD_BCRYPT);
+        $sql = "update passwd set password='{$c2pw}' where userid='{$uid}'";
+        $resultSet = $dbConn->execute($sql);
+        if ($resultSet === false) {
+            echo('Error: generating newly encrypted password');
+            return 9;
+        }
+    }
     // apply capabilities
     $_SESSION['userCap'] = $capabilities;
     if (isSet($tutor))
