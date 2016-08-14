@@ -556,13 +556,16 @@ class PeerResultSet {
      * @return the row or false  on failure.
      */
     function MoveFirst() {
-//        pg_result_seek($this->resource, 0);
-        $this->EOF = false; //optimists assume there is something
-        $this->fields = pg_fetch_array($this->resource, $this->rowNr = 0, PGSQL_BOTH); // $ADODB_FETCH_MODE);
-        if ($this->fields === false) {
-            $this->EOF = true;
+        if (pg_result_seek($this->resource, 0)) {
+            $this->fields = pg_fetch_array($this->resource, $this->rowNr = 0, PGSQL_BOTH); // $ADODB_FETCH_MODE);
+            if ($this->fields === false) {
+                $this->EOF = true;
+            }
+            //echo "<pre>" . ($this->callCtr++) . " " . print_r($this->fields, true) . "</pre>";
+        } else {
+            $this->fields = false;
+            $this->EOF = false; //optimists assume there is something
         }
-        //echo "<pre>" . ($this->callCtr++) . " " . print_r($this->fields, true) . "</pre>";
         return $this->fields;
     }
 

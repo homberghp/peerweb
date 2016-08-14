@@ -3,7 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/home/hom/peerweb/peer/groupuploads.php</file>
+            <file>file:/home/hom/peerweb/peer/peerlib/peerpgdbconnection.php</file>
+            <file>file:/home/hom/peerweb/peer/ajax/framework/xajaxResponse.inc.php</file>
+            <file>file:/home/hom/peerweb/peer/ajax/framework/xajaxCompress.php</file>
+            <file>file:/home/hom/peerweb/peer/ajax/framework/xajax.inc.php</file>
+            <file>file:/home/hom/peerweb/peer/presencelist.php</file>
+            <file>file:/home/hom/peerweb/peer/templates/presencelist.html</file>
             <file>file:/home/hom/peerweb/peer/peerlib/searchquery3.php</file>
+            <file>file:/home/hom/peerweb/peer/addtoclass.php</file>
+            <file>file:/home/hom/peerweb/peer/templates/buit.xhtml</file>
         </group>
     </open-files>
 </project-private>

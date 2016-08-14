@@ -33,7 +33,7 @@ class Container extends Component {
         
     }
 
-    function add(&$child) {
+    function add($child) {
         array_push($this->children, $child);
         return $this;
     }

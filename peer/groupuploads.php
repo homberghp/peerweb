@@ -74,7 +74,7 @@ $sql = "select sum(filesize) as zip_filesize from uploads where prjm_id=$prjm_id
 $resultSet = $dbConn->Execute($sql);
 if ($resultSet === false) {
     echo('Error: ' . $dbConn->ErrorMsg() . ' with ' . $sql);
-} else {
+} else if (!$resultSet->EOF) {
     extract($resultSet->fields);
     $zip_filesize = number_format($zip_filesize, 0, ',', '.');
 }

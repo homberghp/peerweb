@@ -1,0 +1,15 @@
+<div id='navmain' style='padding:1em;'>
+<?= $prjSel->getWidget() ?>
+    <fieldset><legend>Select activity</legend>
+        <p>Presence list:<a href='attendanceforms.php?act_id=<?= $act_id ?>'>Pdf version of presence list</a></p>
+        <form method="post" id="activity" action="<?= $PHP_SELF; ?>">
+            <p>Select activity</p>
+<?= $act_id_selector ?><input type='submit' name='sbm' value='Get'>
+            <p>Activity <span style='font-size:120%;font-weight:bold'><?= $act_id ?>, <?= $datum ?> <?= $start_time ?> <?= $part ?> <?= $short ?> <?= $description ?></span>
+            </p>
+            <p>Number of students present: <?= $present ?></p>
+<?= $tableBuilder->getTable($sql, 'snummer') ?>
+            <input type='submit' name='bsubmit' value='submit'/>
+        </form>
+    </fieldset>
+</div>
