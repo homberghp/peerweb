@@ -73,8 +73,8 @@ if ( isSet( $_SESSION['peer_id'] ) && isSet( $peer_pw )
     $_SESSION['prj_id'] = $prj_id;
     $_SESSION['milestone'] = $milestone;
   }
-} else if ( ( isSet( $_SESSION['peer_id'] ) && isSet( $_SESSION['password'] )) && authenticateCrypt( $_SESSION['peer_id'],
-                $_SESSION['password'] ) != 0 ) {
+} else if ( ( isSet( $_SESSION['peer_id'] ) && isSet( $_SESSION['password'] ))
+        && authenticateCrypt( $_SESSION['peer_id'], $_SESSION['password'] ) != 0 ) {
   unSet( $_SESSION['auth_user'] );
   unSet( $_SESSION['peer_id'] );
   unSet( $_SESSION['password'] );

@@ -692,6 +692,7 @@ function authenticate($uid, $pw) {
             echo('Error: generating newly encrypted password');
             return 9;
         }
+        $cpasswd = $c2pw;
     }
     // apply capabilities
     $_SESSION['userCap'] = $capabilities;
