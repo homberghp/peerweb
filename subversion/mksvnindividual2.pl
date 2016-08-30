@@ -8,6 +8,9 @@ use File::Temp qw/ tempfile tempdir /;
 use File::Path qw/make_path/;
 use File::Basename;
 use POSIX qw(locale_h);
+use utf8;
+use Encode qw(encode decode);
+binmode STDOUT, ':utf8';
 
 my %attr = (
     PrintError => 0,
