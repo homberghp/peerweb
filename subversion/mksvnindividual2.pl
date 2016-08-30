@@ -4,17 +4,19 @@
 use strict;
 use DBI;
 use Getopt::Long;
+use charnames ':full';
 use File::Temp qw/ tempfile tempdir /;
 use File::Path qw/make_path/;
 use File::Basename;
 use POSIX qw(locale_h);
 use utf8;
 use Encode qw(encode decode);
-binmode STDOUT, ':utf8';
+binmode STDOUT, ':encoding(utf8)';
 
 my %attr = (
     PrintError => 0,
     RaiseError => 0,
+    pg_utf8_strings => 1   ,
 );
 setlocale(LC_ALL,'en_US.UTF-8');
 my $dirtemplate ='mksvniscriptXXXXXX';
@@ -59,7 +61,7 @@ EOF
 my $dbh;
 my $query;
 my $sth;
-$dbh= DBI->connect("dbi:Pg:dbname=$db","$dbuser" ,"$dbpasswd",\%attr)
+$dbh= DBI->connect("dbi:Pg:dbname=$db","$dbuser" ,"$dbpasswd",{pg_utf8_strings =>1,pg_enable_utf8 => -1})
     or die "Cannot execute ",$DBI::errstr,"\n";
 
 $query="select rtrim(lower(afko)) as afko,year,prj_id,milestone from project join prj_milestone using(prj_id)  where prjm_id=$prjm_id\n";
@@ -90,6 +92,7 @@ if (!open(AUTHZ,">$authz")){
     print  "Cannot create authz $authz file to create and configure repos\n";
     exit(3);
 }
+binmode AUTHZ, ':encoding(utf8)';
 
 $svnrootpath=$repospath;
 
@@ -97,6 +100,7 @@ if (!open(MKDIRSCRIPT,">$script")){
     print "cannot open script $script for writing\n";
     exit(4);
 }
+binmode MKDIRSCRIPT, ':encoding(utf8)';
 
 
 print MKDIRSCRIPT <<EOF;
@@ -110,7 +114,7 @@ set -x
 echo creating repository in $repospath
 echo script name = $script
 echo authz name = $authz
-umask 007
+umask 027
 mkdir -p $svnrootpath
 /usr/bin/svnadmin create $svnrootpath
 # create temp for conf and hooks
@@ -152,14 +156,14 @@ while ($row = $sth->fetchrow_arrayref) {
 print AUTHZ "[groups]\n",
   "tutor = $admins\n";
 print MKDIRSCRIPT "cd $initdir\n";
-$query="select snummer,replace(replace(replace(replace(replace(achternaam,'ä','ae'),'ö','oe'),'ü','ue'),'ß','ss'),'é','e') as achternaam ,"
-    ."replace(replace(replace(replace(replace(roepnaam,'ä','ae'),'ö','oe'),'ü','ue'),'ß','ss'),'é','e') as roepnaam,voorvoegsel\n"
-    ." from prj_grp natural join student join all_prj_tutor using(prjtg_id) \n"
-    ."where prj_id=$prj_id and milestone=$milestone order by achternaam,roepnaam,snummer";
-# $query="select snummer,achternaam ,"
-#     ."roepnaam,voorvoegsel\n"
+# $query="select snummer,replace(replace(replace(replace(replace(achternaam,'ä','ae'),'ö','oe'),'ü','ue'),'ß','ss'),'é','e') as achternaam ,"
+#     ."replace(replace(replace(replace(replace(roepnaam,'ä','ae'),'ö','oe'),'ü','ue'),'ß','ss'),'é','e') as roepnaam,voorvoegsel\n"
 #     ." from prj_grp natural join student join all_prj_tutor using(prjtg_id) \n"
 #     ."where prj_id=$prj_id and milestone=$milestone order by achternaam,roepnaam,snummer";
+$query="select snummer,achternaam ,"
+    ."roepnaam,voorvoegsel\n"
+    ." from prj_grp natural join student join all_prj_tutor using(prjtg_id) \n"
+    ."where prj_id=$prj_id and milestone=$milestone order by achternaam,roepnaam,snummer";
 $sth=$dbh->prepare($query)
     or die "Cannot execute ",$sth->errstr(),"\n";
 $sth->execute();
@@ -243,7 +247,8 @@ EOF
 
 close(MKDIRSCRIPT);
 # and execute the script
-$result .= `LC_CTYPE=en_US.UTF-8 bash $script`;
+#$result .= `LC_CTYPE=en_US.UTF-8 bash $script`;
+$result .= `bash $script`;
 print "Command executed with output<pre style='color:#800'>\n$result"."</pre>\n";
 
 if (!open(APACHECONF,">$apache_conf_file")) {
