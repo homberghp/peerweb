@@ -38,6 +38,7 @@ $sqlhead = "select distinct snummer,"
         . " from \n";
 $sqltail = " join student_class using(class_id) left join tutor t on (s.slb=t.userid)\n"
         . " left join studieplan using(studieplan)\n"
+        . "left join nat_mapper using(nationaliteit)\n"
         . "where class_id='$class_id' order by achternaam,roepnaam";
 
 
@@ -57,7 +58,7 @@ $spreadSheetWidget = $spreadSheetWriter->getWidget();
 $sqlhead = "select distinct '<a href=''student_admin.php?snummer='||snummer||''' target=''_blank''>'||snummer||'</a>' as snummer," .
         "'<img src='''||photo||''' style=''height:24px;width:auto;''/>' as foto,\n"
         . "achternaam ,roepnaam, voorvoegsel as tussenvoegsel," .
-        "pcn,lang,cohort,t.tutor as slb,gebdat as birth_date,rtrim(email1) as email1,rtrim(email2) as email2,\n" .
+        "pcn,lang,cohort,t.tutor as slb,nation_omschr,gebdat as birth_date,rtrim(email1) as email1,rtrim(email2) as email2,\n" .
         "studieplan_short as studieplan,sclass,hoofdgrp,\n" .
         "straat,huisnr,plaats,phone_gsm,phone_home\n" .
         " from \n";
