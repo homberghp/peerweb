@@ -10,6 +10,7 @@
 \usepackage[code=Code39,X=.5mm,ratio=2.25,H=1cm]{makebarcode}
 \usepackage[a4paper,left=5mm,width=200mm,right=0mm,height=290mm]{geometry}
 \setlength{\unitlength}{1mm}
+\def\figureBase{../}
 \newsavebox\namebox
 \newsavebox\rolebox
 \newsavebox\tablebox
@@ -21,8 +22,8 @@
 \newsavebox\frontbox
 \setlength\parsep{0pt}
 \setlength\parindent{0pt}
-\savebox\voorbeeld{\includegraphics[width=100mm]{figures/Vouwvoorbeeld}}
-\savebox\logobox{\includegraphics[width=30mm]{figures/logo}}
+\savebox\voorbeeld{\includegraphics[width=100mm]{\figureBase/figures/Vouwvoorbeeld}}
+\savebox\logobox{\includegraphics[width=30mm]{\figureBase/figures/logo}}
 \savebox{\commercialboxnl}[200mm][c]{
 \mbox{
 \begin{picture}(100,60)
