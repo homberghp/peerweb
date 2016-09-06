@@ -47,7 +47,7 @@ if (isSet($_POST['bcreate'])) {
     $individual = (trim($_REQUEST['repos_individual']) == 'individual') ? 'individual' : 'group';
     $twigs = trim($_REQUEST['twigs']);
     if ($individual == 'individual') {
-        $cmdstring = $subversionscriptdir . "/mksvnindividual2.pl --db $db_name "
+        $cmdstring = $subversionscriptdir . "/mksvnindividual3.pl --db $db_name "
                 . "--projectmilestone $prjm_id --parent $reposroot --name $new_repos_name --url_base $url_base --twigs='$twigs'";
     } else {
         $cmdstring = $subversionscriptdir . "/mksvngroup2.pl --db $db_name "
