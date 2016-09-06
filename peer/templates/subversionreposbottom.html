@@ -42,3 +42,10 @@
     </form>
     <?= $cmd_result ?>
 </fieldset>
+<fieldset><legend>To check out all sub repos at once</legend>
+  <pre style='background:#000;color:#fff;padding:1em;'>
+    for i in <?=$repolist?>; do
+    svn co  https://www.fontysvenlo.org<?=$repobase?>${i} ${i};
+    done 
+  </pre>
+  </fieldset>
