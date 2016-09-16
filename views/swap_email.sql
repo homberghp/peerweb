@@ -17,3 +17,17 @@ end;
 $swapemail$;
 
 
+create or replace function swap_email_project(prjm_ida integer) returns integer
+language plpgsql
+as $swapemailp$
+declare sr alt_email%rowtype;
+declare i integer;
+begin
+	i := 0;
+	for sr in select snummer,email2,email3 from alt_email join prj_grp using(snummer) join prj_tutor using (prjtg_id)   where prjm_id =prjm_ida loop
+	    execute format('select swap_email12(%s::integer)', sr.snummer);
+	    i:= i+1;
+	end loop;
+	return i;
+end;
+$swapemailp$
