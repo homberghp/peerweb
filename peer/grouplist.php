@@ -77,7 +77,7 @@ $prjSel->setJoin('milestone_grp using (prj_id,milestone)');
 $prj_id_selector = $prjSel->getSelector();
 $emailList = '';
 $grpList = array();
-$resultSet = $dbConn->Execute($sqlhead2 . $sqltail);
+$resultSet = $dbConn->Execute($sqlhead . $sqltail);
 if ($resultSet === false) {
     $dbConn->log('failed wth' . $dbConn->ErrorMsg());
 }
