@@ -668,7 +668,7 @@ function authenticate($uid, $pw) {
         return 2;
     // user must be in user table
     $sql = "select userid as username,rtrim(password) as password,\n" .
-            " capabilities,tutor.tutor from passwd left join tutor using (userid) where userid='{$uid}'";
+            " capabilities,tutor.tutor from passwd left join tutor using (userid) where not disabled and userid='{$uid}'";
     $resultSet = $dbConn->execute($sql);
     // if no result, fail
     if ($resultSet === false) {
