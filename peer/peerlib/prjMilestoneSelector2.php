@@ -85,7 +85,8 @@ class PrjMilestoneSelector2 {
                 . " case when p.owner_id={$this->peer_id} then 1 else 0 end as ismine,\n"
                 . " case when now()::date <= valid_until and now()::date <=assessment_due then 'active'\n"
                 . "      when now()::date <= valid_until and now()::date > assessment_due then 'cold' else 'inactive'"
-                . " end as css_class\n"
+                . " end as css_class,year,prj_id,milestone,prjm_id,valid_until,assessment_due,\n"
+                        ."trim(p.afko) as afko, trim(p.description) as description,trim(course_short) as course_short\n"
                 . " from project p join tutor t on(owner_id=userid) join prj_milestone pm using(prj_id) natural join fontys_course fc\n"
                 . (($this->extraJoin !== '') ? ("\njoin " . $this->extraJoin . "\n") : '')
                 . (($this->whereClause !== '') ? ("\nwhere " . $this->whereClause . "\n") : '')
@@ -116,21 +117,7 @@ class PrjMilestoneSelector2 {
         if ( $this->dataCache != null ) {
             return $this->dataCache;
         }
-        //echo "extra join <pre>{$this->extraJoin}</pre>";
-        $sql = "select 0 as first, pm.prj_id,pm.prjm_id,pm.milestone,p.year,trim(p.afko) as afko,trim(p.description) as description"
-                . ",t.tutor as tutor_owner,p.valid_until,pm.assessment_due,trim(fc.course_short) as course_short\n"
-                . " from prj_milestone pm natural join project p join tutor t on(owner_id=userid) natural join fontys_course fc\n"
-                . (($this->extraJoin != '') ? ("\njoin " . $this->extraJoin . "\n") : '')
-                //. "join {$this->extraJoin} \n"
-                . " where pm.prjm_id=" . $this->prjm_id
-                . (($this->whereClause != '') ? ("\n and " . $this->whereClause . "\n") : '')
-                . "\nunion\n"
-                . "select 1 as first,pm.prj_id,pm.prjm_id,pm.milestone,p.year,trim(p.afko) as afko,trim(p.description) as description"
-                . ",t.tutor as tutor_owner,p.valid_until,pm.assessment_due,trim(fc.course_short) as course_short\n"
-                . " from prj_milestone pm natural join project p join tutor t on(owner_id=userid) natural join fontys_course fc\n"
-                . (($this->extraJoin != '') ? ("\njoin " . $this->extraJoin . "\n") : '')
-                . (($this->whereClause != '') ? ("\n where " . $this->whereClause . "\n") : '') . " order by first limit 1";
-        //echo "<pre>{$sql}</pre>";
+        $sql = $this->getQuery();
         $resultSet = $this->dbConn->Execute( $sql );
         if ( $resultSet === false ) {
             echo( "<br>Cannot get project data with <pre>\"" . $sql . '"</pre>, cause ' . $this->dbConn->ErrorMsg() . "<br>");
