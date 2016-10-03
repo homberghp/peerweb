@@ -87,7 +87,7 @@ class PrjMilestoneSelector2 {
                 . "      when now()::date <= valid_until and now()::date > assessment_due then 'cold' else 'inactive'"
                 . " end as css_class,year,prj_id,milestone,prjm_id,valid_until,assessment_due,\n"
                         ."trim(p.afko) as afko, trim(p.description) as description,trim(course_short) as course_short\n"
-                . " from project p join tutor t on(owner_id=userid) join prj_milestone pm using(prj_id) natural join fontys_course fc\n"
+                . " from project p join tutor t on(owner_id=userid) join prj_milestone pm using(prj_id) join fontys_course fc using(course)\n"
                 . (($this->extraJoin !== '') ? ("\njoin " . $this->extraJoin . "\n") : '')
                 . (($this->whereClause !== '') ? ("\nwhere " . $this->whereClause . "\n") : '')
                 . ' order by ' . $this->orderBy;
