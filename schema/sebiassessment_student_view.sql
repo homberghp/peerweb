@@ -1,6 +1,6 @@
 begin work;
 create or replace view sebiassessment_student_view
-as select snummer,'x'||snummer,
+as select snummer,'x'||snummer as username,
    password, uid,gid,
    achternaam,roepnaam,voorvoegsel,
    opl,cohort,
