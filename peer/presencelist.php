@@ -29,7 +29,7 @@ class MyRowFactory implements RowFactory {
             $this->rowColor = $this->rainbow->getNext();
             $grpnamecel = "\t<td class='tabledata num' style='font-size:200%;vertical-align:top' rowspan='$grp_size'>"
                     . "<button type='button' style='height:100%;width:100%' clas='grp_but' "
-                    . " onclick='function(){ $(\".p{$grp_id}\").checked=true; } return false; ' value='{$grp_name}'>{$grp_num}</button>"
+                    . ' onclick="checkAll(document.getElementById(\'activity\'), \''."pg{$grp_num}".'\',\'present\', true)" '."value='{$grp_name}'>g{$grp_num}</button>"
                     . "</td>\n"
                     . "";
         }
@@ -48,11 +48,11 @@ class MyRowFactory implements RowFactory {
                 . "\t<td class='rs'>"
                 . "\t\t<div style='font-size:80%' id='rs'>\n"
                 . "\n\t<input type='radio' name='rs' "
-                . 'onclick="checkAll(document.getElementById(\'activity\'), \'absent\', this.checked)"/>Absent&nbsp;<br/>'
+                . 'onclick="checkAll(document.getElementById(\'activity\'), \'absent\', \'absent\', this.checked)"/>Absent&nbsp;<br/>'
                 . "\n\t<input type='radio' name='rs' "
-                . 'onclick="checkAll(document.getElementById(\'activity\'), \'present\', this.checked)"/>Present&nbsp;<br/>'
+                . 'onclick="checkAll(document.getElementById(\'activity\'), \'present\',  \'present\', this.checked)"/>Present&nbsp;<br/>'
                 . "\n\t<input type='radio' name='rs' "
-                . 'onclick="checkAll(document.getElementById(\'activity\'), \'reason\', this.checked)"/>Absent&nbsp;with&nbsp;reason&nbsp;<br/>'
+                . 'onclick="checkAll(document.getElementById(\'activity\'), \'reason\', \'reason\', this.checked)"/>Absent&nbsp;with&nbsp;reason&nbsp;<br/>'
                 . "\n\t</div></td><th>Write comment <br/>for any absence reason</th></tr><tr>"
                 . "<th class='tabledata head num'>#</th>\n"
                 . "\t<th class='tabledata num' style='text-algin:left;'>grp#</th>\n"
@@ -177,19 +177,15 @@ if (isSet($_REQUEST['bsubmit']) && isSet($_REQUEST['participant']) && isProjectS
 
 $script = '<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>'
         . '<script type="text/javascript" language="JavaScript">
-    function checkAll(theForm, cName, status) {
+    function checkAll(theForm, cName, cClass, status) {
    for (i=0,n=theForm.elements.length;i<n;i++) {
        if (theForm.elements[i].className.indexOf(cName) !=-1) {
             theForm.elements[i].checked = status;
             if (status) {
-               theForm.elements[i].parentNode.className=cName;
+               theForm.elements[i].parentNode.className=cClass;
             }
        }
     }
-}
-function clickGrp(grpId){
-    $(grpId).checked="checked";
-    return false;
 }
 </script>
 <style type="text/css">

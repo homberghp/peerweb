@@ -134,7 +134,7 @@ class PageContainer extends Container {
         $this->head->add(new Component("<link rel='shortcut icon' type='image/png' " .
                 "href='" . IMAGEROOT . "/favicon.png'/>"));
         $bodyStyle=$body_background;//$db_name==='peer2')?'background:#cfc url(style/images/local.png)':'background:#ffc';
-        $this->body = new HtmlContainer("<body id='body' onload='init' style='{$bodyStyle}'>\n<!-- component build -->");
+        $this->body = new HtmlContainer("<body id='body' style='{$bodyStyle}'>\n<!-- component build -->");
         $this->log = '';
     }
 
