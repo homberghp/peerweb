@@ -11,7 +11,7 @@ $class_id = 1;
 
 $fileExtension = 'xls';
 if (isSet($_REQUEST['class_id'])) {
-    $_SESSION['class_id'] = $class_id = $_REQUEST['class_id'];
+    $_SESSION['class_id'] = $class_id = validate($_REQUEST['class_id'],'integer',1);
 }
 extract($_SESSION);
 
