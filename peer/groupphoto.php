@@ -129,8 +129,9 @@ while (!$resultSet->EOF){
     }
     $resultSet->moveNext();
 }
-if ($colcount!=0) echo "</tr>\n";
-if ($rowcount!=0) echo "</table>\n";
+ echo "</tr>\n";
+ echo "</table>\n";
+echo "<h3><a href='groupphotolist2.php?prjtg_id=$prjtg_id'> BIG group $grp_num (prjtg_id=$prjtg_id) $alias <img src='images/pdf_icon.png' border='0'/></a></h3>"
 ?>
 </div>
 <?php echo "<!-- db_name=".$db_name."-->\n"?>

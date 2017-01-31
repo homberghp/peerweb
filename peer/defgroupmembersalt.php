@@ -112,7 +112,7 @@ $sql = "SELECT '<input type=''checkbox''  name=''studenten[]'' value='''||st.snu
         . "'<a href=''student_admin.php?snummer='||snummer||'''>'||st.snummer||'</a>' as snummer,"
         . "'<img src='''||photo||''' style=''height:24px;width:auto;''/>' as foto,\n"
         . "achternaam||coalesce(', '||voorvoegsel,'') as achternaam,\n"
-        . "roepnaam,cl.sclass as klas,cohort,st.opl as opl_code,lang,sex,tutor as slb,gebdat,"
+    . "roepnaam,cl.sclass as klas,cohort,st.opl as opl_code,lang,sex,tutor as slb,gebdat,email1,email2,"
         . "hoofdgrp, studieplan_omschrijving as studieplan , plaats,straat||coalesce(' '||huisnr,'') as adres,pcode,land\n"
         . " from student st "
         . "join student_class cl using(class_id)\n"
@@ -120,6 +120,7 @@ $sql = "SELECT '<input type=''checkbox''  name=''studenten[]'' value='''||st.snu
         . "left join fontys_course fc on(st.opl=fc.course)\n"
         . "left join studieplan sp using(studieplan)\n"
         . "left join tutor t on (st.slb=t.userid)\n"
+        . "left join alt_email using(snummer)\n"
         . "natural join portrait \n"
         . "where prjtg_id=$oldprjtg_id "
         . "order by hoofdgrp,opl_code,sclass asc,achternaam,roepnaam";

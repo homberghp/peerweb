@@ -101,6 +101,8 @@ $sql = "select repospath,grp_num,description as repos_description," .
         "url_tail,isroot,id,last_commit from repositories \n" .
         "\t where prjm_id=$prjm_id order by repospath";
 $resultSet = $dbConn->Execute($sql);
+$repolist='';
+$repobase='';
 $reposTable = '';
 if (!$resultSet->EOF) {
     $reposTable .= "<fieldset><legend>Available repositories</legend>"
@@ -123,11 +125,18 @@ if (!$resultSet->EOF) {
                 . "<td>$youngest</td>"
                 . "<td>{$last_commit}</td>"
                 . "\t<td>$editControl</td>\n</tr>\n";
+        $rep=preg_replace('/\/(.+\/){3}?(\w+)/','${2}',$url_tail);
+        $repolist .=" {$rep}";
+        if ($rep == 'svnroot') {
+            $repobase=preg_replace('/svnroot$/','',$url_tail);
+        }
         $resultSet->moveNext();
     }
     $reposTable .="</table>\n</fieldset>\n";
 }
 $pp['reposTable'] = $reposTable;
+$pp['repolist'] = $repolist;
+$pp['repobase'] = $repobase;
 $groups = array();
 // get tutors and scribes
 $sql = "select distinct 'tutor' as alias,snummer from svn_tutor_snummer\n"

@@ -560,6 +560,8 @@ class PeerResultSet {
             $this->fields = pg_fetch_array($this->resource, $this->rowNr = 0, PGSQL_BOTH); // $ADODB_FETCH_MODE);
             if ($this->fields === false) {
                 $this->EOF = true;
+            } else {
+                $this->EOF = false;
             }
             //echo "<pre>" . ($this->callCtr++) . " " . print_r($this->fields, true) . "</pre>";
         } else {

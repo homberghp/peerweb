@@ -80,17 +80,17 @@ class PrjMilestoneSelector2 {
 
         $sql = "select p.afko||'.'||trim(course_short)||': '||substr(p.description,1,12)||'('||p.year||')'||\n"
                 . "' ['||t.tutor||'#'||p.prj_id||'] '||' mils. '||pm.milestone||coalesce(': '||pm.milestone_name,'') as name,\n"
-                . "pm.prjm_id as value,t.tutor as tutor_owner,\n"
+                . "pm.prjm_id as value,p.owner_id as tutor_owner,\n"
                 . " p.year||' ['||t.tutor||']' as namegrp, \n"
                 . " case when p.owner_id={$this->peer_id} then 1 else 0 end as ismine,\n"
                 . " case when now()::date <= valid_until and now()::date <=assessment_due then 'active'\n"
                 . "      when now()::date <= valid_until and now()::date > assessment_due then 'cold' else 'inactive'"
                 . " end as css_class\n"
-                . " from project p join tutor t on(owner_id=userid) join prj_milestone pm using(prj_id) natural join fontys_course fc\n"
+                . " from project p join tutor t on(owner_id=userid) join prj_milestone pm using(prj_id) join fontys_course fc on (p.course = fc.course)\n"
                 . (($this->extraJoin !== '') ? ("\njoin " . $this->extraJoin . "\n") : '')
                 . (($this->whereClause !== '') ? ("\nwhere " . $this->whereClause . "\n") : '')
                 . ' order by ' . $this->orderBy;
-        //echo "<pre>{$sql}</pre>";
+        //      echo "<pre style='padding:2em'>{$sql}</pre>";
         return $sql;
     }
 
@@ -119,7 +119,7 @@ class PrjMilestoneSelector2 {
         //echo "extra join <pre>{$this->extraJoin}</pre>";
         $sql = "select 0 as first, pm.prj_id,pm.prjm_id,pm.milestone,p.year,trim(p.afko) as afko,trim(p.description) as description"
                 . ",t.tutor as tutor_owner,p.valid_until,pm.assessment_due,trim(fc.course_short) as course_short\n"
-                . " from prj_milestone pm natural join project p join tutor t on(owner_id=userid) natural join fontys_course fc\n"
+                . " from prj_milestone pm join project p using(prj_id) join tutor t on(owner_id=userid) join fontys_course fc on (p.course=fc.course)\n"
                 . (($this->extraJoin != '') ? ("\njoin " . $this->extraJoin . "\n") : '')
                 //. "join {$this->extraJoin} \n"
                 . " where pm.prjm_id=" . $this->prjm_id
@@ -127,10 +127,10 @@ class PrjMilestoneSelector2 {
                 . "\nunion\n"
                 . "select 1 as first,pm.prj_id,pm.prjm_id,pm.milestone,p.year,trim(p.afko) as afko,trim(p.description) as description"
                 . ",t.tutor as tutor_owner,p.valid_until,pm.assessment_due,trim(fc.course_short) as course_short\n"
-                . " from prj_milestone pm natural join project p join tutor t on(owner_id=userid) natural join fontys_course fc\n"
+                . " from prj_milestone pm join project p using(prj_id) join tutor t on(owner_id=userid) join fontys_course fc on (p.course=fc.course)\n"
                 . (($this->extraJoin != '') ? ("\njoin " . $this->extraJoin . "\n") : '')
                 . (($this->whereClause != '') ? ("\n where " . $this->whereClause . "\n") : '') . " order by first limit 1";
-        //echo "<pre>{$sql}</pre>";
+//        echo "<pre style='color:#800;padding:2em'>{$sql}</pre>";
         $resultSet = $this->dbConn->Execute( $sql );
         if ( $resultSet === false ) {
             echo( "<br>Cannot get project data with <pre>\"" . $sql . '"</pre>, cause ' . $this->dbConn->ErrorMsg() . "<br>");

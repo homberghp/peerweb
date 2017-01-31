@@ -42,3 +42,11 @@
     </form>
     <?= $cmd_result ?>
 </fieldset>
+<fieldset><legend>To check out trunk all sub repos at once</legend>
+  <pre style='background:#000;color:#fff;padding:1em;'>
+    #!/bin/bash
+    for i in <?=$repolist?>; do
+    ( svn co  https://www.fontysvenlo.org<?=$repobase?>${i}/trunk ${i}; ) &
+    done 
+  </pre>
+  </fieldset>

@@ -52,7 +52,7 @@ $spreadSheetWriter->setFilename($filename)
 $spreadSheetWriter->processRequest();
 
 $spreadSheetWidget = $spreadSheetWriter->getWidget();
-$sqlhead2 = "select distinct '<a href=\"student_admin.php?snummer='||s.snummer||'\">'||s.snummer||'</a>' as snummer,";
+$sqlhead = "select distinct '<a href=\"student_admin.php?snummer='||s.snummer||'\" target=\"_blank\">'||s.snummer||'</a>' as snummer,";
 
 
 $rainbow = new RainBow(STARTCOLOR, COLORINCREMENT_RED, COLORINCREMENT_GREEN, COLORINCREMENT_BLUE);
@@ -77,7 +77,7 @@ $prjSel->setJoin('milestone_grp using (prj_id,milestone)');
 $prj_id_selector = $prjSel->getSelector();
 $emailList = '';
 $grpList = array();
-$resultSet = $dbConn->Execute($sqlhead2 . $sqltail);
+$resultSet = $dbConn->Execute($sqlhead . $sqltail);
 if ($resultSet === false) {
     $dbConn->log('failed wth' . $dbConn->ErrorMsg());
 }
