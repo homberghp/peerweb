@@ -38,7 +38,7 @@ $pageTitle = "Subversion repositories";
 $page->setTitle($pageTitle);
 
 $cmdstring = '';
-$pp['repoURL'] = $server_url . '/svn/' . $year . '/' . $new_repos_name . '/';
+$pp['repoURL'] = $svnserver_url . '/svn/' . $year . '/' . $new_repos_name . '/';
 $twigs = '';
 if (isSet($_POST['bcreate'])) {
     if (isSet($_REQUEST['new_repos_name']) && $_REQUEST['new_repos_name']) {
@@ -60,7 +60,7 @@ if (isSet($_POST['bcreate'])) {
 
 #  passthru($cmdstring);
     echo "$cmdstring\n";
-    $pp['repoURL'] = $server_url . '/' . $url_base . '/' . $year . '/' . $new_repos_name . '/';
+    $pp['repoURL'] = $svnserver_url . '/' . $url_base . '/' . $year . '/' . $new_repos_name . '/';
     $pp['cmd_result'] = "<fieldset> <legend>Create command result <?=$cmdstring?></legend><pre style='background:white'>"
             . ob_get_clean()
             . "</pre></fieldset>"
@@ -112,7 +112,7 @@ if (!$resultSet->EOF) {
     while (!$resultSet->EOF) {
         extract($resultSet->fields);
         $editControl = '&nbsp;';
-        $url = $server_url . $url_tail;
+        $url = $svnserver_url . $url_tail;
         if ($isroot == 't') {
             $editControl = "\t<form method='post' name='editauthz' action='$PHP_SELF'>\n"
                     . "\t\t<input type='submit' value='Edit autzh' name='edit_authz'  "
