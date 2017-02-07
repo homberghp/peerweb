@@ -33,7 +33,7 @@ ob_start();
 <fieldset><legend>Repositories</legend>
   <?php 
   $sql = "select "
-  ."'<a href=\"$svnserver_url'||url_tail||'\">'||mpr.description||'</a>' as repo_link,'$server_url'||url_tail as url,\n"
+  ."'<a href=\"$svnserver_url'||url_tail||'\">'||mpr.description||'</a>' as repo_link,'{$svnserver_url}'||url_tail as url,\n"
   ." afko as project_name, pr.description \n"
   ." from my_project_repositories mpr join project pr using(prj_id) where snummer=$snummer order by prj_id desc\n";
 
