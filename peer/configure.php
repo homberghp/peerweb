@@ -3,6 +3,7 @@
 //
 // do not change anything below this line
 //
+$svnserver_url='https://www.fontysvenlo.org';
 $rubberbase = $site_home . 'rubberreports';
 $site_dir = $site_home . 'peer'; // the dir on the server
 $upload_path_prefix = $site_home . '/upload';

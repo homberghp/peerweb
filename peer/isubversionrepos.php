@@ -95,7 +95,7 @@ if ( isSet( $_REQUEST['bcreate'] ) && isSet( $repos_name ) && '' != $repos_name 
   }
   $url_tail = 'svnp/' . $snummer . '/' . $repos_name;
   $repospath = '/home/' . $url_tail;
-  $repoURL = $server_url . '/' . $url_tail;
+  $repoURL = $svnserver_url . '/' . $url_tail;
   $pp['executionResult'] .= "<fieldset><legend>The result of executing <b>'$cmdstring'</b> is:</legend>"
           . "<pre style='color:#00F; font-weight:bold;'>\n";
   $retval = 0;
@@ -134,7 +134,7 @@ if ( $resultSet === false ) {
 
     while ( !$resultSet->EOF ) {
       extract( $resultSet->fields );
-      $repoURL = $server_url . '/' . $url_tail;
+      $repoURL = $svnserver_url . '/' . $url_tail;
       $repos_name = explode( '/', $url_tail );
       if ( $isroot == 't' ) {
         $deleteBut = "&nbsp;";
