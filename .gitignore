@@ -10,3 +10,6 @@ peer/BUILD
 subversion/BUILD
 upload/
 peerfotos
+pg_extensions/peer_password/peer_password.o
+pg_extensions/peer_password/peer_password.so
+
