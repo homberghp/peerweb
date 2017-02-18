@@ -141,6 +141,6 @@ var ot = new OptionTransfer("leftselect","rightselect");
 </script>
 
 ');
-$page->setBodyTag('<body id="body" class=\'{$body_class}\' onLoad="ot.init(document.forms.grpmembers)">');
+$page->setBodyTag("<body id='body' class='{$body_class}' onLoad='ot.init(document.forms.grpmembers)'>");
 $page->show();
 ?>
