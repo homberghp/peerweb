@@ -18,8 +18,10 @@
 <tr><th>Project</th><th >M</th><th>G</th><th>A</th><th>D</th></tr>
 </thead>
 <?php
-$sql = "select afko,description,milestone,year,grp_num,has_assessment,has_doc "
-."from student_project_attributes where snummer=$snummer".
+$sql = "select afko,description,milestone,\n"
+    ." case when milestone_name='Milestone' then 'M'||milestone else milestone_name end as milestone_name,\n"
+    ." year,grp_num,has_assessment,has_doc "
+    ."from student_project_attributes where snummer=$snummer".
     "order by year desc,afko,milestone";
 $resultSet= $dbConn->Execute($sql);
 if ($resultSet=== false) {
@@ -28,7 +30,7 @@ if ($resultSet=== false) {
     extract($resultSet->fields);
     $has_doc=isSet($has_doc)?"<img src='".IMAGEROOT."/checkmark.png' alt='v'/>":'';
     $has_assessment=isSet($has_assessment)?"<img src='".IMAGEROOT."/checkmark.png' alt='v'/>":'';
-    echo "<tr><td title='$description'>$afko-$year</td><td>$milestone</td>".
+    echo "<tr><td title='$description'>$afko-$year</td><td>{$milestone_name}</td>".
 	"<td>$grp_num</td><td>$has_assessment</td><td>$has_doc</td></tr>\n";
     $resultSet->moveNext();
  }
