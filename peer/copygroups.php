@@ -1,6 +1,6 @@
 <?php
 
-include_once('./peerlib/peerutils.inc');
+include_once('./peerlib/peerutils.php');
 include_once('navigation2.inc');
 require_once 'prjMilestoneSelector2.php';
 require_once 'maillists.inc.php';

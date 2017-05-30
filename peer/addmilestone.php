@@ -1,9 +1,9 @@
 <?php
 
-include_once './peerlib/peerutils.inc';
-require_once './peerlib/querytotable.inc';
+include_once './peerlib/peerutils.php';
+require_once './peerlib/querytotable.php';
 include_once 'navigation2.inc';
-include_once 'project_selector.inc';
+include_once 'project_selector.php';
 requireCap( CAP_TUTOR );
 $milestones = 1;
 extract( $_SESSION );

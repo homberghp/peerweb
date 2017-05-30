@@ -1,7 +1,7 @@
 <?php
-include_once('./peerlib/peerutils.inc');
-require_once('./peerlib/validators.inc');
-include_once('tutorhelper.inc');
+include_once('./peerlib/peerutils.php');
+require_once('./peerlib/validators.php');
+include_once('tutorhelper.php');
 include_once('navigation2.inc');
 require_once 'GroupPhoto.class.php';
 require_once 'studentPrjMilestoneSelector.php';

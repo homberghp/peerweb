@@ -11,8 +11,8 @@
 <head>
 <link rel="stylesheet" type="text/css" href="style.css">
 <?php
-require_once("peerutils.inc");
-require_once("utils.inc");
+require_once("peerutils.php");
+require_once("utils.php");
 //requireCap(CAP_SYSTEM);
 //require_once("nav6.php");
 /* if ($am_user_blocked == 'J') {

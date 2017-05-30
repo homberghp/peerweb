@@ -1,7 +1,7 @@
 <?php
-include_once('./peerlib/peerutils.inc');
+include_once('./peerlib/peerutils.php');
 require_once('component.php');
-require_once'rteSafe.inc';
+require_once'rteSafe.php';
 $referer=$_SESSION['referer'];
 extract($_SESSION);
 $new_critique='N';

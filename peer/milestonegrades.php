@@ -1,7 +1,7 @@
 <?php
-include_once('./peerlib/peerutils.inc');
+include_once('./peerlib/peerutils.php');
 include_once('navigation2.inc');
-require_once './peerlib/simplequerytable.inc';
+require_once './peerlib/simplequerytable.php';
 require_once 'prjMilestoneSelector2.php';
 require_once './peerlib/pgrowparser.php';
 require_once './peerlib/SpreadSheetWriter.php';

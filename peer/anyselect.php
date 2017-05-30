@@ -1,9 +1,9 @@
 <?php
-include_once('./peerlib/peerutils.inc');
-require_once('./peerlib/validators.inc');
+include_once('./peerlib/peerutils.php');
+require_once('./peerlib/validators.php');
 requireCap(CAP_TUTOR);
 include_once('navigation2.inc');
-include './peerlib/simplequerytable.inc';
+include './peerlib/simplequerytable.php';
 require_once 'SpreadSheetWriter.php';
 $sql = $query_text = '';
 if (isSet($_REQUEST['query_id'])) {

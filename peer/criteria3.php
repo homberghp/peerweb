@@ -1,8 +1,8 @@
 <?php
-include_once('./peerlib/peerutils.inc');
+include_once('./peerlib/peerutils.php');
 include_once('navigation2.inc');
 require_once 'prjMilestoneSelector2.php';
-//include_once 'project_selector.inc';
+//include_once 'project_selector.php';
 requireCap(CAP_TUTOR);
 extract($_SESSION);
 $critcount=4;

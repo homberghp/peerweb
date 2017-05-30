@@ -4,7 +4,7 @@
    */
 require_once 'component.php';
 $peer_id=$_SESSION['peer_id'];
-require_once 'tasktimer.inc';
+require_once 'tasktimer.php';
 $page = new PageContainer();
 $page->setTitle('Your personal task timer');
 $task_div= new HtmlContainer('<div id=\'task_timer_id\' class=\'navopening\'>');

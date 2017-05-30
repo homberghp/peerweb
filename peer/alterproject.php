@@ -1,8 +1,8 @@
 <?php
-include_once('./peerlib/peerutils.inc');
+include_once('./peerlib/peerutils.php');
 require_once('navigation2.inc');
-require_once('./peerlib/validators.inc');
-include 'project_selector.inc';
+require_once('./peerlib/validators.php');
+include 'project_selector.php';
 requireCap(CAP_TUTOR);
 $page_opening='Alter a project definition';
 $afko='WHATFR';

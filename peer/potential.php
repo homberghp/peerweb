@@ -8,7 +8,7 @@
  * @author Pieter van den Hombergh
  * $Id: potential.php 1723 2014-01-03 08:34:59Z hom $
  */
-include_once("peerutils.inc");
+include_once("peerutils.php");
 requireCap(CAP_TUTOR);
 include_once("ste.php");
 

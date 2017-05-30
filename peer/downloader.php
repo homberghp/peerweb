@@ -2,10 +2,10 @@
 
 /* $Id: downloader.php 1723 2014-01-03 08:34:59Z hom $ */
 //session_start();
-include_once('./peerlib/peerutils.inc');
-require_once('./peerlib/validators.inc');
+include_once('./peerlib/peerutils.php');
+require_once('./peerlib/validators.php');
 require_once('document_access.inc');
-require_once('tutorhelper.inc');
+require_once('tutorhelper.php');
 $doc_id = 1;
 $debug = 0;
 extract($_SESSION);

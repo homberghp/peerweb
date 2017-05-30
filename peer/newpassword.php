@@ -1,5 +1,5 @@
 <?php
-include_once('./peerlib/peerutils.inc');
+include_once('./peerlib/peerutils.php');
 $username=$auth_user;
 $snummer=2037775;
 $sql= "select roepnaam,voorvoegsel,achternaam,email1\n".

@@ -1,6 +1,6 @@
 <?php
-require_once('./peerlib/peerutils.inc');
-require_once('./peerlib/validators.inc');
+require_once('./peerlib/peerutils.php');
+require_once('./peerlib/validators.php');
 include_once('navigation2.inc');
 require_once 'studentpicker.php';
 require_once 'ClassSelectorClass.php';

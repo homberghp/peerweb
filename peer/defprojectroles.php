@@ -1,10 +1,10 @@
 <?php
-require_once('./peerlib/peerutils.inc');
-require_once('./peerlib/validators.inc');
-require_once('./peerlib/querytotable.inc');
+require_once('./peerlib/peerutils.php');
+require_once('./peerlib/validators.php');
+require_once('./peerlib/querytotable.php');
 include_once('navigation2.inc');
 require_once 'prjMilestoneSelector2.php';
-require_once 'peerlib/project_selector.inc';
+require_once 'peerlib/project_selector.php';
 requireCap(CAP_TUTOR);
 
 $prj_id = 1;

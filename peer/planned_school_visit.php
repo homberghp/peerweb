@@ -5,9 +5,9 @@
  * @author Pieter van den Hombergh
  * $Id: planned_school_visit.php 1723 2014-01-03 08:34:59Z hom $
  */
-include_once("peerutils.inc");
+include_once("peerutils.php");
 include_once('navigation2.inc');
-include_once("utils.inc");
+include_once("utils.php");
 include_once("ste.php");
 requireCap(CAP_RECRUITER);
 

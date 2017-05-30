@@ -1,8 +1,8 @@
 <?php
 require_once 'component.php';
-require_once('./peerlib/peerutils.inc');
-include_once('tutorhelper.inc');
-require_once'navigation.inc';
+require_once('./peerlib/peerutils.php');
+include_once('tutorhelper.php');
+require_once'navigation.php';
 
 $pp=array();
 if (file_exists('fotos/' . $judge . '.jpg')) {

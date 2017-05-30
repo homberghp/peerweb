@@ -3,7 +3,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-require_once 'peerutils.inc';
+require_once 'peerutils.php';
 if (isSet($login_tutor)) {
     $homepage = 'tutorhome.php';
 } else {

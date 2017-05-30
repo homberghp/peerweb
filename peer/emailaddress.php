@@ -1,7 +1,7 @@
 <?php
 /* $Id: emailaddress.php 1792 2014-09-15 11:51:29Z hom $ */
-include_once('./peerlib/peerutils.inc');
-include_once('tutorhelper.inc');
+include_once('./peerlib/peerutils.php');
+include_once('tutorhelper.php');
 include_once 'navigation2.inc';
 function checkEmail($adr) {
   if(preg_match("/^\w+(\w|\-|\.)*\@[a-zA-Z0-9][a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$/",$adr)) { 

@@ -1,5 +1,5 @@
 <?php
-require_once './peerlib/peerutils.inc';
+require_once './peerlib/peerutils.php';
 include_once('navigation2.inc');
 requireCap(CAP_EDIT_RIGHTS);
 require_once 'bitset.php';

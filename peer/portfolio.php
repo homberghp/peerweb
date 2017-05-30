@@ -1,8 +1,8 @@
 <?php
 //session_start();
-include_once('./peerlib/peerutils.inc');
-include_once('tutorhelper.inc');
-require_once('documentfolders.inc');
+include_once('./peerlib/peerutils.php');
+include_once('tutorhelper.php');
+require_once('documentfolders.php');
 include_once'navigation2.inc';
 $prjm_id = 0;
 extract($_SESSION);

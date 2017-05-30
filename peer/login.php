@@ -5,9 +5,9 @@
  * if not logged in, append query string to $PHP_SELF, to present the parameters to the same page again
  */
 session_start();
-//include_once('./peerlib/peerutils.inc');
-require_once('./peerlib/makeauthentication.inc');
-require_once './peerlib/persistentsessiondata.inc';
+//include_once('./peerlib/peerutils.php');
+require_once('./peerlib/makeauthentication.php');
+require_once './peerlib/persistentsessiondata.php';
 $loginError = 0;
 $loginattempt = false;
 if ( isSet( $_POST['peer_id'] ) && isSet( $_POST['peer_pw'] ) ) {

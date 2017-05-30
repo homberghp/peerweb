@@ -1,7 +1,7 @@
 <?php
 
-include_once('./peerlib/peerutils.inc');
-require_once('./peerlib/validators.inc');
+include_once('./peerlib/peerutils.php');
+require_once('./peerlib/validators.php');
 require_once('rubberstuff.php');
 include_once('navigation2.inc');
 require_once('./peerlib/conffileeditor2.php');

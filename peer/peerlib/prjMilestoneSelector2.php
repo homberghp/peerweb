@@ -1,7 +1,7 @@
 <?php
 
-require_once './peerlib/peerutils.inc';
-require_once './peerlib/validators.inc';
+require_once './peerlib/peerutils.php';
+require_once './peerlib/validators.php';
 
 # $Id: prjMilestoneSelector2.php 1841 2015-02-26 19:00:09Z hom $
 # show uniform selector in all group def php pages

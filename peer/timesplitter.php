@@ -2,9 +2,9 @@
 /**
  * presents a page that allows a time record to be spilt and attaached to other projects
  */
-include_once('./peerlib/peerutils.inc');
-include_once('tutorhelper.inc');
-require_once('tasktimer.inc');
+include_once('./peerlib/peerutils.php');
+include_once('tutorhelper.php');
+require_once('tasktimer.php');
 if ( !isSet( $startend ) ) {
   $startend = 'start';
 }

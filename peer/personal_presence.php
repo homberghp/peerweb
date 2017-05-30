@@ -1,6 +1,6 @@
 <?php
-include_once './peerlib/peerutils.inc';
-include_once 'tutorhelper.inc';
+include_once './peerlib/peerutils.php';
+include_once 'tutorhelper.php';
 include_once 'navigation2.inc';
 $snummer=$_SESSION['snummer'];
 $personal_presence='Y';

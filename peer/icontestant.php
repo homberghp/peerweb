@@ -1,7 +1,7 @@
 <?php
 /* $Id: icontestant.php 1825 2014-12-27 14:57:05Z hom $ */
-include_once('./peerlib/peerutils.inc');
-include_once('tutorhelper.inc');
+include_once('./peerlib/peerutils.php');
+include_once('tutorhelper.php');
 requireCap(CAP_TUTOR);
 include_once 'navigation2.inc';
 require_once 'GroupPhoto.class.php';

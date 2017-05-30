@@ -1,8 +1,8 @@
 <?php
 // <table> less version.
-require_once('peerutils.inc');
+require_once('peerutils.php');
 require_once('component.php');
-include_once'tasktimer.inc';
+include_once'tasktimer.php';
 
 /**
  * Functionality reduced navigation class.

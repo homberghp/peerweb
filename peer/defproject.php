@@ -1,8 +1,8 @@
 <?php
 
-include_once('./peerlib/peerutils.inc');
+include_once('./peerlib/peerutils.php');
 require_once('navigation2.inc');
-include_once 'project_selector.inc';
+include_once 'project_selector.php';
 requireCap( CAP_TUTOR );
 $page_opening = 'Select or define a project ';
 $afko = 'WHATFR';

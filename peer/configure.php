@@ -57,7 +57,7 @@ $dbConn->setSqlLogModifyingQuery(true);
 $dbConn->setSqlLogging(true);
 
 
-require_once 'peerutils.inc';
+require_once 'peerutils.php';
 //$dbConn->setLogFilename($site_home.'/log/updatelog.txt');
 $dbConn->setSqlLogModifyingQuery(true);
 

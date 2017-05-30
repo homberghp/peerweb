@@ -1,7 +1,7 @@
 <?php
 requireCap(CAP_TUTOR);
-include_once('./peerlib/peerutils.inc');
-include_once('documentfolders2.inc');
+include_once('./peerlib/peerutils.php');
+include_once('documentfolders2.php');
 include_once('navigation2.inc');
 require_once 'prjMilestoneSelector2.php';
 $prj_id = 1;

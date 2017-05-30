@@ -1,7 +1,7 @@
 <?php
 
-require_once('./peerlib/peerutils.inc');
-require_once('./peerlib/querytotable.inc');
+require_once('./peerlib/peerutils.php');
+require_once('./peerlib/querytotable.php');
 include_once('navigation2.inc');
 require_once 'prjMilestoneSelector2.php';
 $warn_members = false;
