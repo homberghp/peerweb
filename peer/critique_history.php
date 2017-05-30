@@ -1,6 +1,6 @@
 <?php
 include_once('./peerlib/peerutils.inc');
-require_once('component.inc');
+require_once('component.php');
 
 $page = new PageContainer();
 $page->setTitle('Critique history');

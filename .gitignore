@@ -10,3 +10,6 @@ peer/BUILD
 subversion/BUILD
 upload/
 peerfotos
+etc/peerpassword
+etc/settings.php
+

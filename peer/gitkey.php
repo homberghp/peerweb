@@ -1,6 +1,6 @@
 <?php
 
-require_once 'component.inc';
+require_once 'component.php';
 require_once('navigation2.inc');
 $page = new PageContainer();
 $page_opening = "Manage you git keys";

@@ -1,5 +1,5 @@
 <?php
-require_once 'component.inc';
+require_once 'component.php';
 require_once('./peerlib/peerutils.inc');
 include_once('tutorhelper.inc');
 require_once'navigation.inc';

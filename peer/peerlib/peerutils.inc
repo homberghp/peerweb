@@ -1225,9 +1225,8 @@ while (!$resultSet->EOF) {
 }
 
 // test the input against malicious values
-include_once 'validationmap.php';
-include_once 'requestvalidator.php';
-$validator_clearance = true;
+require_once 'validationmap.php';
+require_once 'requestvalidator.php';
 $validator = new RequestValidator($validationmap);
 $validator->set_log_unknown_names(('true' == $set_log_unknown_names) ? 1 : 0 );
 $validator->set_log_validation_failures(('true' == $set_log_validation_failures) ? 1 : 0 );

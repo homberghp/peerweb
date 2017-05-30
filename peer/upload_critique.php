@@ -3,7 +3,7 @@
 include_once('./peerlib/peerutils.inc');
 include_once('tutorhelper.inc');
 require_once('./peerlib/validators.inc');
-require_once './peerlib/component.inc';
+require_once './peerlib/component.php';
 require_once 'document_access.inc';
 require_once 'selector.php';
 $hasCapSystem = 1;

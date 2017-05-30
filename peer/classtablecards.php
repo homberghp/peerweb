@@ -1,7 +1,7 @@
 <?php
 include_once './peerlib/peerutils.inc';
 require_once './peerlib/validators.inc';
-require_once 'component.inc';
+require_once 'component.php';
 include_once 'threelinetablecard.php';
 
 if (isSet($_REQUEST['class_id'])) {

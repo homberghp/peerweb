@@ -2,7 +2,7 @@
   /**
    * mini task_timer
    */
-require_once 'component.inc';
+require_once 'component.php';
 $peer_id=$_SESSION['peer_id'];
 require_once 'tasktimer.inc';
 $page = new PageContainer();

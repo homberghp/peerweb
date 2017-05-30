@@ -5,7 +5,7 @@
  * shows documents in a folder
  * assumes a lot about the columns
  */
-require_once('fileiconmap.inc');
+require_once 'fileiconmap.php';
 if ( !isSet( $_SESSION['openTreeSet'] ) ) {
   $_SESSION['openTreeSet'] = array( );
 }

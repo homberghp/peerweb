@@ -1,6 +1,6 @@
 <?php
 
-require_once 'peerlib/component.inc';
+require_once 'peerlib/component.php';
 require_once 'navigation2.inc';
 
 require_once 'peerlib/SimpleTableFormatter.php';

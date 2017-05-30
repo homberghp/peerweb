@@ -1,7 +1,7 @@
 <?php
 // <table> less version.
 require_once('peerutils.inc');
-require_once('component.inc');
+require_once('component.php');
 include_once'tasktimer.inc';
 
 /**

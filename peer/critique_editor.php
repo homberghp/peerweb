@@ -1,6 +1,6 @@
 <?php
 include_once('./peerlib/peerutils.inc');
-require_once('component.inc');
+require_once('component.php');
 require_once'rteSafe.inc';
 $referer=$_SESSION['referer'];
 extract($_SESSION);

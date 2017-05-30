@@ -1,7 +1,7 @@
 <?php
 include_once('./peerlib/peerutils.inc');
 include_once('navigation2.inc');
-require_once('component.inc');
+require_once('component.php');
 requireCap(CAP_TUTOR);
 $page = new PageContainer();
 $page->setTitle('Peer assessment for tutors');

@@ -1,7 +1,7 @@
 <?php
 include_once('./peerlib/peerutils.inc');
 include_once('navigation2.inc');
-require_once('component.inc');
+require_once('component.php');
 requireCap(CAP_TUTOR);
 $scount=100;
 $sql="select count(*) as scount from student";

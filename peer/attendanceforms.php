@@ -2,7 +2,7 @@
 
 include_once('./peerlib/peerutils.inc');
 require_once('./peerlib/validators.inc');
-require_once('component.inc');
+require_once('component.php');
 $debug = false;
 $act_id = 11;
 extract($_SESSION);
