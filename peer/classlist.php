@@ -39,7 +39,7 @@ $sqlhead = "select distinct snummer,"
 $sqltail = " join student_class using(class_id) left join tutor t on (s.slb=t.userid)\n"
         . " left join studieplan using(studieplan)\n"
         . "left join iso3166 on(nationaliteit=a2)\n"
-        . "where class_id='$class_id' order by achternaam,roepnaam";
+        . "where class_id={$class_id} order by achternaam,roepnaam";
 
 
 $fdate = date('Y-m-d');

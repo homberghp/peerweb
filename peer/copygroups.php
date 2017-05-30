@@ -127,6 +127,6 @@ if ($template_text === false) {
     eval("\$text = \"$template_text\";");
     $page->addBodyComponent(new Component($text));
 }
-$page->setBodyTag("<body id='body' class='{$body_class}' onLoad='ot.init(document.forms.grpmembers)'>");
+$page->setBodyTag("<body id='body' class='{$body_class}' >");
 $page->show();
 ?>
