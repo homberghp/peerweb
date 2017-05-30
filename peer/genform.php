@@ -8,9 +8,9 @@
  * for a pagelayout to implement a simple table editor. The data in the template is
  * derived from the column-names of the relation selected in the selct-box.  
  */
-require_once("peerutils.inc");
-require_once("utils.inc");
-require_once('navigation2.inc');
+require_once("peerutils.php");
+require_once("utils.php");
+require_once('navigation2.php');
 //require_once("nav6.php");
 //requireCap(CAP_SYSTEM);
 //if ($am_user_blocked == 'J') {

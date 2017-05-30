@@ -2,9 +2,9 @@
 
 /* $Id: imail.php 1825 2014-12-27 14:57:05Z hom $ */
 //session_start();
-include_once('./peerlib/peerutils.inc');
-include_once('tutorhelper.inc');
-include_once 'navigation2.inc';
+include_once('./peerlib/peerutils.php');
+include_once('tutorhelper.php');
+include_once 'navigation2.php';
 include_once './peerlib/SimpleTableFormatter.php';
 require_once './peerlib/studentPrjMilestoneSelector.php';
 $judge = 1;

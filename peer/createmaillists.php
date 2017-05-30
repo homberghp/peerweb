@@ -1,9 +1,9 @@
 <?php
 
-include_once './peerlib/peerutils.inc';
-require_once './peerlib/validators.inc';
-include_once 'navigation2.inc';
-include_once './peerlib/simplequerytable.inc';
+include_once './peerlib/peerutils.php';
+require_once './peerlib/validators.php';
+include_once 'navigation2.php';
+include_once './peerlib/simplequerytable.php';
 require_once 'prjMilestoneSelector2.php';
 require_once 'presencetable.php';
 require_once 'CheckTable.class.php';
@@ -41,7 +41,7 @@ $sql = "select distinct grp_num,grp_name, trim(email_to_href(maillist||'@fontysv
         . " where prjm_id=$prjm_id\n"
         . " union\n"
         . "select distinct grp_num,'tutors'::text as grp_name, trim(email_to_href(maillist||'@fontysvenlo.org')) as maillist,"
-        . " size as members from prj_tutor_email cross join (select count(*) as size from prj_tutor where prjm_id=$prjm_id) ptes \n"
+        . " size as members from prj_tutor_email cross join (select count(distinct tutor_id) as size from prj_tutor where prjm_id=$prjm_id) ptes \n"
         . " where prjm_id=$prjm_id\n"
         . "order by grp_num";
 

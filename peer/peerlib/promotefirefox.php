@@ -1,4 +1,4 @@
-<!-- $Id: promotefirefox.php.inc 1723 2014-01-03 08:34:59Z hom $ -->
+<!-- $Id: promotefirefox.php.php 1723 2014-01-03 08:34:59Z hom $ -->
 <div style='padding:2em; margin:0;'>
 <table summary='promotion'>
 <tr><th>

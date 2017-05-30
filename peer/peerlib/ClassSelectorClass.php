@@ -1,6 +1,6 @@
 <?php
 
-require_once 'peerutils.inc';
+require_once 'peerutils.php';
 
 /**
  * Create a selector to select a group of stundetsn by class_id.

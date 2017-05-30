@@ -1,6 +1,6 @@
 <?php
-include_once('./peerlib/peerutils.inc');
-require_once'./peerlib/simplequerytable.inc';
+include_once('./peerlib/peerutils.php');
+require_once'./peerlib/simplequerytable.php';
 requireCap(CAP_TUTOR);
 $page_opening='Select or define a project ';
 

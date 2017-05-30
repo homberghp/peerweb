@@ -1,11 +1,8 @@
 <?php
 
-include_once('./peerlib/peerutils.inc');
-include_once('navigation2.inc');
+include_once('./peerlib/peerutils.php');
+include_once('navigation2.php');
 require_once 'prjMilestoneSelector2.php';
-require_once 'maillists.inc.php';
-$maillist_dir = '/home/maillists';
-//$dbConn->setSqlAutoLog( $db_name <> 'peer' );
 requireCap(CAP_TUTOR);
 $prjm_id = 0;
 $prj_id = 1;
@@ -38,9 +35,9 @@ if (isSet($_POST['dup'])) {
         $resultSet = $dbConn->Execute($sql);
         $new_prj_id = $resultSet->fields['prj_id'];
         $new_milestone = $resultSet->fields['milestone'];
-        $sql = "BEGIN WORK;\n";
-        $sql .= "DELETE FROM prj_grp WHERE prjtg_id in \n" .
-                "(select prjtg_id from prj_tutor where prjm_id =$new_prjm_id);\n";
+        $sql = "BEGIN WORK;\n"
+            . "DELETE FROM prj_grp WHERE prjtg_id in \n" 
+            . "(select prjtg_id from prj_tutor where prjm_id =$new_prjm_id);\n";
         $sql .= "DELETE FROM prj_tutor WHERE prjm_id=$new_prjm_id;\n";
         $sql .= "INSERT INTO prj_tutor (grp_num,prjm_id,tutor_id,grp_name)\n"
                 . " select o.grp_num,n.prjm_id,o.tutor_id,grp_name\n"
@@ -123,7 +120,6 @@ extract(getTutorOwnerData2($dbConn, $prjm_id), EXTR_PREFIX_ALL, 'ot');
 
 $page->addBodyComponent($nav);
 $templatefile = 'templates/copygroups.html';
-$ie_warning = strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') ? "Internet Exploder is not supported" : "";
 $template_text = file_get_contents($templatefile, true);
 if ($template_text === false) {
     $page->addBodyComponent(new Component("<strong>cannot read template file $templatefile</strong>"));
@@ -131,16 +127,6 @@ if ($template_text === false) {
     eval("\$text = \"$template_text\";");
     $page->addBodyComponent(new Component($text));
 }
-$page->addHeadText('
-<script src="' . $root_url . '/js/scriptaculous/prototype.js" type="text/javascript"></script>
-<script src="' . $root_url . '/js/scriptaculous/scriptaculous.js" type="text/javascript"></script>
-<script src="' . $root_url . '/js/scriptaculous/OptionTransfer.js" type="text/javascript"></script>
-<script type="text/javascript">
-var ot = new OptionTransfer("leftselect","rightselect");
-
-</script>
-
-');
-$page->setBodyTag('<body id="body" class=\'{$body_class}\' onLoad="ot.init(document.forms.grpmembers)">');
+$page->setBodyTag("<body id='body' class='{$body_class}' >");
 $page->show();
 ?>

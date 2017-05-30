@@ -1,6 +1,6 @@
 <?php
 
-require_once 'rainbow.inc';
+require_once 'rainbow.php';
 require_once 'pgrowparser.php';
 
 /** PHPExcel */

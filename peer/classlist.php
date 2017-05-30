@@ -1,9 +1,9 @@
 <?php
-include_once('./peerlib/peerutils.inc');
-require_once('./peerlib/validators.inc');
-include_once('navigation2.inc');
+include_once('./peerlib/peerutils.php');
+require_once('./peerlib/validators.php');
+include_once('navigation2.php');
 requireCap(CAP_TUTOR);
-include './peerlib/simplequerytable.inc';
+include './peerlib/simplequerytable.php';
 require_once 'ClassSelectorClass.php';
 require_once 'SpreadSheetWriter.php';
 // get group tables for a project
@@ -11,7 +11,7 @@ $class_id = 1;
 
 $fileExtension = 'xls';
 if (isSet($_REQUEST['class_id'])) {
-    $_SESSION['class_id'] = $class_id = $_REQUEST['class_id'];
+    $_SESSION['class_id'] = $class_id = validate($_REQUEST['class_id'],'integer',1);
 }
 extract($_SESSION);
 
@@ -39,7 +39,7 @@ $sqlhead = "select distinct snummer,"
 $sqltail = " join student_class using(class_id) left join tutor t on (s.slb=t.userid)\n"
         . " left join studieplan using(studieplan)\n"
         . "left join iso3166 on(nationaliteit=a2)\n"
-        . "where class_id='$class_id' order by achternaam,roepnaam";
+        . "where class_id={$class_id} order by achternaam,roepnaam";
 
 
 $fdate = date('Y-m-d');

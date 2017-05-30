@@ -1,9 +1,9 @@
 <?php
 /* $Id: icontestant.php 1825 2014-12-27 14:57:05Z hom $ */
-include_once('./peerlib/peerutils.inc');
-include_once('tutorhelper.inc');
+include_once('./peerlib/peerutils.php');
+include_once('tutorhelper.php');
 requireCap(CAP_TUTOR);
-include_once 'navigation2.inc';
+include_once 'navigation2.php';
 require_once 'GroupPhoto.class.php';
 require_once 'studentPrjMilestoneSelector.php';
 require_once './peerlib/contestant_table.php';

@@ -128,13 +128,13 @@ class PageContainer extends Container {
         $this->head->add(new Component("  <meta http-equiv=\"Content-Type\" content=\"text/html;charset: utf-8\" />\n" .
                 "  <meta http-equiv='Content-Script-Type' content='text/javascript'/>\n" .
                 "  <meta http-equiv='Content-Style-Type' content='text/css'/>\n" .
-                '  <!-- $Id: component.inc 1769 2014-08-01 10:04:30Z hom $ -->'));
+                '  <!-- $Id: component.php 1769 2014-08-01 10:04:30Z hom $ -->'));
         $this->head->add(new Component("<link rel='stylesheet' type='text/css' href='" . STYLEFILE . "'/>"));
         $this->head->add(new Component("<link rel='icon' href='" . IMAGEROOT . "/favicon.ico' type='image/png' />"));
         $this->head->add(new Component("<link rel='shortcut icon' type='image/png' " .
                 "href='" . IMAGEROOT . "/favicon.png'/>"));
         $bodyStyle=$body_background;//$db_name==='peer2')?'background:#cfc url(style/images/local.png)':'background:#ffc';
-        $this->body = new HtmlContainer("<body id='body' onload='init' style='{$bodyStyle}'>\n<!-- component build -->");
+        $this->body = new HtmlContainer("<body id='body' style='{$bodyStyle}'>\n<!-- component build -->");
         $this->log = '';
     }
 

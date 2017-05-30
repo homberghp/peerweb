@@ -1,9 +1,9 @@
 <?php
-include_once('./peerlib/peerutils.inc');
-include_once('tutorhelper.inc');
-include_once('documentfolders.inc');
-require_once('./peerlib/simplequerytable.inc');
-include_once 'navigation2.inc';
+include_once('./peerlib/peerutils.php');
+include_once('tutorhelper.php');
+include_once('documentfolders.php');
+require_once('./peerlib/simplequerytable.php');
+include_once 'navigation2.php';
 require_once 'studentPrjMilestoneSelector.php';
 $prj_id = 1;
 $milestone = 1;

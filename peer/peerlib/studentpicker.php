@@ -1,8 +1,8 @@
 <?php
 
-require_once './peerlib/peerutils.inc';
-require_once './peerlib/validators.inc';
-require_once './peerlib/simplequerytable.inc';
+require_once './peerlib/peerutils.php';
+require_once './peerlib/validators.php';
+require_once './peerlib/simplequerytable.php';
 require_once 'selector.php';
 
 class StudentPicker {

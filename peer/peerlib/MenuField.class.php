@@ -1,6 +1,6 @@
 <?php
 
-require_once('./peerlib/peerutils.inc');
+require_once('./peerlib/peerutils.php');
 require_once './peerlib/youtubelink.php';
 
 /**

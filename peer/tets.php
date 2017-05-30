@@ -1,7 +1,7 @@
 <?php
-require_once 'peerutils.inc';
+require_once 'peerutils.php';
 echo pg_escape_string("Hello world nice isn't it");
-require_once 'rainbow.inc';
+require_once 'rainbow.php';
 echo "<br/>";
 $rb= new RainBow();
 for ($i=0; $i < $rb->count(); $i++) {

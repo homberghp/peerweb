@@ -1,7 +1,7 @@
 <?php
 //session_start();
-include_once("peerutils.inc");
-include_once("utils.inc");
+include_once("peerutils.php");
+include_once("utils.php");
 //include_once("nav62.php");
 //requireCap(CAP_SYSTEM);
 include_once("searchquery2.php");

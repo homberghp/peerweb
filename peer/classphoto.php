@@ -1,8 +1,8 @@
 <?php
-include_once('./peerlib/peerutils.inc');
+include_once('./peerlib/peerutils.php');
 requireCap(CAP_TUTOR);
-require_once('./peerlib/validators.inc');
-include_once('navigation2.inc');
+require_once('./peerlib/validators.php');
+include_once('navigation2.php');
 require_once 'ClassSelectorClass.php';
 
 define('MAXROW', '4');

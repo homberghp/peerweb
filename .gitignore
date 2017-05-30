@@ -1,6 +1,5 @@
 peer/fotos/
 peer/mfotos/
-peer/setdb.php
 tex/out/
 tex/tablecard_out/
 log
@@ -10,3 +9,10 @@ peer/BUILD
 subversion/BUILD
 upload/
 peerfotos
+
+etc/peerpassword
+etc/settings.php
+pg_extensions/peer_password/peer_password.o
+pg_extensions/peer_password/peer_password.so
+
+

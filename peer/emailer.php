@@ -5,7 +5,7 @@ function nepmail( $to, $sub, $body, $head ) {
   $dbConn->log( "To: $to\n\nsubject:$to\n\n$body\n" );
 }
 
-include 'navigation2.inc';
+include 'navigation2.php';
 $sender_name = '';
 $sql = "select email1 as replyto,roepnaam||coalesce(' '||voorvoegsel,'')||' '||achternaam as sender_name," .
         "coalesce(signature," .

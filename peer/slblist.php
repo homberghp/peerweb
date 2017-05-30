@@ -1,10 +1,10 @@
 <?php
-include_once('./peerlib/peerutils.inc');
-require_once('./peerlib/validators.inc');
-include_once('navigation2.inc');
+include_once('./peerlib/peerutils.php');
+require_once('./peerlib/validators.php');
+include_once('navigation2.php');
 requireCap(CAP_TUTOR);
 
-include './peerlib/simplequerytable.inc';
+include './peerlib/simplequerytable.php';
 require_once 'classSelector.php';
 require_once 'SpreadSheetWriter.php';
 $slb = $peer_id;

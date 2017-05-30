@@ -1,6 +1,6 @@
 <?php
-require_once('./peerlib/peerutils.inc');
-require_once('component.inc');
+require_once('./peerlib/peerutils.php');
+require_once('component.php');
 $page = new PageContainer();
 $html= new HtmlContainer('<html>');
 $page->setTitle('Welcome to peerweb');

@@ -1,7 +1,7 @@
 <?php
-require_once("peerutils.inc");
-require_once('navigation2.inc');
-require_once("utils.inc");
+require_once("peerutils.php");
+require_once('navigation2.php');
+require_once("utils.php");
 require_once('screenutils.php');
 require_once('searchquery2.php');
 require_once('DeleteChecker.php');
@@ -123,7 +123,7 @@ class SimpleTableEditor {
     /**
      * An expression A that can serve part in a join (A) sub_rel on (...) subquery.
      * @param type $s
-     * @return \SearchQuery
+     * @return this SimpleTableEditor
      */
     public function setSubRel($s) {
         if ($s !== '') {
@@ -135,7 +135,7 @@ class SimpleTableEditor {
     /**
      * Set array that maps left part of join to right part.
      * @param array. Keys are left hand, values right hand column names $a
-     * @return \SearchQuery
+     * @return this SimpleTableEditor
      */
     public function setSubRelJoinColumns($a) {
         if (is_array($a)) {

@@ -1,8 +1,8 @@
 <?php
 
-include_once('./peerlib/peerutils.inc');
-require_once('./peerlib/validators.inc');
-require_once('component.inc');
+include_once('./peerlib/peerutils.php');
+require_once('./peerlib/validators.php');
+require_once('component.php');
 $debug = false;
 $prjtg_id = 1;
 extract( $_SESSION );
@@ -55,8 +55,8 @@ fwrite( $fp,
         . "\\rhead[produced on " . $ts . "]{produced on " . $ts . "}\n"
         . "\\lhead[Project $project]{Project $project}\n"
         . "\\lfoot[Fontys Venlo \\textbf{peerweb}]{Fontys Venlo \\textbf{peerweb}}\n"
-        . "\\rfoot[\\tiny\\url{https://www.fontysvenlo.org/peerweb/groupphoto.php?prjtg_id=4241}]%\n"
-        . "{\\tiny\\url{https://www.fontysvenlo.org/peerweb/groupphoto.php?prjtg_id=4241}}\n"
+        . "\\rfoot[\\tiny\\url{https://www.fontysvenlo.org/peerweb/groupphoto.php?prjtg_id={$prjtg_id}}]%\n"
+        . "{\\tiny\\url{https://www.fontysvenlo.org/peerweb/groupphoto.php?prjtg_id={$prjtg_id}}}\n"
         . "\\begin{document}\n"
         . "\\pagestyle{fancy}\n"
         . "\\setlength{\\parindent}{0pt}\n"

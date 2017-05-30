@@ -1,7 +1,7 @@
 <?php
 
-include_once('./peerlib/peerutils.inc');
-include_once('navigation2.inc');
+include_once('./peerlib/peerutils.php');
+include_once('navigation2.php');
 require_once 'prjMilestoneSelector2.php';
 require_once 'maillists.inc.php';
 if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE')) {
@@ -216,6 +216,6 @@ var ot = new OptionTransfer("leftselect","rightselect");
 </script>
 
 ');
-$page->setBodyTag("<body id='body' class='".BODY_CLASS."' onLoad='ot.init(document.forms.grpmembers)'>");
+$page->setBodyTag("<body id='body' class='{$body_class}' onLoad='ot.init(document.forms.grpmembers)'>");
 $page->show();
 ?>

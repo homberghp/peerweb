@@ -1,6 +1,6 @@
 <?php
-require_once 'peerutils.inc';
-require_once 'validators.inc';
+require_once 'peerutils.php';
+require_once 'validators.php';
 
 # $Id: dataRetriever.php 1723 2014-01-03 08:34:59Z hom $
 # show uniform selector in all group def php pages

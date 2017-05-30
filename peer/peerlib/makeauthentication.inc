@@ -1,5 +1,5 @@
 <?php
-require_once 'validators.inc';
+require_once 'validators.php';
 require_once 'Mail.php' ;
 require_once 'Mail/mime.php' ;
 /**
@@ -73,7 +73,8 @@ function mkpasswordmail( $email,$logincode,$roepnaam,$voorvoegsel,$achternaam,$p
   fwrite($handle,$makemailcmd."\n");
   fclose($handle);
   //  $result = @`$makemailcmd`;
-  mail_attachment($pdffilename,$texoutdir,$email,'peerweb@fontysvenlo.org','Peerweb service','peerweb authentication',"authentication data in attachement for $root_url using database $db_name.");
+  mail_attachment($pdffilename,$texoutdir,$email,'peerweb@fontysvenlo.org'
+  ,'Peerweb service','peerweb authentication',"authentication data in attachement for $root_url using database $db_name.");
   $cpassword = password_hash($password,PASSWORD_BCRYPT);
   $sql ="begin work;\n".
       "update passwd set password ='{$cpassword}' where userid='$logincode';\n".
@@ -84,6 +85,9 @@ function mkpasswordmail( $email,$logincode,$roepnaam,$voorvoegsel,$achternaam,$p
       echo "Cannot execute update statement <pre>\"".$sql."\"</pre>, cause=".$dbConn->ErrorMsg()."\n";
 
   }
+  // cleanup
+  $cleanupcmd=@`(cd $texoutdir; rm -fr {$basename}*)`;
+  
   return $result; 
 }
 

@@ -8,9 +8,9 @@
  * @author Pieter van den Hombergh
  * $Id: known_courses2.php 1723 2014-01-03 08:34:59Z hom $
  */
-include_once("peerutils.inc");
-include_once('navigation2.inc');
-include_once("utils.inc");
+include_once("peerutils.php");
+include_once('navigation2.php');
+include_once("utils.php");
 include_once("ste.php");
 
 $page = new PageContainer("Fontys courses in peerweb on DB " . $db_name);

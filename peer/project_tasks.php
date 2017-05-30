@@ -1,8 +1,8 @@
 <?php
 /* $Id: project_tasks.php 1723 2014-01-03 08:34:59Z hom $ */
-include_once('./peerlib/peerutils.inc');
-include_once('tutorhelper.inc');
-include_once 'navigation2.inc';
+include_once('./peerlib/peerutils.php');
+include_once('tutorhelper.php');
+include_once 'navigation2.php';
 $task_prj_id_milestone = '1:1';
 extract( $_SESSION );
 $snummer = $peer_id; // this page is always personal

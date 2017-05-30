@@ -1,8 +1,8 @@
 <?php
 $debug=0;
-include_once('./peerlib/peerutils.inc');
-require_once('./peerlib/validators.inc');
-require_once('component.inc');
+include_once('./peerlib/peerutils.php');
+require_once('./peerlib/validators.php');
+require_once('component.php');
 ini_set('error_reporting',(E_ALL & ~E_NOTICE) );
 extract($_SESSION);
 $sql="select roepnaam||' '||coalesce(voorvoegsel||' ','')||' '||achternaam as line1,snummer \n".

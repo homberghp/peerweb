@@ -1,10 +1,10 @@
 <?php
 /* $Id: igrouprepos.php 1761 2014-05-24 13:17:31Z hom $ */
-include_once('./peerlib/peerutils.inc');
-include_once('./peerlib/simplequerytable.inc');
-include_once('makeinput.inc');
-include_once('tutorhelper.inc');
-include_once 'navigation2.inc';
+include_once('./peerlib/peerutils.php');
+include_once('./peerlib/simplequerytable.php');
+include_once('makeinput.php');
+include_once('tutorhelper.php');
+include_once 'navigation2.php';
 $judge=$snummer;
 $sql="select * from student where snummer=$judge";
 $resultSet=$dbConn->Execute($sql);
@@ -33,7 +33,7 @@ ob_start();
 <fieldset><legend>Repositories</legend>
   <?php 
   $sql = "select "
-  ."'<a href=\"$server_url'||url_tail||'\">'||mpr.description||'</a>' as repo_link,'$server_url'||url_tail as url,\n"
+  ."'<a href=\"$svnserver_url'||url_tail||'\">'||mpr.description||'</a>' as repo_link,'{$svnserver_url}'||url_tail as url,\n"
   ." afko as project_name, pr.description \n"
   ." from my_project_repositories mpr join project pr using(prj_id) where snummer=$snummer order by prj_id desc\n";
 

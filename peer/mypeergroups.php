@@ -1,10 +1,10 @@
 <?php
 /* $Id: mypeergroups.php 1761 2014-05-24 13:17:31Z hom $ */
-include_once('./peerlib/peerutils.inc');
-include_once('./peerlib/simplequerytable.inc');
-include_once('makeinput.inc');
-include_once('tutorhelper.inc');
-include_once 'navigation2.inc';
+include_once('./peerlib/peerutils.php');
+include_once('./peerlib/simplequerytable.php');
+include_once('makeinput.php');
+include_once('tutorhelper.php');
+include_once 'navigation2.php';
 $judge = $snummer;
 $sql = "select * from student where snummer=$judge";
 $resultSet = $dbConn->Execute($sql);

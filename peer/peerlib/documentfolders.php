@@ -1,11 +1,11 @@
 <?php
 
-//$Id: documentfolders.inc 1723 2014-01-03 08:34:59Z hom $
+//$Id: documentfolders.php 1723 2014-01-03 08:34:59Z hom $
 /**
  * shows documents in a folder
  * assumes a lot about the columns
  */
-require_once('fileiconmap.inc');
+require_once 'fileiconmap.php';
 if ( !isSet( $_SESSION['openTreeSet'] ) ) {
   $_SESSION['openTreeSet'] = array( );
 }

@@ -1,12 +1,12 @@
 <?php
 
-include_once('./peerlib/peerutils.inc');
+include_once('./peerlib/peerutils.php');
 requireCap( CAP_TUTOR );
-include_once('navigation2.inc');
+include_once('navigation2.php');
 require_once 'prjMilestoneSelector2.php';
-require_once './peerlib/simplequerytable.inc';
-require_once './peerlib/querytotable.inc';
-require_once './peerlib/validators.inc';
+require_once './peerlib/simplequerytable.php';
+require_once './peerlib/querytotable.php';
+require_once './peerlib/validators.php';
 require_once './peerlib/SimpleTableFormatter.php';
 
 $newgrp_num = $oldgrp_num = 1;

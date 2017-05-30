@@ -1,10 +1,10 @@
 <?php
 
-include_once('./peerlib/peerutils.inc');
-include_once('tutorhelper.inc');
-require_once('./peerlib/validators.inc');
-require_once('./peerlib/simplequerytable.inc');
-include_once'navigation2.inc';
+include_once('./peerlib/peerutils.php');
+include_once('tutorhelper.php');
+require_once('./peerlib/validators.php');
+require_once('./peerlib/simplequerytable.php');
+include_once'navigation2.php';
 require_once 'studentPrjMilestoneSelector.php';
 $doctype = 0;
 $version_limit = 2;

@@ -1,8 +1,8 @@
 <?php
 
-include_once('./peerlib/peerutils.inc');
-require_once('./peerlib/validators.inc');
-require_once('component.inc');
+include_once('./peerlib/peerutils.php');
+require_once('./peerlib/validators.php');
+require_once('component.php');
 $debug = false;
 $act_id = 11;
 extract($_SESSION);

@@ -18,7 +18,7 @@ if (isSet($_SESSION['prj_id'])) {
 </head>
 <body>
 <?php 
-include_once('./peerlib/peerutils.inc');
+include_once('./peerlib/peerutils.php');
 $c=count($_POST['criterium']);
 echo "number of results=$c<br>";
 $continuation='';

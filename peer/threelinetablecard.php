@@ -1,5 +1,5 @@
 <?php
-include_once './peerlib/peerutils.inc';
+include_once './peerlib/peerutils.php';
 include_once 'threelinetablecard';
 /**
  * sql should produced three columns named line1, line2, line3 and barcode

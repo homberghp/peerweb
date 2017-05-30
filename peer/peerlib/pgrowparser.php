@@ -1,6 +1,6 @@
 <?php
 
-//require_once("peerutils.inc");
+//require_once("peerutils.php");
 
 /**
  * Used in queryToXlsx.php.

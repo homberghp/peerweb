@@ -1,10 +1,10 @@
 <?php
-include_once('peerutils.inc');
+include_once('peerutils.php');
 requireCap(CAP_TUTOR);
-include_once('navigation2.inc');
-require_once 'simplequerytable.inc';
-require_once 'querytotable.inc';
-require_once 'validators.inc';
+include_once('navigation2.php');
+require_once 'simplequerytable.php';
+require_once 'querytotable.php';
+require_once 'validators.php';
 $getAll = isSet($_POST['get']) ? 'checked' : '';
 $newhoofdgrp = '';
 $newclass_id = $oldclass_id = 1;

@@ -9,9 +9,9 @@
  * the default relational operator '=' (equals) os changed to like. The query's result will present the data
  * in database column order, because a * is used as in 'select * from &lt;relname&gt;'.
  * To be able to pick the relevant elements from the $_POST array, the column names must be given in a list.
- * @package prafda2
+ * @package peerweb
  */
-class SearchQuery3 {
+class SearchQuery {
 
     /**
      * string the relation to search in e.g. MEDEWERKERS
@@ -107,6 +107,7 @@ class SearchQuery3 {
         $this->relation = $relName;
         $this->relPrefix = substr($this->relation, 0, 2) . '_';
         $query = " select column_name,data_type from information_schema.columns where table_name='$this->relation'";
+        $dbMessage = '';
         $this->matchColumnSet = array();
 
         $count = 0;
@@ -230,12 +231,6 @@ class SearchQuery3 {
         }
         return false;
     }
-
-    /**
-     * Array receives parameters for prepared query.
-     * @var type 
-     */
-    protected $queryValues = array();
 
     /**
      * gets the where ... part without the where.
@@ -422,7 +417,7 @@ class SearchQuery3 {
  *
  * An update query is used to update a record  in the database.
  */
-class UpdateQuery3 extends SearchQuery3 {
+class UpdateQuery extends SearchQuery {
 
     /**
      * The update set is the set of column-names,columnvalues that have to be updated
@@ -474,7 +469,7 @@ class UpdateQuery3 extends SearchQuery3 {
         $result = 'update ' . $this->relation . ' set ';
         $continuation = '';
         while (list($key, $value) = each($this->updateSet)) {
-            if ($this->dataTypes[$key] == 'bool' && isSet($value) && ($value === 'true' || $value == 'false')) {
+            if ($this->dataTypes[$key] == 'bool' && isSet($value) && ($vale === 'true' || $value == 'false')) {
                 $result .= $continuation . $key . '=' . $value;
                 $continuation = ',';
             } else {
@@ -487,41 +482,12 @@ class UpdateQuery3 extends SearchQuery3 {
         return $result;
     }
 
-    private $argList;
-    private $preparedStatement;
-
-    /**
-     * Prepare this query for execution the query.
-     * The current implementation saves the paramater hash for later use in execute.
-     * @return string: the query prepared to be submitted to the database.
-     */
-    function prepareQuery() {
-        $argList = array();
-        $query = 'update ' . $this->relation . ' set ';
-        $continuation = '';
-        while (list($key, $value) = each($this->updateSet)) {
-            $query .= $continuation . $key . '= ?';
-            $this->argList[] = $value;
-            $continuation = ',';
-        }
-        $query .= ' where ' . $this->getWhereList();
-        $this->preparedStatement = $this->dbConn->Prepare($query);
-        return $this;
-    }
-
-    /**
-     * Execute the prepared query.
-     */
-    function executePrepared() {
-        return $this->dataTypes->Execute($this->preparedStatement, $this->argList);
-    }
-
 }
 
 /**
  * Insert queries are special in that you have to verify that all key columns are set.
  */
-class InsertQuery3 extends SearchQuery3 {
+class InsertQuery extends SearchQuery {
 
     /**
      * build an array of the requested updates.
@@ -555,6 +521,7 @@ class InsertQuery3 extends SearchQuery3 {
         $result = true;
         for ($i = 0; $i < count($this->keyColumns); $i++) {
             if (!isSet($this->updateSet[$this->keyColumns[$i]]) || $this->updateSet[$this->keyColumns[$i]] == '') {
+                error_log("key columns not all set");
                 return false;
             }
         }
@@ -592,10 +559,10 @@ class InsertQuery3 extends SearchQuery3 {
 }
 
 /**
- * To delete no more than intended make sure that all key columns are set so that only
+ * To delete no more than intended mak sure taht all key columns are set so that only
  * one record is deleted
  */
-class DeleteQuery3 extends UpdateQuery3 {
+class DeleteQuery extends UpdateQuery {
 
     /**
      * build an array of the requested updates.
@@ -637,7 +604,7 @@ class DeleteQuery3 extends UpdateQuery3 {
  * to keys of another. The join is normally a left join. See the relevant database literature for
  * an exposee on left joins.
  */
-class SupportingJoinQuery3 {
+class SupportingJoinQuery {
 
     protected $relation;
 
@@ -714,5 +681,5 @@ class SupportingJoinQuery3 {
 
 }
 
-/* $Id: searchquery3.php 1859 2015-07-27 08:08:55Z hom $ */
+/* $Id: searchquery2.php 1860 2015-07-27 08:18:07Z hom $ */
 

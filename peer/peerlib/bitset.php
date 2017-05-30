@@ -1,5 +1,5 @@
 <?php
-//require_once('dbutils.inc');
+//require_once('dbutils.php');
 /**
  * make a bitset as a number of inputs of type checkbox
  * @param $nameInForm string name of the bits in the form

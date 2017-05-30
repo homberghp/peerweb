@@ -1,6 +1,6 @@
 <?php
 
-require_once('./peerlib/peerutils.inc');
+require_once('./peerlib/peerutils.php');
 
 /**
  * Build a row of a html table.

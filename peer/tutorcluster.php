@@ -1,6 +1,6 @@
 <?php
-require_once './peerlib/peerutils.inc';
-include_once('navigation2.inc');
+require_once './peerlib/peerutils.php';
+include_once('navigation2.php');
 requireCap(CAP_EDIT_RIGHTS);
 require_once 'bitset.php';
 require_once 'studentpicker.php';
