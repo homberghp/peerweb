@@ -1,7 +1,7 @@
 <?php
 include_once('./peerlib/peerutils.php');
 require_once('./peerlib/validators.php');
-include_once('navigation2.inc');
+include_once('navigation2.php');
 requireCap(CAP_TUTOR);
 
 include './peerlib/simplequerytable.php';

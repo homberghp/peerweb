@@ -1,8 +1,8 @@
 <?php
 include_once('./peerlib/peerutils.php');
 include_once('tutorhelper.php');
-include_once('navigation2.inc');
-include_once 'navigation2.inc';
+include_once('navigation2.php');
+include_once 'navigation2.php';
 require_once 'presencetable.php'; 
 // get group tables for a project
 $prj_id=0;

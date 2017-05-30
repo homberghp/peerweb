@@ -1,6 +1,6 @@
 <?php
 include_once('./peerlib/peerutils.php');
-include_once('navigation2.inc');
+include_once('navigation2.php');
 require_once('component.php');
 requireCap(CAP_TUTOR);
 $scount=100;

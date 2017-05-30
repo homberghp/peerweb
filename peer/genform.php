@@ -10,7 +10,7 @@
  */
 require_once("peerutils.php");
 require_once("utils.php");
-require_once('navigation2.inc');
+require_once('navigation2.php');
 //require_once("nav6.php");
 //requireCap(CAP_SYSTEM);
 //if ($am_user_blocked == 'J') {

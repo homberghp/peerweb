@@ -1,5 +1,5 @@
 <?php
-include 'navigation2.inc';
+include 'navigation2.php';
 $sender_name='';
 $sql="select email1 as replyto,roepnaam||coalesce(' '||voorvoegsel,'')||' '||achternaam as sender_name,signature".
 "  from student left join email_signature using(snummer) where snummer='$peer_id'";

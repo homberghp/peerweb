@@ -2,7 +2,7 @@
 
 include_once './peerlib/peerutils.php';
 require_once './peerlib/validators.php';
-include_once 'navigation2.inc';
+include_once 'navigation2.php';
 include_once './peerlib/simplequerytable.php';
 require_once 'prjMilestoneSelector2.php';
 require_once 'presencetable.php';

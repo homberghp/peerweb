@@ -1,7 +1,7 @@
 <?php
 include_once('./peerlib/peerutils.php');
 require_once('./peerlib/validators.php');
-include_once('navigation2.inc');
+include_once('navigation2.php');
 require_once 'prjMilestoneSelector2.php';
 //requireCap(CAP_TUTOR);
 $prj_id=1;

@@ -2,7 +2,7 @@
 requireCap(CAP_TUTOR);
 include_once('./peerlib/peerutils.php');
 include_once('documentfolders2.php');
-include_once('navigation2.inc');
+include_once('navigation2.php');
 require_once 'prjMilestoneSelector2.php';
 $prj_id = 1;
 $milestone = 1;

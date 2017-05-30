@@ -1,7 +1,7 @@
 <?php
 require_once('./peerlib/peerutils.php');
 require_once('./peerlib/validators.php');
-include_once('navigation2.inc');
+include_once('navigation2.php');
 require_once 'studentpicker.php';
 require_once 'ClassSelectorClass.php';
 $class_id = 363;

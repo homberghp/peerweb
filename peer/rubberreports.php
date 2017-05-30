@@ -2,7 +2,7 @@
 include_once('./peerlib/peerutils.php');
 require_once('./peerlib/validators.php');
 require_once('rubberstuff.php');
-include_once('navigation2.inc');
+include_once('navigation2.php');
 
 $tutor_navtable=array();
 $activeRubberProject='';

@@ -1,7 +1,7 @@
 <?php
 
 require_once 'component.php';
-require_once 'navigation2.inc';
+require_once 'navigation2.php';
 require_once 'GradeHarvester.php';
 /**
  * Upload grades to peerweb.

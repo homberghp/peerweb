@@ -1,7 +1,7 @@
 <?php
 require_once('./peerlib/peerutils.php');
 include_once('tutorhelper.php');
-require_once'navigation2.inc';
+require_once'navigation2.php';
 /**
  * @package peerweb
  * @author Pieter van den Hombergh

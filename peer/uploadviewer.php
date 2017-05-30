@@ -5,7 +5,7 @@ include_once('./peerlib/peerutils.php');
 include_once('tutorhelper.php');
 include_once('./peerlib/simplequerytable.php');
 include_once('documentfolders.php');
-include_once'navigation2.inc';
+include_once'navigation2.php';
 require_once 'studentPrjMilestoneSelector.php';
 
 $prj_id = 1;

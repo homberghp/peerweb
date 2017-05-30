@@ -1,7 +1,7 @@
 <?php
 include_once('./peerlib/peerutils.php');
 require_once('./peerlib/validators.php');
-include_once('navigation2.inc');
+include_once('navigation2.php');
 include './peerlib/simplequerytable.php';
 require_once 'selector.php';
 require_once 'studentpicker.php';

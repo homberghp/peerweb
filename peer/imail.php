@@ -4,7 +4,7 @@
 //session_start();
 include_once('./peerlib/peerutils.php');
 include_once('tutorhelper.php');
-include_once 'navigation2.inc';
+include_once 'navigation2.php';
 include_once './peerlib/SimpleTableFormatter.php';
 require_once './peerlib/studentPrjMilestoneSelector.php';
 $judge = 1;

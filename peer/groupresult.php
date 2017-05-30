@@ -2,7 +2,7 @@
 include_once('./peerlib/peerutils.php');
 requireCap(CAP_TUTOR);
 require_once('./peerlib/validators.php');
-include_once('navigation2.inc');
+include_once('navigation2.php');
 include_once('groupresult3.php');
 include_once 'openBarChart2.php';
 require_once 'prjMilestoneSelector2.php';

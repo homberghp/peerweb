@@ -1,7 +1,7 @@
 <?php
 
 require_once 'peerlib/component.php';
-require_once 'navigation2.inc';
+require_once 'navigation2.php';
 
 require_once 'peerlib/SimpleTableFormatter.php';
 require_once 'peerlib/mailFunctions.php';

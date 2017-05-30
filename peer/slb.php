@@ -3,7 +3,7 @@
 include_once('./peerlib/peerutils.php');
 requireCap(CAP_TUTOR);
 include_once './peerlib/component.php';
-include_once('navigation2.inc');
+include_once('navigation2.php');
 
 //require_once './peerlib/simplequerytable.php';
 require_once './peerlib/querytotable.php';

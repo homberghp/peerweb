@@ -3,7 +3,7 @@
 include_once('./peerlib/peerutils.php');
 include_once('tutorhelper.php');
 requireCap(CAP_TUTOR);
-include_once 'navigation2.inc';
+include_once 'navigation2.php';
 require_once 'GroupPhoto.class.php';
 require_once 'studentPrjMilestoneSelector.php';
 require_once './peerlib/contestant_table.php';

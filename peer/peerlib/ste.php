@@ -1,6 +1,6 @@
 <?php
 require_once("peerutils.php");
-require_once('navigation2.inc');
+require_once('navigation2.php');
 require_once("utils.php");
 require_once('screenutils.php');
 require_once('searchquery2.php');

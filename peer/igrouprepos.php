@@ -4,7 +4,7 @@ include_once('./peerlib/peerutils.php');
 include_once('./peerlib/simplequerytable.php');
 include_once('makeinput.php');
 include_once('tutorhelper.php');
-include_once 'navigation2.inc';
+include_once 'navigation2.php';
 $judge=$snummer;
 $sql="select * from student where snummer=$judge";
 $resultSet=$dbConn->Execute($sql);

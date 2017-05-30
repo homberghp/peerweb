@@ -3,7 +3,7 @@
 include_once('./peerlib/peerutils.php');
 require_once('./peerlib/validators.php');
 //require_once('rubberstuff.php');
-include_once('navigation2.inc');
+include_once('navigation2.php');
 require_once('./peerlib/conffileeditor2.php');
 requireCap( CAP_SYSTEM );
 // anticipate a save initiated by user.

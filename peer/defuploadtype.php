@@ -2,7 +2,7 @@
 
 require_once('./peerlib/peerutils.php');
 require_once('./peerlib/querytotable.php');
-include_once('navigation2.inc');
+include_once('navigation2.php');
 require_once 'prjMilestoneSelector2.php';
 $warn_members = false;
 requireCap( CAP_TUTOR );

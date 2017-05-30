@@ -2,7 +2,7 @@
 include_once('./peerlib/peerutils.php');
 require_once('./peerlib/validators.php');
 include_once('tutorhelper.php');
-include_once('navigation2.inc');
+include_once('navigation2.php');
 require_once 'GroupPhoto.class.php';
 require_once 'studentPrjMilestoneSelector.php';
 $prj_id=1;
