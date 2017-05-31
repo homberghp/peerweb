@@ -4,7 +4,7 @@
 //session_start();
 include_once('./peerlib/peerutils.php');
 require_once('./peerlib/validators.php');
-require_once('document_access.inc');
+require_once('document_access.php');
 require_once('tutorhelper.php');
 $doc_id = 1;
 $debug = 0;
