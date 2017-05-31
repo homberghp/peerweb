@@ -10,7 +10,7 @@ ini_set('error_reporting', E_ALL);
 $include_path = ini_get('include_path');
 $include_path = $site_dir . '/peerlib:' . $include_path . ':/usr/share/php/PHPExcel/Classes';
 $include_path = ini_set('include_path', $include_path);
-$subversionscriptdir = $site_home . 'subversion';
+$subversionscriptdir = "{$site_home}/subversion";
 define('ADODB_ASSOC_CASE', 2);
 define('STYLEFILE', $root_url . '/style/peertreestyle.css');
 define('SITEROOT', $root_url);
