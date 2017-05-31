@@ -2,6 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/home/hom/peerweb/peer/setdb.php</file>
+            <file>file:/home/hom/peerweb/peer/configure.php</file>
+            <file>file:/home/hom/peerweb/peer/righthandcolumn.php</file>
+            <file>file:/home/hom/peerweb/peer/upload_critique.php</file>
+            <file>file:/home/hom/peerweb/peer/copygroups.php</file>
+            <file>file:/home/hom/peerweb/peer/rubberreports.php</file>
+            <file>file:/home/hom/peerweb/peer/presenceoverview.php</file>
+        </group>
     </open-files>
 </project-private>

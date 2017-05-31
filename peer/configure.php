@@ -4,7 +4,7 @@
 // do not change anything below this line
 //
 require_once "{$etc_dir}/settings.php";
-$rubberbase = $site_home . 'rubberreports';
+$rubberbase = "{$site_home}/rubberreports";
 $site_dir = $site_home . '/peer'; // the dir on the server
 ini_set('error_reporting', E_ALL);
 $include_path = ini_get('include_path');
