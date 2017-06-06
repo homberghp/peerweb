@@ -586,6 +586,13 @@ $navtable = array(// index, defproject, citeria1,2, milestones
                 'image' => 'file_cabinet.png',
                 'interest' => 'module',
             ),
+            array('target' => 'examresults.php',
+                'tooltip' => 'View exam grades',
+                'linktext' => 'View Grades',
+                'menu_name' => 'viewUpload_grades',
+                'image' => 'file_cabinet.png',
+                'interest' => 'module',
+            ),
         ),
     ),
     array(
