@@ -118,6 +118,30 @@ class PeerPGDBConnection {
     }
 
     /**
+     * create a prepared statement
+     * @param type $query
+     * @param type $stmName
+     * @return boolean if succes full
+     */
+    public function Prepare($query,$stmName='my_statement'){
+        if (false !== pg_prepare($this->connection,$stmName,$query)){
+            return $stmName;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * execute prepared applying params
+     * @param type $preparedName
+     * @param type $params
+     * @return \PeerResultSet
+     */
+    public function ExecutePrepared($preparedName,$params=array()){
+        $result= pg_execute($this->connection, $preparedName,$params);
+        return new PeerResultSet($this->connection, $result);
+    }
+    /**
      * Execute a compound statement
      * @param type $stmts
      */

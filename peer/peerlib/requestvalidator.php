@@ -175,11 +175,20 @@ class RequestValidator {
     function addValidator($key) {
         global $dbConn;
         if ($this->collect_unknown_names) {
-            $sql = "select * from validator_occurrences where page = '" . $this->page . "' and identifier='$key'";
-            $resultSet = $dbConn->Execute($sql);
-            if ($resultSet->EOF) {
-                $sql = "insert into validator_occurrences (page,identifier) values('" . $this->page . "','$key')";
-                $dbConn->Execute($sql);
+            $sql = 'select * from validator_occurrences where page = $1 and identifier=$2';
+            if (false !== $dbConn->Prepare($sql, 'validator_check', $sql)) {
+                echo 'aa';
+                $params = array($this->page, $key);
+
+                $resultSet = $dbConn->ExecutePrepared('validator_check', $params);
+                if ($resultSet->EOF) {
+                    echo 'bb';
+                    $sql = "insert into validator_occurrences (page,identifier) values($1,$2)";
+                    $dbConn->Prepare($sql, 'validator_add', $sql, $params);
+                    $dbConn->ExecutePrepared('validator_add', $sql, $params);
+                    $dbConn->Execute("DEALLOCATE validator_add");
+                }
+                $dbConn->Execute("DEALLOCATE validator_check");
             }
         }
     }
