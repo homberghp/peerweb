@@ -177,12 +177,10 @@ class RequestValidator {
         if ($this->collect_unknown_names) {
             $sql = 'select * from validator_occurrences where page = $1 and identifier=$2';
             if (false !== $dbConn->Prepare($sql, 'validator_check', $sql)) {
-                echo 'aa';
                 $params = array($this->page, $key);
 
                 $resultSet = $dbConn->ExecutePrepared('validator_check', $params);
                 if ($resultSet->EOF) {
-                    echo 'bb';
                     $sql = "insert into validator_occurrences (page,identifier) values($1,$2)";
                     $dbConn->Prepare($sql, 'validator_add', $sql, $params);
                     $dbConn->ExecutePrepared('validator_add', $sql, $params);
