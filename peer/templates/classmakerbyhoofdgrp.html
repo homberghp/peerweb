@@ -1,0 +1,43 @@
+<div id='navmain' style='padding:1em;'>
+  <fieldset><legend>Choose students</legend>
+    <p>Normally this page is used once or twice a year to assign students to new classes.<br/>
+      The other use case would be when you move a student out of a class
+      when he or she leaves the institute. TYpically in either a
+      <b>'DUMPxxx'</b> table or to an <b>ALUMNI<i>your course here</i></b> class.</p>
+    <form method="post" name="participants" action="<?=$PHP_SELF?>">
+      <table class='layout' style='border-width:0;'>
+        <tr><th colspan='1'>Class</th><th colspan='2'>Move to class</th></tr>
+        <tr><td>
+            <?=$oldClassSelector?>
+          </td>
+          <td><input type='submit' name='get' value='Get Class' title='Get current class'/></td>
+          <td>
+            <?=$newClassSelector?>
+          </td>
+          <td><input type="submit" name="update" value="Move" title="move the students"/></td>
+          <td><input type="text" size="10" maxlength="10" name="newhoofdgrp" value="<?=$newhoofdgrp?>" 
+                     title="new hoofdgrp for selected students"/>
+            <input type="submit" name="sethoofdgrp" value="set hoofdgrp" title="update hoofdgrp for selected students"/></td>
+          <td><input type="reset" name="reset" value="Reset" title="reset form"/></td>
+        </tr>
+        <tr>
+            <td colspan='8'>maillist: <b><tt style='font-size:120%' title='last modified at <?=$filetime?>'><?=$mailalias?></tt></b>
+            <input type="submit"
+                   name="maillist" 
+                   value="Create/Update Mail List"
+                   title="(re)create maillist for this
+                          class"/>&nbsp;<strong style='color:#800;'>last update: <?=$filetime?>. The mail list is immediately in effect after
+              pressing the Create/Update Mail list button.</strong></td>
+        </tr>
+      </table>
+      <hr/>
+
+      <?=$classTable?>
+    </form>
+      <form method="get" name="classlist" action="<?=$PHP_SELF?>">
+	<p>Get class list as: 
+	  <?=$spreadSheetWidget?>
+	</p>
+      </form>
+  </fieldset>
+</div>
