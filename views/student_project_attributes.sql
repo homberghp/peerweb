@@ -2,9 +2,9 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.2
--- Dumped by pg_dump version 9.6.2
-begin work;
+-- Dumped from database version 9.6.3
+-- Dumped by pg_dump version 9.6.3
+
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -19,7 +19,6 @@ SET search_path = public, pg_catalog;
 --
 -- Name: student_project_attributes; Type: VIEW; Schema: public; Owner: hom
 --
-drop view if exists student_project_attributes;
 
 CREATE VIEW student_project_attributes AS
  SELECT DISTINCT s.snummer,
@@ -57,4 +56,3 @@ GRANT SELECT,INSERT,REFERENCES,DELETE,TRIGGER,UPDATE ON TABLE student_project_at
 -- PostgreSQL database dump complete
 --
 
-commit;
