@@ -14,6 +14,7 @@ require_once 'SpreadSheetWriter.php';
 require_once 'maillists.inc.php';
 $getAll = isSet($_POST['get']) ? 'checked' : '';
 $newclass_id = $oldclass_id = 1;
+$hoofdgrp='ALUMNIINF';
 extract($_SESSION);
 
 $pp = array();
@@ -27,15 +28,6 @@ if (isSet($_REQUEST['hoofdgrp'])) {
 }
 if (isSet($_POST['newclass_id'])) {
     $_SESSION['newclass_id'] = $newclass_id = $_POST['newclass_id'];
-}
-if (isSet($hoofdgrp)) {
-    $sql = "select trim(faculty_short) as faculty_short,trim(sclass) as sclass,\n"
-            . "lower(rtrim(faculty_short)||'.'||rtrim(sclass)) as prefix\n"
-            . " from student_class join faculty using(faculty_id) where hoofdgrp={$hoofgrp}";
-    $resultSet = $dbConn->Execute($sql);
-    if ($resultSet !== false) {
-        extract($resultSet->fields);
-    }
 }
 $oldClassSelector = hoofdgrpSelector($dbConn, 'hoofdgrp', $hoofdgrp);
 
@@ -54,11 +46,11 @@ $sqltail = " join student_class using(class_id) left join tutor t on (s.slb=t.us
         . "where hoofdgrp='$hoofdgrp' order by achternaam,roepnaam\n";
 
 $fdate = date('Y-m-d');
-$filename = 'class_list_' . $faculty_short . '_' . $sclass . '-' . $fdate;
+$filename = "hoofdgrp_{$hoofdgrp}-{$fdate}";
 
 $spreadSheetWriter = new SpreadSheetWriter($dbConn, $sqlhead . ' student s ' . $sqltail);
 
-$spreadSheetWriter->setTitle("Class list  $faculty_short $sclass $fdate")
+$spreadSheetWriter->setTitle("Hoofdgrp list  $hoofdgrp $fdate")
         ->setLinkUrl($server_url . $PHP_SELF . '?oldclass_id=' . $oldclass_id)
         ->setFilename($filename)
         ->setAutoZebra(true);
