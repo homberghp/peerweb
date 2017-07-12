@@ -41,8 +41,8 @@ $today = date( 'Y-m-d' );
 
 $page = new PageContainer();
 $page->setTitle( 'Shared group files' );
-$page_opening = "Welcome to the files of the groups of $roepnaam $voorvoegsel $achternaam ($snummer)";
-$page_opening = "Files uploaded for projects in which $roepnaam $voorvoegsel $achternaam ($snummer) participates on $today";
+$page_opening = "Welcome to the files of the groups of $roepnaam $tussenvoegsel $achternaam ($snummer)";
+$page_opening = "Files uploaded for projects in which $roepnaam $tussenvoegsel $achternaam ($snummer) participates on $today";
 $nav = new Navigation( $tutor_navtable, basename( $PHP_SELF ), $page_opening );
 $_SESSION['referer'] = $PHP_SELF;
 ob_start();
@@ -68,7 +68,7 @@ $prjList = "<form name='prjmil' action='$PHP_SELF' method='get'>\n" .
 
 $pp = array( );
 $pp['prjList'] = $prjList;
-$sql = "SELECT roepnaam, voorvoegsel,achternaam,lang,prjtg_id FROM student \n"
+$sql = "SELECT roepnaam, tussenvoegsel,achternaam,lang,prjtg_id FROM student \n"
         . "join prj_grp using(snummer) join prj_tutor pt using(prjtg_id) \n"
         . "WHERE snummer=$snummer and pt.prjm_id=$prjm_id";
 $resultSet = $dbConn->Execute( $sql );
@@ -86,7 +86,7 @@ $sqlfolders = "select ddd.*,doc_count from (select rtrim(afko) as afko,rtrim(des
             to_char(uploadts,'YYYY-MM-DD HH24:MI')::text as uploadts,dd.due,rtrim(mime_type) as mime_type,
             case when dd.uploadts::date > dd.due then 'late' else 'early' end as late_or_early,
             vers,dd.doctype,dd.dtdescr,upload_id,
-            dd.snummer, roepnaam,voorvoegsel,achternaam,sclass,critique_count as crits,dd.rights,filesize,
+            dd.snummer, roepnaam,tussenvoegsel,achternaam,sclass,critique_count as crits,dd.rights,filesize,
 	        (coalesce($peer_id = aud.reader,false) or $isTutorBool) as link, viewergrp
              from document_data3 dd 
                 left join (select upload_id,prjm_id,reader,reader_role,viewergrp 

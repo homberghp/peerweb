@@ -35,7 +35,7 @@ if ($resultSet === false) {
 if (!$resultSet->EOF)
     extract($resultSet->fields, EXTR_PREFIX_ALL, 'judge');
 $lang = strtolower($judge_lang);
-$student_data = "$judge_roepnaam $judge_voorvoegsel $judge_achternaam ($judge_snummer)";
+$student_data = "$judge_roepnaam $judge_tussenvoegsel $judge_achternaam ($judge_snummer)";
 $page_opening = "Assessment entry form for $student_data";
 $page = new PageContainer();
 $page->setTitle('Peer assessment entry form');
@@ -165,7 +165,7 @@ if ($grp_open && isSet($_POST['peerdata'])) {
                 extract($resultSet->fields);
             }
             // and mail tutor
-            $sql = "select  email1 as email,roepnaam,achternaam,voorvoegsel,afko,description,grp_num \n" .
+            $sql = "select  email1 as email,roepnaam,achternaam,tussenvoegsel,afko,description,grp_num \n" .
                     "from tutor t join student s on(t.userid=s.snummer) join prj_tutor pt on(pt.tutor_id=t.userid) \n" .
                     "join prj_milestone using(prjm_id)\n" .
                     "join project using(prj_id) \n" .
@@ -177,10 +177,10 @@ if ($grp_open && isSet($_POST['peerdata'])) {
                 extract($resultSet->fields);
                 $achternaam = trim($achternaam);
                 $roepnaam = trim($roepnaam);
-                $voorvoegsel = trim($voorvoegsel);
+                $tussenvoegsel = trim($tussenvoegsel);
                 $to = trim($email);
                 $subject = "The assessment is complete for project $afko group $grp_num milestone $milestone";
-                $body = "Beste $roepnaam $voorvoegsel $achternaam,\n\n" .
+                $body = "Beste $roepnaam $tussenvoegsel $achternaam,\n\n" .
                         "Alle studenten van groep $grp_num in project $afko ($description)hebben " .
                         "hun beoordeling ingegeven.\n" .
                         "U kunt de gegevens op de bekende plaats " .
@@ -193,7 +193,7 @@ if ($grp_open && isSet($_POST['peerdata'])) {
                 //	    $dbConn->log("email $body");
             }
             // and mail other members
-            $sql = "select roepnaam,voorvoegsel,achternaam,email1,email2 \n"
+            $sql = "select roepnaam,tussenvoegsel,achternaam,email1,email2 \n"
                     . "from student \n"
                     . "left join alt_email using(snummer)\n"
                     . " join prj_grp using (snummer) \n"
@@ -276,7 +276,7 @@ if ($isTutor) {
 }
 
 if (isSet($prjtg_id)) {
-    $sql = "SELECT ca.contestant,roepnaam||coalesce(' '||voorvoegsel,'')||' '||achternaam||coalesce(' ('||role||')','') as naam ,ca.prj_id,\n" .
+    $sql = "SELECT ca.contestant,roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam||coalesce(' ('||role||')','') as naam ,ca.prj_id,\n" .
             "grp_num,criterium,milestone,grade,coalesce(remark,'') as remark from contestant_assessment ca \n" .
             " left join student_role sr on(ca.prjm_id=sr.prjm_id and ca.contestant=sr.snummer)\n" .
             " left join project_roles pr on(ca.prj_id=pr.prj_id and sr.rolenum=pr.rolenum)\n" .

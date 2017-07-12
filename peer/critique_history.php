@@ -24,7 +24,7 @@ if (isSet($_REQUEST['critique_id'])) {
     $critique_id=validate($_REQUEST['critique_id'],'integer',1);
     $maindiv->addText("<div class='navopening'><h1>Critique history of critique $critique_id <button onClick='javascript:bye()'>Close</button></h1></div>");
 
-    $sql = "select distinct critiquer, roepnaam,voorvoegsel,achternaam,critique_id,id,\n".
+    $sql = "select distinct critiquer, roepnaam,tussenvoegsel,achternaam,critique_id,id,\n".
     "date_trunc('seconds',ch.edit_time) as critique_time,ch.critique_text as critique_text,\n".
     "afko,year,apt.grp_num as critiquer_grp\n".
     "from document_critique dcr\n".
@@ -48,7 +48,7 @@ if (isSet($_REQUEST['critique_id'])) {
 		    new Component("<tr><td>\n".
 				  "\t<div class='critique' style='background:#ffffe0;'>\n".
 				  "\t<fieldset style='margin: .2em border:2;'>\n".
-				  "\t\t<legend>Critique $critique_id by $roepnaam $voorvoegsel $achternaam ($critiquer)&nbsp;</legend>\n".
+				  "\t\t<legend>Critique $critique_id by $roepnaam $tussenvoegsel $achternaam ($critiquer)&nbsp;</legend>\n".
 				  "\t\t\t<table class='layout'>\n".
 				  "\t\t\t\t<tr><td>Group</td><th align='left'>$critiquer_grp ($afko $year) </th></tr>\n".
 				  "\t\t\t\t<tr><td>Critique time</td><th align='left'> $critique_time</th></tr>\n".

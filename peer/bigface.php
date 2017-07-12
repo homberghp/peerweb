@@ -8,7 +8,7 @@ if ( !$dbConn ) {
     exit;
 }
 
-$sql = "select achternaam,roepnaam,voorvoegsel, nickname,office_phone,\n"
+$sql = "select achternaam,roepnaam,tussenvoegsel, nickname,office_phone,\n"
         . "team,building,room,display_name,image\n"
         . "from bigface_view\n"
         . "order by achternaam,roepnaam\n";

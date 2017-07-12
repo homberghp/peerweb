@@ -226,7 +226,7 @@ if ($resultSet === false) {
 {
     $present = $resultSet->fields['present'];
     $sql = "select coalesce(alias,'g'||apt.grp_num::text) as sgroup,st.snummer,size as grp_size,\n" .
-            "achternaam||', '||roepnaam||coalesce(' '||voorvoegsel,'') as name," .
+            "achternaam||', '||roepnaam||coalesce(' '||tussenvoegsel,'') as name," .
             "'<img src=\"'||photo||'\" width=32 height=48/>' as face,\n" .
             "snummer as participant,ap.presence,ar.reason as comment,apt.grp_num\n" .
             ",coalesce(alias,'g'||apt.grp_num) as grp_name, 'g'||apt.grp_num as grp_id" .

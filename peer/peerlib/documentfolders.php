@@ -151,7 +151,7 @@ function getDocumentFoldersPreExecuted( $resultSet ) {
               . "/$fileimage' alt='$mime_type' border='0' align='left'/>&nbsp;$dtdescr$refEnd</td>\n"
               . "\t<td align='right'>$vers</td><td $tdStyle>$bhref $title $refEnd</td>\n"
               . "\t<td align='right'>$file_size</td>\n"
-              . "\t<td align='left'>$roepnaam $voorvoegsel $achternaam ($snummer)</td>\n"
+              . "\t<td align='left'>$roepnaam $tussenvoegsel $achternaam ($snummer)</td>\n"
               . "\t<td $uploadStyle align='center' title='due $due'>$uploadts</td></tr>\n";
     }
     $oldafko = $afko;

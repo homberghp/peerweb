@@ -143,7 +143,7 @@ function documentFoldersPreExecuted( $resultSet, $urlTail = '' ) {
       . "\t<td >$bhref$title</a></td>\n"
       . "\t<td align='right'>$vers</td>\n"
       . "\t<td align='right'>$file_size</td>\n"
-      . "\t<td >$roepnaam $voorvoegsel $achternaam ($snummer)</td>\n"
+      . "\t<td >$roepnaam $tussenvoegsel $achternaam ($snummer)</td>\n"
       . "\t<td $uploadStyle align='center' title='due:$due'>$uploadts</td></tr>\n";
     }
     $oldafko = $afko;

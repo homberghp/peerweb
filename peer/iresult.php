@@ -31,7 +31,7 @@ if ( isSet( $_REQUEST['groupgrade'] ) ) {
         $_SESSION['groupgrade'] = $groupgrade = $_REQUEST['groupgrade'];
     }
 }
-$sql = "SELECT roepnaam, voorvoegsel,achternaam,coalesce(lang,'EN') as lang \n"
+$sql = "SELECT roepnaam, tussenvoegsel,achternaam,coalesce(lang,'EN') as lang \n"
         . "FROM student WHERE snummer=$snummer";
 $resultSet = $dbConn->Execute( $sql );
 if ( $resultSet === false ) {
@@ -56,7 +56,7 @@ if ( $assessment_count != 0 ) {
 } else {
     $pp['prjList'] = "<h1>Sorry, you are not enlisted for any assessment</h1>";
 }
-$page_opening = "Participant $roepnaam $voorvoegsel $achternaam ($snummer)";
+$page_opening = "Participant $roepnaam $tussenvoegsel $achternaam ($snummer)";
 $page = new PageContainer();
 $page->setTitle( 'Individual result' );
 $nav = new Navigation( $tutor_navtable, basename( $PHP_SELF ), $page_opening );
@@ -69,7 +69,7 @@ $page->addBodyComponent( new Component( ob_get_clean() ) );
 $page->addBodyComponent( $nav );
 $lazyCount = 0;
 $lazyjudges = '';
-$sqlx = "select distinct roepnaam||coalesce(' '||voorvoegsel,'')||' '||achternaam as naam,achternaam,prjtg_id\n" .
+$sqlx = "select distinct roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam as naam,achternaam,prjtg_id\n" .
         "from student join judge_notready using(snummer)\n" .
         "join prj_tutor using(prjtg_id)\n" .
         "where prjtg_id=$prjtg_id order by achternaam,naam";
@@ -83,7 +83,7 @@ while ( !$resultSet->EOF ) {
     $lazyjudges.='<tr><td>' . $resultSet->fields['naam'] . '</td></tr>';
     $resultSet->moveNext();
 }
-$sql = "select '('||snummer||')' as snummer,roepnaam||' '||coalesce(voorvoegsel,'')||' '||achternaam as name,\n" .
+$sql = "select '('||snummer||')' as snummer,roepnaam||' '||coalesce(tussenvoegsel,'')||' '||achternaam as name,\n" .
         " student_class.sclass as class\n" .
         " from student join prj_grp using(snummer) \n" .
         "join student_class using (class_id)\n" .

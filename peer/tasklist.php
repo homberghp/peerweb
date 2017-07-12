@@ -185,7 +185,7 @@ if ($resultSet === false) {
         $resultSet->moveNext();
     }
 $sql = "select st.snummer,"
-        . "achternaam||', '||roepnaam||coalesce(' '||voorvoegsel,'') as name,\n"
+        . "achternaam||', '||roepnaam||coalesce(' '||tussenvoegsel,'') as name,\n"
         . "'<img src=\"'||p.photo||'\" width=''32'' height=''48''/>' as face,ptc.\n"
         . "snummer as participant,ptc.mark,ptc.grade,ptc.comment,pg.grp_num\n"
         . ",alias as grp_name\n"

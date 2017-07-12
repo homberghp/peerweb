@@ -26,7 +26,7 @@ $title = "Student and groups in project $afko milestone $milestone";
 $sqlhead = "select s.snummer as snummer,";
 
 // <a href='../student_admin.php?snummer=snummer'>snummer</a>
-$sqltail = "achternaam||rtrim(coalesce(', '||voorvoegsel,'')) as achternaam ,roepnaam, pcn,gebdat as birth_date,cohort,\n"
+$sqltail = "achternaam||rtrim(coalesce(', '||tussenvoegsel,'')) as achternaam ,roepnaam, pcn,gebdat as birth_date,cohort,\n"
         . "role,slb.tutor as slb,rtrim(email1) as email1,rtrim(email2) as email2,c.sclass as klas,afko,milestone,"
         . "sp.studieplan_short as studplan,\n"
         . "apt.grp_num,ga.alias,apt.grp_name,apt.tutor,'' as grade\n"

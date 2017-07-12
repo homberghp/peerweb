@@ -106,7 +106,7 @@ if ($isTutorOwner) {
 }
 
 $studentListQuery = "SELECT apt.grp_num||': '||achternaam||', '||roepnaam||' '||" .
-        "coalesce(voorvoegsel,'')||';'||coalesce(cl.sclass,'null-class')::text AS name,\n" .
+        "coalesce(tussenvoegsel,'')||';'||coalesce(cl.sclass,'null-class')::text AS name,\n" .
         "st.snummer as value,'cohort='||cohort as title,\n" .
         "apt.grp_num||', '||tutor||coalesce(':'||grp_name,'')||' '\n" .
         "||(case when apt.prj_tutor_open=true then 'open' else 'closed' end) as namegrp,\n" .
@@ -132,7 +132,7 @@ if ($resultSet === false) {
 if (!$resultSet->EOF)
     $tutor = $resultSet->fields['tutor'];
 $sql = "select grp_num||' '||coalesce(grp_name,'g'||grp_num)||': '||achternaam||', '||roepnaam||' '" .
-        "||coalesce(voorvoegsel,'')||' ('||faculty.faculty_short||':'" .
+        "||coalesce(tussenvoegsel,'')||' ('||faculty.faculty_short||':'" .
         "||tutor.tutor||';'||tutor.userid||')' as name,\n" .
         " grp_num as value" .
         " from prj_tutor join tutor on(tutor.userid=prj_tutor.tutor_id)\n" .

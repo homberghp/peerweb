@@ -27,7 +27,7 @@ if (isSet($_REQUEST['csvout'])) {
 }
 
 
-$sql = "select snummer,achternaam,roepnaam,voorvoegsel,lower(course_short) as opleiding,\n"
+$sql = "select snummer,achternaam,roepnaam,tussenvoegsel,lower(course_short) as opleiding,\n"
         . "cohort,email1 as email,pcn,hoofdgrp,lower(lang) as language from student \n"
         . "join fontys_course on(course=opl) where snummer in \n" .
         "(select snummer from prj_grp join prj_tutor using(prjtg_id) where prjm_id=$prjm_id)\n";

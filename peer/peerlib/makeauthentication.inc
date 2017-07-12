@@ -19,7 +19,7 @@ function makenewlogincode($logincode,$secret) {
     $result .= ' 3.1';
     return $result;
   }
-  $sql="select rtrim(roepnaam) as roepnaam, rtrim(voorvoegsel) as voorvoegsel,\n".
+  $sql="select rtrim(roepnaam) as roepnaam, rtrim(tussenvoegsel) as tussenvoegsel,\n".
       "rtrim(achternaam) as achternaam,rtrim(email1) as email,peer_password('Bab11Ba@b') as password from student where snummer='$logincode' and gebdat='$secret'";
   $resultSet= $dbConn->execute($sql);
   if ($resultSet === false) {
@@ -33,19 +33,19 @@ function makenewlogincode($logincode,$secret) {
   }
   extract($resultSet->fields);
 //  $password=`/home/f/fontysvenlo.org/bin/genpasswd Bab11Ba@b`;
-  $result = "<strong>A new password for $roepnaam $voorvoegsel $achternaam is sent to email address &lt;$email&gt;</strong>";
-  mkpasswordmail($email,$logincode,$roepnaam,$voorvoegsel,$achternaam,$password);
+  $result = "<strong>A new password for $roepnaam $tussenvoegsel $achternaam is sent to email address &lt;$email&gt;</strong>";
+  mkpasswordmail($email,$logincode,$roepnaam,$tussenvoegsel,$achternaam,$password);
   return $result;
     
 }
 /**
  * @param $email address
  * @param $logincode key in password table
- * @param $roepnaam, $voorvoegsel,$achternaam name
+ * @param $roepnaam, $tussenvoegsel,$achternaam name
  * @param $password new password (in plaintext)
  * @return string with failure or succes message
  */
-function mkpasswordmail( $email,$logincode,$roepnaam,$voorvoegsel,$achternaam,$password ) {
+function mkpasswordmail( $email,$logincode,$roepnaam,$tussenvoegsel,$achternaam,$password ) {
   global $dbConn;
   global $db_name;
   global $site_home;
@@ -61,7 +61,7 @@ function mkpasswordmail( $email,$logincode,$roepnaam,$voorvoegsel,$achternaam,$p
   $pdfname  =  $basename.'.pdf';
   $handle  =  fopen("$filename", "w");
   $notestring = '\\briefje{'.$achternaam.','.$roepnaam.' '.
-      $voorvoegsel.'}{'.$logincode.'}{'.$db_name.'}{'.$password."}\n";
+      $tussenvoegsel.'}{'.$logincode.'}{'.$db_name.'}{'.$password."}\n";
   fwrite($handle,"\\input{../notestart}%\n");
   fwrite($handle,$notestring);
   fwrite($handle,"\\input{../notesend}\n");

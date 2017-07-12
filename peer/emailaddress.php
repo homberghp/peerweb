@@ -13,7 +13,7 @@ function checkEmail($adr) {
 
 }
 //$snummer=$peer_id; // this page is always personal
-$sql = "select snummer,roepnaam,voorvoegsel,achternaam,email1,email2 \n".
+$sql = "select snummer,roepnaam,tussenvoegsel,achternaam,email1,email2 \n".
     "from student left join alt_email using(snummer) where snummer=$snummer";
 $resultSet= $dbConn->Execute($sql);
 if ($resultSet=== false) {
@@ -22,7 +22,7 @@ if ($resultSet=== false) {
 extract($resultSet->fields);
 extract($resultSet->fields,EXTR_PREFIX_ALL,'stud');
 
-$page_opening="Personal settings for $roepnaam $voorvoegsel $achternaam ($snummer)";
+$page_opening="Personal settings for $roepnaam $tussenvoegsel $achternaam ($snummer)";
 $page=new PageContainer();
 $page->setTitle('Personal settings');
 //$page->addHeadComponent(new HtmlContainer("<script id='tasktimerstarter' type='text/javascript'>"));
@@ -129,8 +129,8 @@ if (isSet($_POST['bsubmit_student_data'])) {
     if (isSet($_POST['voorletters'])) {
 	$sqlhead .=", voorletters='".pg_escape_string($_POST['voorletters'])."'\n";
     }
-    if (isSet($_POST['voorvoegsel'])) {
-	$sqlhead .=", voorvoegsel='".pg_escape_string($_POST['voorvoegsel'])."'\n";
+    if (isSet($_POST['tussenvoegsel'])) {
+	$sqlhead .=", tussenvoegsel='".pg_escape_string($_POST['tussenvoegsel'])."'\n";
     }
     if (isSet($_POST['roepnaam'])) {
 	$sqlhead .=", roepnaam='".pg_escape_string($_POST['roepnaam'])."'\n";
@@ -162,7 +162,7 @@ if (isSet($_POST['bsubmit_student_data'])) {
  }
 
 $sql="select s.snummer,rtrim(s.achternaam) as achternaam,\n".
-    "s.voorvoegsel,\n".
+    "s.tussenvoegsel,\n".
     "rtrim(s.roepnaam) as roepnaam,\n".
     "rtrim(s.straat) as straat,\n".
     "s.huisnr,s.pcode,s.plaats,\n".
@@ -171,7 +171,7 @@ $sql="select s.snummer,rtrim(s.achternaam) as achternaam,\n".
     "acd.course_description as tweede_opl,\n".
     "s.class_id,\n".
     "s.faculty_id,lpi_id,\n".
-        "slb.achternaam||', '||slb.roepnaam||coalesce(' '||slb.voorvoegsel,'') as study_coach\n".
+        "slb.achternaam||', '||slb.roepnaam||coalesce(' '||slb.tussenvoegsel,'') as study_coach\n".
     " from student_email s \n".
     " left join additional_course_descr acd using(snummer) left join lpi_id using(snummer) left join student slb on(slb.snummer=s.slb) where s.snummer=$snummer";
 $resultSet = $dbConn->Execute($sql);
@@ -187,7 +187,7 @@ $pcode=trim($pcode);
 $hoofdgrp=trim($hoofdgrp);
 $slb=trim($study_coach);
 $email1f=$email1=trim($email1);
-$name=$roepnaam.' '.$voorvoegsel.' '.$achternaam;
+$name=$roepnaam.' '.$tussenvoegsel.' '.$achternaam;
 $lpi_id_field= "<input type='text' name='lpi_id' value ='$lpi_id' size='12'/>";
 $photo = PHOTOROOT.'/'.$snummer.'.jpg';
 //$dbConn->log($photo);
@@ -196,7 +196,7 @@ if (hasCap(CAP_ALTER_STUDENT)) {
 
     $achternaam="<input type='text' name='achternaam' value='$achternaam' size='20'/>";
     $roepnaam="<input type='text' name='roepnaam' value='$roepnaam' size='20'/>";
-    $voorvoegsel="<input type='text' name='voorvoegsel' value=\"$voorvoegsel\" size='10'/>";
+    $tussenvoegsel="<input type='text' name='tussenvoegsel' value=\"$tussenvoegsel\" size='10'/>";
     $voorletters="<input type='text' name='voorletters' value='$voorletters' size='8'/>";
     $straat="<input type='text' name='straat' value='$straat' size='20'/>";
     $huisnr="<input type='text' name='huisnr' value='$huisnr' size='5' />";

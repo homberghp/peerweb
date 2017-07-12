@@ -102,7 +102,7 @@ if ($resultSet === false) {
             . "to_char(uploadts,'YYYY-MM-DD HH24:MI:SS')::text as uploadts,\n"
             . "case when uploadts::date > pd.due then 'late' else 'early' end as late_or_early,\n"
             . "vers,ut.doctype,ut.description as dtdescr,upload_id,\n"
-            . "u.snummer, roepnaam,voorvoegsel,achternaam,student_class.sclass as klas,u.upload_id as doc_id,\n"
+            . "u.snummer, roepnaam,tussenvoegsel,achternaam,student_class.sclass as klas,u.upload_id as doc_id,\n"
             . "doc_count,critique_count as crits,u.rights[0:2]\n,u.filesize "
             . "from uploads u \n"
             . "join all_prj_tutor pt using (prjtg_id,prjm_id)\n"

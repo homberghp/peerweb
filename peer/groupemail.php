@@ -22,8 +22,8 @@ $isTutor = true; //hasCap( CAP_TUTOR );
 // get data stored in session or added to session by helpers
 
 /* get name, lang etc */
-$sql = "SELECT roepnaam, voorvoegsel,achternaam,lang,rtrim(email1) as email1,rtrim(email2) as email2,\n" .
-        "coalesce(signature,'sent by the peerweb service on behalf of '||roepnaam||coalesce(' '||voorvoegsel,'')||' '||achternaam)\n" .
+$sql = "SELECT roepnaam, tussenvoegsel,achternaam,lang,rtrim(email1) as email1,rtrim(email2) as email2,\n" .
+        "coalesce(signature,'sent by the peerweb service on behalf of '||roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam)\n" .
         "  as signature\n" .
         "FROM student left join alt_email using(snummer) left join email_signature using(snummer) WHERE snummer=$peer_id";
 $resultSet = $dbConn->Execute($sql);
@@ -96,7 +96,7 @@ if ($resultSet === false) {
 }
 if (!$resultSet->EOF)
     extract($resultSet->fields);
-$page_opening = "Email to group members From: $roepnaam $voorvoegsel $achternaam <span style='font-family: courier'>&lt;$email1&gt;</span>";
+$page_opening = "Email to group members From: $roepnaam $tussenvoegsel $achternaam <span style='font-family: courier'>&lt;$email1&gt;</span>";
 $page = new PageContainer();
 $page->setTitle('Mail-list page');
 $nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
@@ -200,7 +200,7 @@ function emailTable($dbConn, $prjm_id, $isTutor, $mailto) {
     }
     $sql = "select afko,pt.grp_num,coalesce('g'||pt.grp_num,pt.grp_name) as grp_name,\n"
             . "pg.snummer as mail,rtrim(role) as role, pg.snummer,\n"
-            . "achternaam||coalesce(', '||voorvoegsel,'') as achternaam,roepnaam,\n"
+            . "achternaam||coalesce(', '||tussenvoegsel,'') as achternaam,roepnaam,\n"
             . "trim(sclass) as sclass, tutor, 'role'||sr.rolenum as checkclass, 0 as lo\n"
             . "from\n"
             . "student join prj_grp pg using(snummer)\n"
@@ -215,7 +215,7 @@ function emailTable($dbConn, $prjm_id, $isTutor, $mailto) {
             . " where pt.prjm_id=$prjm_id $grpSelect and pm.prj_id>1";
     $sql2 = "\n union\n"
             . "select apt.afko,grp_num,'tutor' as grp_name,\n"
-            . "apt.tutor_id as mail, 'TUTOR' as role, apt.tutor_id as snummer,ts.achternaam||coalesce(', '||ts.voorvoegsel,'') as achternaam,ts.roepnaam,\n"
+            . "apt.tutor_id as mail, 'TUTOR' as role, apt.tutor_id as snummer,ts.achternaam||coalesce(', '||ts.tussenvoegsel,'') as achternaam,ts.roepnaam,\n"
             . "'TUTOR' as sclass, tutor, 'role'||'999' as checkclass,1 as lo \n"
             . "from all_prj_tutor apt join student  ts on(apt.tutor_id=ts.snummer) left join grp_alias gat using(prjtg_id) \n"
             . "where apt.prjm_id =$prjm_id $grpSelect and apt.prj_id>1\n";

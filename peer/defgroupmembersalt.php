@@ -111,7 +111,7 @@ $getAll='';
 $sql = "SELECT '<input type=''checkbox''  name=''studenten[]'' value='''||st.snummer||''' $getAll/>' as chk,\n"
         . "'<a href=''student_admin.php?snummer='||snummer||'''>'||st.snummer||'</a>' as snummer,"
         . "'<img src='''||photo||''' style=''height:24px;width:auto;''/>' as foto,\n"
-        . "achternaam||coalesce(', '||voorvoegsel,'') as achternaam,\n"
+        . "achternaam||coalesce(', '||tussenvoegsel,'') as achternaam,\n"
     . "roepnaam,cl.sclass as klas,cohort,st.opl as opl_code,lang,sex,tutor as slb,gebdat,email1,email2,"
         . "hoofdgrp, studieplan_omschrijving as studieplan , plaats,straat||coalesce(' '||huisnr,'') as adres,pcode,land\n"
         . " from student st "

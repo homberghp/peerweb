@@ -438,9 +438,6 @@ class XLSWriter {
             fclose($fp);
             $objPHPExcel->disconnectWorksheets();
             unset($objPHPExcel);
-
-            unlink($tempFile);
-
             exit(0);
         } else {
             echo "cannot copy file $tempFile to out stream\n";

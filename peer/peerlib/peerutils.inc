@@ -1170,7 +1170,7 @@ function getEmailAddresses($dbConn, $recipients) {
     $result = '';
     $con = '';
     $recps = '\'' . implode("','", $recipients) . '\'';
-    $sql = "select distinct roepnaam||' '||coalesce(voorvoegsel||' ','')||achternaam||' <'||trim(email1)||'>' as email from student where snummer in ($recps)";
+    $sql = "select distinct roepnaam||' '||coalesce(tussenvoegsel||' ','')||achternaam||' <'||trim(email1)||'>' as email from student where snummer in ($recps)";
     $resultSet = $dbConn->Execute($sql);
     if ($resultSet === false) {
         echo ("getEmailAddresses: cannot get data for $sql : " . $dbConn->ErrorMsg() . "\n");

@@ -30,7 +30,7 @@ class Navigation extends HtmlContainer {
         $this->main = new HtmlContainer("<div id='navmain' class='navmain'>");
         $this->leftNavText = array();
         $this->extra_opening_line = "<div class='nav' style='margin:-2em 0 0em 1em'><br/>" .
-                " {$LOGINDATA['roepnaam']} {$LOGINDATA['voorvoegsel']} {$LOGINDATA['achternaam']} " .
+                " {$LOGINDATA['roepnaam']} {$LOGINDATA['tussenvoegsel']} {$LOGINDATA['achternaam']} " .
                 "(userid {$_SESSION['peer_id']}) " .
                 "On since {$_SESSION['newest_login_record']['since']} from " .
                 "{$_SESSION['newest_login_record']['from_ip']}. Last on {$_SESSION['last_login_record']['since']} from " .

@@ -55,7 +55,7 @@ if (isset($_REQUEST['doc_id'])) {
 }
 $lang = 'en';
 $thp = tutorhelperplaceholder($dbConn, $isTutor);
-$q = "select roepnaam||coalesce(' '||voorvoegsel||' ',' ')||achternaam as student_name from student where snummer=$peer_id";
+$q = "select roepnaam||coalesce(' '||tussenvoegsel||' ',' ')||achternaam as student_name from student where snummer=$peer_id";
 $rs = $dbConn->Execute($q);
 extract($rs->fields);
 //$student_name='Piet Puk';

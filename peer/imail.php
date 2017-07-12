@@ -25,8 +25,8 @@ $_SESSION['grp_num'] = $grp_num;
 // get data stored in session or added to session by helpers
 $milestone = 1;
 /* get name, lang etc */
-$sql = "SELECT roepnaam, voorvoegsel,achternaam,lang,rtrim(email1) as email1,rtrim(email2) as email2,\n"
-        . "coalesce(signature,'sent by the peerweb service on behalf of '||roepnaam||coalesce(' '||voorvoegsel,'')||' '||achternaam)\n"
+$sql = "SELECT roepnaam, tussenvoegsel,achternaam,lang,rtrim(email1) as email1,rtrim(email2) as email2,\n"
+        . "coalesce(signature,'sent by the peerweb service on behalf of '||roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam)\n"
         . "  as signature\n"
         . "FROM student left join alt_email using(snummer) left join email_signature using(snummer) WHERE snummer=$peer_id";
 $resultSet = $dbConn->Execute($sql);
@@ -60,7 +60,7 @@ if (isSet($_POST['mail'])) {
     $mailset = '\'' . implode("','", $mail) . '\'';
     $replyto = getEmailAddress($dbConn, $_SESSION['peer_id'], false);
     $sql = "select distinct rtrim(email1,' ') as email1 ,rtrim(email2,' ') as email2,\n"
-            . " s.roepnaam ||coalesce(' '||s.voorvoegsel,'')||' '||s.achternaam as recipient,\n"
+            . " s.roepnaam ||coalesce(' '||s.tussenvoegsel,'')||' '||s.achternaam as recipient,\n"
             . " td.tutor,td.tutor_email,grp_num \n"
             . "from \n"
             . "  student s join prj_grp pg using(snummer) join all_prj_tutor apt using (prjtg_id) \n"
@@ -97,9 +97,9 @@ if (isSet($_POST['mail'])) {
         $tocon = ', ';
         $resultSet->movenext();
     }
-    $sqlsender = "select rtrim(email1) as sender,roepnaam||coalesce(' '||voorvoegsel,'')||' '||achternaam as sender_name," .
+    $sqlsender = "select rtrim(email1) as sender,roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam as sender_name," .
             "coalesce(signature," .
-            "'sent by the peerweb service on behalf of '||roepnaam||coalesce(' '||voorvoegsel,'')||' '||achternaam)\n" .
+            "'sent by the peerweb service on behalf of '||roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam)\n" .
             "  as signature from student left join email_signature using(snummer) where snummer='$peer_id'";
     $rs = $dbConn->Execute($sqlsender);
     if (!$rs->EOF) {
@@ -146,7 +146,7 @@ if ($resultSet === false) {
 if (!$resultSet->EOF) {
     $pp = array_merge($pp, $resultSet->fields);
 }
-$page_opening = "Email to group members From: $roepnaam $voorvoegsel $achternaam <span style='font-family: courier'>&lt;$email1&gt;</span>";
+$page_opening = "Email to group members From: $roepnaam $tussenvoegsel $achternaam <span style='font-family: courier'>&lt;$email1&gt;</span>";
 $page = new PageContainer();
 $page->setTitle('Mail-list page');
 $nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
@@ -181,7 +181,7 @@ if ($isTutor) {
 $sql = "select afko,apt.grp_num||coalesce(': '||alias,'') as grp_num,\n"
         . "'<input type=\"checkbox\"  name=\"mail[]\" value=\"'||s.snummer||'\"/>' as chk,\n"
         . "rtrim(role) as role, s.snummer,\n"
-        . "achternaam||coalesce(', '||voorvoegsel,'') as achternaam,roepnaam,\n"
+        . "achternaam||coalesce(', '||tussenvoegsel,'') as achternaam,roepnaam,\n"
         . "sclass as class, tutor "
         . "from\n"
         . "student s join prj_grp pg using(snummer)\n"

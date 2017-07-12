@@ -37,7 +37,7 @@ function closeAction() {
 </script>
   ' );
 $page->setTitle( 'Edit Subversion repositories' );
-$page_opening = "Edit Subversion repositories for $roepnaam $voorvoegsel $achternaam ($snummer)";
+$page_opening = "Edit Subversion repositories for $roepnaam $tussenvoegsel $achternaam ($snummer)";
 $nav = new Navigation( $tutor_navtable, basename( $PHP_SELF ), $page_opening );
 $nav->setInterestMap( $tabInterestCount );
 $page->addBodyComponent( $nav );

@@ -16,7 +16,7 @@ $hourList = "<select name='hourcode' onchange='submit()'>\n".
 Project <?=$prjList?> day <?=$pdayList?> hour <?=$hourList?><input type='submit' name='bsubmit'/>
 </form>
 <?php
-$sql = "select snummer,sclass ,achternaam,roepnaam,voorvoegsel,course_week_no,\n".
+$sql = "select snummer,sclass ,achternaam,roepnaam,tussenvoegsel,course_week_no,\n".
     "shortname,day,hourcode,date_trunc('seconds',since) as since,from_ip,\n".
     "case when from_ip << '145.85/16' then 'P' else 'Q' end as location_ok".
     " from participant_present_list join student using(snummer)\n".
@@ -52,7 +52,7 @@ while (!$resultSet->EOF) {
 	$row="<tr>\n<td>{$resultSet->fields['snummer']}</td>".
 	    "<td>{$resultSet->fields['sclass']} ".
 	    "<td>{$resultSet->fields['roepnaam']} ".
-	    "{$resultSet->fields['voorvoegsel']} ".
+	    "{$resultSet->fields['tussenvoegsel']} ".
 	    "{$resultSet->fields['achternaam']}</td>".
 	    "<td align='right'>{$resultSet->fields['shortname']}</td>\n".
 	    "<td align='right'>{$resultSet->fields['hourcode']}</td>\n";

@@ -195,7 +195,7 @@ if (isSet($alias)) {
 }
 $title .= "; spreadsheet file created on $fdate";
 $sqlt = "select s.snummer as contestant, "
-        . "roepnaam||' '||coalesce(voorvoegsel,'')||' '||achternaam as naam, "
+        . "roepnaam||' '||coalesce(tussenvoegsel,'')||' '||achternaam as naam, "
         . "ags.grade as peerg,\n"
         . "ags.multiplier[array_upper(ags.multiplier,1)] as grp_multiplier, "
         . "coalesce(round(mg.grade,2),round({$productgrade}*ags.multiplier[array_upper(ags.multiplier,1)],2)) as tutorg \n"

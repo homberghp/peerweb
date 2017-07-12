@@ -15,7 +15,7 @@ class BirthDaysToDay {
 <tr><th colspan='1'>Name</th><th>Class/faculty</th></tr>
 </thead>";
 
-	$sql = "select distinct roepnaam,voorvoegsel,achternaam, rtrim(email1) as email1,\n".
+	$sql = "select distinct roepnaam,tussenvoegsel,achternaam, rtrim(email1) as email1,\n".
 	    "rtrim(email2||' or') as email2, student_class.sclass as sclass,age(gebdat),\n".
 	    "faculty_short from birthdays \n".
 	    " join student_class using(class_id)\n".
@@ -31,7 +31,7 @@ class BirthDaysToDay {
 	    $has_doc=isSet($has_doc)?'D':'';
 	    $has_assessment=isSet($has_assessment)?'A':'';
 	    $result .= "<tr>".
-		"<td title='$age, email $email2 $email1' style='font-weight:bold;'>$roepnaam $voorvoegsel $achternaam</td>".
+		"<td title='$age, email $email2 $email1' style='font-weight:bold;'>$roepnaam $tussenvoegsel $achternaam</td>".
 		"<td >$sclass/$faculty_short</td>".
 		"</tr>\n";
 	    $resultSet->moveNext();

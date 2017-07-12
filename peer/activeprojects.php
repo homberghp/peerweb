@@ -24,7 +24,7 @@ $page->addHeadText($css);
 $page->addJqueryFragment('$("#myTable").tablesorter({widgets: [\'zebra\']});');
 
 $sql = "select distinct prj_id,milestone,afko,year,grp_num,tutor,rtrim(alias) as alias,long_name,productname,\n" .
-        "  pg.snummer as gm_snumber,roepnaam||coalesce(' '||voorvoegsel||' ',' ')||achternaam as gm_name,rtrim(email1) as gm_email,\n" .
+        "  pg.snummer as gm_snumber,roepnaam||coalesce(' '||tussenvoegsel||' ',' ')||achternaam as gm_name,rtrim(email1) as gm_email,\n" .
         "  '<a href='''||website||''' target=''_blank''>'||website||'</a>' as website," .
         "'<a href='''||youtube_link||''' target=''_blank''>'||youtube_link||'</a>' as youtube_link \n" .
         "from prj_grp pg join all_prj_tutor_y apt join grp_alias using (prjtg_id) using(prjtg_id)\n" .

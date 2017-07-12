@@ -126,7 +126,7 @@ function tutorHelperLayout($midForm, $rightForm) {
     global $projectclass;
     global $PHP_SELF;
     global $as_student;
-    global $tutor_roepnaam, $tutor_achternaam, $tutor_voorvoegsel;
+    global $tutor_roepnaam, $tutor_achternaam, $tutor_tussenvoegsel;
     $classchecked = ($projectclass == 'class') ? 'checked' : '';
     $projectchecked = ($projectclass == 'project') ? 'checked' : '';
     if (!hasCap(CAP_IMPERSONATE_STUDENT))
@@ -145,7 +145,7 @@ function tutorHelperLayout($midForm, $rightForm) {
         <div class='layout navopening' width='100%' summary='tutor helper'>
             <form method='post' name='tutor_wants_as_student' action='<?= $PHP_SELF; ?>'>
                 Welcome tutor <?= $tutor_roepnaam ?> 
-                <?= $tutor_voorvoegsel ?> <?= $tutor_achternaam ?>
+                <?= $tutor_tussenvoegsel ?> <?= $tutor_achternaam ?>
                 <input align='center' type='checkbox' id='as_student' name='as_student' value='yes' <?= (($as_student == 'yes') ? 'checked' : '') ?> 
                        onChange='submit()' title='If you want student functionality for yourself'/>
                 <label for='as_student'>as student</label><input type='hidden' name='as_student_request' value='unimportant'/></form>
@@ -172,14 +172,14 @@ function tutorHelperLayout($midForm, $rightForm) {
         global $projectclass;
         global $PHP_SELF, $_SESSION;
         global $as_student;
-        global $tutor_roepnaam, $tutor_achternaam, $tutor_voorvoegsel;
+        global $tutor_roepnaam, $tutor_achternaam, $tutor_tussenvoegsel;
         $class = $_SESSION['class_id'];
         $snummer = $_SESSION['snummer'];
         if ($isTutor && hasCap(CAP_IMPERSONATE_STUDENT)) {
             $class_id = $_SESSION['class_id'];
             $classSel = new ClassSelectorClass($dbConn,$class_id);
             $snummer = $_SESSION['snummer'];
-            $sql = "select achternaam||', '||roepnaam||coalesce(' '||voorvoegsel,'') as name,\n"
+            $sql = "select achternaam||', '||roepnaam||coalesce(' '||tussenvoegsel,'') as name,\n"
                     . "snummer as value, c.class_id as namegrp\n"
                     . "from student s "
                     . " left join student_class c using(class_id) \n"
@@ -211,7 +211,7 @@ function tutorHelperLayout($midForm, $rightForm) {
         global $PHP_SELF;
         global $_SESSION;
         global $as_student;
-        global $tutor, $tutor_roepnaam, $tutor_achternaam, $tutor_voorvoegsel, $tuhe_prjm_id, $peer_id, $tuhe_prjSel;
+        global $tutor, $tutor_roepnaam, $tutor_achternaam, $tutor_tussenvoegsel, $tuhe_prjm_id, $peer_id, $tuhe_prjSel;
         if ($isTutor && hasCap(CAP_IMPERSONATE_STUDENT)) {
             //    if ($isTutor) {
             if (!isSet($_SESSION['class_id'])) {
@@ -230,7 +230,7 @@ function tutorHelperLayout($midForm, $rightForm) {
                 $class_id = $_SESSION['class_id'];
                 $snummer = $_SESSION['snummer'];
             }
-            $sql = "select s.achternaam||', '||s.roepnaam||coalesce(' '||s.voorvoegsel,'')||coalesce(' : '||pr.short,'')  as name,\n" .
+            $sql = "select s.achternaam||', '||s.roepnaam||coalesce(' '||s.tussenvoegsel,'')||coalesce(' : '||pr.short,'')  as name,\n" .
                     "s.snummer as value, 'g'||pt.grp_num||coalesce(': '||ga.alias,'')||' / '||t.tutor as namegrp\n" .
                     "from student s natural join prj_grp pg \n" .
                     " join prj_tutor pt using(prjtg_id)\n" .
@@ -264,7 +264,7 @@ function tutorHelperLayout($midForm, $rightForm) {
             $snummer = $_SESSION['snummer'];
         else
             $snummer = 0;
-        $sql = "select rtrim(roepnaam)||' '||rtrim(coalesce(voorvoegsel,''))||' '||achternaam as name, class_id as class\n" .
+        $sql = "select rtrim(roepnaam)||' '||rtrim(coalesce(tussenvoegsel,''))||' '||achternaam as name, class_id as class\n" .
                 "from student where snummer=$snummer";
         $resultSet = $dbConn->Execute($sql);
         if ($resultSet === false) {

@@ -13,7 +13,7 @@ if (isSet($_REQUEST['class_id'])) {
     $basename=$resultSet->fields['sclass'];
   }
   $basename = $basename.'-'.date('Ymd');
-  $sql ="select roepnaam||coalesce(' '||voorvoegsel||' ',' ')||achternaam as line1,\n".
+  $sql ="select roepnaam||coalesce(' '||tussenvoegsel||' ',' ')||achternaam as line1,\n".
     "snummer as line2,\n".
     "course_short||'.'||sclass as line3,".
     "snummer as barcode,\n".
@@ -31,7 +31,7 @@ if (isSet($_REQUEST['class_id'])) {
     $basename=$resultSet->fields['project'];
   }
   $basename = $basename.'-'.date('Ymd');
-  $sql ="select roepnaam||coalesce(' '||voorvoegsel||' ',' ')||achternaam as line1,\n".
+  $sql ="select roepnaam||coalesce(' '||tussenvoegsel||' ',' ')||achternaam as line1,\n".
     "snummer as line2,\n".
     "course_short||'.'||coalesce(apt.alias,'g'||apt.grp_num) as line3,".
     "snummer as barcode,\n".

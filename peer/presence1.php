@@ -1,6 +1,6 @@
 <?php
 
-echo "<fieldset><legend>Presence in the current course period of $roepnaam $voorvoegsel $achternaam, <span style='font-size:6pt;'>($snummer)</span></legend>";
+echo "<fieldset><legend>Presence in the current course period of $roepnaam $tussenvoegsel $achternaam, <span style='font-size:6pt;'>($snummer)</span></legend>";
 ?>
 <table><tr><td width='50%'>
 <?php

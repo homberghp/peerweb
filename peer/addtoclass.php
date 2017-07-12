@@ -60,7 +60,7 @@ $scripts = '<script type="text/javascript" src="js/jquery.js"></script>
 
 $myClassSelector = new ClassSelectorClass($dbConn, $class_id);
 $classSelectorWidget = $myClassSelector->setAutoSubmit(true)->setSelectorName('newclass_id')->getSelector();
-$sql = "select distinct snummer,achternaam,roepnaam,voorvoegsel,lang \n"
+$sql = "select distinct snummer,achternaam,roepnaam,tussenvoegsel,lang \n"
         . " from student  \n"
         . "join student_class using(class_id)\n"
         . " where class_id={$class_id} "

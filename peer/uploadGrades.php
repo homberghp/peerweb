@@ -48,7 +48,7 @@ $rows = "";
 if (count($gradeSet)) {
 
     $cands = implode(',', array_keys($gradeSet));
-    $sql = "select snummer, achternaam,roepnaam,coalesce(', '||voorvoegsel,'') as voorvoegsel "
+    $sql = "select snummer, achternaam,roepnaam,coalesce(', '||tussenvoegsel,'') as tussenvoegsel "
             . "from student where snummer in ({$cands}) order by achternaam,roepnaam";
     $resultSet = $dbConn->Execute($sql);
 
@@ -58,7 +58,7 @@ if (count($gradeSet)) {
 
     for (; !$resultSet->EOF; $resultSet->moveNext()) {
         extract($resultSet->fields);
-        $rows .="<tr><td><input type='hidden' name='cand[]' value='$snummer'/>$snummer</td><td>{$achternaam}{$voorvoegsel}</td>"
+        $rows .="<tr><td><input type='hidden' name='cand[]' value='$snummer'/>$snummer</td><td>{$achternaam}{$tussenvoegsel}</td>"
                 . "<td>$roepnaam</td><td><input style='text-align:right' size='3' type='number' name='grade[]' min='0' max='10.0' step='0.1' value='{$gradeSet[$snummer]}'/></td></tr>\n";
     }
     if ($rows != "") {

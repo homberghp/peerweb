@@ -23,7 +23,7 @@ if (file_exists('fotos/' . $judge . '.jpg')) {
 }
 
 $lang = strtolower($lang);
-$page_opening = "Hello $roepnaam $voorvoegsel $achternaam <a href='myface.php'><img src='$foto' alt='you' style='width:32px;height:auto;'/></a><span style='font-size:60%;'>($snummer)</span>, this is <i>Peerweb</i>: the place where you share with your fellow students<br/> Click on your face to see yourselves a bit better.";
+$page_opening = "Hello $roepnaam $tussenvoegsel $achternaam <a href='myface.php'><img src='$foto' alt='you' style='width:32px;height:auto;'/></a><span style='font-size:60%;'>($snummer)</span>, this is <i>Peerweb</i>: the place where you share with your fellow students<br/> Click on your face to see yourselves a bit better.";
 $nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $nav->addLeftNavText(file_get_contents('news.html'));

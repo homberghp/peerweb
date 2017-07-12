@@ -70,7 +70,7 @@ $sql = "select afko,grp_num,rtrim(description) as description,rtrim(coalesce(ga.
         . "rtrim(youtube_link) as youtube_link,"
         . "rtrim(youtube_icon_url) as youtube_icon_url,"
         . "role,prj_id,milestone,\n"
-        . " roepnaam,voorvoegsel,achternaam,rtrim(email1) as email1, snummer as gmnumber\n"
+        . " roepnaam,tussenvoegsel,achternaam,rtrim(email1) as email1, snummer as gmnumber\n"
         . " from prj_grp pg join all_prj_tutor_y apt using(prjtg_id) \n"
         . "join grp_alias ga using(prjtg_id) join student using(snummer) \n"
         . " join student_role using(prjm_id,snummer)\n"
@@ -105,7 +105,7 @@ tutorHelper($dbConn, $isTutor);
 $page->addBodyComponent(new Component(ob_get_clean()));
 $page->addBodyComponent($nav);
 $pp['prjList'] = $prjSel->getWidget();
-$sqlm = "select '<a href=''mailto:'||rtrim(email1)||'''>'||roepnaam||coalesce(' '||voorvoegsel||' ',' ')||achternaam||'</a>' as name,"
+$sqlm = "select '<a href=''mailto:'||rtrim(email1)||'''>'||roepnaam||coalesce(' '||tussenvoegsel||' ',' ')||achternaam||'</a>' as name,"
         . "role\n"
         . " from prj_grp pg join student using (snummer)\n"
         . "join all_prj_tutor using(prjtg_id)\n"

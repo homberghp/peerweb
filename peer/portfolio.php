@@ -9,7 +9,7 @@ extract($_SESSION);
 
 $page = new PageContainer();
 $page->setTitle('Personal portfolio');
-$page_opening = "Welcome to the portfolio of $roepnaam $voorvoegsel $achternaam ($snummer)";
+$page_opening = "Welcome to the portfolio of $roepnaam $tussenvoegsel $achternaam ($snummer)";
 $nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 
@@ -28,7 +28,7 @@ ob_start();
             "to_char(uploadts,'YYYY-MM-DD HH24:MI')::text as uploadts,pd.due,rtrim(mime_type) as mime_type,\n" .
             "case when uploadts::date > pd.due then 'late' else 'early' end as late_or_early,\n" .
             "vers,ut.doctype,ut.description as dtdescr,upload_id,($peer_id=u.snummer or $peer_id=aud.reader or $isTutorBool) as link,\n" .
-            "snummer, roepnaam,voorvoegsel,achternaam,sclass as sclass,doc_count,critique_count as crits,u.rights[0:2],\n" .
+            "snummer, roepnaam,tussenvoegsel,achternaam,sclass as sclass,doc_count,critique_count as crits,u.rights[0:2],\n" .
             "filesize from uploads u \n" .
             "join prj_grp using(prjtg_id,snummer)\n" .
             "join all_prj_tutor apt using(prjtg_id,prjm_id)\n" .
@@ -59,7 +59,7 @@ ob_start();
                 "to_char(uploadts,'YYYY-MM-DD HH24:MI')::text as uploadts,pd.due,rtrim(mime_type) as mime_type,\n" .
                 "case when uploadts::date > pd.due then 'late' else 'early' end as late_or_early,\n" .
                 "vers,ut.doctype,ut.description as dtdescr,upload_id,($peer_id=u.snummer or $peer_id=aud.reader or $isTutorBool) as link,\n" .
-                "u.snummer, roepnaam,voorvoegsel,achternaam,sclass as sclass,doc_count,critique_count as crits,u.rights[0:2],\n" .
+                "u.snummer, roepnaam,tussenvoegsel,achternaam,sclass as sclass,doc_count,critique_count as crits,u.rights[0:2],\n" .
                 "filesize from uploads u \n" .
                 "join all_prj_tutor apt using(prjtg_id,prjm_id)\n" .
                 "join student s on(u.snummer=s.snummer)\n" .

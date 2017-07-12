@@ -36,14 +36,14 @@ if (isSet($_REQUEST['personal_presence'])) {
  }
 
 if ($personal_presence =='Y') {
-    $page_opening="Presence of $roepnaam $voorvoegsel $achternaam, <span style='font-size:6pt;'>($snummer)</span>";
+    $page_opening="Presence of $roepnaam $tussenvoegsel $achternaam, <span style='font-size:6pt;'>($snummer)</span>";
  } else {
     $page_opening="Student presence for participants of module $presence_prj_id  $afko, $year $description";
  }
 
 $page=new PageContainer();
 $page->setTitle('Presence during fontys timetable hours');
-$page_opening="Presence of $roepnaam $voorvoegsel $achternaam ($snummer)";
+$page_opening="Presence of $roepnaam $tussenvoegsel $achternaam ($snummer)";
 $nav=new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 

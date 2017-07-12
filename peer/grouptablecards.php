@@ -23,7 +23,7 @@ if (isSet($_POST['prjtg_id'])) {
     $_SESSION['fgrpname']=$fgrpname;
     $_SESSION['fcourse']=$fcourse;
     //    echo "$prj_id, $milestone,$grpn\n";
-    $sql = "select prj_id,snummer as actor, rtrim(achternaam) as achternaam,rtrim(voorvoegsel) as voorvoegsel,\n" .
+    $sql = "select prj_id,snummer as actor, rtrim(achternaam) as achternaam,rtrim(tussenvoegsel) as tussenvoegsel,\n" .
             "rtrim(roepnaam) as roepnaam, nationaliteit,hoofdgrp as class,rtrim(coalesce(alias,'grp'||grp_num)) as alias,faculty.faculty_short as faculty,\n" .
             "rtrim(course_short) as course_description,rtrim(role) as current_role,rolenum,pr.capabilities as capabilities\n" .
             " from prj_grp \n" .
@@ -53,7 +53,7 @@ if (isSet($_POST['prjtg_id'])) {
 
     while (!$resultSet->EOF) {
 	extract($resultSet->fields);
-	$name="$roepnaam $voorvoegsel $achternaam";
+	$name="$roepnaam $tussenvoegsel $achternaam";
 	if (strlen($name) < 10) { $name = '{\\color{white}|}'.$name.'{\\color{white}|}'; }
 	$trole=($frole!='')?$frole:$current_role;
 	$talias=($fgrpname!='')?$fgrpname:$alias;

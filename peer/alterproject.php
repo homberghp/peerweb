@@ -118,7 +118,7 @@ if (hasCap(CAP_SYSTEM)) {
     $tutor_owner_form="<form name='tuto' action='$PHP_SELF' method='get'>\n".
 	"<select name='owner_id' title='set tutor_owner'>".
 	getOptionListGrouped($dbConn,
-			 "select achternaam||', '||roepnaam||' '||coalesce(voorvoegsel,'')".
+			 "select achternaam||', '||roepnaam||' '||coalesce(tussenvoegsel,'')".
 			 "||' ('||tutor||')' as name,\n".
 			 " userid as value,\n".
 			 " faculty_short as namegrp".

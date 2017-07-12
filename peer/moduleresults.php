@@ -59,8 +59,8 @@ $checked = ($csvout == 'Y') ? 'checked' : '';
 if (isSet($_POST['get'])) {
 
     $sql = "select "
-            . "a.contestant,c.achternaam||', '||c.roepnaam||' '||coalesce(c.voorvoegsel,'') as contestant_name,\n "
-            . "a.judge,j.achternaam||', '||j.roepnaam||' '||coalesce(j.voorvoegsel,'') as judge_name,\n"
+            . "a.contestant,c.achternaam||', '||c.roepnaam||' '||coalesce(c.tussenvoegsel,'') as contestant_name,\n "
+            . "a.judge,j.achternaam||', '||j.roepnaam||' '||coalesce(j.tussenvoegsel,'') as judge_name,\n"
             . "p.afko,pt.grp_num,pm.milestone,a.criterium,\n"
             . "a.grade,to_char(commit_time,'YYYY-MM-DD HH24:MI:SS') as entry_time \n"
             . "from assessment a join student j on (j.snummer=a.judge) \n"

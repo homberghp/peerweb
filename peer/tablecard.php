@@ -5,7 +5,7 @@ require_once('./peerlib/validators.php');
 require_once('component.php');
 ini_set('error_reporting',(E_ALL & ~E_NOTICE) );
 extract($_SESSION);
-$sql="select roepnaam||' '||coalesce(voorvoegsel||' ','')||' '||achternaam as line1,snummer \n".
+$sql="select roepnaam||' '||coalesce(tussenvoegsel||' ','')||' '||achternaam as line1,snummer \n".
  "from student where snummer=$peer_id";
 $resultSet=$dbConn->Execute($sql);
 extract($resultSet->fields);

@@ -9,11 +9,11 @@
 <col style='background:rgba(80,80,80,0.3)' align='center'/>
 <col align='center'/>
 <?php
-   $sql = "select achternaam,voorvoegsel,roepnaam from student where snummer=$snummer";
+   $sql = "select achternaam,tussenvoegsel,roepnaam from student where snummer=$snummer";
    $resultSet= $dbConn->Execute($sql);
     extract($resultSet->fields);
 ?>
-<tr><th colspan='5'>Projects for <?=$roepnaam?> <?=$voorvoegsel?> <?=$achternaam?> 
+<tr><th colspan='5'>Projects for <?=$roepnaam?> <?=$tussenvoegsel?> <?=$achternaam?> 
       (<?=$snummer?>)</th></tr>
 <tr><th>Project</th><th >M</th><th>G</th><th>A</th><th>D</th></tr>
 </thead>

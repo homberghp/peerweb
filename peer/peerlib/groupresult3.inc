@@ -53,7 +53,7 @@ function groupResultTable( $dbConn, $prjtg_id, $overall_criterium, $productgrade
 
 function getGroupResultQuery( $prjtg_id, $productgrade ) {
     return "select ags.snummer as contestant, "
-            . "roepnaam||' '||coalesce(voorvoegsel,'')||' '||achternaam as naam,role,\n"
+            . "roepnaam||' '||coalesce(tussenvoegsel,'')||' '||achternaam as naam,role,\n"
             . " to_char(commit_time,'YYYY-MM-DD HH24:MI')as commit_time,\n"
             . " apt.prj_id,apt.grp_num,pg.prj_grp_open as open,criterium,"
             . " apt.milestone,criterium,ags.grade,ags.multiplier,mg.grade as tutor_grade,mg.grade as committed_grade,"

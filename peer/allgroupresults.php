@@ -50,7 +50,7 @@ while ( !$resultSet->EOF ) {
   $resultSet->moveNext();
 }
 //echo "<pre>$sql2</pre>\n";
-$sql = "select s.snummer,achternaam,roepnaam,voorvoegsel,gebdat,grp_num,coalesce(mg.grade,tutor_grade) as group_grade,"
+$sql = "select s.snummer,achternaam,roepnaam,tussenvoegsel,gebdat,grp_num,coalesce(mg.grade,tutor_grade) as group_grade,"
         . "ags.grade,\n"
         . "ags.multiplier,ags.multiplier[array_upper(ags.multiplier,1)] as final_mult,"
         . "ags.grade[array_upper(ags.grade,1)] as peers_grade,tutor,mg.grade as final_tutor_grade,operator,date_trunc('second',ts) as trans_time\n"

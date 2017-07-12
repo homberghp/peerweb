@@ -33,7 +33,7 @@ if (!isset($_SESSION['userfile'])) {
     $_SESSION['userfile'] = '';
 }
 $sql = "select rtrim(afko) as uafko,year as myear,roepnaam as uroepnaam,\n" .
-        " rtrim(email1) as uemail1, rtrim(email2) as uemail2, voorvoegsel as uvoorvoegsel,\n" .
+        " rtrim(email1) as uemail1, rtrim(email2) as uemail2, tussenvoegsel as utussenvoegsel,\n" .
         "achternaam as uachternaam,grp_num as ugrp,description as udescription,prjm_id,prjtg_id \n" .
         "from prj_grp join all_prj_tutor using(prjtg_id) join student using(snummer) left join alt_email using(snummer)\n" .
         "where prjm_id=$prjm_id and snummer=$snummer";
@@ -99,9 +99,9 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
         $title = basename($_FILES['userfile']['name']);
     }
 
-    $formsubject = "Project \$uafko upload by \$uroepnaam \$uvoorvoegsel \$uachternaam (\$snummer)";
+    $formsubject = "Project \$uafko upload by \$uroepnaam \$utussenvoegsel \$uachternaam (\$snummer)";
     $mailbody = "Dear stakeholder,\n\n"
-            . "{$uroepnaam} {$uvoorvoegsel}{$uachternaam} (student number $snummer) just "
+            . "{$uroepnaam} {$utussenvoegsel}{$uachternaam} (student number $snummer) just "
             . "uploaded the document titled "
             . "'\$title' version \$vers."
             . "for the modules \$uafko, \$udescription.\n"
@@ -258,7 +258,7 @@ if (!$resultSet->EOF)
     extract($resultSet->fields);
 $page = new PageContainer();
 $page->setTitle('Peer (re)viewable portfolio');
-$page_opening = "Welcome to the upload page of $roepnaam $voorvoegsel $achternaam ($snummer)";
+$page_opening = "Welcome to the upload page of $roepnaam $tussenvoegsel $achternaam ($snummer)";
 $nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 
@@ -269,7 +269,7 @@ $page->addBodyComponent(new Component(ob_get_clean()));
 $page->addBodyComponent($nav);
 $ob_start = ob_start();
 
-$sql = "SELECT roepnaam, voorvoegsel,achternaam,lang FROM student WHERE snummer=$snummer";
+$sql = "SELECT roepnaam, tussenvoegsel,achternaam,lang FROM student WHERE snummer=$snummer";
 $resultSet = $dbConn->Execute($sql);
 if ($resultSet === false) {
     die('Error: ' . $dbConn->ErrorMsg() . ' with ' . $sql);
@@ -324,7 +324,7 @@ $pp['pd_count'] = $resultSet->fields['pd_count'];
 
 $pp['coauthor_table'] = "";
 if ($prj_id > 1) { // no coauthors for personal project with id==1
-    $sql = "select snummer as co, achternaam, roepnaam,coalesce(voorvoegsel,'')\n" .
+    $sql = "select snummer as co, achternaam, roepnaam,coalesce(tussenvoegsel,'')\n" .
             " from student natural join prj_grp \n" .
             " where prjtg_id=$prjtg_id order by achternaam, roepnaam";
     //echo $sql;
@@ -333,7 +333,7 @@ if ($prj_id > 1) { // no coauthors for personal project with id==1
         die('Error: ' . $dbConn->ErrorMsg() . ' with ' . $sql);
         $pp['coauthor_table'] = "";
         if ($prj_id > 1) { // no coauthors for personal project with id==1
-            $sql = "select snummer as co, achternaam, roepnaam,coalesce(voorvoegsel,'')\n" .
+            $sql = "select snummer as co, achternaam, roepnaam,coalesce(tussenvoegsel,'')\n" .
                     " from student natural join prj_grp \n" .
                     " where prjtg_id=$prjtg_id order by achternaam, roepnaam";
             //echo $sql;
@@ -347,7 +347,7 @@ if ($prj_id > 1) { // no coauthors for personal project with id==1
             while (!$resultSet->EOF) {
                 extract($resultSet->fields);
                 $checked = ($snummer == $co) ? 'checked' : '';
-                $pp['coauthor_table'] .="<tr><td>$co</td><td>$roepnaam $voorvoegsel $achternaam</td>\n\t<td><input type='checkbox' name='coauthor[]' value='$co' $checked/></td></tr>\n";
+                $pp['coauthor_table'] .="<tr><td>$co</td><td>$roepnaam $tussenvoegsel $achternaam</td>\n\t<td><input type='checkbox' name='coauthor[]' value='$co' $checked/></td></tr>\n";
                 $resultSet->moveNext();
             }
             $pp['coauthor_table'] .= "<table>\n";
@@ -359,7 +359,7 @@ if ($prj_id > 1) { // no coauthors for personal project with id==1
     while (!$resultSet->EOF) {
         extract($resultSet->fields);
         $checked = ($snummer == $co) ? 'checked' : '';
-        $pp['coauthor_table'] .="<tr><td>$co</td><td>$roepnaam $voorvoegsel $achternaam</td>\n"
+        $pp['coauthor_table'] .="<tr><td>$co</td><td>$roepnaam $tussenvoegsel $achternaam</td>\n"
                 . "\t<td><input type='checkbox' name='coauthor[]' value='$co' $checked/></td></tr>\n";
         $resultSet->moveNext();
     }

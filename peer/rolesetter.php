@@ -51,7 +51,7 @@ if ( $may_change && isSet( $_REQUEST['submit_roles'] ) ) {
   //    $dbConn->log($sql);
   $affected_rows = $dbConn->executeQueryList( $queries );
 }
-$sql = "select snummer,roepnaam,voorvoegsel,achternaam,email1,email2 \n" .
+$sql = "select snummer,roepnaam,tussenvoegsel,achternaam,email1,email2 \n" .
         "from student left join alt_email using(snummer) where snummer=$snummer";
 $resultSet = $dbConn->Execute( $sql );
 if ( $resultSet === false ) {
@@ -74,7 +74,7 @@ $page->addBodyComponent( $nav );
 ob_start();
 $prjList = $prjSel->getSelector();
 
-$sql = "select pm.prj_id,s.snummer as actor, rtrim(achternaam) as achternaam,rtrim(voorvoegsel) as voorvoegsel,\n" .
+$sql = "select pm.prj_id,s.snummer as actor, rtrim(achternaam) as achternaam,rtrim(tussenvoegsel) as tussenvoegsel,\n" .
         "rtrim(roepnaam) as roepnaam, nationaliteit,hoofdgrp as class,alias,f.faculty_short as faculty,\n" .
         "course_description,role as current_role,sr.rolenum,pr.capabilities as capabilities\n" .
         " from prj_grp pg join student s using(snummer)\n" .
@@ -136,7 +136,7 @@ $resultSet3 = $dbConn->Execute( $sql3 );
                   "</select>\n";
           echo "<tr>\n" .
           "\t\t<td>$actor</td>\n" .
-          "\t\t<td><input type='hidden' name='actor[]' value='$actor'/>$roepnaam $voorvoegsel $achternaam</td>\n" .
+          "\t\t<td><input type='hidden' name='actor[]' value='$actor'/>$roepnaam $tussenvoegsel $achternaam</td>\n" .
           "\t\t<td>$nationaliteit</td>\n" .
           "\t\t<td>$faculty</td>\n" .
           "\t\t<td>$course_description</td>\n" .
@@ -166,7 +166,7 @@ $resultSet3 = $dbConn->Execute( $sql3 );
             You can make tablecards for this group by pressing this <button type="submit">button</button> <br/>
             The layout of the tablecard wil be like this:<br/>
             <table border='0' style='background:white'>
-              <tr><th colspan='2'><?= $roepnaam . ' ' . $voorvoegsel . ' ' . $achternaam ?></th></tr>
+              <tr><th colspan='2'><?= $roepnaam . ' ' . $tussenvoegsel . ' ' . $achternaam ?></th></tr>
               <tr><td colspan='2'>Role in the project</td></tr>
               <tr><td width='20%'>Groupname</td><td>Major course descr.</td></tr>
             </table>
