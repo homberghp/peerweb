@@ -12,7 +12,7 @@ if (isSet($login_tutor)) {
 ?>
 <html>                                                                                                                                                                             
     <head>                                                                                                                                                                         
-        <title>Fontys Venlo Peerweb Service</title>
+        <title>PeerWeb Fontys Venlo Peerweb</title>
         <meta http-equiv='Window-target' content='_top'/>
         <link rel='icon' href='<?= IMAGEROOT ?>/favicon.ico' type='image/x-icon' />
         <link rel='Shortcut Icon' type='image/png' href='<?= IMAGEROOT ?>/favicon.png'/>

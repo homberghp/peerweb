@@ -118,6 +118,36 @@ class PeerPGDBConnection {
     }
 
     /**
+     * create a prepared statement
+     * @param type $query
+     * @param type $stmName
+     * @return boolean if succes full
+     */
+    public function Prepare($query,$stmName='my_statement'){
+        if (false !== pg_prepare($this->connection,$stmName,$query)){
+            return $stmName;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * execute prepared applying params
+     * @param type $preparedName
+     * @param type $params
+     * @return \PeerResultSet
+     */
+    public function ExecutePrepared($preparedName,$params=array()){
+//        if (! is_array($params)){
+//            echo "Not an array:";
+//            print_r($params);
+//            stacktrace();
+//            exit(1);
+//        }
+        $result= pg_execute($this->connection, $preparedName,$params);
+        return new PeerResultSet($this->connection, $result);
+    }
+    /**
      * Execute a compound statement
      * @param type $stmts
      */
@@ -515,6 +545,8 @@ class PeerResultSet {
      * @param type $res resource (handl to data)
      */
     public function __construct($con, $res) {
+        if ($con === NULL) stacktrace (3);
+        if ($res === NULL) stacktrace (3);
         $this->dbConn = $con;
         $this->resource = $res;
         //$this->MoveFirst();
@@ -663,22 +695,22 @@ function stacktracestring($level = 1) {
         $object = '';
         foreach ($dbg[$j] as $key => $val) {
             //echo $key.' => '.$val;
-            if ($key == 'file')
+            if ($key === 'file') {
                 $file = ($val);
-            else if ($key == 'line')
+            } else if ($key === 'line') {
                 $line = $val;
-            else if ($key == 'function')
+            } else if ($key === 'function') {
                 $function = $val;
-            else if ($key == 'class')
+            } else if ($key === 'class') {
                 $class = $val;
-            else if ($key == 'object')
+            } else if ($key === 'object') {
                 $object = '$object';
-            else if ($key == 'args') {
+            } else if ($key === 'args') {
                 $arglist = '(';
                 $continuation = '';
                 $detail = $dbg[$j][$key];
                 for ($i = 0; $i < count($detail); $i++) {
-                    $arglist .= $continuation . $detail[$i];
+                    $arglist .= $continuation . is_array($detail[$i])?',array':$detail[$i];
                     $continuation = ',';
                 }
                 $arglist .= ')';
