@@ -5,7 +5,7 @@ require_once('./peerlib/validators.php');
 include_once('navigation2.php');
 require_once 'prjMilestoneSelector2.php';
 
-requireCap(CAP_TUTOR);
+requireCap(CAP_SYSTEM);
 $prjm_id = 0;
 $prj_id = 1;
 $milestone = 1;

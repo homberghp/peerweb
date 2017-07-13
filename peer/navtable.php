@@ -221,6 +221,13 @@ $navtable = array(// index, defproject, citeria1,2, milestones
                 'image' => 'mail_address.png',
                 'interest' => 'tutor',
             ),
+            array('target' => 'importgroups.php',
+                'tooltip' => 'Import group definitions from (excel)file.',
+                'linktext' => 'Import Group membership',
+                'menu_name' => 'importgroups',
+                'image' => 'filter.png',
+                'interest' => 'tutor',
+            ),
         ),
     ),
     array(
