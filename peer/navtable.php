@@ -226,7 +226,7 @@ $navtable = array(// index, defproject, citeria1,2, milestones
                 'linktext' => 'Import Group membership',
                 'menu_name' => 'importgroups',
                 'image' => 'filter.png',
-                'interest' => 'tutor',
+                'interest' => 'system',
             ),
         ),
     ),
