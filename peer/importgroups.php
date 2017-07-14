@@ -14,6 +14,35 @@ extract($_SESSION);
 
 $uploadResult = '';
 
+function validateStudents($dbConn, &$uploadResult) {
+
+    $query = "select * from worksheet w where not exists\n"
+            . " (select 1 from student where snummer=w.snummer) order by grp_num,snummer";
+    $resultSet = $dbConn->Execute($query);
+    $valid = true;
+    if (!$resultSet->EOF && (($rowCount = $resultSet->RowCount()) > 0)) {
+        $valid = false;
+        $uploadResult .= "\n<fieldset style='background:white;color:#800'><pre>$query</pre><h2>The following student numbers are not known in peerweb</h2>" .
+                simpleTableString($dbConn, $query)
+                . "{$resultSet->atRow()} {$rowCount} rows</fieldset>";
+    }
+    return $valid;
+}
+
+function validateGroups($dbConn, &$uploadResult, $prjm_id) {
+
+    $query = "select distinct grp_num from worksheet w "
+            . "where not exists (select 1 from prj_tutor where prjm_id={$prjm_id} and w.grp_num = grp_num) order by grp_num";
+    $resultSet = $dbConn->Execute($query);
+    $valid = true;
+    if (!$resultSet->EOF) {
+        $valid = false;
+        $uploadResult .= "\n<fieldset style='background:white;color:#800'><h2>The following grp numbers (grp_num) are not defined in this project milestone</h2>" .
+                simpleTableString($dbConn, $query)
+                . "</fieldset>";
+    }
+    return $valid;
+}
 
 if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) && (!isSet($_SESSION['userfile']) || $_SESSION['userfile'] != $_FILES['userfile']) && (($prjm_id = validate($_POST['prjm_id'], 'integer', 0)) != 0)) {
     $basename = sanitizeFilename($_FILES['userfile']['name']);
@@ -30,30 +59,22 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
         $uploadResult .= "upload and integration was succesfull {$file_size}, {$tmp_file}, {$worksheet}";
         $cmd = `/usr/local/bin/jmerge -w $workdir -p /usr/local/share/jmerge/uploadgroup.properties`;
         $uploadResult .= "<pre>{$cmd}</pre></fieldset>";
-        $invalidset = false;
-        $query = "select count(1) as failing from worksheet w where not exists (select 1 from student where snummer=w.snummer)";// order by grp_num,snummer";
-        $resultSet = $dbConn->Execute($sql);
-        if (!$resultSet->EOF && (($rowCount=$resultSet->RowCount()) > 0)) {
-            $invalidset |= true;
-            $uploadResult .= "\n<pre>$query</pre><fieldset style='background:white;color:#800'><h2>The following student numbers are not known in peerweb</h2>" .
-                    simpleTableString($dbConn, $query)
-                    . "{$resultSet->atRow()} {$rowCount} rows</fieldset>";
-        }
-        $query = "select distinct grp_num from worksheet w "
-                . "where not exists (select 1 from prj_tutor where prjm_id={$prjm_id} and w.grp_num = grp_num) order by grp_num";
-        $resultSet = $dbConn->Execute($sql);
-        if (!$resultSet->EOF) {
-            $invalidset |= true;
-            $uploadResult .= "\n<fieldset style='background:white;color:#800'><h2>The following grp numbers (grp_num) are not defined in this project milestone</h2>" .
-                    simpleTableString($dbConn, $query)
-                    . "</fieldset>";
-        }
-        if (!$invalidset) {
-            $query = "with g as (select * from prj_tutor where prjm_id={$prjm_id})\n"
+        $valid = validateStudents($dbConn, $uploadResult) && validateGroups($dbConn, $uploadResult, $prjm_id);
+        if ($valid) {
+            $query = "with members as (with g as (select * from prj_tutor where prjm_id={$prjm_id})\n"
                     . "insert into prj_grp (snummer,prjtg_id) \n"
-                    . "select snummer, prjtg_id from g join worksheet using(grp_num)";
-            $uploadResult .="<fieldset><pre>{$query}</pre></fieldset>";
-            //$resultSet = $dbConn->Execute($sql);
+                    . "select snummer, prjtg_id from g join worksheet using(grp_num) returning *)\n "
+                    . " select snummer,achternaam,roepnaam,grp_num,tutor,sclass as klas \n" .
+                    " from members join prj_tutor using (prjtg_id) join student using(snummer) join tutor on (tutor_id=userid)\n "
+                    . " join student_class using(class_id)\n"
+                    . " order by grp_num, achternaam,roepnaam";
+            //$uploadResult .= "<fieldset><pre>{$query}</pre></fieldset>";
+            $rainbow = new RainBow(STARTCOLOR, COLORINCREMENT_RED, COLORINCREMENT_GREEN, COLORINCREMENT_BLUE);
+
+            $uploadResult .= "\n<fieldset style='background:white;color:#080'><h2>The following students have been added </h2>" .
+                    getQueryToTableChecked($dbConn, $query, true, 3, $rainbow, -1, '', '')
+                    . "</fieldset>";
+            rmDirAll($workdir);
         }
     }
     $_SESSION['userfile'] = $_FILES['userfile'];

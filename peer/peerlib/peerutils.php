@@ -40,6 +40,7 @@ function getFirstRecordSetFields($dbConn, $sql) {
     }
     return $resultSet;
 }
+
 /**
  * Recursively implodes an array with optional key inclusion
  * 
@@ -51,22 +52,21 @@ function getFirstRecordSetFields($dbConn, $sql) {
  * @param   bool    $include_keys  include keys before their values
  * @param   bool    $trim_all      trim ALL whitespace from string
  * @return  string  imploded array
- */ 
-function recursive_implode(array $array, $glue = ',', $include_keys = false, $trim_all = true)
-{
-	$glued_string = '';
-	// Recursively iterates array and adds key/value to glued string
-	array_walk_recursive($array, function($value, $key) use ($glue, $include_keys, &$glued_string)
-	{
-		$include_keys and $glued_string .= $key.$glue;
-		$glued_string .= $value.$glue;
-	});
-	// Removes last $glue from string
-	strlen($glue) > 0 and $glued_string = substr($glued_string, 0, -strlen($glue));
-	// Trim ALL whitespace
-	$trim_all and $glued_string = preg_replace("/(\s)/ixsm", '', $glued_string);
-	return (string) $glued_string;
+ */
+function recursive_implode(array $array, $glue = ',', $include_keys = false, $trim_all = true) {
+    $glued_string = '';
+    // Recursively iterates array and adds key/value to glued string
+    array_walk_recursive($array, function($value, $key) use ($glue, $include_keys, &$glued_string) {
+        $include_keys and $glued_string .= $key . $glue;
+        $glued_string .= $value . $glue;
+    });
+    // Removes last $glue from string
+    strlen($glue) > 0 and $glued_string = substr($glued_string, 0, -strlen($glue));
+    // Trim ALL whitespace
+    $trim_all and $glued_string = preg_replace("/(\s)/ixsm", '', $glued_string);
+    return (string) $glued_string;
 }
+
 /**
  * get all data for unix_id from medewerkers_plusplus
  */
@@ -136,7 +136,7 @@ function hasStudentCap($snummer, $cap, $prjm_id, $grp_num = 0) {
             "where snummer=$snummer and prjm_id=$prjm_id";
     // with 0 parameter is a hack
     if ($grp_num != 0) {
-        $sql .=" and grp_num=$grp_num";
+        $sql .= " and grp_num=$grp_num";
     }
     $resultSet = $dbConn->Execute($sql);
     if ($resultSet === null) {
@@ -161,7 +161,7 @@ function hasStudentCap2($snummer, $cap, $prjm_id, $grp_num = 0) {
 
     // with 0 parameter is a hack
     if ($grp_num != 0) {
-        $sql .=" and grp_num=$grp_num";
+        $sql .= " and grp_num=$grp_num";
     }
     $resultSet = $dbConn->doSilent($sql);
     //  $dbConn->log($sql."\nresult capabilities:[".$resultSet->fields['capabilities']."]\n");
@@ -363,8 +363,8 @@ function getQueryToTableChecked($dbConn, $query, $numerate, $watchColumn, $rb, $
                 case 'float':
                 case 'real';
                 case 'N':
-                    $tdclass .=' num';
-                    $sums[$i] +=$val;
+                    $tdclass .= ' num';
+                    $sums[$i] += $val;
                     break;
                 default:
                     break;
@@ -523,7 +523,7 @@ function bvar_dump($var) {
     $result = '';
     ob_start();
     var_dump($var);
-    $result.=ob_get_contents();
+    $result .= ob_get_contents();
     ob_end_clean();
     return $result;
 }
@@ -1005,7 +1005,7 @@ function fakemail($to, $sub, $msg, $head) {
 function htmlmailheaders($from, $from_name, $to, $cc = '') {
     $msgid = @`date +%Y%m%d%H%M%S`;
     $msgid = rtrim($msgid);
-    $msgid .='.@fontysvenlo.org';
+    $msgid .= '.@fontysvenlo.org';
     $mailtimestamp = date('D, j M Y H:i:s O'); // Mon, 5 Nov 2007 11:22:33 +0100
     $headers = "From: $from
 Reply-To: $from 
@@ -1118,6 +1118,23 @@ function sequenceNextValue($dbC, $seqnam) {
         die();
     } else
         return $resultSet->fields['nextval'];
+}
+
+/**
+ * Delete a directory and its content recursively.
+ * @param $target string
+ * @return true on success, false otherwise.
+ */
+function rmDirAll($target) {
+    $files = glob("$target/*"); // get all file names
+    foreach ($files as $file) { // iterate files
+        if (is_dir($file)) {
+            rmDirAll($file);
+        } else if (is_file($file)) {
+            unlink($file); // delete file
+        }
+    }
+    rmDir($target);
 }
 
 /**

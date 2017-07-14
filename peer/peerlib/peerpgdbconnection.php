@@ -80,7 +80,7 @@ class PeerPGDBConnection {
         //	$doFileLogging=true;
 
         if ($doFileLogging) {
-            $fileMsg .="\n" . $this->sqlAutoLogCounter . ': ' . $statement;
+            $fileMsg .= "\n" . $this->sqlAutoLogCounter . ': ' . $statement;
         }
         if (preg_match("/^begin/i", $statement)) {
             $this->lastResult = $result = pg_query($this->connection, $statement);
@@ -123,30 +123,31 @@ class PeerPGDBConnection {
      * @param type $stmName
      * @return boolean if succes full
      */
-    public function Prepare($query,$stmName='my_statement'){
-        if (false !== pg_prepare($this->connection,$stmName,$query)){
+    public function Prepare($query, $stmName = 'my_statement') {
+        if (false !== pg_prepare($this->connection, $stmName, $query)) {
             return $stmName;
         } else {
             return false;
         }
     }
-    
+
     /**
      * execute prepared applying params
      * @param type $preparedName
      * @param type $params
      * @return \PeerResultSet
      */
-    public function ExecutePrepared($preparedName,$params=array()){
+    public function ExecutePrepared($preparedName, $params = array()) {
 //        if (! is_array($params)){
 //            echo "Not an array:";
 //            print_r($params);
 //            stacktrace();
 //            exit(1);
 //        }
-        $result= pg_execute($this->connection, $preparedName,$params);
+        $result = pg_execute($this->connection, $preparedName, $params);
         return new PeerResultSet($this->connection, $result);
     }
+
     /**
      * Execute a compound statement
      * @param type $stmts
@@ -306,7 +307,7 @@ class PeerPGDBConnection {
     function transactionEnd($text = 'COMMIT') {
         if ($this->transactionPending) {
             $result = pg_query($this->connection, "COMMIT");
-            $this->transactionLog .="\n{$text}\n";
+            $this->transactionLog .= "\n{$text}\n";
             $this->transactionPending = false;
             $this->logToFile($this->transactionLog);
             $this->transActionLog = '';
@@ -528,6 +529,7 @@ $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 /**
  * A resultset which behaves like the adodb result set.
  * This resultset always fetched into an associative array.
+ * The resultSet is pointing at the first row, if any.
  */
 class PeerResultSet {
 
@@ -536,7 +538,7 @@ class PeerResultSet {
     public $fields;
     public $EOF = true;
     private $keys = null;
-    private $rowNr = 0;
+    private $rowNr = -1;
     private $size;
 
     /**
@@ -545,18 +547,22 @@ class PeerResultSet {
      * @param type $res resource (handl to data)
      */
     public function __construct($con, $res) {
-        if ($con === NULL) stacktrace (3);
-        if ($res === NULL) stacktrace (3);
+        if ($con === NULL) {
+            stacktrace(3);
+        }
+        if ($res === NULL) {
+            stacktrace(3);
+        }
         $this->dbConn = $con;
         $this->resource = $res;
         //$this->MoveFirst();
-        $this->rowNr = 0;
         $this->size = pg_num_rows($this->resource);
         if ($this->size <= 0) {
             $this->EOF = TRUE;
         } else {
+            $this->rowNr = 0;
             $this->fields = pg_fetch_array($this->resource, $this->rowNr, PGSQL_BOTH); // $ADODB_FETCH_MODE);
-            $this->EOF = $this->fields === false;
+            $this->EOF = $this->fields === FALSE;
         }
     }
 
@@ -598,7 +604,7 @@ class PeerResultSet {
             //echo "<pre>" . ($this->callCtr++) . " " . print_r($this->fields, true) . "</pre>";
         } else {
             $this->fields = false;
-            $this->EOF = false; //optimists assume there is something
+            $this->EOF = true; //optimists assume there is something
         }
         return $this->fields;
     }
@@ -649,14 +655,15 @@ class PeerResultSet {
     function RowCount() {
         return $this->size = pg_num_rows($this->resource);
     }
+
     /**
      * Returns the current row position of this resultSet.
      * @return row/cursor position
      */
-    function atRow(){
+    function atRow() {
         return $this->rowNr;
-        
     }
+
 }
 
 /**
@@ -719,7 +726,7 @@ function stacktracestring($level = 1) {
                 $continuation = '';
                 $detail = $dbg[$j][$key];
                 for ($i = 0; $i < count($detail); $i++) {
-                    $arglist .= $continuation . is_array($detail[$i])?',array':$detail[$i];
+                    $arglist .= $continuation . is_array($detail[$i]) ? ',array' : $detail[$i];
                     $continuation = ',';
                 }
                 $arglist .= ')';
