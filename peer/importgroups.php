@@ -1,9 +1,10 @@
 <?php
 
-include_once('./peerlib/peerutils.php');
-require_once('./peerlib/validators.php');
-include_once('navigation2.php');
+require_once './peerlib/peerutils.php';
+require_once'./peerlib/validators.php';
+require_once 'navigation2.php';
 require_once 'prjMilestoneSelector2.php';
+require_once './peerlib/simplequerytable.php';
 
 requireCap(CAP_SYSTEM);
 $prjm_id = 0;
@@ -14,23 +15,48 @@ extract($_SESSION);
 $uploadResult = '';
 
 
-if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
-        && (!isSet($_SESSION['userfile']) || $_SESSION['userfile'] != $_FILES['userfile']) 
-        && (($prjm_id = validate($_POST['prjm_id'], 'integer', 0)) != 0)) {
+if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) && (!isSet($_SESSION['userfile']) || $_SESSION['userfile'] != $_FILES['userfile']) && (($prjm_id = validate($_POST['prjm_id'], 'integer', 0)) != 0)) {
     $basename = sanitizeFilename($_FILES['userfile']['name']);
+    $uploadResult = "<fieldset style='color:green; background:black;font-family:monospace'>";
     $file_size = $_FILES['userfile']['size'];
     $tmp_file = $_FILES['userfile']['tmp_name'];
-    $workdir="{$tmp_file}.d";
+    $workdir = "{$tmp_file}.d";
     $worksheetbase = basename($tmp_file);
     $worksheet = "{$workdir}/worksheet.xlsx";
     if (!mkdir($workdir, 0775, true)) {
-         die('cannot create dir ' . $workdir . '<br/>');
+        die('cannot create dir ' . $workdir . '<br/>');
     }
     if (move_uploaded_file($tmp_file, "{$worksheet}")) {
-        $uploadResult = "upload and integration was succesfull {$file_size}, {$tmp_file}, {$worksheet}}";
-        
+        $uploadResult .= "upload and integration was succesfull {$file_size}, {$tmp_file}, {$worksheet}";
+        $cmd = `/usr/local/bin/jmerge -w $workdir -p /usr/local/share/jmerge/uploadgroup.properties`;
+        $uploadResult .= "<pre>{$cmd}</pre></fieldset>";
+        $invalidset = false;
+        $query = "select count(1) as failing from worksheet w where not exists (select 1 from student where snummer=w.snummer)";// order by grp_num,snummer";
+        $resultSet = $dbConn->Execute($sql);
+        if (!$resultSet->EOF && (($rowCount=$resultSet->RowCount()) > 0)) {
+            $invalidset |= true;
+            $uploadResult .= "\n<pre>$query</pre><fieldset style='background:white;color:#800'><h2>The following student numbers are not known in peerweb</h2>" .
+                    simpleTableString($dbConn, $query)
+                    . "{$resultSet->atRow()} {$rowCount} rows</fieldset>";
+        }
+        $query = "select distinct grp_num from worksheet w "
+                . "where not exists (select 1 from prj_tutor where prjm_id={$prjm_id} and w.grp_num = grp_num) order by grp_num";
+        $resultSet = $dbConn->Execute($sql);
+        if (!$resultSet->EOF) {
+            $invalidset |= true;
+            $uploadResult .= "\n<fieldset style='background:white;color:#800'><h2>The following grp numbers (grp_num) are not defined in this project milestone</h2>" .
+                    simpleTableString($dbConn, $query)
+                    . "</fieldset>";
+        }
+        if (!$invalidset) {
+            $query = "with g as (select * from prj_tutor where prjm_id={$prjm_id})\n"
+                    . "insert into prj_grp (snummer,prjtg_id) \n"
+                    . "select snummer, prjtg_id from g join worksheet using(grp_num)";
+            $uploadResult .="<fieldset><pre>{$query}</pre></fieldset>";
+            //$resultSet = $dbConn->Execute($sql);
+        }
     }
-    $_SESSION['userfile']=$_FILES['userfile'];
+    $_SESSION['userfile'] = $_FILES['userfile'];
 }
 
 

@@ -642,12 +642,21 @@ class PeerResultSet {
     }
 
     /**
-     * The number of rows in this result;
+     * The number of rows in this result.
+     * Updates size field.
+     * @return the number of rows in this resultSet.
      */
     function RowCount() {
-        return pg_num_rows($this->resource);
+        return $this->size = pg_num_rows($this->resource);
     }
-
+    /**
+     * Returns the current row position of this resultSet.
+     * @return row/cursor position
+     */
+    function atRow(){
+        return $this->rowNr;
+        
+    }
 }
 
 /**
