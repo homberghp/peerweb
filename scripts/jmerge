@@ -27,7 +27,7 @@ JARFILE=jMerge.jar
 JAR=${JARDIR}/${JARFILE}
 
 cd ${workdir}
-echo java -DjMerge.confDirName=${confDirName} \
+java -DjMerge.confDirName=${confDirName} \
      -DjMerge.properties=${propfile} \
      -DjMerge.workdir=${workdir} \
      -cp ${JAR} nl.fontys.jmerge.All "$*"

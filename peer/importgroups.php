@@ -57,7 +57,9 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
     }
     if (move_uploaded_file($tmp_file, "{$worksheet}")) {
         $uploadResult .= "upload and integration was succesfull {$file_size}, {$tmp_file}, {$worksheet}";
-        $cmd = `/usr/local/bin/jmerge -w $workdir -p $site_home/jmerge/uploadgroup.properties`;
+        $cmdString="{$site_home}/scripts/jmerge -w {$workdir} -p {$site_home}/jmerge/uploadgroup.properties";
+        $cmd = `$cmdString`;
+        echo $cmdString;
         $uploadResult .= "<pre>{$cmd}</pre></fieldset>";
         $valid = validateStudents($dbConn, $uploadResult) && validateGroups($dbConn, $uploadResult, $prjm_id);
         if ($valid) {

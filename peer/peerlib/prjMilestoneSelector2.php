@@ -121,7 +121,7 @@ class PrjMilestoneSelector2 {
     function guessPrjMid($tutor_id) {
         $sql = "select max(prjm_id) as guess from prj_tutor where tutor_id={$tutor_id} union select max(prjm_id) as guess from prj_tutor limit 1";
         $resultSet = $this->dbConn->Execute($sql);
-        echo "guessed {$resultSet->fields['guess']}";
+        //echo "guessed {$resultSet->fields['guess']}";
         return $resultSet->fields['guess'];
     }
 
