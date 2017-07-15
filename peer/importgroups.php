@@ -57,7 +57,7 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
     }
     if (move_uploaded_file($tmp_file, "{$worksheet}")) {
         $uploadResult .= "upload and integration was succesfull {$file_size}, {$tmp_file}, {$worksheet}";
-        $cmd = `/usr/local/bin/jmerge -w $workdir -p /usr/local/share/jmerge/uploadgroup.properties`;
+        $cmd = `/usr/local/bin/jmerge -w $workdir -p $site_home/jmerge/uploadgroup.properties`;
         $uploadResult .= "<pre>{$cmd}</pre></fieldset>";
         $valid = validateStudents($dbConn, $uploadResult) && validateGroups($dbConn, $uploadResult, $prjm_id);
         if ($valid) {
@@ -74,7 +74,7 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
             $uploadResult .= "\n<fieldset style='background:white;color:#080'><h2>The following students have been added </h2>" .
                     getQueryToTableChecked($dbConn, $query, true, 3, $rainbow, -1, '', '')
                     . "</fieldset>";
-            rmDirAll($workdir);
+            //rmDirAll($workdir);
         }
     }
     $_SESSION['userfile'] = $_FILES['userfile'];
