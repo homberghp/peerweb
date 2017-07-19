@@ -20,6 +20,9 @@ function validateStudents($dbConn, &$uploadResult) {
             . " (select 1 from student where snummer=w.snummer) order by grp_num,snummer";
     $resultSet = $dbConn->Execute($query);
     $valid = true;
+    if ($resultSet === FALSE){
+        echo $uploadResult;
+    }
     if (!$resultSet->EOF && (($rowCount = $resultSet->RowCount()) > 0)) {
         $valid = false;
         $uploadResult .= "\n<fieldset style='background:white;color:#800'><pre>$query</pre><h2>The following student numbers are not known in peerweb</h2>" .
@@ -57,9 +60,8 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
     }
     if (move_uploaded_file($tmp_file, "{$worksheet}")) {
         $uploadResult .= "upload and integration was succesfull {$file_size}, {$tmp_file}, {$worksheet}";
-        $cmdString="{$site_home}/scripts/jmerge -w {$workdir} -p {$site_home}/jmerge/uploadgroup.properties";
+        $cmdString = "{$site_home}/scripts/jmerge -w {$workdir} -c {$site_home}/jmerge -p {$site_home}/jmerge/uploadgroup.properties";
         $cmd = `$cmdString`;
-        echo $cmdString;
         $uploadResult .= "<pre>{$cmd}</pre></fieldset>";
         $valid = validateStudents($dbConn, $uploadResult) && validateGroups($dbConn, $uploadResult, $prjm_id);
         if ($valid) {
@@ -76,6 +78,9 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
             $uploadResult .= "\n<fieldset style='background:white;color:#080'><h2>The following students have been added </h2>" .
                     getQueryToTableChecked($dbConn, $query, true, 3, $rainbow, -1, '', '')
                     . "</fieldset>";
+//            $cmdString = "{$site_home}/scripts/jmerge -w {$workdir} -c {$site_home}/jmerge -p {$site_home}/jmerge/dropworksheet.properties";
+//            $cmd = `$cmdString`;
+//            $uploadResult .= "<pre>{$cmd}</pre></fieldset>";
             //rmDirAll($workdir);
         }
     }

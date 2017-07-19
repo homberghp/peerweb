@@ -30,5 +30,5 @@ cd ${workdir}
 java -DjMerge.confDirName=${confDirName} \
      -DjMerge.properties=${propfile} \
      -DjMerge.workdir=${workdir} \
-     -cp ${JAR} nl.fontys.jmerge.All "$*"
+     -cp ${JAR} nl.fontys.jmerge.All "$*" 2>&1
 

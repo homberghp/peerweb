@@ -3,12 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/hom/peerweb/peer/peerlib/peerutils.php</file>
             <file>file:/home/hom/peerweb/peer/importgroups.php</file>
             <file>file:/home/hom/peerweb/peer/peerlib/peerpgdbconnection.php</file>
-            <file>file:/home/hom/peerweb/peer/grouplist.php</file>
-            <file>file:/home/hom/peerweb/peer/templates/buit.xhtml</file>
-            <file>file:/home/hom/peerweb/peer/peerlib/simplequerytable.php</file>
+            <file>file:/home/hom/peerweb/peer/configure.php</file>
+            <file>file:/home/hom/peerweb/peer/peerlib/prjMilestoneSelector2.php</file>
         </group>
     </open-files>
 </project-private>
