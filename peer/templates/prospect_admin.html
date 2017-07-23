@@ -1,3 +1,7 @@
+<h3>Administer Prospect Students </h3>
+<p>Use this page for prospect students, students that have not yet enrolled completely.
+    Once a student arrives, he/she can be moved from the prospect table to the student table on the enrolment page.
+    </p>
 <table >
     <tr>
         <td colspan='1'>Snummer&nbsp;<?php if (hasCap(CAP_SYSTEM)) {?><a href='editcapabilities.php?newsnummer=<?=$raw_snummer?>' target='_blank'>capabilities</a><?php } ?></td>
@@ -15,7 +19,7 @@
     <tr>
         <td colspan='1'>Achternaam</td>
         <td colspan='1'>Roepnaam</td>
-        <td colspan='1'>Voorvoegsel</td>
+        <td colspan='1'>Tussenvoegsel</td>
         <td colspan='1'>Voornaam</td>
         <td colspan='1'>Voorletters</td>
     </tr>
@@ -76,29 +80,15 @@
                     <td colspan='1'>Hoofdgroep</td>
                     <td colspan='1'><?=$veld_hoofdgrp?></td>
                     <td><?=$veld_active?></td>
-                    <td><?php if (hasCap(CAP_TUTOR) && isSet($raw_snummer)) {?>
-                        <a href='portfolio.php?snummer=<?=$raw_snummer?>'
-                           target='mainframe'>
-                            <img src='images/folder_green.png' border='0' style='vertical-align:middle'/>
-                            <span style='font-weight:bold;font-size:120%;color:#330033;'>
-                                Student&nbsp;portfolio</span></a>
-                        <?php } else { ?>&nbsp;<?php }?>
-                    </td>
                 </tr>
                 <tr>
                     <td colspan='1'>Student klas</td>
                     <td colspan='2'><?=$veld_class_id?>&nbsp;<a href='classlist.php?class_id=<?=$raw_class_id?>'
                     target='_blank'>others in class</a></td>
-                    <td><?php if (hasCap(CAP_TUTOR) && isSet($raw_snummer)) {?>
-                        <a href='https://progresswww.nl/fontys/resultaten/overzichten.asp?navi=37&nummer=<?=$raw_snummer?>'
-                           target='_blank'><img src='images/progress-icon.png' border='0' style='vertical-align:middle'/>&nbsp;Progress data</a>
-                        <?php } else { ?>&nbsp;<?php }?>
-                    </td>
 
                 </tr>
             </table>
         </td>
-        <td rowspan='1' align='center' valign='middle' ><?=$veld_image?></td>
 
     </tr>
 </table>

@@ -21,6 +21,7 @@ $tabInterestCount['tutor_admin'] = hasCap(CAP_TUTOR_ADMIN) ? 1 : 0;
 $tabInterestCount['set_capabilities'] = hasCap(CAP_EDIT_RIGHTS) ? 1 : 0;
 $tabInterestCount['bigface'] = hasCap(CAP_BIGFACE) ? 1 : 0;
 $tabInterestCount['module'] = hasCap(CAP_MODULES) ? 1 : 0;
+$tabInterestCount['enrol'] = hasCap(CAP_ENROL) ? 1 : 0;
 $tabInterestCount['git'] = hasCap(CAP_GIT) ? 1 : 0;
 $tabInterestCount['none'] = 0;
 $sql = "select opl from student where snummer=$peer_id";
@@ -599,6 +600,30 @@ $navtable = array(// index, defproject, citeria1,2, milestones
                 'menu_name' => 'viewUpload_grades',
                 'image' => 'file_cabinet.png',
                 'interest' => 'module',
+            ),
+        ),
+    ),
+    array(
+        'interest' => 'enrol',
+        'toplinktext' => 'Enrol  students',
+        'tooltip' => 'Enrolment',
+        'menu_name' => 'enroll',
+        'image' => 'new-22a.png',
+        'subitems' =>
+        array(
+            array('target' => 'enrol_prospect.php',
+                'tooltip' => 'Enrol student into peerweb ',
+                'linktext' => 'enrol',
+                'menu_name' => 'enrol',
+                'image' => 'new-22a.png',
+                'interest' => 'enrol',
+            ),
+            array('target' => 'prospect_admin.php',
+                'tooltip' => 'Add or edit prospect data.',
+                'linktext' => 'Enrol Student admin',
+                'menu_name' => 'prospect_admin',
+                'image' => 'file_cabinet.png',
+                'interest' => 'enrol',
             ),
         ),
     ),

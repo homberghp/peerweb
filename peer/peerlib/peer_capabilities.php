@@ -29,6 +29,7 @@ define("CAP_EDIT_RIGHTS", 1 << 16);
 define("CAP_MODULES", 1 << 17);
 define("CAP_GIT", 1 << 18);
 define("CAP_SELECT_ALL", 1 << 19);
+define("CAP_ENROL", 1 << 20);
 define("CAP_BIGFACE", 1 << 30);
 define("CAP_ALL", 0x7FFFFFFF);
 ?>

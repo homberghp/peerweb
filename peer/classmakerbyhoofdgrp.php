@@ -32,7 +32,7 @@ if (isSet($_POST['newclass_id'])) {
 $oldClassSelector = hoofdgrpSelector($dbConn, 'hoofdgrp', $hoofdgrp);
 
 $sqlhead = "select distinct snummer,"
-        . "achternaam||rtrim(coalesce(', '||voorvoegsel,'')::text) as achternaam ,roepnaam, "
+        . "achternaam||rtrim(coalesce(', '||tussenvoegsel,'')::text) as achternaam ,roepnaam, "
         . "pcn,gebdat as birth_date,t.tutor as slb,rtrim(email1) as email1,\n"
         . "studieplan_short as studieplan,sclass,hoofdgrp ,\n"
         . "straat,huisnr,plaats,phone_gsm,phone_home\n"
@@ -125,7 +125,7 @@ if (file_exists($filename)) {
 $sql = "SELECT '<input type=''checkbox''  name=''studenten[]'' value='''||st.snummer||'''/>' as chk,"
         . "'<a href=''student_admin.php?snummer='||snummer||'''>'||st.snummer||'</a>' as snummer,"
         . "'<img src='''||photo||''' style=''height:24px;width:auto;''/>' as foto,\n"
-        . "achternaam||', '||roepnaam||coalesce(' '||voorvoegsel,'') as naam,pcn,"
+        . "achternaam||', '||roepnaam||coalesce(' '||tussenvoegsel,'') as naam,pcn,"
         . "email1 as email,t.tutor as slb,hoofdgrp,sclass,cohort,course_short sprogr,studieplan_short as splan,lang,sex,gebdat,"
         . " land,plaats,pcode\n"
         . " from student st "

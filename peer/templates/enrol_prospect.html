@@ -1,0 +1,25 @@
+<div id='navmain' style='padding:1em;'>
+  <fieldset><legend>Choose students to enrol</legend>
+    <p>Normally this page is used once or twice a year to enrol and  to assign students to new classes.<br/>
+    <span style='font-size:140%;font-weight:bold; color:#800'>Note&nbsp;</span>Students must have a (Fontys) pcn and email before you can enrol them.
+    Otherwise, they have no access to any of the Fontys systems, in particular email, course sites  and network.
+    </p>
+    <form method="post" name="participants" action="<?=$PHP_SELF?>">
+      <table class='layout' style='border-width:0;'>
+        <tr><th colspan='1'>Hoofdgrp</th><th colspan='2'>Enrol to class</th></tr>
+        <tr><td>
+            <?=$oldClassSelector?>
+          </td>
+          <td><input type='submit' name='get' value='Get Hoofdgroep' title='Get current class'/></td>
+          <td>
+            <?=$newClassSelector?>
+          </td>
+          <td><input type="submit" name="update" value="Enrol to class" title="move the students"/></td>
+          <td><input type="reset" name="reset" value="Reset" title="reset form"/></td>
+        </tr>
+      </table>
+      <hr/>
+      <?=$classTable?>
+    </form>
+  </fieldset>
+</div>

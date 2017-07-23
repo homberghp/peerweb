@@ -29,7 +29,7 @@ $cap_names = array('CAP_TUTOR', //0
 		   'CAP_MODULE',//17 module management
 		   'CAP_GIT',//18 git use
 		   'CAP_SELECT_ALL',//19
-		   'CAP20',//20
+		   'CAP_ENROL',//20
 		   'CAP21',//21
 		   'CAP22',//22
 		   'CAP23',//23
