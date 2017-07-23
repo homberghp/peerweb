@@ -2,7 +2,7 @@
 /**
  * To help the dba an programmers this page shows the (syntax highlighted) sources of the
  * application.
- * @package prafda2
+ * @package peerweb
  */
 ?>
 <!DOCTYPE public "-//w3c//dtd html 4.01 transitional//en"

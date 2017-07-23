@@ -13,7 +13,7 @@ require_once 'SpreadSheetWriter.php';
  * like search, insert, update and delete.
  * Using a template file, adapt 4 to 10 lines of code and you have a table
  * specific editor.
- * @package prafda2
+ * @package peerweb
  * @author Pieter van den Hombergh
  * $Id: ste.php 1859 2015-07-27 08:08:55Z hom $
  */

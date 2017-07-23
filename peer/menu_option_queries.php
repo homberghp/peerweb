@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @package prafda2
+ * @package peerweb
  * @author Pieter van den Hombergh
  * $Id: menu_option_queries.php 1723 2014-01-03 08:34:59Z hom $
  * The simple table editor for the table menu_option_queries. Menu_option_querie is

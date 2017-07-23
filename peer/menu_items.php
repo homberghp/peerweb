@@ -4,7 +4,7 @@
  * The simple table editor for the table menu. Menu is one of the tables that support
  * the simple table editor.
  *
- * @package prafda2
+ * @package peerweb
  * @author Pieter van den Hombergh
  * $Id: menu_items.php 1723 2014-01-03 08:34:59Z hom $
  */

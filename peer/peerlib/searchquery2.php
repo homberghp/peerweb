@@ -9,7 +9,7 @@
  * the default relational operator '=' (equals) os changed to like. The query's result will present the data
  * in database column order, because a * is used as in 'select * from &lt;relname&gt;'.
  * To be able to pick the relevant elements from the $_POST array, the column names must be given in a list.
- * @package prafda2
+ * @package peerweb
  */
 class SearchQuery {
 
