@@ -1,0 +1,189 @@
+<div style='width:33%; float:left'>
+    <fieldset><legend>Import file</legend>
+        <form enctype='multipart/form-data' action='{$action}' method='post'>
+            <input id='userfile' name='userfile' type='file' size='120' style='width: 330px; border: 2px solid red;'
+                   accept='.xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'/>
+            <input type='hidden' name='prjm_id' value='{$prjm_id}'/>
+            <input type='submit' name='submit' value='Submit' id='submit'/>
+        </form>
+    </fieldset>
+    {$uploadResult}
+</div>
+<div style='width:63%;float:right; font-size: 120%;padding:0 2em 0 2em'>
+    <h3>Import students from progress into peerweb</h3>
+    This page allows you to import students from progress. <br/>
+
+    By uploading a specific file, you can import students.
+    The file must meet some criteria. 
+    <figure style='display:compact;float:right;padding:2em 2em'><img src='images/prospects.png' alt='excel fomat'  />
+        <figcaption style='font-weight: bold;text-align: center '>prospects file</figcaption>
+    </figure>
+    <ul>
+        <li>It is an xlsx (excel >= 2007) file. </li>
+        <li>The file should contain one worksheet called <b>'prospects'</b>. 
+            any other worksheet(s) will be ignored.</li>
+        <li>The first row of said sheet  should contain the column names of the data to import.</li>
+        <li>The following columns should be available and named as given:</li>
+    </ul>
+    <table class='simpletable tabledata' style='border-width: 1px black;'>
+        <caption>Table &quot;public.prospects&quot;</caption>
+        <tr>
+            <th >Column name</th>
+            <th >sql type </th>
+            <th >remarks</th>
+        </tr>
+        <tr >
+            <td >snummer</td>
+            <td >integer</td>
+            <td>Progress id</td>
+        </tr>
+        <tr >
+            <td >achternaam</td>
+            <td >text</td>
+        </tr>
+        <tr >
+            <td >tussenvoegsel</td>
+            <td >text</td>
+        </tr>
+        <tr >
+            <td >voorletters</td>
+            <td >text</td>
+        </tr>
+        <tr >
+            <td >roepnaam</td>
+            <td >text</td>
+        </tr>
+        <tr >
+            <td >straat</td>
+            <td >text</td>
+        </tr>
+        <tr >
+            <td >huisnr</td>
+            <td >character(4)</td>
+            <td> e.g. 123a</td>
+        </tr>
+        <tr >
+            <td >pcode</td>
+            <td >text</td>
+            <td> e.g. 5912 BG or D32134</td>
+        </tr>
+        <tr >
+            <td >plaats</td>
+            <td >text</td>
+            <td>current residence</td>
+        </tr>
+        <tr >
+            <td >email1</td>
+            <td >text</td>
+            <td>primary (Fontys) address</td>
+        </tr>
+        <tr >
+            <td >nationaliteit</td>
+            <td >character(2)</td>
+            <td>iso 3166 A2 (NL=Netherlands)</td>
+        </tr>
+        <tr >
+            <td >cohort</td>
+            <td >integer</td>
+            <td>Start of study</td>
+        </tr>
+        <tr >
+            <td >gebdat</td>
+            <td >date</td>
+            <td>Needed to aquire a password</td>
+        </tr>
+        <tr >
+            <td >sex</td>
+            <td >character(1)</td>
+            <td> M or F </td>
+        </tr>
+        <tr >
+            <td >lang</td>
+            <td >char(2)</td>
+            <td>'EN', 'NL' or 'DE'</td>
+        </tr>
+        <tr >
+            <td >pcn</td>
+            <td >integer</td>
+            <td>Fontys pcn</td>
+        </tr>
+        <tr >
+            <td >opl</td>
+            <td >integer</td>
+            <td>Fontys opleiding nummer. 112 =SEBI Venlo</td>
+        </tr>
+        <tr >
+            <td >phone_home</td>
+            <td >text</td>
+        </tr>
+        <tr >
+            <td >phone_gsm</td>
+            <td >text</td>
+        </tr>
+        <tr >
+            <td >phone_postaddress</td>
+            <td >text</td>
+        </tr>
+        <tr >
+            <td >faculty_id</td>
+            <td >integer</td>
+            <td>Instituutcode, 47=FHTenL, 27=FIBS</td>
+        </tr>
+        <tr >
+            <td >hoofdgrp</td>
+            <td >text</td>
+            <td>course selector, like SEBINL2017 for dutch inf students 2017</td>
+        </tr>
+        <tr >
+            <td >active</td>
+            <td >boolean</td>
+            <td>should be true</td>
+        </tr>
+        <tr >
+            <td >slb</td>
+            <td >integer</td>
+            <td>Studie loopbaan begeleider. May be null.</td>
+        </tr>
+        <tr >
+            <td >land</td>
+            <td >character(3)</td>
+            <td>Residence<td>
+        </tr>
+        <tr >
+            <td >studieplan</td>
+            <td >integer</td>
+            <td>Fontys studieplan</td>
+        </tr>
+        <tr >
+            <td >geboorteplaats</td>
+            <td >text</td>
+        </tr>
+        <tr >
+            <td >geboorteland</td>
+            <td >character(3)</td>
+        </tr>
+        <tr >
+            <td >voornamen</td>
+            <td >text</td>
+        </tr>
+        <tr >
+            <td >class_id</td>
+            <td >integer</td>
+        </tr>
+        <tr >
+            <td >email2</td>
+            <td >text</td>
+            <td>Private email address</td>
+        </tr>
+
+    </table>
+    <p>
+        There is a utility to convert progress.net sv05 files to the required file format. You can inspect the output of that utilility
+        before you submit it here.
+    </p >
+    <ul>
+        <li>The name of the file is irrelevant. It will be removed from the server after use.</li>
+        <li>Students already in peerweb before the import are skipped, not updated.</li>
+        <li>To update student data from progress, use another page. TBD. You need an SV09 file for that, needing different massaging.</li>
+    </ul>
+</div>

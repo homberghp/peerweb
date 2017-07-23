@@ -611,6 +611,13 @@ $navtable = array(// index, defproject, citeria1,2, milestones
         'image' => 'new-22a.png',
         'subitems' =>
         array(
+            array('target' => 'importfromprogress.php',
+                'tooltip' => 'Import students from progress',
+                'linktext' => 'import students',
+                'menu_name' => 'importstudents',
+                'image' => 'filter.png',
+                'interest' => 'enrol',
+            ),
             array('target' => 'enrol_prospect.php',
                 'tooltip' => 'Enrol student into peerweb ',
                 'linktext' => 'enrol',
