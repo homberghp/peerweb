@@ -31,7 +31,8 @@ CREATE OR REPLACE FUNCTION public.insert_student_email()
 			EXCLUDED.geboorteplaats,EXCLUDED.geboorteland,EXCLUDED.voornamen,EXCLUDED.class_id);
   INSERT INTO alt_email (snummer, email2)
   SELECT new.snummer,new.email2
-  WHERE (new.email2 IS NOT NULL);
+  WHERE (new.email2 IS NOT NULL) on conflict on constraint alt_email_pkey  do nothing;
+  update alt_email set email2=new.email2 where snummer=new.snummer;
   insert into passwd (userid) select new.snummer where not exists (select 1 from passwd where userid=new.snummer);
   return NEW; -- TO SIGNAL SUCCESS
   END;

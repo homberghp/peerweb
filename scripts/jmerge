@@ -5,13 +5,18 @@ GETOPT=/usr/bin/getopt
 workdir=$(pwd)
 confDirName=$(pwd)
 propfile=jMerge.properties
-ARGS=$(${GETOPT} -o c:p:s:w: --long confDirName:,propfile:,workdir: -n puk -- "$@")
-echo args=$ARGS
+ARGS=$(${GETOPT} -o hc:p:s:w: --long confDirName:,propfile:,workdir:,help -n puk -- "$@")
 eval set -- "$ARGS"
 while [ $# -gt 0 ]
 do
     case "$1" in
-    -c|--confDirName) confDirName=$2; shift;;
+	-h|--help)
+	    cat <<EOF
+usage jmerge [-h|--help] [-p|--propfile <propfile>] [-c|--confDirname <confdir>] \
+[-c|--workdir <workdir>]
+EOF
+	    exit 0;;
+	-c|--confDirName) confDirName=$2; shift;;
     -p|--propfile) propfile=$2; shift;;
     -w|--workdir) workdir=$2; shift;;
     --) shift; break;;

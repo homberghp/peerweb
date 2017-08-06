@@ -54,12 +54,10 @@ CREATE RULE student_email_update AS
 		       new.faculty_id, new.hoofdgrp, new.active, new.slb, new.land, new.studieplan, new.geboorteplaats,
 		       new.geboorteland, new.voornamen, new.class_id
 	)  where snummer = new.snummer;
- DELETE FROM alt_email
-  WHERE ((alt_email.snummer = new.snummer) AND (new.email2 IS NULL) AND (NOT (old.email2 IS NULL)) AND (alt_email.email3 IS NULL));
+	
  INSERT INTO alt_email (snummer, email2)  SELECT new.snummer,
-            new.email2
-          WHERE (NOT (new.snummer IN ( SELECT alt_email.snummer
-                   FROM alt_email)));
+            new.email2 where new.email2 notnull
+	    on conflict on constraint alt_email_pkey  do nothing;
  UPDATE alt_email SET email2 = new.email2
   WHERE ((alt_email.snummer = new.snummer) AND (NOT (new.email2 IS NULL)));
 );
