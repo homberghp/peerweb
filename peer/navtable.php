@@ -23,6 +23,7 @@ $tabInterestCount['bigface'] = hasCap(CAP_BIGFACE) ? 1 : 0;
 $tabInterestCount['module'] = hasCap(CAP_MODULES) ? 1 : 0;
 $tabInterestCount['enrol'] = hasCap(CAP_ENROL) ? 1 : 0;
 $tabInterestCount['git'] = hasCap(CAP_GIT) ? 1 : 0;
+$tabInterestCount['sync'] = hasCap(CAP_SYNC_PROGRESS) ? 1 : 0;
 $tabInterestCount['none'] = 0;
 $sql = "select opl from student where snummer=$peer_id";
 $resultSet = $dbConn->Execute($sql);
@@ -631,6 +632,13 @@ $navtable = array(// index, defproject, citeria1,2, milestones
                 'menu_name' => 'prospect_admin',
                 'image' => 'file_cabinet.png',
                 'interest' => 'enrol',
+            ),
+            array('target' => 'syncfromprogress.php',
+                'tooltip' => 'sync students with progress',
+                'linktext' => 'sync students data',
+                'menu_name' => 'syncstudents',
+                'image' => 'synchronize.png',
+                'interest' => 'sync',
             ),
         ),
     ),

@@ -1,13 +1,14 @@
 <div id='navmain' style='padding:1em;'>
-    <p>Add an individual student to a class. Note that this is a <i>move</i> operation, that is, move the student from any class to the selected destination class.</p>
-    <fieldset><legend>Select destination class</legend>
+    <p>Add an individual student to a class. Note that this is a <i>move</i> operation, that is, move the student from any class to the selected destination class. The operation explicitly also moves prospect students from the prospects table to the student proper table.</p>
+    <p>This page is best used scanning the student number using a barcode scanner from photo tickets or or move-to-class-cards.</p>
+    <fieldset><legend>Destination class for selected students</legend>
         <form method="get"><label for="newclass_id">Select destination class</label><?=$classSelectorWidget?>
             <input type='hidden' name='newsnummer' value='<?=$newsnummer?>'/>
         </form>
     </fieldset>
     <?= $studentPicker ?>
     <div>
-        <fieldset><legend>Current class members</legend>
+        <fieldset><legend style="font-size:200%">Current class members in class <?=$sclass?></legend>
             <?= $memberTable ?>
         </fieldset>
     </div>
