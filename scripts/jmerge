@@ -32,7 +32,8 @@ JARFILE=jMerge.jar
 JAR=${JARDIR}/${JARFILE}
 
 cd ${workdir}
-java -DjMerge.confDirName=${confDirName} \
+java -Dfile.encoding=UTF-8 \
+     -DjMerge.confDirName=${confDirName} \
      -DjMerge.properties=${propfile} \
      -DjMerge.workdir=${workdir} \
      -cp ${JAR} nl.fontys.jmerge.All "$*" 2>&1
