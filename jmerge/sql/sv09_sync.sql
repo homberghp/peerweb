@@ -16,10 +16,10 @@ update sv09_ingeschrevenen set geboorteland='Verenigde Staten'  where geboortela
 update sv09_ingeschrevenen set geboorteland='Tsjechië'  where geboorteland='Tsjecho-Slowakije';
 update sv09_ingeschrevenen set land='Tsjechië'  where land='Tsjecho-Slowakije';
 
-alter table  sv09_ingeschrevenen add constraint sv09_studielinkvariantcode_fk foreign key (studielinkvariantcode) references studieplan(studieplan);
-alter table  sv09_ingeschrevenen add constraint sv09_nat_mapper_fk foreign key (leidende_nationaliteit) references nat_mapper(nation_omschr);
-alter table  sv09_ingeschrevenen add constraint sv09_iso3166_land_nl_fk foreign key (land) references iso3166(land_nl);
-alter table  sv09_ingeschrevenen add constraint sv09_iso3166_geboorteland_fk foreign key (geboorteland) references iso3166(land_nl);
+alter table  sv09_ingeschrevenen add constraint sv09_studielinkvariantcode_fk foreign key (studielinkvariantcode) references public.studieplan(studieplan);
+alter table  sv09_ingeschrevenen add constraint sv09_nat_mapper_fk foreign key (leidende_nationaliteit) references public.nat_mapper(nation_omschr);
+alter table  sv09_ingeschrevenen add constraint sv09_iso3166_land_nl_fk foreign key (land) references public.iso3166(land_nl);
+alter table  sv09_ingeschrevenen add constraint sv09_iso3166_geboorteland_fk foreign key (geboorteland) references public.iso3166(land_nl);
 
 create view sv09_as_student_email_v as
        select distinct on(studentnummer)
@@ -59,10 +59,10 @@ create view sv09_as_student_email_v as
        0 as class_id,
        e_mail_privé  as email2
 from sv09_ingeschrevenen a
-left join studieplan sp on(sp.studieplan = a.studielinkvariantcode)
-left join nat_mapper nm on(leidende_nationaliteit=nation_omschr)
-left join iso3166 iso on (a.land=iso.land_nl)
-left join iso3166 iso2 on (a.geboorteland=iso2.land_nl);
+left join public.studieplan sp on(sp.studieplan = a.studielinkvariantcode)
+left join public.nat_mapper nm on(leidende_nationaliteit=nation_omschr)
+left join public.iso3166 iso on (a.land=iso.land_nl)
+left join public.iso3166 iso2 on (a.geboorteland=iso2.land_nl);
 
 -- select studentnummer,geboorteland,studielinkvariantcode,opleiding
 --        from sv09_ingeschrevenen
@@ -73,7 +73,7 @@ left join iso3166 iso2 on (a.geboorteland=iso2.land_nl);
 --   s3 as (select count(1) as x,'updated students'::text as comment,3 as r  from sv09_as_student_email_v  join student using(snummer))
 --   select r,x,comment  from s1 union select r,x,comment from s2 union select r,x,comment from s3 order by r;
 --
-insert into student_email select * from sv09_as_student_email_v;
+-- insert into student_email select * from sv09_as_student_email_v;
 commit;
 
 -- select count(1) as ingeschrevenen from sv09_ingeschrevenen;
