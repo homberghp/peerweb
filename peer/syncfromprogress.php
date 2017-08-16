@@ -14,7 +14,7 @@ extract($_SESSION);
 
 $uploadResult = '';
 
-if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) && (!isSet($_SESSION['userfile']) || $_SESSION['userfile'] != $_FILES['userfile']) ) {
+if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) && (!isSet($_SESSION['userfile']) || $_SESSION['userfile'] != $_FILES['userfile'])) {
     $basename = sanitizeFilename($_FILES['userfile']['name']);
     $uploadResult = "<fieldset style='color:green; background:black;font-family:monospace'>";
     $file_size = $_FILES['userfile']['size'];
@@ -27,8 +27,13 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
     }
     if (move_uploaded_file($tmp_file, "{$worksheet}")) {
         $uploadResult .= "upload and integration was succesfull {$file_size}, {$tmp_file}, {$worksheet}";
-        $cmdString = "{$site_home}/scripts/jmerge -w {$workdir} -c {$site_home}/jmerge -p {$site_home}/jmerge/sv09_syncprogress.properties";
-        $cmd = `$cmdString`;
+        $cmdString = "{$site_home}/scripts/jmerge -w {$workdir} -c {$site_home}/jmerge "
+                . "-p {$site_home}/jmerge/sv09_syncprogress.properties ";
+        ob_start();
+        $handle = popen($cmdString, 'r');
+        fpassthru($handle);
+        pclose($handle);
+        $cmd = ob_get_clean();
         $uploadResult .= "<pre>{$cmd}</pre></fieldset>";
     }
     $_SESSION['userfile'] = $_FILES['userfile'];
