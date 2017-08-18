@@ -10,180 +10,253 @@
     {$uploadResult}
 </div>
 <div style='width:63%;float:right; font-size: 120%;padding:0 2em 0 2em'>
-    <h3>Import students from progress into peerweb</h3>
+    <h3>Import new or fresh students from progress into peerweb</h3>
     This page allows you to import students from progress. <br/>
-
-    By uploading a specific file, you can import students.
-    The file must meet some criteria. 
-    <figure style='display:compact;float:right;padding:2em 2em'><img src='images/prospects.png' alt='excel fomat'  />
-        <figcaption style='font-weight: bold;text-align: center '>prospects file</figcaption>
-    </figure>
+    
+    Students are merged into a <b>prospects</b> table. Form there they can be moved to the proper classes.
+    Please only move students that showed up.<br/>
+    
+    The import process provides extra functionality by producing a set of pdf files that help taking students photos 
+    and assign to students to class.<br/>
+    
+    The file must meet some criteria.<br/>
+    
     <ul>
         <li>It is an xlsx (excel >= 2007) file. </li>
-        <li>The file should contain one worksheet called <b>'prospects'</b>. 
-            any other worksheet(s) will be ignored.</li>
-        <li>The first row of said sheet  should contain the column names of the data to import.</li>
+        <li>The file should contain one worksheet called <b>sv05_aanmelders</b> as first sheet. 
+            Any other worksheet(s) will be ignored.</li>
+        <li>The first non empty row of said sheet  should contain the column names of the data to import.</li>
         <li>The following columns should be available and named as given:</li>
     </ul>
-    <table class='simpletable tabledata' style='border-width: 1px black;'>
-        <caption>Table &quot;public.prospects&quot;</caption>
+    <table class='simpletable tabledata' >
+        <caption>Table definition &quot;public.prospects&quot;</caption>
         <tr>
-            <th >Column name</th>
+            <th >Progress Column name</th>
+            <th >Peerweb Column name</th>
             <th >sql type </th>
             <th >remarks</th>
         </tr>
         <tr >
+            <td >studentnummer</td>
             <td >snummer</td>
             <td >integer</td>
             <td>Progress id</td>
         </tr>
         <tr >
             <td >achternaam</td>
+            <td >achternaam</td>
             <td >text</td>
+            <td >&nbsp;</td>
         </tr>
         <tr >
+            <td >voorvoegsel</td>
             <td >tussenvoegsel</td>
             <td >text</td>
+            <td >&nbsp;</td>
         </tr>
         <tr >
             <td >voorletters</td>
+            <td >voorletters</td>
             <td >text</td>
+            <td >&nbsp;</td>
         </tr>
         <tr >
             <td >roepnaam</td>
+            <td >roepnaam</td>
             <td >text</td>
+            <td >&nbsp;</td>
         </tr>
         <tr >
             <td >straat</td>
+            <td >straat</td>
             <td >text</td>
+            <td >&nbsp;</td>
         </tr>
         <tr >
+            <td >huisnr</td>
             <td >huisnr</td>
             <td >character(4)</td>
             <td> e.g. 123a</td>
         </tr>
         <tr >
+            <td >postcode</td>
             <td >pcode</td>
             <td >text</td>
             <td> e.g. 5912 BG or D32134</td>
         </tr>
         <tr >
+            <td >woonplaats</td>
             <td >plaats</td>
             <td >text</td>
             <td>current residence</td>
         </tr>
         <tr >
+            <td >e_mail_instelling</td>
             <td >email1</td>
             <td >text</td>
             <td>primary (Fontys) address</td>
         </tr>
         <tr >
-            <td >nationaliteit</td>
+            <td >nationaliteit (voluit)</td>
+            <td >nationaliteit (iso3166.a2)</td>
             <td >character(2)</td>
             <td>iso 3166 A2 (NL=Netherlands)</td>
         </tr>
         <tr >
+            <td >datum_aankomst_opleiding(year)</td>
             <td >cohort</td>
             <td >integer</td>
             <td>Start of study</td>
         </tr>
         <tr >
+            <td >geboortedatum</td>
             <td >gebdat</td>
             <td >date</td>
             <td>Needed to aquire a password</td>
         </tr>
         <tr >
+            <td >geslacht</td>
             <td >sex</td>
             <td >character(1)</td>
             <td> M or F </td>
         </tr>
         <tr >
+            <td >voorkeurstaal</td>
             <td >lang</td>
             <td >char(2)</td>
             <td>'EN', 'NL' or 'DE'</td>
         </tr>
         <tr >
+            <td >pcn_nummer</td>
             <td >pcn</td>
             <td >integer</td>
             <td>Fontys pcn</td>
         </tr>
         <tr >
+            <td >studieprogramma</td>
             <td >opl</td>
             <td >integer</td>
             <td>Fontys opleiding nummer. 112 =SEBI Venlo</td>
         </tr>
         <tr >
+            <td >land nummer vast+vast nummer</td>
             <td >phone_home</td>
             <td >text</td>
+            <td >&nbsp;</td>
         </tr>
         <tr >
+            <td >land nummer mobiel + mobiel nummer</td>
             <td >phone_gsm</td>
             <td >text</td>
+            <td >&nbsp;</td>
         </tr>
         <tr >
+            <td >null</td>
             <td >phone_postaddress</td>
             <td >text</td>
+            <td >&nbsp;</td>
         </tr>
         <tr >
+            <td >instituutcode</td>
             <td >faculty_id</td>
             <td >integer</td>
             <td>Instituutcode, 47=FHTenL, 27=FIBS</td>
         </tr>
         <tr >
+            <td >groepcode</td>
             <td >hoofdgrp</td>
             <td >text</td>
-            <td>course selector, like SEBINL2017 for dutch inf students 2017</td>
+            <td></td>
         </tr>
         <tr >
+            <td >true</td>
             <td >active</td>
             <td >boolean</td>
             <td>should be true</td>
         </tr>
         <tr >
+            <td >null (not maintained in progress)</td>
             <td >slb</td>
             <td >integer</td>
             <td>Studie loopbaan begeleider. May be null.</td>
         </tr>
         <tr >
             <td >land</td>
+            <td >land </td>
             <td >character(3)</td>
-            <td>Residence<td>
+            <td>Residence country (iso3166.a3)<td>
         </tr>
         <tr >
+            <td >studielinkvariantcode</td>
             <td >studieplan</td>
             <td >integer</td>
             <td>Fontys studieplan</td>
         </tr>
         <tr >
             <td >geboorteplaats</td>
+            <td >geboorteplaats</td>
             <td >text</td>
+            <td >&nbsp;</td>
         </tr>
         <tr >
             <td >geboorteland</td>
+            <td >geboorteland </td>
             <td >character(3)</td>
+            <td>(iso3166.a3)</td>
         </tr>
         <tr >
             <td >voornamen</td>
+            <td >voornamen</td>
             <td >text</td>
+            <td >&nbsp;</td>
         </tr>
         <tr >
+            <td >0 (not imported)</td>
             <td >class_id</td>
             <td >integer</td>
+            <td >&nbsp;</td>
         </tr>
         <tr >
+            <td >e_mail_privé</td>
             <td >email2</td>
             <td >text</td>
             <td>Private email address</td>
         </tr>
 
     </table>
-    <p>
-        There is a utility to convert progress.net sv05 files to the required file format. You can inspect the output of that utilility
-        before you submit it here.
-    </p >
-    <ul>
-        <li>The name of the file is irrelevant. It will be removed from the server after use.</li>
-        <li>Students already in peerweb before the import are skipped, not updated.</li>
-        <li>To update student data from progress, use another page. TBD. You need an SV09 file for that, needing different massaging.</li>
-    </ul>
+
+<h2>Importing is a dirty business</h2>
+
+The poblem is importing from an uncontrolled origin.
+We take the fresh students from the sv05 report.
+
+Importing involves some guessing, in particular when you do not control the source of the information.
+
+As examples:
+<ul>
+    <li>sv05 contains records with <b>datum_annulering</b>, which we infer to mean the student annuled his subscription. Should we throw them out?
+</li>
+<li>sv05 and sv09 contain double entries for students, possibly for those taking more one study at a time. Which of the studies should prevail in peerweb</li>
+</ul>
+
+In the end, the student number `snummer` is to be the primary key, so duplicates should be dealt with.<br/>
+
+Current resolution is:<br/>
+<ul>
+    <li>On reading the input file, first drop all rows with `datum_annulering` not null and</li>
+    <li>When importing we select distinct on(studentnummer), for any student with more then one record the infromation like hoofdgrp and course trhough rather arbitrairily, where we be be the arbiter, by choosing lowest or highest
+    </li>
+    <li>The address information comes in two lines <b>volledig_address</b> and <b>postcode_en_plaats</b> which makes us guess hard to filter out huisnummer and post code, which differ quite a bit between countries.</li>
+</ul>
+<h3>Steps</h3>
+
+The following steps are taken on an import:
+<ul>
+    <li>Read the raw data, all columns as a table named after the sheet in the excel file, e.g. sv05_aanmelders for initial (new) students and sv09_ingeschrevenen for the sitting (current) students</li>
+    <li>Remove the superfluous students by the above rules.</li>
+    <li>For sitting students update the student fields except cohort, and class_id.</li>
+    <li>Leave all the students in the prospects table</li>
+</ul>
+
+
 </div>

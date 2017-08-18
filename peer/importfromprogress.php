@@ -6,10 +6,7 @@ require_once 'navigation2.php';
 require_once 'prjMilestoneSelector2.php';
 require_once './peerlib/simplequerytable.php';
 
-requireCap(CAP_SYSTEM);
-$prjm_id = 0;
-$prj_id = 1;
-$milestone = 1;
+requireCap(CAP_ENROL);
 extract($_SESSION);
 
 $uploadResult = '';
@@ -47,42 +44,42 @@ function validateGroups($dbConn, &$uploadResult, $prjm_id) {
     return $valid;
 }
 
-if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) && (!isSet($_SESSION['userfile']) || $_SESSION['userfile'] != $_FILES['userfile']) && (($prjm_id = validate($_POST['prjm_id'], 'integer', 0)) != 0)) {
+if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) && (!isSet($_SESSION['userfile']) || $_SESSION['userfile'] != $_FILES['userfile'])) {
     $basename = sanitizeFilename($_FILES['userfile']['name']);
     $uploadResult = "<fieldset style='color:green; background:black;font-family:monospace'>";
     $file_size = $_FILES['userfile']['size'];
     $tmp_file = $_FILES['userfile']['tmp_name'];
     $workdir = "{$tmp_file}.d";
     $worksheetbase = basename($tmp_file);
-    $worksheet = "{$workdir}/worksheet.xlsx";
+    $worksheet = "{$workdir}/sv05_aanmelders.xlsx";
     if (!mkdir($workdir, 0775, true)) {
         die('cannot create dir ' . $workdir . '<br/>');
     }
     if (move_uploaded_file($tmp_file, "{$worksheet}")) {
         $uploadResult .= "upload and integration was succesfull {$file_size}, {$tmp_file}, {$worksheet}";
-        $cmdString = "{$site_home}/scripts/jmerge -w {$workdir} -c {$site_home}/jmerge -p {$site_home}/jmerge/uploadgroup.properties";
-        $cmd = `$cmdString`;
-        $uploadResult .= "<pre>{$cmd}</pre></fieldset>";
-        $valid = validateStudents($dbConn, $uploadResult) && validateGroups($dbConn, $uploadResult, $prjm_id);
-        if ($valid) {
-            $query = "with members as (with g as (select * from prj_tutor where prjm_id={$prjm_id})\n"
-                    . "insert into prj_grp (snummer,prjtg_id) \n"
-                    . "select snummer, prjtg_id from g join worksheet using(grp_num) returning *)\n "
-                    . " select snummer,achternaam,roepnaam,grp_num,tutor,sclass as klas \n" .
-                    " from members join prj_tutor using (prjtg_id) join student using(snummer) join tutor on (tutor_id=userid)\n "
-                    . " join student_class using(class_id)\n"
-                    . " order by grp_num, achternaam,roepnaam";
-            //$uploadResult .= "<fieldset><pre>{$query}</pre></fieldset>";
-            $rainbow = new RainBow(STARTCOLOR, COLORINCREMENT_RED, COLORINCREMENT_GREEN, COLORINCREMENT_BLUE);
-
-            $uploadResult .= "\n<fieldset style='background:white;color:#080'><h2>The following students have been added </h2>" .
-                    getQueryToTableChecked($dbConn, $query, true, 3, $rainbow, -1, '', '')
-                    . "</fieldset>";
-//            $cmdString = "{$site_home}/scripts/jmerge -w {$workdir} -c {$site_home}/jmerge -p {$site_home}/jmerge/dropworksheet.properties";
-//            $cmd = `$cmdString`;
-//            $uploadResult .= "<pre>{$cmd}</pre></fieldset>";
-            //rmDirAll($workdir);
-        }
+//        $cmdString = "{$site_home}/scripts/jmerge -w {$workdir} -c {$site_home}/jmerge -p {$site_home}/jmerge/sv05_importup.properties";
+//        $cmd = `$cmdString`;
+//        $uploadResult .= "<pre>{$cmd}</pre></fieldset>";
+//        $valid = validateStudents($dbConn, $uploadResult) && validateGroups($dbConn, $uploadResult, $prjm_id);
+//        if ($valid) {
+//            $query = "with members as (with g as (select * from prj_tutor where prjm_id={$prjm_id})\n"
+//                    . "insert into prj_grp (snummer,prjtg_id) \n"
+//                    . "select snummer, prjtg_id from g join worksheet using(grp_num) returning *)\n "
+//                    . " select snummer,achternaam,roepnaam,grp_num,tutor,sclass as klas \n" .
+//                    " from members join prj_tutor using (prjtg_id) join student using(snummer) join tutor on (tutor_id=userid)\n "
+//                    . " join student_class using(class_id)\n"
+//                    . " order by grp_num, achternaam,roepnaam";
+//            //$uploadResult .= "<fieldset><pre>{$query}</pre></fieldset>";
+//            $rainbow = new RainBow(STARTCOLOR, COLORINCREMENT_RED, COLORINCREMENT_GREEN, COLORINCREMENT_BLUE);
+//
+//            $uploadResult .= "\n<fieldset style='background:white;color:#080'><h2>The following students have been added </h2>" .
+//                    getQueryToTableChecked($dbConn, $query, true, 3, $rainbow, -1, '', '')
+//                    . "</fieldset>";
+////            $cmdString = "{$site_home}/scripts/jmerge -w {$workdir} -c {$site_home}/jmerge -p {$site_home}/jmerge/dropworksheet.properties";
+////            $cmd = `$cmdString`;
+////            $uploadResult .= "<pre>{$cmd}</pre></fieldset>";
+//            //rmDirAll($workdir);
+//        }
     }
     $_SESSION['userfile'] = $_FILES['userfile'];
 }
@@ -98,7 +95,7 @@ $_SESSION['prj_id'] = $prj_id;
 $_SESSION['prjm_id'] = $prjm_id;
 $_SESSION['milestone'] = $milestone;
 $page = new PageContainer();
-$page_opening = "Import Students from Progress";
+$page_opening = "Import New Students from Progress View SV05_aanmelders";
 $page->setTitle($page_opening);
 $nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
 $nav->setInterestMap($tabInterestCount);

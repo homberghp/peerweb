@@ -6,7 +6,7 @@ require_once 'navigation2.php';
 require_once 'prjMilestoneSelector2.php';
 require_once './peerlib/simplequerytable.php';
 
-requireCap(CAP_SYSTEM);
+requireCap(CAP_SYNC_PROGRESS);
 $prjm_id = 0;
 $prj_id = 1;
 $milestone = 1;
@@ -41,7 +41,7 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
 
 
 $page = new PageContainer();
-$page_opening = "Synchronise  Student Data from Progress";
+$page_opening = "Synchronise  Student Data from Progress view SV09_ingeschrevenen";
 $page->setTitle($page_opening);
 $nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
 $nav->setInterestMap($tabInterestCount);

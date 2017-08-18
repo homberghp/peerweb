@@ -16,7 +16,7 @@ $uploadResult = '';
 
 function validateStudents($dbConn, &$uploadResult) {
 
-    $query = "select * from worksheet w where not exists\n"
+    $query = "select * from importer.worksheet w where not exists\n"
             . " (select 1 from student where snummer=w.snummer) order by grp_num,snummer";
     $resultSet = $dbConn->Execute($query);
     $valid = true;
@@ -34,7 +34,7 @@ function validateStudents($dbConn, &$uploadResult) {
 
 function validateGroups($dbConn, &$uploadResult, $prjm_id) {
 
-    $query = "select distinct grp_num from worksheet w "
+    $query = "select distinct grp_num from importer.worksheet w "
             . "where not exists (select 1 from prj_tutor where prjm_id={$prjm_id} and w.grp_num = grp_num) order by grp_num";
     $resultSet = $dbConn->Execute($query);
     $valid = true;
@@ -78,9 +78,6 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
             $uploadResult .= "\n<fieldset style='background:white;color:#080'><h2>The following students have been added </h2>" .
                     getQueryToTableChecked($dbConn, $query, true, 3, $rainbow, -1, '', '')
                     . "</fieldset>";
-//            $cmdString = "{$site_home}/scripts/jmerge -w {$workdir} -c {$site_home}/jmerge -p {$site_home}/jmerge/dropworksheet.properties";
-//            $cmd = `$cmdString`;
-//            $uploadResult .= "<pre>{$cmd}</pre></fieldset>";
             //rmDirAll($workdir);
         }
     }

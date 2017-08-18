@@ -1,0 +1,2 @@
+-- truncate sv05_aanmelders restart identity cascade;
+-- alter table sv05_aanmelders drop constraint if exists sv05_aanmelders_pk;
