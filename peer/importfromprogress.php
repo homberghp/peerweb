@@ -57,29 +57,9 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
     }
     if (move_uploaded_file($tmp_file, "{$worksheet}")) {
         $uploadResult .= "upload and integration was succesfull {$file_size}, {$tmp_file}, {$worksheet}";
-//        $cmdString = "{$site_home}/scripts/jmerge -w {$workdir} -c {$site_home}/jmerge -p {$site_home}/jmerge/sv05_importup.properties";
-//        $cmd = `$cmdString`;
-//        $uploadResult .= "<pre>{$cmd}</pre></fieldset>";
-//        $valid = validateStudents($dbConn, $uploadResult) && validateGroups($dbConn, $uploadResult, $prjm_id);
-//        if ($valid) {
-//            $query = "with members as (with g as (select * from prj_tutor where prjm_id={$prjm_id})\n"
-//                    . "insert into prj_grp (snummer,prjtg_id) \n"
-//                    . "select snummer, prjtg_id from g join worksheet using(grp_num) returning *)\n "
-//                    . " select snummer,achternaam,roepnaam,grp_num,tutor,sclass as klas \n" .
-//                    " from members join prj_tutor using (prjtg_id) join student using(snummer) join tutor on (tutor_id=userid)\n "
-//                    . " join student_class using(class_id)\n"
-//                    . " order by grp_num, achternaam,roepnaam";
-//            //$uploadResult .= "<fieldset><pre>{$query}</pre></fieldset>";
-//            $rainbow = new RainBow(STARTCOLOR, COLORINCREMENT_RED, COLORINCREMENT_GREEN, COLORINCREMENT_BLUE);
-//
-//            $uploadResult .= "\n<fieldset style='background:white;color:#080'><h2>The following students have been added </h2>" .
-//                    getQueryToTableChecked($dbConn, $query, true, 3, $rainbow, -1, '', '')
-//                    . "</fieldset>";
-////            $cmdString = "{$site_home}/scripts/jmerge -w {$workdir} -c {$site_home}/jmerge -p {$site_home}/jmerge/dropworksheet.properties";
-////            $cmd = `$cmdString`;
-////            $uploadResult .= "<pre>{$cmd}</pre></fieldset>";
-//            //rmDirAll($workdir);
-//        }
+        $cmdString = "{$site_home}/scripts/jmerge -w {$workdir} -c {$site_home}/jmerge -p {$site_home}/jmerge/sv05_import.properties";
+        $cmd = `$cmdString`;
+        $uploadResult .= "<pre>{$cmd}</pre></fieldset>";
     }
     $_SESSION['userfile'] = $_FILES['userfile'];
 }
