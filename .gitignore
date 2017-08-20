@@ -3,6 +3,7 @@ peer/mfotos/
 tex/out/
 tex/tablecard_out/
 tex/tablecards_*
+tex/maillog
 log
 *~
 peer/BUILD
@@ -10,6 +11,8 @@ subversion/BUILD
 upload/
 peerfotos
 rubberreports/
+peer/output
+output/
 etc/peerpassword
 etc/*.credentials
 etc/settings.php
