@@ -6,18 +6,19 @@ include_once('navigation2.php');
 require_once 'studentpicker.php';
 require_once 'ClassSelectorClass.php';
 $class_id = 363;
-$sclass="NOCLASS";
+$sclass = "NOCLASS";
 $newsnummer = 0;
 unset($_SESSION['newsnummer']);
 extract($_SESSION);
 if (isSet($_REQUEST['newclass_id'])) {
-    $_SESSION['class_id'] = $class_id = validate($_REQUEST['newclass_id'],'integer','0');
-    $sql ="select sclass from student_class where class_id={$class_id}";
-    $resultSet = $dbConn->Execute($sql);
-    if ($resultSet !== FALSE) {
-        $sclass=$_SESSION['sclass']=$resultSet->fields['sclass'];
-    }
+    $_SESSION['class_id'] = $class_id = validate($_REQUEST['newclass_id'], 'integer', '0');
 }
+$sql = "select sclass from student_class where class_id={$class_id}";
+$resultSet = $dbConn->Execute($sql);
+if ($resultSet !== FALSE) {
+    $sclass = $_SESSION['sclass'] = $resultSet->fields['sclass'];
+}
+
 if (isSet($_GET['newsnummer'])) {
     unset($_POST['newsnummer']);
     $_SESSION['newsnummer'] = $_REQUEST['newsnummer'] = $newsnummer = validate($_GET['newsnummer'], 'integer', '0');
