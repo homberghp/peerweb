@@ -2,6 +2,7 @@ peer/fotos/
 peer/mfotos/
 tex/out/
 tex/tablecard_out/
+tex/tablecards_*
 log
 *~
 peer/BUILD
