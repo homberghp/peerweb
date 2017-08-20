@@ -8,11 +8,12 @@ peer/BUILD
 subversion/BUILD
 upload/
 peerfotos
-
+rubberreports/
 etc/peerpassword
 etc/settings.php
 etc/credentials
 pg_extensions/peer_password/peer_password.o
 pg_extensions/peer_password/peer_password.so
-
+**/out/
+**/output/
 

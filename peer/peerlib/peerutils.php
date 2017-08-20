@@ -42,6 +42,18 @@ function getFirstRecordSetFields($dbConn, $sql) {
 }
 
 /**
+ * Get a file type ico png for a file name
+ * @param string $product filename
+ * @return string pointing to a png mime type icon
+ */
+function getMimeTypeIcon($product) {
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mimetype = finfo_file($finfo, $product);
+    $image = 'images/mimetypes/' . preg_replace('/\//', '-', $mimetype) . '.png';
+    return $image;
+}
+
+/**
  * Recursively implodes an array with optional key inclusion
  * 
  * Example of $include_keys output: key, value, key, value, key, value

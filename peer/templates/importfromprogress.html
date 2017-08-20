@@ -12,15 +12,15 @@
 <div style='width:63%;float:right; font-size: 120%;padding:0 2em 0 2em'>
     <h3>Import new or fresh students from progress into peerweb</h3>
     This page allows you to import students from progress. <br/>
-    
+
     Students are merged into a <b>prospects</b> table. Form there they can be moved to the proper classes.
     Please only move students that showed up.<br/>
-    
+
     The import process provides extra functionality by producing a set of pdf files that help taking students photos 
     and assign to students to class.<br/>
-    
-    The file must meet some criteria.<br/>
-    
+
+    The uploaded excel file must meet some criteria.<br/>
+
     <ul>
         <li>It is an xlsx (excel >= 2007) file. </li>
         <li>The file should contain one worksheet called <b>sv05_aanmelders</b> as first sheet. 
@@ -67,28 +67,28 @@
             <td >&nbsp;</td>
         </tr>
         <tr >
-            <td >straat</td>
+            <td >volledig adres</td>
             <td >straat</td>
             <td >text</td>
-            <td >&nbsp;</td>
+            <td >by regex</td>
         </tr>
         <tr >
-            <td >huisnr</td>
+            <td >volledig adres</td>
             <td >huisnr</td>
             <td >character(4)</td>
-            <td> e.g. 123a</td>
+            <td>by regex, e.g. 123a</td>
         </tr>
         <tr >
-            <td >postcode</td>
+            <td >postcode en plaats</td>
             <td >pcode</td>
             <td >text</td>
-            <td> e.g. 5912 BG or D32134</td>
+            <td>by regex e.g. 5912 BG or D32134</td>
         </tr>
         <tr >
-            <td >woonplaats</td>
+            <td >postcode en plaats</td>
             <td >plaats</td>
             <td >text</td>
-            <td>current residence</td>
+            <td>by regex. Of current residence</td>
         </tr>
         <tr >
             <td >e_mail_instelling</td>
@@ -225,38 +225,41 @@
 
     </table>
 
-<h2>Importing is a dirty business</h2>
+    <h2>Importing is a dirty business</h2>
 
-The poblem is importing from an uncontrolled origin.
-We take the fresh students from the sv05 report.
+    The poblem is importing from an uncontrolled origin.
+    We take the fresh students from the sv05 report.
 
-Importing involves some guessing, in particular when you do not control the source of the information.
+    Importing involves some guessing, in particular when you do not control the source of the information.
 
-As examples:
-<ul>
-    <li>sv05 contains records with <b>datum_annulering</b>, which we infer to mean the student annuled his subscription. Should we throw them out?
-</li>
-<li>sv05 and sv09 contain double entries for students, possibly for those taking more one study at a time. Which of the studies should prevail in peerweb</li>
-</ul>
+    As examples:
+    <ul>
+        <li>sv05 contains records with <b>datum_annulering</b>, which we infer to mean the student annuled his subscription. Should we throw them out?
+        </li>
+        <li>The address information comes in two lines <b>volledig_address</b> and <b>postcode_en_plaats</b> which makes us guess hard to filter out huisnummer and post code, which differ quite a bit between countries.</li>
+        <li>sv05 and sv09 contain double entries for students, possibly for those taking more one study at a time. Which of the studies should prevail in peerweb</li>
 
-In the end, the student number `snummer` is to be the primary key, so duplicates should be dealt with.<br/>
+    </ul>
 
-Current resolution is:<br/>
-<ul>
-    <li>On reading the input file, first drop all rows with `datum_annulering` not null and</li>
-    <li>When importing we select distinct on(studentnummer), for any student with more then one record the infromation like hoofdgrp and course trhough rather arbitrairily, where we be be the arbiter, by choosing lowest or highest
-    </li>
-    <li>The address information comes in two lines <b>volledig_address</b> and <b>postcode_en_plaats</b> which makes us guess hard to filter out huisnummer and post code, which differ quite a bit between countries.</li>
-</ul>
-<h3>Steps</h3>
+    In the end, the student number `snummer` is to be the primary key, so duplicates should be dealt with.<br/>
 
-The following steps are taken on an import:
-<ul>
-    <li>Read the raw data, all columns as a table named after the sheet in the excel file, e.g. sv05_aanmelders for initial (new) students and sv09_ingeschrevenen for the sitting (current) students</li>
-    <li>Remove the superfluous students by the above rules.</li>
-    <li>For sitting students update the student fields except cohort, and class_id.</li>
-    <li>Leave all the students in the prospects table</li>
-</ul>
+    Current resolution is:<br/>
+    <ul>
+        <li>On reading the input file, first drop all rows with `datum_annulering` not null and</li>
+        <li>When importing we select distinct on(studentnummer), for any student with more then one record the infromation like hoofdgrp and course trhough rather arbitrairily, where we be be the arbiter, by choosing lowest or highest
+        </li>
+    </ul>
+    <h3>Steps</h3>
+
+    The following steps are taken on an import:
+    <ul>
+        <li>Read the raw data, all columns as a table named after the sheet in the excel file, e.g. sv05_aanmelders for initial (new) students and sv09_ingeschrevenen for the sitting (current) students</li>
+        <li>Remove the superfluous students by the above rules.</li>
+        <li>For sitting students update the student fields except cohort, and class_id.</li>
+        <li>Leave all the students in the prospects table, not move them into the students table automatically, otherwise students might be entered who never appear.</li>
+        <li>classcards and phototickets are created based on the import data.</li>
+        <li>a <b>prospects....xlsx</b> is created</li>
+    </ul>
 
 
 </div>

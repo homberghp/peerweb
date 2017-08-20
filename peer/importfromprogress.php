@@ -17,7 +17,7 @@ function validateStudents($dbConn, &$uploadResult) {
             . " (select 1 from student where snummer=w.snummer) order by grp_num,snummer";
     $resultSet = $dbConn->Execute($query);
     $valid = true;
-    if ($resultSet === FALSE){
+    if ($resultSet === FALSE) {
         echo $uploadResult;
     }
     if (!$resultSet->EOF && (($rowCount = $resultSet->RowCount()) > 0)) {
@@ -56,10 +56,10 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
         die('cannot create dir ' . $workdir . '<br/>');
     }
     if (move_uploaded_file($tmp_file, "{$worksheet}")) {
-        $uploadResult .= "upload and integration was succesfull {$file_size}, {$tmp_file}, {$worksheet}";
-        $cmdString = "{$site_home}/scripts/jmerge -w {$workdir} -c {$site_home}/jmerge -p {$site_home}/jmerge/sv05_import.properties";
-        $cmd = `$cmdString`;
-        $uploadResult .= "<pre>{$cmd}</pre></fieldset>";
+        $uploadResult .= "upload was succesfull {$file_size}, {$tmp_file}, {$worksheet}";
+        $cmdString = "{$site_home}/scripts/jmergeAndTicket -w {$workdir}"; // -c {$site_home}/jmerge -p {$site_home}/jmerge/sv05_import.properties";
+        $cmd = exec($cmdString);
+        $uploadResult .= "<pre>results of this command will appear in the prospects table and in links on this page below.</pre></fieldset>";
     }
     $_SESSION['userfile'] = $_FILES['userfile'];
 }
@@ -84,6 +84,23 @@ $page->addBodyComponent($nav);
 $prjList = $prjSel->getSelector();
 $templatefile = 'templates/importfromprogress.html';
 $template_text = file_get_contents($templatefile, true);
+$products = glob('output/{classcard,phototicket,prospects,jmerge}*', GLOB_BRACE);
+if (count($products)) {
+    $uploadResult .= "<p>Results from last import, it might be yours:</p>"
+            . "<ul>\n";
+    foreach ($products as $product) {
+        $n = basename($product);
+        $image = getMimeTypeIcon($product);
+        $uploadResult .= "<li><a href='output/$n'><img src='{$image}' alt='pdf'/>&nbsp;{$n}</a></li>\n";
+    }
+    $uploadResult .= "</ul>"
+            . "The prospects*.xlsx file contains three worksheets:"
+            . "<ol>"
+            . "<li><b>sv05_prospects</b> The new prospect students</li>"
+            . "<li><b>sv05_ingeschreven</b> Students already known to peerweb in same course</li>"
+            . "<li><b>sv05_switchers</b> Students already known but switching to another course</li>"
+            . "</ol>";
+}
 if ($template_text === false) {
     $page->addBodyComponent(new Component("<strong>cannot read template file $templatefile</strong>"));
 } else {

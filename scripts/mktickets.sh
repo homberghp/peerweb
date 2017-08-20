@@ -7,7 +7,8 @@ workdir=$(pwd)
 confDirName=$(pwd)
 destdir=$(pwd)
 propfile=jMerge.properties
-ARGS=$(${GETOPT} -o hc:d:w: --long confDirName:,destdir:,workdir:,help -- "$@")
+FILETS=$(date)
+ARGS=$(${GETOPT} -o hc:d:w:t: --long help,confDirName:,destdir:,workdir:,timestamp: -- "$@")
 eval set -- "$ARGS"
 while [ $# -gt 0 ]
 do
@@ -19,6 +20,7 @@ usage $me [-h|--help] [-d|--destdir <destdir>] [-c|--confDirname <confdir>] \
 EOF
 	    exit 0;;
 	-c|--confDirName) confDirName=$2; shift;;
+	-t|--timestamp) FILETS=$2; shift;;
 	-d|--destdir) destdir=$2; shift;;
 	-w|--workdir) workdir=$2; shift;;
 	--) shift; break;;
@@ -40,7 +42,7 @@ case $product in
 	latexcount=1
 	;;
 esac
-export product workdir latexcount merger
+export product workdir latexcount merger FILETS
 # echo $product $latexcount $workdir $merger
 # exit 0
 outdir=${workdir}/out
@@ -49,8 +51,8 @@ ${scriptdir}/${product}.pl > ${outdir}/${product}-bus.tex
 for i in $(seq 1 ${latexcount}); do
     ${latex} -interaction=batchmode -output-directory=${outdir} ${outdir}/${product}-bus.tex
 done
-${scriptdir}/${merger} -f ${outdir}/${product}-bus.pdf > ${outdir}/${product}.tex
+${scriptdir}/${merger} -f ${outdir}/${product}-bus.pdf > ${outdir}/${product}.tex 2>/dev/null
 pdflatex -interaction=batchmode -output-directory=${outdir} ${outdir}/${product}.tex
-filets=$(date +%Y%m%d%H%M%S)
-mv ${outdir}/${product}.pdf ${destdir}/${product}-${filets}.pdf
+rm -fr ${destdir}/${product}*.pdf
+mv ${outdir}/${product}.pdf ${destdir}/${product}-${FILETS}.pdf
 
