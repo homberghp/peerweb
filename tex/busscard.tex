@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage[table]{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage{ifxetex}
+\ifxetex
+\usepackage{fontspec}
+  \setmainfont[Ligatures=TeX]{TeX Gyre Termes}
+  \else
+  \usepackage{tgtermes}
+\fi
+%% \usepackage[T5]{fontenc}
+\usepackage{fancyvrb}
+\usepackage[code=Code39,X=.5mm,ratio=2.25,H=15mm]{makebarcode}
+%\usepackage[a6paper,scale={.9,.9},landscape]{geometry}
+\usepackage[noheadfoot,
+nomarginpar,top=5mm,bottom=5mm,left=5mm,right=5mm,paperwidth=90mm,paperheight=53mm]{geometry}
+\setlength{\unitlength}{1mm}
+\setlength{\parskip}{.5\baselineskip}
+\setlength{\parindent}{0pt}
+\newcommand\businesscard[4]{%name, course, snummer, barcodeeinfo
+  \sf
+  \begin{center}
+  {\LARGE {\textbf{#1}}}\\\vspace{5mm}
+    \barcode{#3}\\
+    \textbf{#3}\hfill\textbf{#2}/\textbf{#4}
+  \end{center}\vfill{\tiny\hfill{front}}
+\clearpage
+{
+  \Large
+    Use this card to add yourselves to a class
+    in your course's class collectors tray.
+
+    Put your name and barcode facing forward.
+\vfill
+{\tiny\hfill{back}}}
+  % {\LARGE {\textbf{#1}}}\\\vspace{5mm}
+  %   \barcode{#3}\\
+  %   \textbf{#3}\hfill\textbf{#2}/\textbf{#4}
+%   \end{center}{\tiny\hfill{back}}
+\clearpage}
+% \SaveVerb{email}:julian-goettschkes@gmx.de:\businesscard{Julian (J) Goettschkes}{Elektrotechniek}{MEC/2220892}{W1 2.82 (2nd floor)}{13:45:00}{aangemeld}{+49 15788616290}{}
+% \newcommand\fakecard[2]{%
+%   \businesscard{\fbox{name:\hspace{110mm}\rule[-.3\baselineskip]{0pt}{\baselineskip}}}{course:}{#1}{b}{c}{d}{}{}{}%
+% }
+% \raggedright
+\pagestyle{empty}
+\begin{document}

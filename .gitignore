@@ -3,7 +3,6 @@ peer/mfotos/
 tex/out/
 tex/tablecard_out/
 log
-tex/*
 *~
 peer/BUILD
 subversion/BUILD

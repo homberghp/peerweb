@@ -1,0 +1,98 @@
+\documentclass[a6paper,twoside]{article}
+\usepackage[table]{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage[T5,T2A]{fontenc}
+\usepackage{ifxetex}
+\ifxetex
+\usepackage{fontspec}
+  \setmainfont[Ligatures=TeX]{TeX Gyre Termes}
+  \else
+  \usepackage{tgtermes}
+\fi
+\usepackage{eso-pic}
+\usepackage{fancyvrb}
+\usepackage{multicol}
+\newcounter{cardcounter}
+\usepackage{tabularx,booktabs}
+\usepackage[code=Code39,X=.5mm,ratio=2.25,H=15mm]{makebarcode}
+\usepackage[a6paper,top=18mm,left=8mm,right=8mm,bottom=8mm,landscape]{geometry}
+\makeatletter
+\renewcommand\tableofcontents{\@starttoc{toc}}
+\makeatother
+\setlength{\unitlength}{1mm}
+\def\GeboorteLand{Nederlandse Antillen}
+\def\Nationaliteit{Nederlandse}
+\def\strutone{\rule[-3mm]{0pt}{10mm}}
+\def\struttwo{\rule[-3mm]{0pt}{15mm}}
+\def\Course{IPO2016}
+\def\Lang{DE}
+\def\CourseNum{IPO2016/DE}
+\def\BackgroundPic{
+  \setlength{\unitlength}{1mm}
+  \put(60,90){\color{red}\large\textbf{\Course/\Lang}
+  }}
+\newcommand\photocard[6]{%name, course, snummer, $lang
+  \sf
+  \begin{center}
+    \barcode{#3}\\
+    \textbf{#3/#4}
+  \end{center}
+  \vspace{-5mm}
+  {\begin{center}\mbox{\Large\bfseries{}#1}\end{center}
+  }
+  \vspace{-2mm}
+  {\hfill{}\tiny{}Student details overleaf.}
+  \begin{tabularx}{\linewidth}{|p{15mm}|X|}\hline
+    Naam & #1\\\hline
+    Opleiding & #2\\\hline
+    \multicolumn{2}{|X|}{\begin{minipage}{.9\textwidth}Venlo,
+        2016-08-26
+        
+        \vspace{15mm}
+        {\hfill\tiny{}\color{gray}signature}
+      \end{minipage}
+    }\\\hline
+  \end{tabularx}
+  {\scriptsize{}By signing this card, you give Fontys Hogescholen consent to use
+    the photograph taken for internal purposes such as student ID card,
+    administrative systems and study support systems.}
+    \stepcounter{cardcounter}
+    \vfill\hfill\fbox{\bfseries\thecardcounter/\thepage}{\hfill\tiny{}phototicket\hspace{2cm}}
+  \clearpage
+  \begin{center}
+    \barcode{#3}\\
+    \textbf{#3/#4}
+  \end{center}\vspace{-\baselineskip}\hfill{\tiny\bfseries{}boarding card}
+  \begin{tabularx}{\linewidth}{|p{26mm}|X|}\hline
+    Naam & #1\\\hline
+    Geb.~datum& \GeboorteDatum{} in \GeboortePlaats\\\hline
+    Geb.land/nat& \GeboorteLand/\Nationaliteit\\\hline
+    PCN&\UseVerb{PCN}\\\hline
+    telefoon/gsm & #5 / #6\\\hline
+    {\small{}email~privé} & \UseVerb{Email}  \\\hline
+    adres&\UseVerb{VolledigAdres} \\\hline
+    {\small{}postcode~plaats/land}&\PP / \Land \\\hline
+    {\small{}aanmeld~datum}&\Aanmelddatum\\\hline
+    {\small{}aanmelding~status}&\Aanmeldingstatus\ (peildatum \Peildatum)\\\hline
+  \end{tabularx}
+  {\normalsize\vfill\hfill\fbox{\bfseries\thecardcounter/\thepage}\hfill}
+  \clearpage
+}
+\raggedright
+\pagestyle{empty}
+\setlength{\columnsep}{2em}
+\setlength{\columnseprule}{0.2pt}
+\def\CardToc{%
+  \def\Lang{Page number}%
+  \def\Course{Table Of Content}%
+  \begin{multicols}{2}%
+    \tableofcontents%
+  \end{multicols}%
+  \cleardoublepage%
+  \setcounter{page}{1}%
+}
+\begin{document}
+\AddToShipoutPicture{\BackgroundPic}
+\CardToc
+%\AtEndDocument{\CardToc}%
+%\cleardoublepage
