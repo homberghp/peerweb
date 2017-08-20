@@ -10,6 +10,7 @@ upload/
 peerfotos
 rubberreports/
 etc/peerpassword
+etc/*.credentials
 etc/settings.php
 etc/credentials
 pg_extensions/peer_password/peer_password.o
