@@ -1,9 +1,9 @@
 create table if not exists prospects as select * from importer.sv05_as_student_email_v where false;
 grant all on prospects to public;
 -- if not created, make sure it is empty.
--- alter table prospects drop constraint if exists prospects_snummer_pk;
+alter table prospects drop constraint if exists prospects_snummer_pk;
 
--- alter table prospects add constraint prospects_snummer_pk primary key (snummer);
+alter table prospects add constraint prospects_snummer_pk primary key (snummer);
 -- upsert, on update, update ass but slb and class_id
 insert into prospects select * from importer.sv05_as_student_email_v
 on conflict(snummer)
