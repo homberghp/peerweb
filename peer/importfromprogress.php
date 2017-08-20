@@ -91,7 +91,7 @@ if (count($products)) {
     foreach ($products as $product) {
         $n = basename($product);
         $image = getMimeTypeIcon($product);
-        $uploadResult .= "<li><a href='output/$n'><img src='{$image}' alt='pdf'/>&nbsp;{$n}</a></li>\n";
+        $uploadResult .= "<li><a href='output/$n' target='_blank'><img src='{$image}' alt='pdf'/>&nbsp;{$n}</a></li>\n";
     }
     $uploadResult .= "</ul>"
             . "The prospects*.xlsx file contains three worksheets:"
