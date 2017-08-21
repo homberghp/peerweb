@@ -23,13 +23,13 @@ function classSelector($dbConn, $selector_name, $current_selection, $autoSubmit 
  */
 function hoofdgrpSelector($dbConn, $selector_name, $current_selection) {
     global $peer_id;
-    $query = "select  distinct trim(hoofdgrp) as value, trim(hoofdgrp) as name, "
+    $query = "select  distinct trim(hoofdgrp) as value, trim(hoofdgrp) ||'-#'||grp_size as name, "
             . "trim(faculty_short)||'.'||trim(course_short) as namegrp, "
-            . " case when (faculty_id,course)=(select faculty_id,opl from student where snummer={$peer_id}) then 0\n"
+            . " case when (course)=(select opl from student where snummer={$peer_id}) then 0\n"
             . "  when (faculty_id)=(select faculty_id from student where snummer={$peer_id}) then 1\n"
             . " else 2 end as my_faculty \n"
             . " from hoofdgrp_s "
-            //."h natural join hoofdgrp_size hs natural join faculty\n"
+            ." natural join hoofdgrp_size hs \n"
             . " order by my_faculty,namegrp,name";
     $result = "<select name='{$selector_name}' id='{$selector_name}' >\n" . getOptionListGrouped($dbConn, $query, $current_selection)
             . "</select>\n";
