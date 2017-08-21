@@ -2,8 +2,6 @@
 begin work;
 -- most of the code is to create a summary of the operation.
 
-create table if not exists sv09_import_summary (x integer, comment varchar(40), row integer);
-truncate sv09_import_summary;
 with pre as (select count(1) as x, 'start student count'::text as comment, 1 as row from student ),
      synccount as (select count(1) as x ,'records from progress'::text as comment,2 as row  from importer.sv09_ingeschrevenen),
      synccounta as (select count(1) as x ,'distinct on student number'::text as comment,3 as row  from importer.sv09_as_student_email_v),
