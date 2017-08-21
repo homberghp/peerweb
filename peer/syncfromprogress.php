@@ -27,16 +27,10 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
     }
     if (move_uploaded_file($tmp_file, "{$worksheet}")) {
         $uploadResult .= "upload and integration was succesfull {$file_size}, {$tmp_file}, {$worksheet}";
-        $cmdString = "{$site_home}/scripts/jmerge -w {$workdir} -c {$site_home}/jmerge "
-                . "-p {$site_home}/jmerge/sv09_syncprogress.properties ";
-        ob_start();
-        $handle = popen($cmdString, 'r');
-        fpassthru($handle);
-        pclose($handle);
-        $cmd = ob_get_clean();
-        $uploadResult .= "<pre>{$cmd}</pre></fieldset>";
+        $cmdString = "{$site_home}/scripts/jmergeSync -w {$workdir} ";
+        $cmd = exec($cmdString);
+        $uploadResult .= "<pre>Command executed</pre></fieldset>";
         rmDirAll($workdir);
-        
     }
     $_SESSION['userfile'] = $_FILES['userfile'];
 }
@@ -51,6 +45,19 @@ $action = $PHP_SELF;
 $page->addBodyComponent($nav);
 $templatefile = 'templates/syncfromprogress.html';
 $template_text = file_get_contents($templatefile, true);
+$sql="select x,comment from sv09_import_summary order by row";
+$uploadResult.= simpleTableString($dbConn,$sql);
+$products = glob('output/sync*.log', GLOB_BRACE);
+if (count($products)) {
+    $uploadResult .= "<p>Results from last sync, it might be yours:</p>"
+            . "<ul>\n";
+    foreach ($products as $product) {
+        $n = basename($product);
+        $image = getMimeTypeIcon($product);
+        $uploadResult .= "<li><a href='output/$n' target='_blank'><img src='{$image}' alt='pdf'/>&nbsp;{$n}</a></li>\n";
+    }
+    $uploadResult .= "</ul>";
+}
 if ($template_text === false) {
     $page->addBodyComponent(new Component("<strong>cannot read template file $templatefile</strong>"));
 } else {

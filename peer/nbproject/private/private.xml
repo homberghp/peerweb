@@ -5,8 +5,13 @@
         <group>
             <file>file:/home/hom/peerweb/peer/peerlib/peerutils.php</file>
             <file>file:/home/hom/peerweb/peer/importfromprogress.php</file>
+            <file>file:/home/hom/peerweb/peer/templates/syncfromprogress.html</file>
+            <file>file:/home/hom/peerweb/peer/syncfromprogress.php</file>
+            <file>file:/home/hom/peerweb/peer/peerlib/SimpleTableFormatter.php</file>
             <file>file:/home/hom/peerweb/peer/addtoclass.php</file>
             <file>file:/home/hom/peerweb/peer/templates/importfromprogress.html</file>
+            <file>file:/home/hom/peerweb/peer/peerlib/simplequerytable.php</file>
+            <file>file:/home/hom/peerweb/peer/allgroupresults.php</file>
         </group>
     </open-files>
 </project-private>

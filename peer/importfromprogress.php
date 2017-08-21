@@ -11,38 +11,6 @@ extract($_SESSION);
 
 $uploadResult = '';
 
-function validateStudents($dbConn, &$uploadResult) {
-
-    $query = "select * from worksheet w where not exists\n"
-            . " (select 1 from student where snummer=w.snummer) order by grp_num,snummer";
-    $resultSet = $dbConn->Execute($query);
-    $valid = true;
-    if ($resultSet === FALSE) {
-        echo $uploadResult;
-    }
-    if (!$resultSet->EOF && (($rowCount = $resultSet->RowCount()) > 0)) {
-        $valid = false;
-        $uploadResult .= "\n<fieldset style='background:white;color:#800'><pre>$query</pre><h2>The following student numbers are not known in peerweb</h2>" .
-                simpleTableString($dbConn, $query)
-                . "{$resultSet->atRow()} {$rowCount} rows</fieldset>";
-    }
-    return $valid;
-}
-
-function validateGroups($dbConn, &$uploadResult, $prjm_id) {
-
-    $query = "select distinct grp_num from worksheet w "
-            . "where not exists (select 1 from prj_tutor where prjm_id={$prjm_id} and w.grp_num = grp_num) order by grp_num";
-    $resultSet = $dbConn->Execute($query);
-    $valid = true;
-    if (!$resultSet->EOF) {
-        $valid = false;
-        $uploadResult .= "\n<fieldset style='background:white;color:#800'><h2>The following grp numbers (grp_num) are not defined in this project milestone</h2>" .
-                simpleTableString($dbConn, $query)
-                . "</fieldset>";
-    }
-    return $valid;
-}
 
 if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) && (!isSet($_SESSION['userfile']) || $_SESSION['userfile'] != $_FILES['userfile'])) {
     $basename = sanitizeFilename($_FILES['userfile']['name']);
