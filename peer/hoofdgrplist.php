@@ -77,7 +77,7 @@ $scripts = '<script type="text/javascript" src="js/jquery.js"></script>
 ';
 
 $cardsLink=
-      "<a href='classtablecards.php?rel=student&hoofdgrp={$hoofdgrp}'>table cards for prospects</a>";
+      "<a href='classtablecards.php?rel=student&hoofdgrp={$hoofdgrp}'>table cards for students with  hoofdgrp</a>";
 
 pagehead2('list students by a hoofgrp', $scripts);
 $page_opening = "Hoofdgrp  list $faculty_short:$hoofdgrp ";
