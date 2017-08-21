@@ -35,6 +35,8 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
         pclose($handle);
         $cmd = ob_get_clean();
         $uploadResult .= "<pre>{$cmd}</pre></fieldset>";
+        rmDirAll($workdir);
+        
     }
     $_SESSION['userfile'] = $_FILES['userfile'];
 }

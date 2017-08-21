@@ -5,6 +5,7 @@
         <group>
             <file>file:/home/hom/peerweb/peer/peerlib/peerutils.php</file>
             <file>file:/home/hom/peerweb/peer/importfromprogress.php</file>
+            <file>file:/home/hom/peerweb/peer/addtoclass.php</file>
             <file>file:/home/hom/peerweb/peer/templates/importfromprogress.html</file>
         </group>
     </open-files>

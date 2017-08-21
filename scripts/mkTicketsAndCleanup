@@ -28,6 +28,8 @@ export scriptdir site_home workdir destdir
 ${scriptdir}/mkphototicket.sh -w ${workdir} -d ${destdir} -t ${FILETS} 1>&2 > /dev/null &
 ${scriptdir}/mkclasscard.sh   -w ${workdir} -d ${destdir} -t ${FILETS} 1>&2 > /dev/null &
 
+## join all subprocesses
 wait
-# rm -fr ${workdir}
+## drop workdir
+rm -fr ${workdir}
 
