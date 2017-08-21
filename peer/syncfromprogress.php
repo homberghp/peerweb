@@ -47,6 +47,7 @@ $templatefile = 'templates/syncfromprogress.html';
 $template_text = file_get_contents($templatefile, true);
 $sql="select x,comment from sv09_import_summary order by row";
 $uploadResult.= simpleTableString($dbConn,$sql);
+
 $products = glob('output/sync*.log', GLOB_BRACE);
 if (count($products)) {
     $uploadResult .= "<p>Results from last sync, it might be yours:</p>"

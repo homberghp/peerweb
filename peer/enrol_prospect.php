@@ -113,6 +113,7 @@ $sql = "SELECT '<input type=''checkbox''  name=''studenten[]'' value='''||st.snu
         . " and not exists (select 1 from student where snummer=st.snummer)"
         . "order by hoofdgrp,opl,sclass asc,achternaam,roepnaam";
 $tableFormatter = new SimpleTableFormatter($dbConn, $sql, $page);
+$pp['cardsLink']="<a href='classtablecards.php?rel=prospects&hoofdgrp={$hoofdgrp}'>table cards for prospects</a>";
 $tableFormatter->setCheckName('studenten[]');
 $tableFormatter->setCheckColumn(0);
 $tableFormatter->setTabledef("<table id='myTable' class='tablesorter' summary='your requested data'"

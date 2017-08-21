@@ -11,19 +11,19 @@ require_once 'SpreadSheetWriter.php';
 // get group tables for a project
 $hoofdgrp = 'TUTORINF';
 
-if (isSet($_REQUEST['hoofdgrp'])) {
+if (isSet($_REQUEST['hoofdgrp']) && preg_match('/^\w+$/', $_REQUEST['hoofdgrp'])) {
     $_SESSION['hoofdgrp'] = $hoofdgrp = $_REQUEST['hoofdgrp'];
 }
 
 extract($_SESSION);
-
+$faculty_short='';
 $oldClassSelector = hoofdgrpSelector($dbConn, 'hoofdgrp', $hoofdgrp);
 
 if (isSet($hoofdgrp)) {
     $sql = "select trim(f.faculty_short) as faculty_short,trim(hoofdgrp) as hoofdgrp\n" .
-            " from hoofdgrp_s h join faculty f using(faculty_id) where hoofdgrp='$hoofdgrp'";
+            " from hoofdgrp_s h join faculty f using(faculty_id) where hoofdgrp='{$hoofdgrp}'";
     $resultSet = $dbConn->Execute($sql);
-    if ($resultSet !== false) {
+    if ($resultSet !== false && ! $resultSet->EOF) {
         extract($resultSet->fields);
     }
     //    $dbConn->log($sql);
@@ -76,6 +76,8 @@ $scripts = '<script type="text/javascript" src="js/jquery.js"></script>
     <link rel=\'stylesheet\' type=\'text/css\' href=\'' . SITEROOT . '/style/tablesorterstyle.css\'/>
 ';
 
+$cardsLink=
+      "<a href='classtablecards.php?rel=student&hoofdgrp={$hoofdgrp}'>table cards for prospects</a>";
 
 pagehead2('list students by a hoofgrp', $scripts);
 $page_opening = "Hoofdgrp  list $faculty_short:$hoofdgrp ";
@@ -94,6 +96,7 @@ $nav->setInterestMap($tabInterestCount);
             <input type='submit' name='get' value='Get hoofdgrp' />&nbsp;<?= $spreadSheetWidget ?>
         </form>
     </fieldset>
+    <?=$cardsLink?>
     <div align='center'>
         <?php
         simpletable($dbConn, $sql2, "<table id='myTable' class='tablesorter' summary='your requested data'"
