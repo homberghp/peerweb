@@ -14,7 +14,7 @@ if ($resultSet === false) {
 if (!$resultSet->EOF)
     extract($resultSet->fields, EXTR_PREFIX_ALL, 'judge');
 
-$page_opening = 'The groups of ' . "$judge_roepnaam $judge_voorvoegsel $judge_achternaam ($judge_snummer)";
+$page_opening = 'The groups of ' . "$judge_roepnaam $judge_tussenvoegsel $judge_achternaam ($judge_snummer)";
 $page = new PageContainer();
 $page->setTitle($page_opening);
 $nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
