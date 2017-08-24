@@ -1,0 +1,38 @@
+#!/bin/bash
+scriptdir=$(dirname $0)
+site_home=$(dirname $scriptdir)
+destdir=${site_home}/output
+me=$(basename $0)
+GETOPT=/usr/bin/getopt
+# sinsible defaults: pick everything up from wd.
+workdir=$(pwd)
+ARGS=$(${GETOPT} -o w:h --long workdir:,help -- "$@")
+eval set -- "$ARGS"
+while [ $# -gt 0 ]
+do
+    case "$1" in
+	-h|--help)
+	    cat <<EOF
+usage $me [-h|--help] [-w|--workdir <workdir>]
+EOF
+	    exit 0;;
+	-w|--workdir) workdir=$2; shift;;
+	--) shift; break;;
+	-*) echo "$0: error - unrecognized option $1" 1>&2; exit 1;;
+	*)  break;;
+    esac
+    shift
+done
+FILETS=$(date +%Y-%m-%d-%-H:%M:%S)
+jmergedir=${site_home}/jmerge
+export workdir site_home FILETS destdir jmergedir scriptdir
+# echo "scriptdir=$scriptdir workdir=$workdir site_home=$site_home FILETS=$FILETS destdir=$destdir jmergedir=$jmergedir"
+# exit 0
+
+${scriptdir}/jmerge -w ${workdir} -c ${jmergedir} -p ${jmergedir}/sv09_syncprogress.properties 2>&1 > ${workdir}/sync-${FILETS}.log
+
+rm -f ${destdir}/sync*.log
+cp ${workdir}/sync*.log ${destdir}
+
+
+
