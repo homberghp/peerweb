@@ -644,12 +644,12 @@ $navtable = array(// index, defproject, citeria1,2, milestones
     ),
     array(
         'interest' => 'student_admin',
-        'toplinktext' => 'Admin pages',
-        'tooltip' => 'Database administration',
+        'toplinktext' => 'student mgt pages',
+        'tooltip' => 'Student and class administration',
         'menu_name' => 'studentadmin',
-        'image' => 'ooffice-extension.png',
+        'image' => 'file_cabinet.png',
         'subitems' =>
-        array(// various admin
+        array(
             array('target' => 'student_admin.php',
                 'tooltip' => 'Add or edit student data.',
                 'linktext' => 'Student admin',
@@ -685,6 +685,24 @@ $navtable = array(// index, defproject, citeria1,2, milestones
                 'image' => 'toclass.png',
                 'interest' => 'adminstudent_class',
             ),
+            array('target' => 'studentclasscards.php',
+                'tooltip' => 'Print class cards for students.',
+                'linktext' => 'Print class cards',
+                'menu_name' => 'printclasscards',
+                'image' => 'ticket.png',
+                'interest' => 'adminstudent_class',
+            ),
+            
+        ),
+    ),
+    array(
+        'interest' => 'student_admin',
+        'toplinktext' => 'Admin pages',
+        'tooltip' => 'Database administration',
+        'menu_name' => 'systemadmin',
+        'image' => 'ooffice-extension.png',
+        'subitems' =>
+        array(// various admin
             array('target' => 'class_cluster.php',
                 'tooltip' => 'Define class groups or clusters.',
                 'linktext' => 'Class clusters',
