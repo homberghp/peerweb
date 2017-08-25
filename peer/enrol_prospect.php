@@ -102,6 +102,7 @@ if (file_exists($filename)) {
 }
 $sql = "SELECT '<input type=''checkbox''  name=''studenten[]'' value='''||st.snummer||'''/>' as chk,"
         . "'<a href=''prospect_admin.php?snummer='||snummer||'''>'||st.snummer||'</a>' as snummer,"
+        . "'<img src='''||photo||''' style=''height:24px;width:auto;''/>' as foto,\n"
         . "achternaam||', '||roepnaam||coalesce(' '||tussenvoegsel,'') as naam,pcn,"
         . "email1 as email,hoofdgrp,sclass,cohort,course_short sprogr,studieplan_short as splan,lang,sex,gebdat,"
         . " land,plaats,pcode\n"
@@ -109,11 +110,12 @@ $sql = "SELECT '<input type=''checkbox''  name=''studenten[]'' value='''||st.snu
         . "left join student_class cl using(class_id)\n"
         . "natural left join studieplan \n"
         . "left join fontys_course fc on(st.opl=fc.course)\n"
+        . " natural join prospect_portrait\n"
         . "where hoofdgrp='{$hoofdgrp}' "
         . " and not exists (select 1 from student where snummer=st.snummer)"
         . "order by hoofdgrp,opl,sclass asc,achternaam,roepnaam";
 $tableFormatter = new SimpleTableFormatter($dbConn, $sql, $page);
-$pp['cardsLink']="<a href='classtablecards.php?rel=prospects&hoofdgrp={$hoofdgrp}'>table cards for prospects</a>";
+$pp['cardsLink'] = "<a href='classtablecards.php?rel=prospects&hoofdgrp={$hoofdgrp}'>table cards for prospects</a>";
 $tableFormatter->setCheckName('studenten[]');
 $tableFormatter->setCheckColumn(0);
 $tableFormatter->setTabledef("<table id='myTable' class='tablesorter' summary='your requested data'"
