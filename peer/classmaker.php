@@ -71,7 +71,7 @@ if (isSet($_POST['update']) && isSet($_POST['studenten'])) {
     if ($resultSet === false) {
         die("<br>Cannot update student with " . $sql . " reason " . $dbConn->ErrorMsg() . "<br>");
     }
-    createGenericMaillistByClassid($dbConn,  $oldclass_id);
+    createGenericMaillistByClassid($dbConn, $oldclass_id);
     createGenericMaillistByClassid($dbConn, $newclass_id);
 }
 
@@ -127,7 +127,7 @@ $pp['filetime'] = 'never';
 if (file_exists($filename)) {
     $pp['filetime'] = date("Y-m-d H:i:s", filemtime($filename));
 }
-$sql = "SELECT '<input type=''checkbox''  name=''studenten[]'' value='''||st.snummer||'''/>' as chk,"
+$sql = "SELECT '<input type=''checkbox''  name=''studenten[]'' value='''||st.snummer||''' class=''checker'' onChange=''updateCount()''/>' as chk,"
         . "'<a href=''student_admin.php?snummer='||snummer||'''>'||st.snummer||'</a>' as snummer,"
         . "'<img src='''||photo||''' style=''height:24px;width:auto;''/>' as foto,\n"
         . "achternaam||', '||roepnaam||coalesce(' '||tussenvoegsel,'') as naam,pcn,"
