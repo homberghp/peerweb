@@ -48,7 +48,7 @@ $spreadSheetWriter->setFilename($filename)
         ->setLinkUrl($server_url . $PHP_SELF . '?prjm_id=' . $prjm_id)
         ->setTitle($title)
         ->setAutoZebra(false)
-        ->setColorChangerColumn(14);
+        ->setColorChangerColumn(15);
 
 $spreadSheetWriter->processRequest();
 
