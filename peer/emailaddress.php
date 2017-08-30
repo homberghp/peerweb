@@ -283,13 +283,13 @@ ob_start();
     <fieldset><legend>These email addresses will be used for notifications</legend>
         <form name='email' method='post' action='<?= $PHP_SELF ?>'>
             <table summary='email address'>
-                <tr><th colspan='3'>Email addresses:</th></tr>
-                <tr><th>Fontys email address </th><td><?= $email1 ?></td><td>&nbsp;</td></tr>
-                <tr><th>Second email address </th><td><input type='text' size='64' name='email2' value='<?= $email2 ?>'/></td></tr>
-                <tr><th>Third email address </th><td><input type='text' size='64' name='email3' value='<?= $email3 ?>'/></td></tr>
-                <tr><th align='left'>Linux Prof Inst. id LPI_ID</th><td><?= $lpi_id_field ?>(Used for Linux Professional Institute certificates LPI-101 etc.)</td></tr>
-                <tr><th align='left'>Github ID</th><td><?= $github_id_field ?>(Used for sem 7 ESD course.)</td></tr>
-                <tr><td><input type='submit' name='bsubmit' value='update'/></td></tr>
+                <tr><th colspan='2'>Email addresses:</th></tr>
+                <tr><th  align='right'>Fontys email address </th><td><?= $email1 ?></td><td>&nbsp;</td></tr>
+                <tr><th  align='right'>Second email address </th><td><input type='text' size='64' name='email2' value='<?= $email2 ?>'/></td></tr>
+                <tr><th  align='right'>Third email address </th><td><input type='text' size='64' name='email3' value='<?= $email3 ?>'/></td></tr>
+                <tr><th  align='right'>Linux Prof Inst. id LPI_ID</th><td><?= $lpi_id_field ?>(Used for Linux Professional Institute certificates LPI-101 etc.)</td></tr>
+                <tr><th align='right'>Github ID</th><td><?= $github_id_field ?>(Used for sem 7 ESD course.)</td></tr>
+                <tr><td>&nbsp;</td><td><input type='submit' name='bsubmit' value='update'/></td></tr>
             </table>
         </form>
         <p>The email address you enter here will be used to notify you that an email has arrived on your student email address.
