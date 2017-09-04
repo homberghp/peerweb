@@ -38,7 +38,7 @@ $pageTitle = "Subversion repositories";
 $page->setTitle($pageTitle);
 
 $cmdstring = '';
-$pp['repoURL'] = $svnserver_url . '/svn/' . $year . '/' . $new_repos_name . '/';
+$pp['repoURL'] = $repoUrl= $svnserver_url . '/svn/' . $year . '/' . $new_repos_name . '/';
 $twigs = '';
 if (isSet($_POST['bcreate'])) {
     if (isSet($_REQUEST['new_repos_name']) && $_REQUEST['new_repos_name']) {
@@ -57,14 +57,13 @@ if (isSet($_POST['bcreate'])) {
     $handle = popen($cmdstring, 'r');
     fpassthru($handle);
     pclose($handle);
+    echo "<pre style='color:#008'>{$cmdstring}</pre>\n";
 
-#  passthru($cmdstring);
-    echo "$cmdstring\n";
     $pp['repoURL'] = $svnserver_url . '/' . $url_base . '/' . $year . '/' . $new_repos_name . '/';
     $pp['cmd_result'] = "<fieldset> <legend>Create command result <?=$cmdstring?></legend><pre style='background:white'>"
             . ob_get_clean()
             . "</pre></fieldset>"
-            . "<span style='font-size=160%'>The repository will live at <a href='$repoURL' target='_blank'>$repoURL</a></span>\n";
+            . "<span style='font-size=160%'>The repository will live at <a href='{$pp['repoURL']}' target='_blank'>{$pp['repoURL']}</a></span>\n";
 }
 
 if (isSet($_POST['repos_id'])) {
@@ -137,6 +136,8 @@ if (!$resultSet->EOF) {
 $pp['reposTable'] = $reposTable;
 $pp['repolist'] = $repolist;
 $pp['repobase'] = $repobase;
+$pp['twigs'] = $twigs;
+$pp['new_repos_name']= '';//$new_repos_name;
 $groups = array();
 // get tutors and scribes
 $sql = "select distinct 'tutor' as alias,snummer from svn_tutor_snummer\n"
