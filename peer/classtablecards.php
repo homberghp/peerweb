@@ -37,7 +37,7 @@ if (isSet($_REQUEST['class_id'])) {
             "course_short||'.'||coalesce(apt.alias,'g'||apt.grp_num) as line3," .
             "snummer as barcode,\n" .
             "achternaam,roepnaam\n" .
-            "from student s  join student_class using(class_id) join fontys_course fc on(s.opl=fc.co<urse)\n" .
+            "from student s  join student_class using(class_id) join fontys_course fc on(s.opl=fc.course)\n" .
             " join prj_grp using (snummer) join all_prj_tutor apt using(prjtg_id)" .
             " where prjm_id=$prjm_id and snummer in (select snummer from prj_grp join all_prj_tutor using(prjtg_id) where prjm_id=$prjm_id)\n" .
             " order by grp_num,achternaam,roepnaam";
