@@ -39,6 +39,7 @@ CREATE TABLE if not exists sv09_ingeschrevenen (
     nationaliteit_1 text,
     nationaliteit_2 text,
     leidende_nationaliteit text,
+    eer text,
     inschrijvingid integer,
     isatcode integer,
     opleiding text,
