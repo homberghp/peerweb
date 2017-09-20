@@ -1,5 +1,5 @@
 begin work;
-
+set search_path=importer,public;
 CREATE TABLE if not exists sv09_ingeschrevenen (
     peildatum date,
     studiejaar integer,
@@ -68,7 +68,7 @@ CREATE TABLE if not exists sv09_ingeschrevenen (
     plaats_toeleverende_school text,
     soort_verzoek text,
     datum_definitief_ingeschreven date,
-    groepcode text,
+    lesgroep text,
     indicatie_collegegeld text,
     pasfoto_uploaddatum date,
     voorkeurstaal text,
@@ -79,10 +79,8 @@ CREATE TABLE if not exists sv09_ingeschrevenen (
 ALTER TABLE sv09_ingeschrevenen OWNER TO importer;
 GRANT ALL ON TABLE sv09_ingeschrevenen TO PUBLIC;
 
-create table if not exists sv09_import_summary (x integer, comment varchar(40), row integer);
-truncate sv09_import_summary;
 
-truncate sv09_ingeschrevenen;
+truncate importer.sv09_ingeschrevenen;
 alter table sv09_ingeschrevenen drop constraint if exists sv09_studielinkvariantcode_fk;
 alter table sv09_ingeschrevenen drop constraint if exists sv09_nat_mapper_fk;
 alter table sv09_ingeschrevenen drop constraint if exists sv09_iso3166_land_nl_fk;
