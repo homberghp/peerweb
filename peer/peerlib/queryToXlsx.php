@@ -289,7 +289,7 @@ class XLSWriter {
             $objPHPExcel->getActiveSheet()->getStyle($coor)->applyFromArray($headerStyles);
             $weightSum = 0;
             $w = 0;
-            $$weightLast = count($this->weights) - 1;
+            $weightLast = count($this->weights) - 1;
             for (; $w < count($this->weights); $w++) {
                 $coor = XLSWriter::cellCoordinate($this->firstWeightColumn + $w, $row);
                 $weightSum +=$this->weights[$w];
@@ -300,7 +300,7 @@ class XLSWriter {
             }
             $coor = XLSWriter::cellCoordinate($this->weightedSumsColumn, $row);
             $wBegin = XLSWriter::cellCoordinate($this->firstWeightColumn, $row);
-            $wEnd = XLSWriter::cellCoordinate($this->firstWeightColumn + $$weightLast, $row);
+            $wEnd = XLSWriter::cellCoordinate($this->firstWeightColumn + $weightLast, $row);
             $formula = "=SUM($wBegin:$wEnd)";
             $objPHPExcel->getActiveSheet()
                     ->setCellValue(
