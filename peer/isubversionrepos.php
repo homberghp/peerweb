@@ -29,7 +29,7 @@ define( 'MAXCOL', '5' );
 extract( $_SESSION );
 
 if ( isSet( $snummer ) ) {
-  $sql = "SELECT roepnaam, voorvoegsel,achternaam,lang FROM student WHERE snummer=$snummer";
+  $sql = "SELECT roepnaam, tussenvoegsel,achternaam,lang FROM student WHERE snummer=$snummer";
   $resultSet = $dbConn->Execute( $sql );
   if ( $resultSet === false ) {
     die( 'Error: ' . $dbConn->ErrorMsg() . ' with ' . $sql );
@@ -37,7 +37,7 @@ if ( isSet( $snummer ) ) {
   extract( $resultSet->fields );
 }
 $page = new PageContainer();
-$pageTitle = "Subversion repositories for $roepnaam $voorvoegsel $achternaam ($snummer)";
+$pageTitle = "Subversion repositories for $roepnaam $tussenvoegsel $achternaam ($snummer)";
 $page->setTitle($pageTitle);
 ob_start();
 tutorHelper( $dbConn, $isTutor );

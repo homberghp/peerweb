@@ -6,9 +6,7 @@ then
 fi
 dir=$1
 #operator=$2
-rubberbase=/home/hom/testsite/rubberreports
-
-rubberbase=/home/hom/testsite/rubberreports
+rubberbase=$(readlink -f $(dirname $(dirname $0)))
 
 scriptdir=${rubberbase}/scripts
 

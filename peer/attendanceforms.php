@@ -50,7 +50,7 @@ fwrite($fp, "\\documentclass[11pt]{article}\n" .
         . "\\pagestyle{fancy}\n");
 
 $sql = "select coalesce(grp_name,'g'||grp_num) as sgroup,tutor,apt.grp_num,\n" .
-        " achternaam||', '||roepnaam||coalesce(' '||voorvoegsel,'') as name, reason,".
+        " achternaam||', '||roepnaam||coalesce(' '||tussenvoegsel,'') as name, reason,".
         " case when reason notnull then 'excused' else null end as check" .
         " from prj_grp pg join all_prj_tutor apt using(prjtg_id)\n" .
         " join activity a  using(prjm_id) \n" .

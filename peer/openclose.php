@@ -43,10 +43,10 @@ $templatefile = 'templates/invitemailBodyTemplate.html';
 // create mailbody
 $mailbody = file_get_contents($templatefile, true);
 $sqlsender = "select rtrim(email1) as sender,roepnaam||"
-        . "coalesce(' '||voorvoegsel,'')||' '||achternaam as sender_name,"
+        . "coalesce(' '||tussenvoegsel,'')||' '||achternaam as sender_name,"
         . "coalesce(signature,"
         . "'sent by the peerweb service on behalf of '||roepnaam"
-        . "||coalesce(' '||voorvoegsel,'')||' '||achternaam)\n"
+        . "||coalesce(' '||tussenvoegsel,'')||' '||achternaam)\n"
         . "  as signature from student left join email_signature using(snummer)"
         . " where snummer='$peer_id'";
 $rs = $dbConn->Execute($sqlsender);
@@ -71,7 +71,7 @@ if (isSet($_POST['mailsubject'])) {
 if (isSet($_POST['invite'])) {
 
     $sql = "select email1, email2,\n"
-            . " roepnaam ||' '||coalesce(voorvoegsel,'')||' '||achternaam as name,\n"
+            . " roepnaam ||' '||coalesce(tussenvoegsel,'')||' '||achternaam as name,\n"
             . " afko,description,milestone,assessment_due as due,milestone_name \n"
             . "  from prj_grp join all_prj_tutor using(prjtg_id) \n"
             . " join student using(snummer) \n"

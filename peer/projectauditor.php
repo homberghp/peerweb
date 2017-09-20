@@ -84,14 +84,14 @@ $nav->setInterestMap($tabInterestCount);
 <?php
 $studentPicker->setPresentQuery("select snummer from project_auditor where prjm_id=$prjm_id");
 $studentPicker->show();
-$sql = "select snummer,achternaam,roepnaam,voorvoegsel from student where snummer=$newauditor";
+$sql = "select snummer,achternaam,roepnaam,tussenvoegsel from student where snummer=$newauditor";
 $resultSet = $dbConn->Execute($sql);
 extract($resultSet->fields,EXTR_PREFIX_ALL,'auditor');
 if ($newauditor !=0 ) {
 ?>
 <fieldset><legend>Select groups to audit.</legend>
 <form name='set auditgroups' method='post' action='<?=$PHP_SELF?>'>
-<p>Choose groups in project <b><?=$afko?> <?=$year?> milestone <?=$milestone?></b> to be audited by <b><?=$auditor_roepnaam?> <?=$auditor_voorvoegsel?> <?=$auditor_achternaam?>(<?=$auditor_snummer?>)</b>.</p>
+<p>Choose groups in project <b><?=$afko?> <?=$year?> milestone <?=$milestone?></b> to be audited by <b><?=$auditor_roepnaam?> <?=$auditor_tussenvoegsel?> <?=$auditor_achternaam?>(<?=$auditor_snummer?>)</b>.</p>
 <p>Group 0 gives access to all.</p>
 <?php
 $sql ="select 0 as gid, 'all' as alias union select grp_num as gid, alias from prj_tutor natural join grp_alias where prjm_id=$prjm_id order by gid";
@@ -115,7 +115,7 @@ if ( $resultSet === false ) {
 </fieldset>
 <?php
    }
-$sql ="select afko,year,milestone, prjm_id,gid,snummer,achternaam,roepnaam,voorvoegsel \n".
+$sql ="select afko,year,milestone, prjm_id,gid,snummer,achternaam,roepnaam,tussenvoegsel \n".
     " from project_auditor natural join student natural join prj_milestone natural join project\n".
   " where prjm_id=$prjm_id\n".
   " order by year desc,afko,gid,achternaam,roepnaam\n";

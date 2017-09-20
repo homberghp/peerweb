@@ -17,7 +17,7 @@ ob_start();
 tutorHelper($dbConn,$isTutor);
 $page->addBodyComponent(new Component(ob_get_clean()));
 $page->setTitle('Overview of personal tasks');
-$page_opening="Task overview for $roepnaam $voorvoegsel $achternaam ($snummer)";
+$page_opening="Task overview for $roepnaam $tussenvoegsel $achternaam ($snummer)";
 $nav=new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
 $page->addBodyComponent($nav);
 $page->addHeadComponent( new Component("<style type='text/css'>

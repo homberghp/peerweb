@@ -7,13 +7,13 @@
 	  </tr>
 	  <tr>
 	    <th align='left'>achternaam</th>
-	    <th align='left'>voorvoegsel</th>
+	    <th align='left'>tussenvoegsel</th>
 	    <th align='left'>voorletters</th>
 	    <th align='left'>roepnaam</th>
 	  </tr>
 	  <tr>
 	    <td><?=$achternaam?></td>
-	    <td><?=$voorvoegsel?></td> 
+	    <td><?=$tussenvoegsel?></td> 
 	    <td><?=$voorletters?></td>
 	    <td><?=$roepnaam?></td>
 	  </tr>

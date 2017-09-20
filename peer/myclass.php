@@ -36,8 +36,8 @@ $tablehead = "<h2>Class photos for class $sclass: $year-" . ($year + 1) . "</h2>
 $page_opening = "Class photos for class  $sclass $year-" . ($year + 1);
 $nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
 $nav->setInterestMap($tabInterestCount);
-$sql = "SELECT snummer as number,roepnaam||' '||coalesce(voorvoegsel||' ','')||achternaam as name,\n" .
-        "achternaam,roepnaam,voorvoegsel,cl.sclass,cohort,opl as opl_code,pcn,lang,sex,gebdat," .
+$sql = "SELECT snummer as number,roepnaam||' '||coalesce(tussenvoegsel||' ','')||achternaam as name,\n" .
+        "achternaam,roepnaam,tussenvoegsel,cl.sclass,cohort,opl as opl_code,pcn,lang,sex,gebdat," .
         "straat,huisnr,pcode,plaats,nationaliteit," .
         "hoofdgrp, snummer as participant, course_description as opleiding,gebdat as birthday" .
         " from student st " .

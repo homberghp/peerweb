@@ -86,7 +86,7 @@ if ($csvout == 'Y') {
         extract($resultSet->fields);
     $filename = trim($afko) . (($grp_num == '*') ? '_' : $grp_num) . 'm' . $milestone . '_timerecords_' . date('Y-m-d') . '.csv';
 
-    $sqlt = "SELECT snummer,rtrim(roepnaam||coalesce(' '||voorvoegsel,'')||' '||achternaam) as name, rtrim(afko) as afko,\n" .
+    $sqlt = "SELECT snummer,rtrim(roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam) as name, rtrim(afko) as afko,\n" .
             "milestone,rtrim(description) as description ,grp_num as group,task_id,rtrim(task_description) as task_description,\n" .
             "date_trunc('seconds',start_time) as start_time,date_trunc('seconds',stop_time) as stop_time,\n" .
             "from_ip,\n" .
@@ -118,7 +118,7 @@ if ($csvout == 'Y') {
 
 $page = new PageContainer();
 $page->setTitle('Group Time');
-$page_opening = "Time spent on projects by $roepnaam $voorvoegsel $achternaam ($snummer)";
+$page_opening = "Time spent on projects by $roepnaam $tussenvoegsel $achternaam ($snummer)";
 $nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
 ob_start();
 tutorHelper($dbConn, $isTutor);
@@ -127,7 +127,7 @@ $page->addBodyComponent($nav);
 ob_start();
 
 $today = date('Y-m-d');
-$page_opening = "Time records of the group(s) of $roepnaam $voorvoegsel $achternaam ($snummer) on $today";
+$page_opening = "Time records of the group(s) of $roepnaam $tussenvoegsel $achternaam ($snummer) on $today";
 $sql = "SELECT distinct prj_id::text||':'||milestone::text as value,\n" .
         "afko::text||': '||description||', \n" .
         "milestone '||milestone::text||' ('||coalesce(project_time,'00:00:00'::interval)||')' as name,\n" .
@@ -138,7 +138,7 @@ $sql = "SELECT distinct prj_id::text||':'||milestone::text as value,\n" .
         "where snummer=$snummer and prj_id > 1) order by afko";
 
 $prjList = $prjSel->getSelector();
-$sqltt = "SELECT snummer,roepnaam||coalesce(' '||voorvoegsel,'')||' '||achternaam as name, afko,\n" .
+$sqltt = "SELECT snummer,roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam as name, afko,\n" .
         "milestone,description,grp_num as group,task_id,task_description,\n" .
         "date_trunc('seconds',start_time) as start_time,date_trunc('seconds',stop_time) as stop_time,\n" .
         "from_ip,\n" .
@@ -290,7 +290,7 @@ $yearMonthList = "<select name='year_month' onchange='submit()'>\n" .
         <?php
         echo "<h2 class='normal'>Workers in this project $prj_id, $afko, $description, milestone  $milestone, group $grp_num</h2>\n";
 
-        $sql = "select snummer as student_number,roepnaam||coalesce(' '||voorvoegsel,'')||' '||achternaam as name,\n" .
+        $sql = "select snummer as student_number,roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam as name,\n" .
                 "'<a href=\'mailto:'||email1||'\'>'||email1||'</a>' as fontys_email,\n" .
                 "'<a href=\'mailto:'||email2||'\'>'||email2||'</a>' as alt_email from student join prj_grp using(snummer) left join alt_email using(snummer)\n" .
                 " where prj_id=$prj_id and milestone=$milestone and grp_num='$grp_num' order by achternaam";

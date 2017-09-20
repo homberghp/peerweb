@@ -4,7 +4,7 @@ include_once('./peerlib/peerutils.php');
 include_once('tutorhelper.php');
 require_once('./peerlib/validators.php');
 require_once './peerlib/component.php';
-require_once 'document_access.inc';
+require_once 'document_access.php';
 require_once 'selector.php';
 $hasCapSystem = 1;
 $prjm_id = 0;
@@ -24,7 +24,7 @@ if (isSet($_REQUEST['doc_id'])) {
 $pp['doc_id'] = $_SESSION['doc_id'];
 
 $_SESSION['referer'] = $PHP_SELF;
-$sql = "SELECT roepnaam as jroepnaam, voorvoegsel as jvoorvoegsel,achternaam as jachternaam,email1 as jemail1, lang as jlang FROM student WHERE snummer=$peer_id";
+$sql = "SELECT roepnaam as jroepnaam, tussenvoegsel as jtussenvoegsel,achternaam as jachternaam,email1 as jemail1, lang as jlang FROM student WHERE snummer=$peer_id";
 $resultSet = $dbConn->Execute($sql);
 if ($resultSet === false) {
     die('Error: ' . $dbConn->ErrorMsg() . ' with ' . $sql);
@@ -44,7 +44,7 @@ if (isSet($_POST['bsubmit'])) {
         echo 'Error: ' . $dbConn->ErrorMsg() . ' with <br/><pre>' . $sql . '</pre>';
     } else {
         // mail that a critique was added to uploader/author
-        $sql = "select roepnaam,voorvoegsel,achternaam,email1,email2 from student\n" .
+        $sql = "select roepnaam,tussenvoegsel,achternaam,email1,email2 from student\n" .
                 " left join alt_email using(snummer)\n" .
                 "join uploads using(snummer) where upload_id=$doc_id";
         $resultSet = $dbConn->execute($sql);
@@ -109,7 +109,7 @@ if (!isSet($_REQUEST['doc_id'])) {
 } else { // a document is selected
     $doc_id = validate($_REQUEST['doc_id'], 'doc_id', 0);
     $sql = "select upload_id,title, to_char(uploadts,'YYYY-MM-DD HH24:MI')::text as uploadts,due,mime_type,\n"
-            . "ups.snummer as author,achternaam,voorvoegsel,roepnaam,apt.prj_id,apt.prjm_id,apt.milestone,apt.afko,apt.description as project_description,\n"
+            . "ups.snummer as author,achternaam,tussenvoegsel,roepnaam,apt.prj_id,apt.prjm_id,apt.milestone,apt.afko,apt.description as project_description,\n"
             . "apt.year,apt.grp_num, ups.prjtg_id,rel_file_path, coalesce(apt.alias,'g'||apt.grp_num) as grp_name,\n"
             . " coalesce('g'||apts.grp_num||' '''||apts.alias||'''','g'||apts.grp_num)||' tutor '||apts.tutor as sgrp_name,\n"
 //            . "coalesce(apts.alias,'g'||apts.grp_num) as sgrp_name,\n"
@@ -139,7 +139,7 @@ if (!isSet($_REQUEST['doc_id'])) {
         $refreshUrl = htmlspecialchars("$PHP_SELF?doc_id=$doc_id&sortorder=$sortorder");
         $pp['downloadUrl'] = $root_url . "/downloader/$doc_id/" . $pp['filename'];
         $pp['file_size'] = $filesize;//@filesize($filepath);
-        $pp['page_opening'] = "Hello $jroepnaam $jvoorvoegsel $jachternaam " .
+        $pp['page_opening'] = "Hello $jroepnaam $jtussenvoegsel $jachternaam " .
                 "<span style='font-size:6pt;'>($snummer)</span>, " .
                 "this the critique page. ";
         $pp['mime_type_sel'] = $mime_type;
@@ -183,7 +183,7 @@ if (!isSet($_REQUEST['doc_id'])) {
         } else {
             $pp['refreshLink'] = "<a href='" . $refreshUrl . 'desc' . "'>first</a> or last (current)";
         }
-        $sql3 = "select distinct critiquer, roepnaam,voorvoegsel,achternaam,critique_id,\n" .
+        $sql3 = "select distinct critiquer, roepnaam,tussenvoegsel,achternaam,critique_id,\n" .
                 "date_trunc('seconds',ts) as critique_time,critique_text,\n" .
                 "date_trunc('seconds',edit_time) as edit_time,\n" .
                 "afko,year,grp_num as critiquer_grp,\n" .
@@ -217,7 +217,7 @@ if (!isSet($_REQUEST['doc_id'])) {
                 $editor_inputs = '';
             }
             $form_head = "\n<form id='delete_edit_form${critique_id}' method='get' action='$PHP_SELF'>\n";
-            $legend_head = "<legend>Critique $critique_id by $roepnaam $voorvoegsel $achternaam ($critiquer)</legend>\n" . $editor_inputs . "\n";
+            $legend_head = "<legend>Critique $critique_id by $roepnaam $tussenvoegsel $achternaam ($critiquer)</legend>\n" . $editor_inputs . "\n";
             $history_link = ($history_count > 0 ) ? "<a href='critique_history.php?critique_id=$critique_id' target='_blank'>$edit_time</a>" : "$edit_time";
             $critiqueList .="\n$div_head\n"
                     . "$form_head\n"
@@ -225,7 +225,7 @@ if (!isSet($_REQUEST['doc_id'])) {
                     . "$legend_head\n"
                     . "  <table class='layout' summary='critiquer data'>\n"
                     . "<!--<tr><td>Critique id</td><th align='left'>$critique_id</th></tr>\n"
-                    . "<tr><td>Critiquer</td><th align='left'>$roepnaam $voorvoegsel $achternaam ($critiquer)</th></tr> -->"
+                    . "<tr><td>Critiquer</td><th align='left'>$roepnaam $tussenvoegsel $achternaam ($critiquer)</th></tr> -->"
                     . " <tr><td>Group</td><th align='left'>$critiquer_grp($afko $year ) </th></tr>"
                     . "<tr><td>Critique time</td><th align='left'>$critique_time</th></tr>"
                     . "<tr><td>Last edit</td><th align='left'>$history_link</th></tr>"

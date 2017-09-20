@@ -76,9 +76,9 @@ $form2Form=new HtmlContainer("<form id='contacts' method='post' name='contacts' 
 			     "</tr>");
 
 $sql="select pt.grp_num,pt.prjtg_id,alias,\n".
-    "cs.achternaam as cs_achternaam,cs.voorvoegsel as cs_voorvoegsel,cs.roepnaam as cs_roepnaam,cs.snummer as contact,\n".
+    "cs.achternaam as cs_achternaam,cs.tussenvoegsel as cs_tussenvoegsel,cs.roepnaam as cs_roepnaam,cs.snummer as contact,\n".
     "rtrim(cs.email1) as cs_email1,pt.grp_num,\n".
-    "ts.achternaam||', '||ts.roepnaam||coalesce(' '||ts.voorvoegsel,'') as tutor_naam, tut.tutor\n".
+    "ts.achternaam||', '||ts.roepnaam||coalesce(' '||ts.tussenvoegsel,'') as tutor_naam, tut.tutor\n".
     "  from prj_tutor pt join tutor tut on(pt.tutor_id=tut.userid) join student ts on(userid=snummer)\n".
     " left join grp_alias ga using(prjtg_id)\n".
     " left join prj_contact pc using(prjtg_id)\n".
@@ -94,7 +94,7 @@ if ($resultSet === false) {
     if (!$resultSet->EOF) {
 	while (!$resultSet->EOF) {
 	    extract($resultSet->fields);
-	    $sql = "select rtrim(achternaam)||', '||rtrim(roepnaam)||coalesce(' '||voorvoegsel,'') as name,".
+	    $sql = "select rtrim(achternaam)||', '||rtrim(roepnaam)||coalesce(' '||tussenvoegsel,'') as name,".
 		"prjtg_id||':'||snummer as value from prj_grp join prj_tutor using(prjtg_id) join student using(snummer)\n".
 		" where prjtg_id=$prjtg_id\n".
 		"order by achternaam, roepnaam";
@@ -104,7 +104,7 @@ if ($resultSet === false) {
 	    $row="<tr><td $tdStyle>$grp_num</td>".
 		"<td $tdStyle>$alias</td>".
 		"<td $tdStyle>$tutor_naam</td>".
-		"<td $tdStyle>$cs_roepnaam $cs_voorvoegsel $cs_achternaam</td>\n".
+		"<td $tdStyle>$cs_roepnaam $cs_tussenvoegsel $cs_achternaam</td>\n".
 		"<td $tdStyle>$contact</td>".
 		"<td $tdStyle><a href='mailto:$cs_email1'>$cs_email1</a></td>".
 		"<td $tdStyle>".$contact_selector."</td>\n".

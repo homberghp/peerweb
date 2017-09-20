@@ -56,7 +56,7 @@ $templatefile='templates/addscribe.html';
 $template_text= file_get_contents($templatefile, true);
 $studentPicker->setPresentQuery("select scribe as snummer from project_scribe where prj_id=$prj_id");
 $student_picker_text=$studentPicker->getPicker();
-$scribeQuery="select snummer,achternaam,roepnaam,voorvoegsel from student\n"
+$scribeQuery="select snummer,achternaam,roepnaam,tussenvoegsel from student\n"
   ."where snummer in (select scribe from project_scribe where prj_id=$prj_id) order by achternaam,roepnaam";
 $scribeTable=simpleTableString($dbConn,$scribeQuery,
 			       "<table summary='students found' border='1' style='border-collapse:collapse'>");

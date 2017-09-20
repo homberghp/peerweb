@@ -10,7 +10,7 @@
   <tr><th class='thl'>Project Id (for change)</th><td>$project_selector</td></tr>
   <tr><th class='thl'>Number of criteria</th><td>$input_num_criteria&nbsp;$input_submit_button</td></tr>
   <thead> 
-    <tr><th class='theadleft'>Owning tutor</th><th class='theadright'>$tutor_owner:&nbsp;$roepnaam $voorvoegsel $achternaam</th></tr>
+    <tr><th class='theadleft'>Owning tutor</th><th class='theadright'>$tutor_owner:&nbsp;$roepnaam $tussenvoegsel $achternaam</th></tr>
   </thead>
 </table>
 <!-- end template criteria1.html.inc \$Id: criteria1.html.inc 1723 2014-01-03 08:34:59Z hom $ -->

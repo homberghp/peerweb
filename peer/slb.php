@@ -85,7 +85,7 @@ $page->addBodyComponent($nav);
 $sql = "SELECT '<input type=''checkbox''  name=''studenten[]'' value='''||st.snummer||'''/>' as chk,"
         . "'<a href=''student_admin.php?snummer='||snummer||'''>'||st.snummer||'</a>' as snummer,"
         . "'<img src='''||photo||''' style=''height:24px;width:auto;''/>' as foto,\n"
-        . "achternaam||', '||roepnaam||coalesce(' '||voorvoegsel,'') as naam,pcn,"
+        . "achternaam||', '||roepnaam||coalesce(' '||tussenvoegsel,'') as naam,pcn,"
         . "t.tutor as slb,"
         . "sclass as klas,"
         . " hoofdgrp,"

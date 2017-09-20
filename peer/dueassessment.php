@@ -28,9 +28,9 @@ $replyto = $resultSet->fields['email'];
 $snmailto = array();
 $formsubject = "Please fill in your peer assessment data for project \$afko: \$description";
 $templatefile = "templates/mailbodytemplate.html.inc";
-$sqlsender = "select rtrim(email1) as sender,roepnaam||coalesce(' '||voorvoegsel,'')||' '||achternaam as sender_name," .
+$sqlsender = "select rtrim(email1) as sender,roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam as sender_name," .
         "coalesce(signature," .
-        "'sent by the peerweb service on behalf of '||roepnaam||coalesce(' '||voorvoegsel,'')||' '||achternaam)\n" .
+        "'sent by the peerweb service on behalf of '||roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam)\n" .
         "  as signature from student left join email_signature using(snummer) where snummer='$peer_id'";
 $rs = $dbConn->Execute($sqlsender);
 if (!$rs->EOF) {
@@ -58,7 +58,7 @@ if (isSet($_POST['snmailto']) && isSet($_POST['domail'])) {
     $mailset = '\'' . implode("','", $snmailto) . '\'';
 
     $sql = "select distinct email1,email2, tutor_email, \n"
-            . "s.roepnaam ||' '||coalesce(s.voorvoegsel,'')||' '||s.achternaam as name\n"
+            . "s.roepnaam ||' '||coalesce(s.tussenvoegsel,'')||' '||s.achternaam as name\n"
             . ", afko, description,milestone,assessment_due as due \n"
             . " from prj_grp pg \n"
             . " join student s on (s.snummer=pg.snummer) \n"
@@ -90,7 +90,7 @@ $prj_id_selector = $prjSel->getWidget();
 
 $sqlhead = "select  afko as code,pm.milestone as milstn,pt.grp_num,\n" .
         "s.snummer as snmailto,s.snummer,\n" .
-        "achternaam||coalesce(', '||voorvoegsel,'') as achternaam\n" .
+        "achternaam||coalesce(', '||tussenvoegsel,'') as achternaam\n" .
         ",roepnaam, s.snummer,pm.assessment_due as due,tutor\n";
 $sqllate = "( select distinct snummer from prj_grp \n"
         . "natural join prj_tutor pt \n"

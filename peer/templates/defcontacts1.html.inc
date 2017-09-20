@@ -9,7 +9,7 @@
   </tr>
   <tr>
     <th>Owning tutor</th>
-    <th>$tutor_owner:&nbsp;$roepnaam $voorvoegsel $achternaam</th>
+    <th>$tutor_owner:&nbsp;$roepnaam $tussenvoegsel $achternaam</th>
   </tr>
 </table>
 <!-- end template \$Id: defcontacts1.html.inc 1723 2014-01-03 08:34:59Z hom $ -->

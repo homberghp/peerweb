@@ -181,7 +181,7 @@ $nav->show()
                             ?>
                             <tr><th <?= $tdattrib ?>>Snumber</th><th <?= $tdattrib ?>>Student</th><th <?= $tdattrib ?>>Current Role</th><th <?= $tdattrib ?>>Cap</th><th <?= $tdattrib ?>>New Role</th></tr>
                             <?php
-                            $sqltut = "select s.snummer,achternaam,roepnaam,voorvoegsel,\n" .
+                            $sqltut = "select s.snummer,achternaam,roepnaam,tussenvoegsel,\n" .
                                     "pr.rolenum,role,pr.capabilities as capabilities \n" .
                                     "from prj_grp pg join student s using(snummer) \n" .
                                     " join prj_tutor pt on(pg.prjtg_id=pt.prjtg_id)\n" .
@@ -207,7 +207,7 @@ $nav->show()
                                 }
                                 echo "\t<tr>\n" .
                                 "\t\t<td $tdattrib>$snummer</td>\n" .
-                                "\t\t<td $tdattrib>$achternaam,$roepnaam $voorvoegsel</td>\n" .
+                                "\t\t<td $tdattrib>$achternaam,$roepnaam $tussenvoegsel</td>\n" .
                                 "\t\t<td $tdattrib>$role</td>\n" .
                                 "\t\t<td $tdattrib>$capabilities</td>\n" .
                                 "\t\t<td $tdattrib>" . $roleList . "<input type='hidden' name='sactor[]' value='$snummer'/></td>" .

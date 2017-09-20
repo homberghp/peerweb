@@ -26,9 +26,10 @@ $title = "Student and groups in project $afko milestone $milestone";
 $sqlhead = "select s.snummer as snummer,";
 
 // <a href='../student_admin.php?snummer=snummer'>snummer</a>
-$sqltail = "achternaam||rtrim(coalesce(', '||voorvoegsel,'')) as achternaam ,roepnaam, pcn,gebdat as birth_date,cohort,\n"
+$sqltail = "achternaam||rtrim(coalesce(', '||tussenvoegsel,'')) as achternaam ,roepnaam, pcn,gebdat as birth_date,cohort,\n"
         . "role,slb.tutor as slb,rtrim(email1) as email1,rtrim(email2) as email2,c.sclass as klas,afko,milestone,"
         . "sp.studieplan_short as studplan,\n"
+        . "gi.github_id,\n"
         . "apt.grp_num,ga.alias,apt.grp_name,apt.tutor,'' as grade\n"
         . "from prj_grp pg join student s using (snummer)\n"
         . " join all_prj_tutor apt on(pg.prjtg_id=apt.prjtg_id)\n"
@@ -39,15 +40,15 @@ $sqltail = "achternaam||rtrim(coalesce(', '||voorvoegsel,'')) as achternaam ,roe
         . "left join grp_alias ga on(apt.prjtg_id=ga.prjtg_id)\n"
         . "left join alt_email aem on(aem.snummer=pg.snummer) \n"
         . "left join tutor slb on (s.slb=slb.userid) \n"
+        . "left join github_id gi on(s.snummer=gi.snummer)\n"
         . "where apt.prjm_id=$prjm_id order by grp_num,achternaam,roepnaam";
-
 $spreadSheetWriter = new SpreadSheetWriter($dbConn, $sqlhead . $sqltail);
 
 $spreadSheetWriter->setFilename($filename)
         ->setLinkUrl($server_url . $PHP_SELF . '?prjm_id=' . $prjm_id)
         ->setTitle($title)
         ->setAutoZebra(false)
-        ->setColorChangerColumn(14);
+        ->setColorChangerColumn(15);
 
 $spreadSheetWriter->processRequest();
 
@@ -105,7 +106,7 @@ $nav->show()
     </fieldset>
     <a href='classtablecards.php?prjm_id=<?= $prjm_id ?>'>Project table cards</a>
     <div align='left'>
-<?= queryToTableChecked($dbConn, $sqlhead . $sqltail, true, 14, $rainbow, -1, '', ''); ?>
+<?= queryToTableChecked($dbConn, $sqlhead . $sqltail, true, 15, $rainbow, -1, '', ''); ?>
     </div>
     <div align='left'>
         <table>

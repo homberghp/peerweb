@@ -1,6 +1,6 @@
 <?php
 /**
- * @package prafda2
+ * @package peerweb
  * @author Pieter van den Hombergh
  */
 /**

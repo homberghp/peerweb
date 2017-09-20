@@ -15,7 +15,7 @@
     <tr><th class='thl'>Number of milestones</th><td><input type='text' size='2' align='right' name='milestones' value='$milestones'/>$submit_button</td></tr>
   </tbody>
   <thead> 
-    <tr><th class='theadleft'>Owning tutor</th><th class='theadright' style='text-align:left;'>$tutor_owner:&nbsp;$roepnaam $voorvoegsel $achternaam</th></tr>
+    <tr><th class='theadleft'>Owning tutor</th><th class='theadright' style='text-align:left;'>$tutor_owner:&nbsp;$roepnaam $tussenvoegsel $achternaam</th></tr>
   </thead>
 </table>
 <input type='reset'/>

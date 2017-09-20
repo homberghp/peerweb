@@ -15,7 +15,7 @@ if ( !$isTutor || $as_student ) {
     $sql = "select author,afko,title,".
         "doc_id,doctype,to_char(uploadts,'YYYY-MM-DD HH24:MM') as uploaded,\n".
 	"rtrim(roepnaam) as roepnaam,\n".
-	"rtrim(voorvoegsel) as voorvoegsel,rtrim(achternaam) as achternaam from\n".
+	"rtrim(tussenvoegsel) as tussenvoegsel,rtrim(achternaam) as achternaam from\n".
 	"viewabledocument join student st on (author=st.snummer) join project using(prj_id)\n".
 	"where viewer=$snummer\n".
 	"and uploadts < (now()-'3 months'::interval)\n".
@@ -26,7 +26,7 @@ if ( !$isTutor || $as_student ) {
                 "upload_id as doc_id,doctype,\n" .
                 "to_char(uploadts,'YYYY-MM-DD HH24:MM') as uploaded,\n" .
                 "rtrim(roepnaam) as roepnaam,\n" .
-                "rtrim(voorvoegsel) as voorvoegsel,rtrim(achternaam) as achternaam from\n" .
+                "rtrim(tussenvoegsel) as tussenvoegsel,rtrim(achternaam) as achternaam from\n" .
                 "uploads join prj_grp using (prjtg_id,snummer) join student using(snummer)\n" .
                 "join prj_tutor pt using(prjtg_id)\n" .
                 "join prj_milestone pm on(pt.prjm_id=pm.prjm_id)\n " .
@@ -43,7 +43,7 @@ if ($resultSet=== false) {
     $title=trim($title);
     echo "<tr>".
 	"\t<td>&nbsp;</td>\n\t<td><a href='upload_critique.php?doc_id=".$doc_id."' target='_blank'>$doc_id</a></td>\n".
-	"\t<td title='By $roepnaam $voorvoegsel $achternaam ($author) for $afko uploaded: $uploaded'>".
+	"\t<td title='By $roepnaam $tussenvoegsel $achternaam ($author) for $afko uploaded: $uploaded'>".
 	"<a href='upload_critique.php?doc_id=".$doc_id."' target='_blank'>$title</a></td>".
 	"</tr>\n";
     $resultSet->moveNext();

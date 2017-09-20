@@ -20,7 +20,7 @@ while (!$resultSet->EOF) {
     $resultSet->moveNext();
 }
 //echo "<pre>$sql2</pre>\n";
-$sqlt = "select s.snummer,achternaam,roepnaam,voorvoegsel,gebdat,grp_num,grade\n"
+$sqlt = "select s.snummer,achternaam,roepnaam,tussenvoegsel,gebdat,grp_num,grade\n"
         . " from ($sql2) ags \n"
         . " join prj_grp using(prjtg_id,snummer)"
         . " join all_prj_tutor using(prjtg_id) \n"
@@ -31,7 +31,7 @@ $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 $spreadSheetWriter = new SpreadSheetWriter($dbConn, $sqlt);
 
-$headers=array('snummer','achternaam', 'roepnaam','voorvoegsel', 'gebdat', 'grp_num',$criteria );
+$headers=array('snummer','achternaam', 'roepnaam','tussenvoegsel', 'gebdat', 'grp_num',$criteria );
 $filename = 'groupresult' . date('Y-m-d');
 $c = array('FFC0C0FF','FFFFFFFF');
 $spreadSheetWriter->setFilename($filename)

@@ -101,7 +101,7 @@ class StudentPicker {
                 "\t\t</td>\n" .
                 "\t</tr>\n";
         if ($this->newsnummer != 0) {
-            $sql = "select distinct roepnaam,voorvoegsel,voorletters,achternaam,email1,hoofdgrp,cl.sclass as sclass,"
+            $sql = "select distinct roepnaam,tussenvoegsel,voorletters,achternaam,email1,hoofdgrp,cl.sclass as sclass,"
                     . "course_description,"
                     . "foo.snummer as foo_snummer\n"
                     . "from student \n"
@@ -121,7 +121,7 @@ class StudentPicker {
 
                 $result .= "\t<tr>" .
                         "\t\t<th align='right'>Name</th>\n" .
-                        "\t\t<td>$roepnaam ($voorletters) $voorvoegsel $achternaam</td>\n" .
+                        "\t\t<td>$roepnaam ($voorletters) $tussenvoegsel $achternaam</td>\n" .
                         "\t</tr>\n" .
                         "\t<tr><th align='right'>email</th><td>$email1</td></tr>\n" .
                         "\t<tr><th align='right'>class</th><td>$sclass</td></tr>\n" .
@@ -160,7 +160,7 @@ class StudentPicker {
 
         if ($this->searchString != '') {
             $searchsql = "select '<a href=''$PHP_SELF?newsnummer='||snummer||'''>'||snummer||'</a>' as snummer,\n"
-                    . " achternaam,roepnaam,voorvoegsel,voorletters,email1,cl.sclass as sclass"
+                    . " achternaam,roepnaam,tussenvoegsel,voorletters,email1,cl.sclass as sclass"
                     . " from student "
                     . " join student_class cl using(class_id)\n"
                     . " where " . $this->buildWhereClause() . " order by achternaam,roepnaam";

@@ -97,7 +97,7 @@ if ( ($isTutorOwner || $isGroupTutor ) && isSet( $_REQUEST['bdelete'] ) && $news
 }
 
 $studentPicker->setPresentQuery( "select snummer from prj_grp join prj_tutor using(prjtg_id) where prjm_id=$prjm_id" );
-$sql = "select distinct snummer,achternaam,roepnaam,voorvoegsel,pt.grp_num, alias as group,sclass \n" .
+$sql = "select distinct snummer,achternaam,roepnaam,tussenvoegsel,pt.grp_num, alias as group,sclass \n" .
         " from prj_grp pg join prj_tutor pt using(prjtg_id) join student using(snummer) \n" .
         "join student_class using(class_id)\n" .
         " left join grp_alias using(prjtg_id)" .

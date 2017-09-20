@@ -68,7 +68,7 @@ foreach($gradeColumns as $grade) {
     $grades .= $con."subselect.${grade},subselect.${grade}_mul";
     $con="\n\t,";
 }
-$sql = "select snummer,achternaam,roepnaam,voorvoegsel, afko, year, \n"
+$sql = "select snummer,achternaam,roepnaam,tussenvoegsel, afko, year, \n"
         . "milestone,grp_num,\"alias\",tutor,\"role\",$grades,sw.final_grade \n"
         . "from prj_grp join all_prj_tutor using(prjtg_id)\n"
         . " join student using(snummer) \n"

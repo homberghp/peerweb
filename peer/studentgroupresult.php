@@ -46,13 +46,13 @@ if ( isSet( $_REQUEST[ 'productgrade' ] ) ) {
         $productgrade = $tmpnum;
     }
 }
-$page_opening = "Group assessment results viewable by $roepnaam $voorvoegsel $achternaam ($snummer) for <i>average group grade</i> $productgrade";
+$page_opening = "Group assessment results viewable by $roepnaam $tussenvoegsel $achternaam ($snummer) for <i>average group grade</i> $productgrade";
 $page->setTitle( 'Results for all students in a group' );
 $nav = new Navigation( $tutor_navtable, basename( $PHP_SELF ), $page_opening );
 $page->addBodyComponent( new Component( $tutor_Helper ) );
 $page->addBodyComponent( $nav );
 $criteria = getCriteria( $prjm_id );
-$sql = "select distinct roepnaam||coalesce(' '||voorvoegsel,'')||' '||achternaam as naam,achternaam,prjtg_id\n" .
+$sql = "select distinct roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam as naam,achternaam,prjtg_id\n" .
         "from student join judge_notready using(snummer)\n" .
         // "join prj_tutor using(prjtg_id)\n" .
         "where prjtg_id=$prjtg_id order by achternaam,naam";

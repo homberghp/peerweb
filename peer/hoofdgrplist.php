@@ -11,19 +11,19 @@ require_once 'SpreadSheetWriter.php';
 // get group tables for a project
 $hoofdgrp = 'TUTORINF';
 
-if (isSet($_REQUEST['hoofdgrp'])) {
+if (isSet($_REQUEST['hoofdgrp']) && preg_match('/^\w+$/', $_REQUEST['hoofdgrp'])) {
     $_SESSION['hoofdgrp'] = $hoofdgrp = $_REQUEST['hoofdgrp'];
 }
 
 extract($_SESSION);
-
+$faculty_short='';
 $oldClassSelector = hoofdgrpSelector($dbConn, 'hoofdgrp', $hoofdgrp);
 
 if (isSet($hoofdgrp)) {
     $sql = "select trim(f.faculty_short) as faculty_short,trim(hoofdgrp) as hoofdgrp\n" .
-            " from hoofdgrp_s h join faculty f using(faculty_id) where hoofdgrp='$hoofdgrp'";
+            " from hoofdgrp_s h join faculty f using(faculty_id) where hoofdgrp='{$hoofdgrp}'";
     $resultSet = $dbConn->Execute($sql);
-    if ($resultSet !== false) {
+    if ($resultSet !== false && ! $resultSet->EOF) {
         extract($resultSet->fields);
     }
     //    $dbConn->log($sql);
@@ -33,13 +33,14 @@ $fdate = date('Y-m-d');
 
 
 $sqlhead = "select distinct snummer,"
-        . "achternaam||rtrim(coalesce(', '||voorvoegsel,'')::text) as achternaam ,roepnaam, "
+        . "achternaam||rtrim(coalesce(', '||tussenvoegsel,'')::text) as achternaam ,roepnaam, "
         . "pcn,gebdat as birth_date,t.tutor as slb,rtrim(email1) as email1,"
-        . "studieplan_short as studieplan,sclass,hoofdgrp ,\n"
+        . "studieplan_short as studieplan,course_short as opleiding,hoofdgrp ,sclass,\n"
         . "straat,huisnr,plaats,phone_gsm,phone_home\n"
         . "from \n";
 $sqltail = " join student_class using(class_id) left join tutor t on (s.slb=t.userid)\n"
         . " left join studieplan using(studieplan)\n"
+        . " left join fontys_course fc on(opl=fc.course)\n"
         . " left join faculty f on(f.faculty_id=s.faculty_id)\n"
         . "where hoofdgrp='$hoofdgrp' order by achternaam,roepnaam\n";
 
@@ -58,9 +59,9 @@ $spreadSheetWidget = $spreadSheetWriter->getWidget();
 
 $sqlhead = "select distinct '<a href=''student_admin.php?snummer='||snummer||'''target=''_blank''>'||snummer||'</a>' as snummer,\n"
         . "'<img src='''||photo||''' style=''height:24px;width:auto;''/>' as foto,\n"
-        . "achternaam||rtrim(coalesce(', '||voorvoegsel,'')::text) as achternaam ,roepnaam, \n"
+        . "achternaam||rtrim(coalesce(', '||tussenvoegsel,'')::text) as achternaam ,roepnaam, \n"
         . "pcn,cohort,t.tutor as slb,gebdat as birth_date,rtrim(email1) as email1,\n"
-        . "studieplan_short as studieplan,faculty_short as facul,sclass,hoofdgrp,\n"
+        . "studieplan_short as studieplan,faculty_short as facul,course_short as opleiding,sclass,hoofdgrp,\n"
         . "straat,huisnr,plaats,phone_gsm,phone_home\n"
         . " from \n";
 $sql2 = $sqlhead . ' student_email s natural join portrait ' . $sqltail;
@@ -76,6 +77,8 @@ $scripts = '<script type="text/javascript" src="js/jquery.js"></script>
     <link rel=\'stylesheet\' type=\'text/css\' href=\'' . SITEROOT . '/style/tablesorterstyle.css\'/>
 ';
 
+$cardsLink=
+      "<a href='classtablecards.php?rel=student&hoofdgrp={$hoofdgrp}'>table cards for students with  hoofdgrp</a>";
 
 pagehead2('list students by a hoofgrp', $scripts);
 $page_opening = "Hoofdgrp  list $faculty_short:$hoofdgrp ";
@@ -94,6 +97,7 @@ $nav->setInterestMap($tabInterestCount);
             <input type='submit' name='get' value='Get hoofdgrp' />&nbsp;<?= $spreadSheetWidget ?>
         </form>
     </fieldset>
+    <?=$cardsLink?>
     <div align='center'>
         <?php
         simpletable($dbConn, $sql2, "<table id='myTable' class='tablesorter' summary='your requested data'"

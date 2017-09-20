@@ -71,7 +71,7 @@ if ( isSet( $_REQUEST['csvout'] ) ) {
 
 $prj_id_selector = $prjSel->getSelector();
 $selection_details = $prjSel->getSelectionDetails();
-$sql = "select snummer,roepnaam||coalesce(' '||voorvoegsel||' ',' ')||achternaam as name,"
+$sql = "select snummer,roepnaam||coalesce(' '||tussenvoegsel||' ',' ')||achternaam as name,"
         . "datum||'#'||al.act_id||': '||short||' '||description as checktitle,\n"
         . "present as check, note as title,agroup as grp,act_id,photo \n"
         . " from act_presence_list2 al join student st using(snummer) \n"

@@ -92,7 +92,7 @@ $nav->show();
             <?php
             $sql = "SELECT '<input type=\"checkbox\"  name=\"studenten[]\" value=\"'||st.snummer||'\" $getAll/>' as chk,"
                     . "'<a href=\'student_admin.php?snummer='||snummer||'\'>'||st.snummer||'</a>' as snummer,"
-                    . "achternaam||', '||roepnaam||coalesce(' '||voorvoegsel,'') as naam,pcn,"
+                    . "achternaam||', '||roepnaam||coalesce(' '||tussenvoegsel,'') as naam,pcn,"
                     . "sclass as klas,hoofdgrp,cohort,course_short sprogr,studieplan_short as splan,lang,sex,gebdat,"
                     . " land,plaats,pcode\n"
                     . " from student st "

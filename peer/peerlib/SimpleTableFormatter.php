@@ -107,20 +107,31 @@ class SimpleTableFormatter {
             for ( i=0; i < boxLength; i++ ) {
               checks[i].checked = state;
             }
-      }</script>
-      ');
+            updateCount();
+          }
+          function updateCount(){
+          var boxes=document.getElementsByClassName("checker");
+              var x = boxes.length;
+              var cnt = 0;
+              for (i=0; i < x; i++){
+                cnt += (boxes[i].checked )?1:0;                
+              }
+              document.getElementById("cnt").innerHTML=cnt;
+          }
+         </script>'
+         );
             $checkRow = "<tr style='background:rgba(255,128,0,0.4)'>";
             if ($this->checkColumn > 0) {
-                $checkRow .="<td colspan='" . $this->checkColumn . "'>";
+                $checkRow .= "<td colspan='" . $this->checkColumn . "'>";
             }
-            $checkBox = "<input name='checkAll' type='checkbox' onclick='javascript:checkThem(\""
+            $checkBox = "<input name='checkAll' name='checker' type='checkbox' onclick='javascript:checkThem(\""
                     . $this->checkName
-                    . "\",this.checked)'/>&nbsp;(un)Check all";
-            $checkRow .="<td>&nbsp;</td><td colspan='" . ($colcount - $this->checkColumn) . "'style='font-weight:bold;border:none'>$checkBox</td>";
-            $checkRow .="</tr>\n";
+                    . "\",this.checked)'/>&nbsp;(un)Check all. Checked: <span id='cnt'>0</span>";
+            $checkRow .= "<td>&nbsp;</td><td colspan='" . ($colcount - $this->checkColumn) . "'style='font-weight:bold;border:none'>$checkBox</td>";
+            $checkRow .= "</tr>\n";
             $result .= $checkRow;
         }
-        $result .="<th>#</th>";
+        $result .= "<th>#</th>";
         for ($i = 0; $i < $colcount; $i++) {
             $field = $resultSet->FetchField($i);
             $columnNames[$i] = $field->name;
@@ -163,7 +174,7 @@ class SimpleTableFormatter {
                     case 'float':
                     case 'real';
                     case 'N':
-                        $tdclass .=' num';
+                        $tdclass .= ' num';
                         break;
                     default:
                         break;

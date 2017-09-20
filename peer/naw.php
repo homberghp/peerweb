@@ -41,7 +41,7 @@ if (isSet($_POST['bsubmit'])) {
     for ($i=0; $i < count($snummers); $i++ ) {
 	$roepnaam     = trim($_POST['roepnaam'][$i]);
 	$voorletters  = trim($_POST['voorletters'][$i]);
-	$voorvoegsel  = (isSet($_POST['voorvoegsel'][$i]))?('\''.trim($_POST['voorvoegsel'][$i]).'\''):'null';
+	$tussenvoegsel  = (isSet($_POST['tussenvoegsel'][$i]))?('\''.trim($_POST['tussenvoegsel'][$i]).'\''):'null';
 	$achternaam   = trim($_POST['achternaam'][$i]);
 	$straat       = trim($_POST['straat'][$i]);
 	$plaats       = trim($_POST['plaats'][$i]);
@@ -49,7 +49,7 @@ if (isSet($_POST['bsubmit'])) {
 	$sql .="update student ".
 	    "set roepnaam='$roepnaam', ".
 	    "voorletters='$voorletters', ".
-	    "voorvoegsel=$voorvoegsel, ".
+	    "tussenvoegsel=$tussenvoegsel, ".
 	    "achternaam='$achternaam', ".
 	    "straat='$straat', ".
 	    "plaats='$plaats', ".
@@ -70,7 +70,7 @@ $page_opening="Peer naw data";
 $nav=new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
 $sql="select snummer,rtrim(roepnaam) as roepnaam,\n".
     "rtrim(voorletters) as voorletters,\n".
-    "rtrim(voorvoegsel) as voorvoegsel,\n".
+    "rtrim(tussenvoegsel) as tussenvoegsel,\n".
     "rtrim(achternaam) as achternaam,\n".
     "rtrim(plaats) as plaats,\n".
     "rtrim(straat) as straat,\n".
@@ -85,7 +85,7 @@ if ( $resultSet === false ) {
     echo "<form name='naw' method='post' action='$PHP_SELF'>\n".
 	"<fieldset><legend>Naw data $offset to $offset2 of $scount</legend>";
     echo "<table border='1' style='border-collapse:collapse' summary='student data'>\n".
-	"<tr><th>#</th><th>snummer</th><th>Roepnaam</th><th>voorletters</th><th>voorvoegsel</th>".
+	"<tr><th>#</th><th>snummer</th><th>Roepnaam</th><th>voorletters</th><th>tussenvoegsel</th>".
 	"<th>achternaam</th><th>straat</th><th>huisnr</th><th>Plaats</th><th>email</th></tr>";
     while (!$resultSet->EOF) {
 	extract($resultSet->fields);
@@ -94,7 +94,7 @@ if ( $resultSet === false ) {
 	    "<th><input type='hidden' name='snummer[]' value='$snummer'/>$snummer</th>\n".
 	    "\t<td><input type='text' size='20' name='roepnaam[]' value='$roepnaam'/></td>\n".
 	    "\t<td><input type='text' size='10' name='voorletters[]' value='$voorletters'/></td>\n".
-	    "\t<td><input type='text' size='10' name='voorvoegsel[]' value='$voorvoegsel'/></td>\n".
+	    "\t<td><input type='text' size='10' name='tussenvoegsel[]' value='$tussenvoegsel'/></td>\n".
 	    "\t<td><input type='text' size='20' name='achternaam[]' value='$achternaam'/></td>\n".
 	    "\t<td><input type='text' size='20' name='straat[]' value='$straat'/></td>\n".
 	    "\t<td><input type='text' size='6' name='huisnr[]' value='$huisnr'/></td>\n".

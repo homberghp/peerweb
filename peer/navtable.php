@@ -21,7 +21,9 @@ $tabInterestCount['tutor_admin'] = hasCap(CAP_TUTOR_ADMIN) ? 1 : 0;
 $tabInterestCount['set_capabilities'] = hasCap(CAP_EDIT_RIGHTS) ? 1 : 0;
 $tabInterestCount['bigface'] = hasCap(CAP_BIGFACE) ? 1 : 0;
 $tabInterestCount['module'] = hasCap(CAP_MODULES) ? 1 : 0;
+$tabInterestCount['enrol'] = hasCap(CAP_ENROL) ? 1 : 0;
 $tabInterestCount['git'] = hasCap(CAP_GIT) ? 1 : 0;
+$tabInterestCount['sync'] = hasCap(CAP_SYNC_PROGRESS) ? 1 : 0;
 $tabInterestCount['none'] = 0;
 $sql = "select opl from student where snummer=$peer_id";
 $resultSet = $dbConn->Execute($sql);
@@ -220,6 +222,13 @@ $navtable = array(// index, defproject, citeria1,2, milestones
                 'menu_name' => 'grpdetails',
                 'image' => 'mail_address.png',
                 'interest' => 'tutor',
+            ),
+            array('target' => 'importgroups.php',
+                'tooltip' => 'Import peerweb group definitions from (excel)file.',
+                'linktext' => 'Import Group membership',
+                'menu_name' => 'importgroups',
+                'image' => 'entrance.png',
+                'interest' => 'system',
             ),
         ),
     ),
@@ -586,16 +595,61 @@ $navtable = array(// index, defproject, citeria1,2, milestones
                 'image' => 'file_cabinet.png',
                 'interest' => 'module',
             ),
+            array('target' => 'examresults.php',
+                'tooltip' => 'View exam grades',
+                'linktext' => 'View Grades',
+                'menu_name' => 'viewUpload_grades',
+                'image' => 'file_cabinet.png',
+                'interest' => 'module',
+            ),
+        ),
+    ),
+    array(
+        'interest' => 'enrol',
+        'toplinktext' => 'Import or Sync  Student Data',
+        'tooltip' => 'Enrolment',
+        'menu_name' => 'enroll',
+        'image' => 'new-22a.png',
+        'subitems' =>
+        array(
+            array('target' => 'importfromprogress.php',
+                'tooltip' => 'Import students from progress SV05 view as prospect student',
+                'linktext' => 'load prospect students from SV05 view',
+                'menu_name' => 'importstudents',
+                'image' => 'filter.png',
+                'interest' => 'enrol',
+            ),
+            array('target' => 'enrol_prospect.php',
+                'tooltip' => 'Enrol Prospect Students from SV05 into peerweb ',
+                'linktext' => 'Enrol Prospect to Peerweb',
+                'menu_name' => 'enrol',
+                'image' => 'entrance.png',
+                'interest' => 'enrol',
+            ),
+            array('target' => 'prospect_admin.php',
+                'tooltip' => 'Add or edit prospect data.',
+                'linktext' => 'Administer Prospect Students ',
+                'menu_name' => 'prospect_admin',
+                'image' => 'file_cabinet.png',
+                'interest' => 'enrol',
+            ),
+            array('target' => 'syncfromprogress.php',
+                'tooltip' => 'sync students data with progress using SV09 view',
+                'linktext' => 'Sync students data from SV09 view',
+                'menu_name' => 'syncstudents',
+                'image' => 'synchronize-26.png',
+                'interest' => 'sync',
+            ),
         ),
     ),
     array(
         'interest' => 'student_admin',
-        'toplinktext' => 'Admin pages',
-        'tooltip' => 'Database administration',
+        'toplinktext' => 'student mgt pages',
+        'tooltip' => 'Student and class administration',
         'menu_name' => 'studentadmin',
-        'image' => 'ooffice-extension.png',
+        'image' => 'file_cabinet.png',
         'subitems' =>
-        array(// various admin
+        array(
             array('target' => 'student_admin.php',
                 'tooltip' => 'Add or edit student data.',
                 'linktext' => 'Student admin',
@@ -607,6 +661,13 @@ $navtable = array(// index, defproject, citeria1,2, milestones
                 'tooltip' => 'Update classlists. Move students into student_class.',
                 'linktext' => 'Update student_class',
                 'menu_name' => 'classmaker',
+                'image' => 'SchoolClass.png',
+                'interest' => 'adminstudent_class',
+            ),
+            array('target' => 'classmakerbyhoofdgrp.php',
+                'tooltip' => 'Update classlists. Move students into student_class.',
+                'linktext' => 'Hoofdgrp to student_class',
+                'menu_name' => 'classmakerbyhoofdgrp',
                 'image' => 'SchoolClass.png',
                 'interest' => 'adminstudent_class',
             ),
@@ -624,6 +685,24 @@ $navtable = array(// index, defproject, citeria1,2, milestones
                 'image' => 'toclass.png',
                 'interest' => 'adminstudent_class',
             ),
+            array('target' => 'studentclasscards.php',
+                'tooltip' => 'Print class cards for students.',
+                'linktext' => 'Print class cards',
+                'menu_name' => 'printclasscards',
+                'image' => 'ticket.png',
+                'interest' => 'adminstudent_class',
+            ),
+            
+        ),
+    ),
+    array(
+        'interest' => 'student_admin',
+        'toplinktext' => 'Admin pages',
+        'tooltip' => 'Database administration',
+        'menu_name' => 'systemadmin',
+        'image' => 'ooffice-extension.png',
+        'subitems' =>
+        array(// various admin
             array('target' => 'class_cluster.php',
                 'tooltip' => 'Define class groups or clusters.',
                 'linktext' => 'Class clusters',

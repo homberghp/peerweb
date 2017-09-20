@@ -39,7 +39,7 @@ if (isSet($oldclass_id)) {
 }
 
 $sqlhead = "select distinct snummer,"
-        . "achternaam||rtrim(coalesce(', '||voorvoegsel,'')::text) as achternaam ,roepnaam, "
+        . "achternaam||rtrim(coalesce(', '||tussenvoegsel,'')::text) as achternaam ,roepnaam, "
         . "pcn,gebdat as birth_date,t.tutor as slb,rtrim(email1) as email1,\n"
         . "studieplan_short as studieplan,sclass,hoofdgrp ,\n"
         . "straat,huisnr,plaats,phone_gsm,phone_home\n"
@@ -71,7 +71,7 @@ if (isSet($_POST['update']) && isSet($_POST['studenten'])) {
     if ($resultSet === false) {
         die("<br>Cannot update student with " . $sql . " reason " . $dbConn->ErrorMsg() . "<br>");
     }
-    createGenericMaillistByClassid($dbConn,  $oldclass_id);
+    createGenericMaillistByClassid($dbConn, $oldclass_id);
     createGenericMaillistByClassid($dbConn, $newclass_id);
 }
 
@@ -127,10 +127,10 @@ $pp['filetime'] = 'never';
 if (file_exists($filename)) {
     $pp['filetime'] = date("Y-m-d H:i:s", filemtime($filename));
 }
-$sql = "SELECT '<input type=''checkbox''  name=''studenten[]'' value='''||st.snummer||'''/>' as chk,"
+$sql = "SELECT '<input type=''checkbox''  name=''studenten[]'' value='''||st.snummer||''' class=''checker'' onChange=''updateCount()''/>' as chk,"
         . "'<a href=''student_admin.php?snummer='||snummer||'''>'||st.snummer||'</a>' as snummer,"
         . "'<img src='''||photo||''' style=''height:24px;width:auto;''/>' as foto,\n"
-        . "achternaam||', '||roepnaam||coalesce(' '||voorvoegsel,'') as naam,pcn,"
+        . "achternaam||', '||roepnaam||coalesce(' '||tussenvoegsel,'') as naam,pcn,"
         . "email1 as email,t.tutor as slb,hoofdgrp,cohort,course_short sprogr,studieplan_short as splan,lang,sex,gebdat,"
         . " land,plaats,pcode\n"
         . " from student st "

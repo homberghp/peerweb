@@ -9,7 +9,7 @@ my $db='peer';
 my $dbuser='wwwrun';
 my $dbpasswd='apache4ever';
 my  ($prjm_id,$prj_id,$milestone,$alias,$project_name,$dbname,$trac_path,$grp_num,$url_tail,$repospath,$scriptname,$username,$role);
-my  ($achternaam,$roepnaam,$voorvoegsel,$grp,$descriptive_name);
+my  ($achternaam,$roepnaam,$tussenvoegsel,$grp,$descriptive_name);
 my ($sql2, $sth2, $row2,$query2);
 my $row;
 if ($#ARGV < 0) {
@@ -73,15 +73,15 @@ insert into permission (username,action) values('student','TRAC_ADMIN');\n);
   print TRAC_INIT qq(sudo -u www-data trac-admin $trac_path initenv $project_name postgres://trackerd:ticktricktrack\@localhost/$dbname svn $repospath\n);
   #print TRAC_INIT qq(cat /home/svn/adminrepos/admin/user_map.sql | psql -X $dbname\n);
 #  $sql2=$scriptname.'_g'.$grp_num.'.sql';
-  # $query2="select username,achternaam,roepnaam,voorvoegsel,trim(grp),descriptive_name from trac_user_map  where prjm_id=$prjm_id and grp in ('$alias','g0') ";
+  # $query2="select username,achternaam,roepnaam,tussenvoegsel,trim(grp),descriptive_name from trac_user_map  where prjm_id=$prjm_id and grp in ('$alias','g0') ";
   # $sth2=$dbh->prepare($query2);
   # $sth2->execute();
   # while ($row2 = $sth2->fetchrow_arrayref) {
-  #     ($username,$achternaam,$roepnaam,$voorvoegsel,$grp,$descriptive_name) = @$row2;
-  #     if (defined $voorvoegsel) { $voorvoegsel=qq('$voorvoegsel');}
-  #     else {$voorvoegsel='null';}
-  #     print SQL_INIT_P2 qq(insert into user_map (username,achternaam,roepnaam,voorvoegsel,grp,descriptive_name) 
-  #          values ('$username','$achternaam','$roepnaam',$voorvoegsel,'$grp','$descriptive_name');\n);
+  #     ($username,$achternaam,$roepnaam,$tussenvoegsel,$grp,$descriptive_name) = @$row2;
+  #     if (defined $tussenvoegsel) { $tussenvoegsel=qq('$tussenvoegsel');}
+  #     else {$tussenvoegsel='null';}
+  #     print SQL_INIT_P2 qq(insert into user_map (username,achternaam,roepnaam,tussenvoegsel,grp,descriptive_name) 
+  #          values ('$username','$achternaam','$roepnaam',$tussenvoegsel,'$grp','$descriptive_name');\n);
   # }
 
   print TRAC_INIT qq(cat $sql2 | psql -X $dbname\n);

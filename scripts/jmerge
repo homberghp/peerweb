@@ -1,0 +1,40 @@
+#!/bin/bash
+# read excel files
+GETOPT=/usr/bin/getopt
+# sinsible defaults: pick everything up from wd.
+workdir=$(pwd)
+confDirName=$(pwd)
+propfile=jMerge.properties
+ARGS=$(${GETOPT} -o hc:p:s:w: --long confDirName:,propfile:,workdir:,help -n puk -- "$@")
+eval set -- "$ARGS"
+while [ $# -gt 0 ]
+do
+    case "$1" in
+	-h|--help)
+	    cat <<EOF
+usage jmerge [-h|--help] [-p|--propfile <propfile>] [-c|--confDirname <confdir>] \
+[-c|--workdir <workdir>]
+EOF
+	    exit 0;;
+	-c|--confDirName) confDirName=$2; shift;;
+    -p|--propfile) propfile=$2; shift;;
+    -w|--workdir) workdir=$2; shift;;
+    --) shift; break;;
+    -*) echo "$0: error - unrecognized option $1" 1>&2; exit 1;;
+    *)  break;;
+    esac
+    shift
+done
+export workdir propfile
+echo  "workdir=${workdir} propfile=${propfile}"
+JARDIR=/usr/local/share/jmerge
+JARFILE=jMerge.jar
+JAR=${JARDIR}/${JARFILE}
+
+cd ${workdir}
+java -Dfile.encoding=UTF-8 \
+     -DjMerge.confDirName=${confDirName} \
+     -DjMerge.properties=${propfile} \
+     -DjMerge.workdir=${workdir} \
+     -cp ${JAR} nl.fontys.jmerge.All "$*" 2>&1
+

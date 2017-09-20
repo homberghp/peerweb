@@ -1,0 +1,11 @@
+<fieldset>
+    
+    <legend>Exam results</legend>
+    <form name='select exam' action="<?= $PHP_SELF ?>" method='GET'>
+        <label for='event'>Exam Event </label><?= $event_selector ?><input type='submit' name='submit' value='submit'/><br/>
+    </form>
+</fieldset>
+<div style='padding:2em'>
+<h2>Progress code &nbsp;<?=$progress_code?>&nbsp;Exam date&nbsp;<?=$exam_date?>&nbsp;Examiner&nbsp;<?=$examiner?></h2>
+<?=$resultTable?>
+</div>

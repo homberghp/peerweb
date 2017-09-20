@@ -29,7 +29,7 @@ mkdir $confdir;
 my $authz=$confdir.'/authz';
 
 my ($username,$groupname,%ghash,%uhash,$ogname,$project,$year);
-my ($snummer,$achternaam,$roepnaam,$voorvoegsel,$prjm_id);
+my ($snummer,$achternaam,$roepnaam,$tussenvoegsel,$prjm_id);
 my ($gpath,$path,$group);
 my ($con,$gline,$youngest);
 my $dbuser='wwwrun';
@@ -157,11 +157,11 @@ print AUTHZ "[groups]\n",
   "tutor = $admins\n";
 print MKDIRSCRIPT "cd $initdir\n";
 # $query="select snummer,replace(replace(replace(replace(replace(achternaam,'ä','ae'),'ö','oe'),'ü','ue'),'ß','ss'),'é','e') as achternaam ,"
-#     ."replace(replace(replace(replace(replace(roepnaam,'ä','ae'),'ö','oe'),'ü','ue'),'ß','ss'),'é','e') as roepnaam,voorvoegsel\n"
+#     ."replace(replace(replace(replace(replace(roepnaam,'ä','ae'),'ö','oe'),'ü','ue'),'ß','ss'),'é','e') as roepnaam,tussenvoegsel\n"
 #     ." from prj_grp natural join student join all_prj_tutor using(prjtg_id) \n"
 #     ."where prj_id=$prj_id and milestone=$milestone order by achternaam,roepnaam,snummer";
 $query="select snummer,achternaam ,"
-    ."roepnaam,voorvoegsel\n"
+    ."roepnaam,tussenvoegsel\n"
     ." from prj_grp natural join student join all_prj_tutor using(prjtg_id) \n"
     ."where prj_id=$prj_id and milestone=$milestone order by achternaam,roepnaam,snummer";
 $sth=$dbh->prepare($query)
@@ -172,9 +172,9 @@ $con=' = ';
 $trunk_twigs =~ s/\s+//g; # remove all whitespace in twigs argument to prevent wrong dir names.
 my $itrunk_twigs='';
 while ($row = $sth->fetchrow_arrayref) {
-    ($snummer,$achternaam,$roepnaam,$voorvoegsel) = @$row;
-    if (defined $voorvoegsel) {
-      $roepnaam .= '_'.$voorvoegsel
+    ($snummer,$achternaam,$roepnaam,$tussenvoegsel) = @$row;
+    if (defined $tussenvoegsel) {
+      $roepnaam .= '_'.$tussenvoegsel
     } 
     $gpath = join('_',$achternaam,$roepnaam,$snummer);
     $gpath =~ s/\s+/_/g; # remove white space from path
@@ -250,7 +250,8 @@ close(MKDIRSCRIPT);
 #$result .= `LC_CTYPE=en_US.UTF-8 bash $script`;
 $result .= `bash $script`;
 print "Command executed with output<pre style='color:#800'>\n$result"."</pre>\n";
-
+my $confdirname = dirname($apache_conf_file);
+make_path($confdirname,{chmod =>0775});
 if (!open(APACHECONF,">$apache_conf_file")) {
     print "Cannot open config file $apache_conf_file\n";
     exit(7);

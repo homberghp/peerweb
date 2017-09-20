@@ -4,7 +4,7 @@
  * The simple table editor for the table menu. Menu is one of the tables that support
  * the simple table editor.
  *
- * @package prafda2
+ * @package peerweb
  * @author Pieter van den Hombergh
  * $Id: validator_regex.php 1570 2013-08-09 19:51:30Z hom $
  */

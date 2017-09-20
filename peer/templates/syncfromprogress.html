@@ -1,0 +1,244 @@
+<div style='width:33%; float:left'>
+    <fieldset><legend>Import file</legend>
+        <form enctype='multipart/form-data' action='{$action}' method='post'>
+            <input id='userfile' name='userfile' type='file' size='120' style='width: 330px; border: 2px solid red;'
+                   accept='.xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'/>
+            <input type='hidden' name='prjm_id' value='{$prjm_id}'/>
+            <input type='submit' name='submit' value='Submit' id='submit'/>
+        </form>
+    </fieldset>
+    <fieldset><legend>Last sync summary</legend>
+    {$uploadResult}
+    </fieldset>
+</div>
+<div style='width:63%;float:right; font-size: 120%;padding:0 2em 0 2em'>
+    <h3>Sync or import students from progress into peerweb</h3>
+    This page allows you to synchronise student data from progress.<br/>
+
+    The file to be uploaded has the sv09 format. Contact your local progress administrator for details.
+
+    By uploading the file, you can import or synchronise (update) student data.
+    The file must meet some criteria. 
+    <ul>
+        <li>It is an xlsx (excel >= 2007) file. </li>
+        <li>The file should contain one worksheet called <b>sv09_ingeschrevenen</b> as first sheet. 
+            Any other worksheet(s) will be ignored.</li>
+        <li>The first non empty row of said sheet  should contain the column names of the data to import.</li>
+        <li>The following columns should be available and named as given:</li>
+    </ul>
+    <table class='simpletable tabledata' >
+        <caption>Table definition &quot;public.prospects&quot;</caption>
+        <tr>
+            <th >Progress Column name</th>
+            <th >Peerweb Column name</th>
+            <th >sql type </th>
+            <th >remarks</th>
+        </tr>
+        <tr >
+            <td >studentnummer</td>
+            <td >snummer</td>
+            <td >integer</td>
+            <td>Progress id</td>
+        </tr>
+        <tr >
+            <td >achternaam</td>
+            <td >achternaam</td>
+            <td >text</td>
+            <td >&nbsp;</td>
+        </tr>
+        <tr >
+            <td >voorvoegsel</td>
+            <td >tussenvoegsel</td>
+            <td >text</td>
+            <td >&nbsp;</td>
+        </tr>
+        <tr >
+            <td >voorletters</td>
+            <td >voorletters</td>
+            <td >text</td>
+            <td >&nbsp;</td>
+        </tr>
+        <tr >
+            <td >roepnaam</td>
+            <td >roepnaam</td>
+            <td >text</td>
+            <td >&nbsp;</td>
+        </tr>
+        <tr >
+            <td >straat</td>
+            <td >straat</td>
+            <td >text</td>
+            <td >&nbsp;</td>
+        </tr>
+        <tr >
+            <td >huisnr</td>
+            <td >huisnr</td>
+            <td >character(4)</td>
+            <td> e.g. 123a</td>
+        </tr>
+        <tr >
+            <td >postcode</td>
+            <td >pcode</td>
+            <td >text</td>
+            <td> e.g. 5912 BG or D32134</td>
+        </tr>
+        <tr >
+            <td >woonplaats</td>
+            <td >plaats</td>
+            <td >text</td>
+            <td>current residence</td>
+        </tr>
+        <tr >
+            <td >e_mail_instelling</td>
+            <td >email1</td>
+            <td >text</td>
+            <td>primary (Fontys) address</td>
+        </tr>
+        <tr >
+            <td >nationaliteit (voluit)</td>
+            <td >nationaliteit (iso3166.a2)</td>
+            <td >character(2)</td>
+            <td>iso 3166 A2 (NL=Netherlands)</td>
+        </tr>
+        <tr >
+            <td >datum_aankomst_opleiding(year)</td>
+            <td >cohort</td>
+            <td >integer</td>
+            <td>Start of study</td>
+        </tr>
+        <tr >
+            <td >geboortedatum</td>
+            <td >gebdat</td>
+            <td >date</td>
+            <td>Needed to aquire a password</td>
+        </tr>
+        <tr >
+            <td >geslacht</td>
+            <td >sex</td>
+            <td >character(1)</td>
+            <td> M or F </td>
+        </tr>
+        <tr >
+            <td >voorkeurstaal</td>
+            <td >lang</td>
+            <td >char(2)</td>
+            <td>'EN', 'NL' or 'DE'</td>
+        </tr>
+        <tr >
+            <td >pcn_nummer</td>
+            <td >pcn</td>
+            <td >integer</td>
+            <td>Fontys pcn</td>
+        </tr>
+        <tr >
+            <td >studieprogramma</td>
+            <td >opl</td>
+            <td >integer</td>
+            <td>Fontys opleiding nummer. 112 =SEBI Venlo</td>
+        </tr>
+        <tr >
+            <td >land nummer vast+vast nummer</td>
+            <td >phone_home</td>
+            <td >text</td>
+            <td >&nbsp;</td>
+        </tr>
+        <tr >
+            <td >land nummer mobiel + mobiel nummer</td>
+            <td >phone_gsm</td>
+            <td >text</td>
+            <td >&nbsp;</td>
+        </tr>
+        <tr >
+            <td >null</td>
+            <td >phone_postaddress</td>
+            <td >text</td>
+            <td >&nbsp;</td>
+        </tr>
+        <tr >
+            <td >instituutcode</td>
+            <td >faculty_id</td>
+            <td >integer</td>
+            <td>Instituutcode, 47=FHTenL, 27=FIBS</td>
+        </tr>
+        <tr >
+            <td >groepcode</td>
+            <td >hoofdgrp</td>
+            <td >text</td>
+            <td></td>
+        </tr>
+        <tr >
+            <td >true</td>
+            <td >active</td>
+            <td >boolean</td>
+            <td>should be true</td>
+        </tr>
+        <tr >
+            <td >null (not maintained in progress)</td>
+            <td >slb</td>
+            <td >integer</td>
+            <td>Studie loopbaan begeleider. May be null.</td>
+        </tr>
+        <tr >
+            <td >land</td>
+            <td >land </td>
+            <td >character(3)</td>
+            <td>Residence country (iso3166.a3)<td>
+        </tr>
+        <tr >
+            <td >studielinkvariantcode</td>
+            <td >studieplan</td>
+            <td >integer</td>
+            <td>Fontys studieplan</td>
+        </tr>
+        <tr >
+            <td >geboorteplaats</td>
+            <td >geboorteplaats</td>
+            <td >text</td>
+            <td >&nbsp;</td>
+        </tr>
+        <tr >
+            <td >geboorteland</td>
+            <td >geboorteland </td>
+            <td >character(3)</td>
+            <td>(iso3166.a3)</td>
+        </tr>
+        <tr >
+            <td >voornamen</td>
+            <td >voornamen</td>
+            <td >text</td>
+            <td >&nbsp;</td>
+        </tr>
+        <tr >
+            <td >0 (not imported)</td>
+            <td >class_id</td>
+            <td >integer</td>
+            <td >&nbsp;</td>
+        </tr>
+        <tr >
+            <td >e_mail_privé</td>
+            <td >email2</td>
+            <td >text</td>
+            <td>Private email address</td>
+        </tr>
+
+    </table>
+    <ul>
+        <li style='speak: normal'>The name of the file is irrelevant. It will be removed from the server after use.</li>
+        <li>Students already in peerweb before the import are updated. Note that slb field and class are not updated. hoofdgrp is.</li>
+        <li>The sv09 format appears to be a view or at least an non-normalised table, since the same student(person) can appear multiple times
+            in the file. Columns such as studieplan or groepcode will be different in those cases.<br/>
+            Peerweb assumes the studentnummer to be a primary key and takes the first value in in sorted order for those columns that differ 
+            between student records. <br/>The selection is done with 
+            <b><code>SELECT <span style='color:#800'>DISTINCT ON (studentnummer)</span> studentnummer as snummer  .... <br/>
+                    FROM ... ORDER BY studentnummer,groepcode,opl,studieplan</code></b>.<br/>
+            DISTINCT ON is a PostgreSQL extenstion.</li>
+        <li>
+            The table in the file is read into peerweb, then added to the student_email view using an 'upsert' rule, i.e. new students are added, already known students are updated for all fields but <b>class_id</b> and <b>slb</b>.
+        </li>
+    </ul>
+    <h2>Common problems when importing from progress</h2>
+    <p>The following is a collection of problem descriptions and their solutions when importing or synchronising data from progress</p>
+    <ul>
+        <li><b>Data field in import file not available in foreign table. Example: Israel where it should be <i>Israël</i> in Ductch spelling.</b></li>
+    </ul>
+</div>

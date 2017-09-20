@@ -1,6 +1,0 @@
-<?php
-$db_name = 'peer2';
-$server_url = 'https://www.fontysvenlo.org';
-define('ADMIN_EMAILADDRESS', 'p.vandenhombergh@fontys.nl');
-$root_url = '/peertest'; // as seen from the browser. If this is a virtual aat root, make an empty string as in '';
-$bgstyle = 'local'; // possible values: peer (default), test and local.

@@ -81,14 +81,14 @@ if (isSet($_REQUEST['csvout'])) {
  }
 
 $sql1 = "select snummer,".
-    "achternaam||rtrim(coalesce(', '||voorvoegsel,'')) as achternaam ,roepnaam,".
+    "achternaam||rtrim(coalesce(', '||tussenvoegsel,'')) as achternaam ,roepnaam,".
     " sclass,sort1,sort2\n ".
     "  from activity_participant join activity using(act_id) join student using(snummer)".
     "  join student_class using(class_id)\n".
     "  where act_id=$act_id order by sort1,sort2,sclass,achternaam,roepnaam"; 
 
 $sql2 = "select snummer,".
-    "achternaam||rtrim(coalesce(', '||voorvoegsel,'')) as achternaam ,roepnaam,".
+    "achternaam||rtrim(coalesce(', '||tussenvoegsel,'')) as achternaam ,roepnaam,".
     " sclass,sort1,sort2\n ".
     "  from activity_participant join activity using(act_id) join student using(snummer)".
     "  join student_class using(class_id)\n".

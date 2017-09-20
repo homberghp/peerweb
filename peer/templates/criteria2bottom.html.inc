@@ -1,6 +1,6 @@
 <!-- \$Id: criteria2bottom.html.inc 1723 2014-01-03 08:34:59Z hom $ -->
   <tr>
-    <th colspan='4' class='theadleft' style='text-align:center'>Owning tutor $tutor_owner&nbsp;: $roepnaam $voorvoegsel $achternaam</th>
+    <th colspan='4' class='theadleft' style='text-align:center'>Owning tutor $tutor_owner&nbsp;: $roepnaam $tussenvoegsel $achternaam</th>
     <th class='theadright'></th>
   </tr>
   <tr>

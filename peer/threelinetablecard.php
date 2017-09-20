@@ -1,6 +1,7 @@
 <?php
 include_once './peerlib/peerutils.php';
-include_once 'threelinetablecard';
+
+//include_once 'threelinetablecard';
 /**
  * sql should produced three columns named line1, line2, line3 and barcode
  * @param dbconn database connection
@@ -9,6 +10,7 @@ include_once 'threelinetablecard';
  */
 function barcodedCard($dbConn, $basename, $sql){
   global $site_home;
+  $debug=false;
   $texdir = $site_home.'/tex/tablecard_out';
   $filename = $basename.'.tex';
   $pdfname  =  $basename.'.pdf';

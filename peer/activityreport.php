@@ -5,7 +5,7 @@ require_once('component.php');
 $snummer=$peer_id;
 extract($_SESSION);
 $judge=$snummer;
-$sql="select roepnaam, voorvoegsel,achternaam,snummer from student where snummer=$judge";
+$sql="select roepnaam, tussenvoegsel,achternaam,snummer from student where snummer=$judge";
 $resultSet=$dbConn->Execute($sql);
 extract($resultSet->fields);
 $texdir = $site_home.'/tex';
@@ -20,11 +20,11 @@ fwrite($fp,"\\documentclass{article}\n".
        "\\usepackage{times}\n".
        "\\usepackage[a4paper,scale={0.8,0.8}]{geometry}\n".
        "\\usepackage{longtable}\n".
-       "\\title{Participation report $roepnaam $voorvoegsel $achternaam}\n".
+       "\\title{Participation report $roepnaam $tussenvoegsel $achternaam}\n".
        "\\begin{document}\n".
        "\\maketitle".
        "\\begin{longtable}{rccp{30mm}p{80mm}}\n".
-       "  \\caption{Colloquium participation for $roepnaam $voorvoegsel $achternaam\\\\ student number $snummer}\\\\\n".
+       "  \\caption{Colloquium participation for $roepnaam $tussenvoegsel $achternaam\\\\ student number $snummer}\\\\\n".
        "  \\textbf{num}& \\textbf{date} & \\textbf{time} & \\textbf{name} & \\textbf{description}\\\\\\hline\n".
        "  \\endfirsthead\n".
        "  \\textbf{num}& \\textbf{date} & \\textbf{time} & \\textbf{name} & \\textbf{description}\\\\\\hline\n".

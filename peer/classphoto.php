@@ -43,10 +43,10 @@ $page_opening = "Class photos for class  $faculty_short.$sclass $class_id $year-
 $nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $sql = "SELECT distinct st.snummer as number," .
-        "st.roepnaam||' '||coalesce(regexp_replace(st.voorvoegsel,'''','&rsquo;')||' ','')||st.achternaam as name,\n" .
-        "st.achternaam,st.roepnaam,st.voorvoegsel,cohort,cohort,st.opl as opl_code,pcn,lang,sex,gebdat,\n" .
+        "st.roepnaam||' '||coalesce(regexp_replace(st.tussenvoegsel,'''','&rsquo;')||' ','')||st.achternaam as name,\n" .
+        "st.achternaam,st.roepnaam,st.tussenvoegsel,cohort,cohort,st.opl as opl_code,pcn,lang,sex,gebdat,\n" .
         "straat,huisnr,pcode,plaats,nationaliteit,\n" .
-        "td.roepnaam||coalesce(' '||td.voorvoegsel,'')||' '||td.achternaam as slb,coalesce(td.tutor,'---') as slb_ab,\n" .
+        "td.roepnaam||coalesce(' '||td.tussenvoegsel,'')||' '||td.achternaam as slb,coalesce(td.tutor,'---') as slb_ab,\n" .
         "st.hoofdgrp as sclass, st.snummer as participant, course_description as opleiding,gebdat as birthday,\n" .
         "'fotos/'||image as image\n" .
         " from student_email st \n" .

@@ -39,9 +39,9 @@ $ste->setMenuName('student');
 /* Neem de KeyColumns over uit het schema */
 $ste->setKeyColumns(array('snummer'));
 /* De NameExpression wordt in de <a href....>NameExpression</a> gebruikt */
-$ste->setNameExpression("rtrim(achternaam,' ')||', '||rtrim(roepnaam,' ')||' '||rtrim(voorvoegsel,' ')");
+$ste->setNameExpression("rtrim(achternaam,' ')||', '||rtrim(roepnaam,' ')||' '||rtrim(tussenvoegsel,' ')");
 /* sorteervolgorde */
-$ste->setOrderList(array('achternaam','roepnaam','voorvoegsel'));
+$ste->setOrderList(array('achternaam','roepnaam','tussenvoegsel'));
 /* html template file */
 $ste->setFormTemplate('student.inc');
 /* we halen informatie uit deze relatie (tabel of view) erbij */

@@ -39,8 +39,10 @@ function simpleTableString($dbConn, $query, $tabledef = "<table summary='simple 
                 $val = '<td>' . implode('</td><td>', $a) . '</td>';
             }
             $tdclass = 'tabledata';
+            //echo "columntype={$columntypes[$i]}<br/>";
             switch ($columntypes[$i]) {
                 case 'int2':
+                case 'int4':
                 case 'integer':
                 case 'numeric':
                 case 'float':

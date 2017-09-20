@@ -37,7 +37,7 @@ if (isSet($_REQUEST['csvout'])) {
 
 $prj_id_selector=$prjSel->getSelector();
 $selection_details=$prjSel->getSelectionDetails();
-$sql="select st.snummer,roepnaam||coalesce(' '||voorvoegsel||' ',' ')||achternaam as name,"
+$sql="select st.snummer,roepnaam||coalesce(' '||tussenvoegsel||' ',' ')||achternaam as name,"
   ." '#'||task_number||': '||apt.afko||': '||apt.description as checktitle,\n"
   ." pt.name as task_name,\n"
   ." coalesce(grade::text,mark) as check, ptc.comment as title,photo,grp_num \n"

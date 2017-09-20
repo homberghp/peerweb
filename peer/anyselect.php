@@ -6,6 +6,7 @@ include_once('navigation2.php');
 include './peerlib/simplequerytable.php';
 require_once 'SpreadSheetWriter.php';
 $sql = $query_text = '';
+$expanded_query = $query_name = '';
 if (isSet($_REQUEST['query_id'])) {
     $query_id = validate($_REQUEST['query_id'], 'integer', 1);
     $my_query = "select query_name,owner,query_comment,query as query_text from any_query where any_query_id=$query_id";
@@ -15,7 +16,6 @@ if (isSet($_REQUEST['query_id'])) {
     }
     extract($rs->fields);
 }
-
 if (isSet($_REQUEST['query_text'])) {
     $sql = $query_text = $_REQUEST['query_text'];
     eval("\$expanded_query=\"\$query_text\";");
@@ -47,8 +47,8 @@ if (isSet($_REQUEST['delete_query']) && preg_match('/^\d+$/', $_REQUEST['delete_
 }
 
 $spreadSheetWriter = new SpreadSheetWriter($dbConn, $expanded_query);
-
-$filename = 'anyquery' . date('Y-m-d-H-i');
+$fdate=date('Y-m-d-H-i');
+$filename = "anyquery-{$fdate}";
 
 $spreadSheetWriter->setFilename($filename)
         ->setTitle("Query $query_name ($peer_id) $fdate")

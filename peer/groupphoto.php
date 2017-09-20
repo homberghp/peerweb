@@ -70,10 +70,10 @@ $page_opening="Group photos for project $afko: $description $year-$next_year".
     "<span style='font-size:6pt;'> prj_id=$prj_id  milestone $milestone (prjm_id=$prjm_id) group $grp_num (prjtg_id=$prjtg_id)</span>";
 $nav=new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
 $nav->setInterestMap($tabInterestCount);
-$sql ="select distinct st.snummer as number,st.roepnaam||' '||coalesce(st.voorvoegsel||' ','')||st.achternaam as name,\n".
-    " gebdat as birthday, st.roepnaam,st.achternaam,st.voorvoegsel,cohort,pcn,role,straat,huisnr,plaats,pcode,nationaliteit,\n".
+$sql ="select distinct st.snummer as number,st.roepnaam||' '||coalesce(st.tussenvoegsel||' ','')||st.achternaam as name,\n".
+    " gebdat as birthday, st.roepnaam,st.achternaam,st.tussenvoegsel,cohort,pcn,role,straat,huisnr,plaats,pcode,nationaliteit,\n".
     " sclass, 'fotos/'||image as image,\n".
-  "td.roepnaam||coalesce(' '||td.voorvoegsel,'')||' '||td.achternaam as slb\n".
+  "td.roepnaam||coalesce(' '||td.tussenvoegsel,'')||' '||td.achternaam as slb\n".
     " from prj_grp pg join student_email st using(snummer) \n".
     " join all_prj_tutor pt using(prjtg_id)\n".
     " join student_class using(class_id)\n".
@@ -109,7 +109,7 @@ while (!$resultSet->EOF){
     extract($resultSet->fields);
     echo "<td class='classmate' valign='top'>".
 	"<a href='student_admin.php?snummer=$number' target='mainframe' ".
-      "onmouseover=".'"balloon.showTooltip(event,\'<div><b>'."<span style=\'font-size:120%\'>$roepnaam $voorvoegsel $achternaam</span><br/>snummer:$number<br/>pcn:&nbsp;$pcn<br/>$birthday<br/>".
+      "onmouseover=".'"balloon.showTooltip(event,\'<div><b>'."<span style=\'font-size:120%\'>$roepnaam $tussenvoegsel $achternaam</span><br/>snummer:$number<br/>pcn:&nbsp;$pcn<br/>$birthday<br/>".
 	"$straat&nbsp;$huisnr<br/>$pcode&nbsp;$plaats<br/>$nationaliteit<br/>SLB: $slb<br/>class:$sclass<br/>Cohort:$cohort".'</b></div>\')"'.
 	">\n<img src='$image' alt='$image' align='top' border='0' style='width:128px; height=auto;box-shadow: 5px 5px 5px #004;border-radius:16px'/></a>\n".
       "<table>\n".

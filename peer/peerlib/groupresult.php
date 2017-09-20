@@ -54,7 +54,7 @@ function getGroupResultTable( $dbConn, $prj_id,$milestone,$grp_num,$overall_crit
       ." where prj_id=$prj_id and milestone=$milestone and grp_num=$grp_num";
     $resultSet=$dbConn->Execute($sql);
     if (!$resultSet->EOF ) extract($resultSet->fields);
-    $sql = "SELECT snummer as contestant,roepnaam||' '||coalesce(voorvoegsel,'')||' '||achternaam as naam,\n".
+    $sql = "SELECT snummer as contestant,roepnaam||' '||coalesce(tussenvoegsel,'')||' '||achternaam as naam,\n".
 	"to_char(commit_time,'YYYY-MM-DD&nbsp;HH24:MI')as commit_time,".
 	"prj_id,grp_num,criterium,milestone,round(grade,2) as grade, round(grp_avg,2) as grp_avg, \n".
 	"case when grp_avg<>0 then round(grade/grp_avg,2) else 1 end as multiplier,achternaam,prj_grp.prj_grp_open as open,role \n".
@@ -65,7 +65,7 @@ function getGroupResultTable( $dbConn, $prj_id,$milestone,$grp_num,$overall_crit
 	"left join project_roles using(prj_id,rolenum)\n".
 	"where prj_id=$prj_id and milestone=$milestone and grp_num='$grp_num' \n".
 	"union \n".
-	"select snummer as contestant,roepnaam||' '||coalesce(voorvoegsel,'')||' '||achternaam as naam,\n".
+	"select snummer as contestant,roepnaam||' '||coalesce(tussenvoegsel,'')||' '||achternaam as naam,\n".
 	"to_char(commit_time,'YYYY-MM-DD HH24:MI:SS')as commit_time,".
 	"prj_id,grp_num,$overall_criterium as criterium,milestone,\n".
 	"case when grp_avg<>0 then round($productGrade*grade/grp_avg,2) else 0 end as grade, \n".

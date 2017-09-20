@@ -46,8 +46,8 @@ class GroupPhoto {
         }
         extract($resultSet->fields);
         $sql = "select snummer,\n" .
-                "roepnaam||' '||coalesce(voorvoegsel||' ','')||achternaam as name,\n" .
-                "gebdat as birthday, roepnaam,achternaam,voorvoegsel,pcn,role,\n" .
+                "roepnaam||' '||coalesce(tussenvoegsel||' ','')||achternaam as name,\n" .
+                "gebdat as birthday, roepnaam,achternaam,tussenvoegsel,pcn,role,\n" .
                 "sclass,'fotos/'||image as image\n" .
                 "from prj_grp pg join prj_tutor pt using(prjtg_id)\n" .
                 " join prj_milestone pm using(prjm_id)\n" .

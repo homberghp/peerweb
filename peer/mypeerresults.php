@@ -12,7 +12,7 @@ if ($resultSet === false) {
     print "error fetching judge data with $sql : ".$dbConn->ErrorMsg()."<br/>\n";
  }
 if (!$resultSet->EOF) extract($resultSet->fields,EXTR_PREFIX_ALL,'judge');
-$student_data="$judge_roepnaam $judge_voorvoegsel $judge_achternaam ($judge_snummer)";
+$student_data="$judge_roepnaam $judge_tussenvoegsel $judge_achternaam ($judge_snummer)";
 $page_opening='All peer assessment results for '.$student_data;
 $page=new PageContainer();
 $page->setTitle($page_opening);

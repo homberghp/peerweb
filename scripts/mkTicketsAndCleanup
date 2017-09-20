@@ -1,0 +1,35 @@
+#!/bin/bash
+scriptdir=$(dirname $0)
+site_home=$(dirname $scriptdir)
+destdir=${site_home}/output
+workdir=.
+GETOPT=/usr/bin/getopt
+ARGS=$(${GETOPT} -o d:w:t:h --long destdir:,workdir:,timestamp:,help -- "$@")
+eval set -- "$ARGS"
+while [ $# -gt 0 ]
+do
+    case "$1" in
+	-h|--help)
+	    cat <<EOF
+usage $me [-h|--help] [-w|--workdir <workdir>] [-z|--timestamp <timestamp>]
+EOF
+	    exit 0;;
+	-d|--destdir) destdir=$2; shift;;
+	-w|--workdir) workdir=$2; shift;;
+	-t|--timestamp) FILETS=$2; shift;;
+	--) shift; break;;
+	-*) echo "$0: error - unrecognized option $1" 1>&2; exit 1;;
+	*)  break;;
+    esac
+    shift
+done
+export scriptdir site_home workdir destdir
+
+${scriptdir}/mkphototicket.sh -w ${workdir} -d ${destdir} -t ${FILETS} 1>&2 > /dev/null &
+${scriptdir}/mkclasscard.sh   -w ${workdir} -d ${destdir} -t ${FILETS} 1>&2 > /dev/null &
+
+## join all subprocesses
+wait
+## drop workdir
+rm -fr ${workdir}
+

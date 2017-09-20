@@ -1,0 +1,47 @@
+#!/bin/bash
+scriptdir=$(dirname $0)
+me=$(basename $0)
+GETOPT=/usr/bin/getopt
+# sinsible defaults: pick everything up from wd.
+workdir=$(mktemp -d -t makeclasscardXXXXXX.d)
+classes=''
+ARGS=$(${GETOPT} -o hc:d: --long help,classes:,destdir: -- "$@") || exit $?
+FILETS=$(date +%Y-%m-%d-%-H:%M:%S)
+eval set -- "$ARGS"
+while [ $# -gt 0 ]
+do
+    case "$1" in
+	-h|--help)
+	    cat <<EOF
+usage $me [-h|--help] [-d|--destdir <destdir>] [-c|--confDirname <confdir>] \
+[-c|--workdir <workdir>]
+EOF
+	    exit 0;;
+	-c|--classes) classes=$2; shift;;
+	-d|--destdir) destdir=$2; shift;;
+	--) shift; break;;
+	-*) echo "$0: error - unrecognized option $1" 1>&2; exit 1;;
+	*)  break;;
+    esac
+    shift
+done
+
+product=classcardsbyclass
+latexcount=1
+merger=merger_bus.pl
+latex=xelatex
+export workdir product latexcount merger FILETS destdir
+# echo $product $latexcount $workdir $merger
+# exit 0
+outdir=${workdir}/out
+mkdir -p ${outdir}
+${scriptdir}/${product}.pl ${classes} > ${outdir}/${product}-bus.tex
+for i in $(seq 1 ${latexcount}); do
+    ${latex} -interaction=batchmode -output-directory=${outdir} ${outdir}/${product}-bus.tex >/dev/null
+done
+${scriptdir}/${merger} -f ${outdir}/${product}-bus.pdf > ${outdir}/${product}.tex 2>/dev/null
+pdflatex -interaction=batchmode -output-directory=${outdir} ${outdir}/${product}.tex >/dev/null
+rm -fr ${destdir}/${product}*.pdf
+cat ${outdir}/${product}.pdf
+
+

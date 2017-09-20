@@ -93,7 +93,7 @@ function presenceTable($dbConn, $prjm_id,$constraint=''){
   $sql ="select \n".
   //  "al.student, ".
     //  " al.snummer,\n".
-    //    " roepnaam||coalesce(' '||voorvoegsel||' ',' ')||achternaam as name,".
+    //    " roepnaam||coalesce(' '||tussenvoegsel||' ',' ')||achternaam as name,".
     "p.afko||p.year as activity,".
     "agroup as grp, \n".
   " datum||'#'||al.act_id||': '||short||' '||al.description as title, present,note \n".

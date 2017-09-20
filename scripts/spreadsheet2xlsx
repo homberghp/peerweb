@@ -1,0 +1,16 @@
+#!/bin/bash
+if [[  $#  < 2 ]]; then
+   echo usage $0 file outname
+   exit 1;
+fi
+file=$1
+outfile=$2
+ftype=$(mimetype -b $file)
+case ${ftype} in
+   application/vnd.ms-excel | application/x-ole-storage | application/vnd.oasis.opendocument.spreadsheet)
+	unoconv -d spreadsheet -f xlsx  -o ${outfile} ${file}
+	;;
+   *)
+	# silent	echo spreadsheet type for file $1 [${ftype}], no conversion needed or possible
+	;;
+esac

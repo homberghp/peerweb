@@ -13,7 +13,7 @@
 <p>If the assessment is open or used you cannot change the criteria anymore.</p>
 			<h2>Project $prj_id $afko $description $year milestone $milestone (prjm_id=$prjm_id)</h2>
   <p>Project Id (for change)</th><td>$project_selector</p>
-  <p>Owning tutor $tutor_owner:&nbsp;$roepnaam $voorvoegsel $achternaam</p>
+  <p>Owning tutor $tutor_owner:&nbsp;$roepnaam $tussenvoegsel $achternaam</p>
   $table
     <p>Set of criteria</th><td>$input_submit_button</p>
 <!-- end template criteria1.html.inc \$Id: criteria3.html.inc 1723 2014-01-03 08:34:59Z hom $ -->

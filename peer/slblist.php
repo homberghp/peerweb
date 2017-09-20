@@ -35,7 +35,7 @@ $rs = $dbConn->Execute($sql);
 $tutorCode = $rs->fields['tutor'];
 
 $sqlhead = "select distinct snummer," .
-        "achternaam||rtrim(coalesce(', '||voorvoegsel,'')::text) as achternaam ,roepnaam, " .
+        "achternaam||rtrim(coalesce(', '||tussenvoegsel,'')::text) as achternaam ,roepnaam, " .
         "pcn,gebdat as birth_date,t.tutor as slb,rtrim(email1) as email1," .
         "studieplan_short as studieplan,cohort,sclass,hoofdgrp ,\n" .
         "straat,huisnr,plaats,phone_gsm,phone_home,sort1\n" .
@@ -60,7 +60,7 @@ $spreadSheetWidget = $spreadSheetWriter->getWidget();
 
 $sqlhead = "select distinct '<a href=''student_admin.php?snummer='||snummer||'''target=''_blank''>'||snummer||'</a>' as snummer,\n"
         . "'<img src='''||photo||''' style=''height:24px;width:auto;''/>' as foto,\n"
-        . "achternaam||rtrim(coalesce(', '||voorvoegsel,'')::text) as achternaam ,roepnaam, \n"
+        . "achternaam||rtrim(coalesce(', '||tussenvoegsel,'')::text) as achternaam ,roepnaam, \n"
         . "pcn,cohort,t.tutor as slb,gebdat as birth_date,rtrim(email1) as email1,\n"
         . "studieplan_short as studieplan,faculty_short as facul,sclass,hoofdgrp,\n"
         . "straat,huisnr,plaats,phone_gsm,phone_home\n"

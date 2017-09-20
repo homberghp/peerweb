@@ -64,7 +64,7 @@ fwrite( $fp,
         . "\\setlength{\\parindent}{0pt}\n"
         . "\\setlength{\\parskip}{0pt}\n " );
 
-$sql = "select snummer,roepnaam||coalesce(' '||voorvoegsel||' ',' ')||achternaam as name,\n"
+$sql = "select snummer,roepnaam||coalesce(' '||tussenvoegsel||' ',' ')||achternaam as name,\n"
         . " photo, coalesce(tutor,'---') as slb\n"
         . " from student s join prj_grp pg using(snummer) natural join portrait p"
         . " left join tutor t on(s.slb=t.userid) \n"

@@ -16,11 +16,11 @@ $_SESSION['prj_id'] = $prj_id;
 $_SESSION['prjm_id'] = $prjm_id;
 $_SESSION['milestone'] = $milestone;
 $sqlhead = "select distinct prj_id,milestone,afko,year,grp_num,tutor,rtrim(alias) as alias,long_name,productname,\n"
-        . "  snummer as gm_snumber,roepnaam||coalesce(' '||voorvoegsel||' ',' ')||achternaam as gm_name,rtrim(email1) as gm_email,\n"
+        . "  snummer as gm_snumber,roepnaam||coalesce(' '||tussenvoegsel||' ',' ')||achternaam as gm_name,rtrim(email1) as gm_email,\n"
         . "  website,"
         . " youtube_link \n"
         . " from all_prj_tutor_y apt \n"
-        . " left join (select sr.*,s.achternaam,s.roepnaam,s.voorvoegsel,s.email1 from student_role \n"
+        . " left join (select sr.*,s.achternaam,s.roepnaam,s.tussenvoegsel,s.email1 from student_role \n"
         . " join (select snummer,prjtg_id from prj_grp join all_prj_tutor using(prjtg_id)\n"
         . " where prjm_id=$prjm_id) sr using(snummer) join student s using(snummer) where prjm_id=$prjm_id and rolenum=1) gm using (prjtg_id)\n"
         . " where (now()::date < valid_until) and (apt.prjm_id = $prjm_id)\n"
@@ -193,7 +193,7 @@ while (!$resultSet->EOF) {
     $rowClass = (($rowCounter % 2) === 0) ? 'even' : 'odd';
     if ($isTutorOwner) {
         $tutorList = "\t\t<select name='tutor_id[]'>\n" .
-                getOptionListGrouped($dbConn, "select achternaam||', '||roepnaam||' '||coalesce(voorvoegsel,'')" .
+                getOptionListGrouped($dbConn, "select achternaam||', '||roepnaam||' '||coalesce(tussenvoegsel,'')" .
                         "||' ('||tutor||')'||t.userid as name,\n" .
                         " t.userid as value,\n" .
                         " f.faculty_short||'-'||team   as namegrp" .
@@ -202,7 +202,7 @@ while (!$resultSet->EOF) {
                         " order by namegrp,achternaam,roepnaam", $tutor_id) .
                 "\t\t</select>\n";
     } else {
-        $sql = "select achternaam||', '||roepnaam||' '||coalesce(voorvoegsel,'')||' ('||tutor||')' as name\n" .
+        $sql = "select achternaam||', '||roepnaam||' '||coalesce(tussenvoegsel,'')||' ('||tutor||')' as name\n" .
                 " from tutor join student on (userid=snummer)\n" .
                 "where tutor='$tutor'";
         $resultSet2 = $dbConn->doOrDie($sql);

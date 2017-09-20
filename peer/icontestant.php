@@ -38,7 +38,7 @@ if ($resultSet === false) {
 if (!$resultSet->EOF)
     extract($resultSet->fields, EXTR_PREFIX_ALL, 'contestant');
 $lang = strtolower($contestant_lang);
-$page_opening = "Assessment received by $contestant_roepnaam $contestant_voorvoegsel $contestant_achternaam ($contestant_snummer)";
+$page_opening = "Assessment received by $contestant_roepnaam $contestant_tussenvoegsel $contestant_achternaam ($contestant_snummer)";
 $page = new PageContainer();
 $page->setTitle('Peer assessment entry form');
 
@@ -57,7 +57,7 @@ $criteriaList = getCriterialist($criteria, $lang, $rainbow);
 $rainbow = new RainBow(STARTCOLOR, COLORINCREMENT_RED, COLORINCREMENT_GREEN, COLORINCREMENT_BLUE);
 $remarkList='no remarks';
 if (isSet($prjtg_id)) {
-    $sqlC = "SELECT judge,roepnaam||coalesce(' '||voorvoegsel,'')||' '||achternaam||coalesce(' ('||role||')','') as naam ,ja.prj_id,\n" .
+    $sqlC = "SELECT judge,roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam||coalesce(' ('||role||')','') as naam ,ja.prj_id,\n" .
             "grp_num,criterium,milestone,grade from judge_assessment ja \n" .
             " left join student_role sr on(ja.prjm_id=sr.prjm_id and ja.judge=sr.snummer)\n" .
             " left join project_roles pr on(ja.prj_id=pr.prj_id and sr.rolenum=pr.rolenum)\n" .

@@ -7,9 +7,9 @@ function nepmail( $to, $sub, $body, $head ) {
 
 include 'navigation2.php';
 $sender_name = '';
-$sql = "select email1 as replyto,roepnaam||coalesce(' '||voorvoegsel,'')||' '||achternaam as sender_name," .
+$sql = "select email1 as replyto,roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam as sender_name," .
         "coalesce(signature," .
-        "'sent by the peerweb service on behalf of '||roepnaam||coalesce(' '||voorvoegsel,'')||' '||achternaam)\n" .
+        "'sent by the peerweb service on behalf of '||roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam)\n" .
         "  as signature from student left join email_signature using(snummer) where snummer='$peer_id'";
 $rs = $dbConn->Execute( $sql );
 if ( !$rs->EOF ) {

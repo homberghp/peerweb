@@ -28,7 +28,7 @@ Make sure that the combination of project code and year is unique.</p>
        <td align='center'>$input_update_button (on changes) </td></tr>
        <thead> 
        <tr><th class='theadleft'>Owning tutor 
-       </th><th class='theadright'>$owner_id:&nbsp;$roepnaam $voorvoegsel $achternaam</th></tr>
+       </th><th class='theadright'>$owner_id:&nbsp;$roepnaam $tussenvoegsel $achternaam</th></tr>
 </thead>
 </table>
 </form>

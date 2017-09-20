@@ -1,0 +1,34 @@
+<div id='navmain' style='padding:1em;'>
+  <fieldset><legend>Choose students</legend>
+    <p>Normally this page is used once or twice a year to assign students to new classes.<br/>
+      The other use case would be when you move a student out of a class
+      when he or she leaves the institute. Typically in either a
+      <b>'DUMPxxx'</b> table or to an <b>ALUMNI<i>your course here</i></b> class.</p>
+    <form method="post" name="participants" action="<?=$PHP_SELF?>">
+      <table class='layout' style='border-width:0;'>
+        <tr><th colspan='1'>Hoofdgrp</th><th colspan='2'>Move to class</th></tr>
+        <tr><td>
+            <?=$oldClassSelector?>
+          </td>
+          <td><input type='submit' name='get' value='Get Hoofdgroep' title='Get current class'/></td>
+          <td>
+            <?=$newClassSelector?>
+          </td>
+          <td><input type="submit" name="update" value="Move" title="move the students"/></td>
+          <td><input type="text" size="10" maxlength="10" name="newhoofdgrp" value="<?=$newhoofdgrp?>" 
+                     title="new hoofdgrp for selected students"/>
+            <input type="submit" name="sethoofdgrp" value="set new hoofdgrp" title="update hoofdgrp for selected students"/></td>
+          <td><input type="reset" name="reset" value="Reset" title="reset form"/></td>
+        </tr>
+      </table>
+      <hr/>
+
+      <?=$classTable?>
+    </form>
+      <form method="get" name="classlist" action="<?=$PHP_SELF?>">
+	<p>Get class list as: 
+	  <?=$spreadSheetWidget?>
+	</p>
+      </form>
+  </fieldset>
+</div>

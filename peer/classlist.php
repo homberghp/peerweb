@@ -31,7 +31,7 @@ if (isSet($class_id)) {
 
 
 $sqlhead = "select distinct snummer,"
-        . "achternaam ,roepnaam, voorvoegsel as tussenvoegsel, "
+        . "achternaam ,roepnaam, tussenvoegsel as tussenvoegsel, "
         . "pcn,lang,gebdat as birth_date,t.tutor as slb,country as nation,rtrim(email1) as email1,rtrim(email2) as email2,\n"
         . "studieplan_short as studieplan,sclass,hoofdgrp ,\n"
         . "straat,huisnr,plaats,phone_gsm,phone_home\n"
@@ -57,7 +57,7 @@ $spreadSheetWidget = $spreadSheetWriter->getWidget();
 
 $sqlhead = "select distinct '<a href=''student_admin.php?snummer='||snummer||''' target=''_blank''>'||snummer||'</a>' as snummer," .
         "'<img src='''||photo||''' style=''height:24px;width:auto;''/>' as foto,\n"
-        . "achternaam ,roepnaam, voorvoegsel as tussenvoegsel," .
+        . "achternaam ,roepnaam, tussenvoegsel as tussenvoegsel," .
         "pcn,lang,cohort,t.tutor as slb,country as nation,gebdat as birth_date,rtrim(email1) as email1,rtrim(email2) as email2,\n" .
         "studieplan_short as studieplan,sclass,hoofdgrp,\n" .
         "straat,huisnr,plaats,phone_gsm,phone_home\n" .
