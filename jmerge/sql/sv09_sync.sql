@@ -18,24 +18,36 @@ with pre as (select count(1) as x, 'start student count'::text as comment, 1 as 
 
 -- the actual work is quite simple, using and updatable view with a trigger.
 -- insert into student_email select * from importer.sv09_as_student_email_v;
-INSERT INTO student ( snummer,achternaam,tussenvoegsel,voorletters,roepnaam,straat,huisnr,
-	   		  pcode,plaats,email1,nationaliteit,cohort,gebdat,sex,lang,pcn,opl,phone_home,
-			  phone_gsm,phone_postaddress,faculty_id,hoofdgrp,active,slb,land,studieplan,
-			  geboorteplaats,geboorteland,voornamen,class_id)
-    select  snummer,achternaam,tussenvoegsel,voorletters,roepnaam,straat,huisnr,
-	     pcode,plaats,email1,nationaliteit,cohort,gebdat,sex,lang,pcn,opl,phone_home,
-	     phone_gsm,phone_postaddress,faculty_id,hoofdgrp,active,slb,land,studieplan,
-	     geboorteplaats,geboorteland,voornamen,class_id
-	     from importer.sv09_as_student_email_v
-	on conflict(snummer)
-	do update set ( snummer,achternaam,tussenvoegsel,voorletters,roepnaam,straat,huisnr,
-	   		pcode,plaats,email1,nationaliteit,cohort,gebdat,sex,lang,pcn,opl,phone_home,
-			phone_gsm,phone_postaddress,faculty_id,active,land,studieplan,
-			geboorteplaats,geboorteland,voornamen)=
-		      ( EXCLUDED.snummer,EXCLUDED.achternaam,EXCLUDED.tussenvoegsel,EXCLUDED.voorletters,EXCLUDED.roepnaam,EXCLUDED.straat,
-		        EXCLUDED.huisnr,EXCLUDED.pcode,EXCLUDED.plaats,EXCLUDED.email1,EXCLUDED.nationaliteit,EXCLUDED.cohort,EXCLUDED.gebdat,EXCLUDED.sex,EXCLUDED.lang,EXCLUDED.pcn,EXCLUDED.opl,EXCLUDED.phone_home,
-			EXCLUDED.phone_gsm,EXCLUDED.phone_postaddress,EXCLUDED.faculty_id,EXCLUDED.active,EXCLUDED.land,EXCLUDED.studieplan,
-			EXCLUDED.geboorteplaats,EXCLUDED.geboorteland,EXCLUDED.voornamen);
+INSERT INTO student ( snummer,achternaam,tussenvoegsel,voorletters,roepnaam,
+       	              straat,huisnr,pcode,plaats,
+		      email1,nationaliteit,cohort,gebdat,
+		      sex,lang,pcn,opl,phone_home,
+		      phone_gsm,phone_postaddress,faculty_id,
+		      hoofdgrp,active,slb,land,studieplan,
+		      geboorteplaats,geboorteland,voornamen,class_id)
+    select  	      snummer,achternaam,tussenvoegsel,voorletters,roepnaam,straat,huisnr,
+	     	      pcode,plaats,email1,nationaliteit,cohort,gebdat,
+		      sex,lang,pcn,opl,phone_home,
+	     	      phone_gsm,phone_postaddress,faculty_id,
+		      hoofdgrp,active,slb,land,studieplan,
+	     	      geboorteplaats,geboorteland,voornamen,class_id
+    from importer.sv09_as_student_email_v
+    on conflict(snummer)
+    -- NOT updating: hoofdgrp, slb, class_id. Not properly maintained on progress side.
+    do update set ( snummer,achternaam,tussenvoegsel,voorletters,roepnaam,
+       	            straat,huisnr,pcode,plaats,
+		    email1,nationaliteit,cohort,gebdat,
+		    sex,lang,pcn,opl,phone_home,
+		    phone_gsm,phone_postaddress,faculty_id,
+		    active,land,studieplan, -- not hoofdgrp not slb
+		    geboorteplaats,geboorteland,voornamen) = -- not class_id
+	          ( EXCLUDED.snummer,EXCLUDED.achternaam,EXCLUDED.tussenvoegsel,EXCLUDED.voorletters,EXCLUDED.roepnaam,
+		    EXCLUDED.straat,EXCLUDED.huisnr,EXCLUDED.pcode,EXCLUDED.plaats,
+		    EXCLUDED.email1,EXCLUDED.nationaliteit,EXCLUDED.cohort,EXCLUDED.gebdat,
+		    EXCLUDED.sex,EXCLUDED.lang,EXCLUDED.pcn,EXCLUDED.opl,EXCLUDED.phone_home,
+		    EXCLUDED.phone_gsm,EXCLUDED.phone_postaddress,EXCLUDED.faculty_id,
+		    EXCLUDED.active,EXCLUDED.land,EXCLUDED.studieplan,
+		    EXCLUDED.geboorteplaats,EXCLUDED.geboorteland,EXCLUDED.voornamen);
   update alt_email ae set email3=null where (snummer,email3) in (select snummer,email2 from importer.sv09_as_student_email_v);
   INSERT INTO alt_email (snummer, email2)
   select snummer,email2 from importer.sv09_as_student_email_v where (snummer,email2) not in ( select snummer,email2 from alt_email)
