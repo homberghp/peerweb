@@ -30,7 +30,7 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
         $cmdString = "{$site_home}/scripts/jmergeSync -w {$workdir} ";
         $cmd = exec($cmdString);
         $uploadResult .= "<pre>Command executed</pre></fieldset>";
-        rmDirAll($workdir);
+//        rmDirAll($workdir);
     }
     $_SESSION['userfile'] = $_FILES['userfile'];
 }
