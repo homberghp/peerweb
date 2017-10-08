@@ -19,17 +19,24 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
     $uploadResult = "<fieldset style='color:green; background:black;font-family:monospace'>";
     $file_size = $_FILES['userfile']['size'];
     $tmp_file = $_FILES['userfile']['tmp_name'];
+    $userfileName=$_FILES['userfile']['name'];
+    print_r($_FILES);
+    $ext = pathinfo($userfileName, PATHINFO_EXTENSION);
+    $temp_file_extension="{$tmp_file}.{$ext}";
     $workdir = "{$tmp_file}.d";
     $worksheetbase = basename($tmp_file);
     $worksheet = "{$workdir}/sv09_ingeschrevenen.xlsx";
     if (!mkdir($workdir, 0775, true)) {
         die('cannot create dir ' . $workdir . '<br/>');
     }
-    if (move_uploaded_file($tmp_file, "{$worksheet}")) {
-        $uploadResult .= "upload and integration was succesfull {$file_size}, {$tmp_file}, {$worksheet}";
-        $cmdString = "{$site_home}/scripts/jmergeSync -w {$workdir} ";
-        $cmd = exec($cmdString);
-        $uploadResult .= "<pre>Command executed</pre></fieldset>";
+    if (move_uploaded_file($tmp_file, $temp_file_extension)) {
+        
+        $uploadResult .= "upload and integration was succesfull {$file_size}, {$temp_file_extension}, {$worksheet}";
+        $cmdString1 = "{$site_home}/scripts/spreadsheet2xlsx {$temp_file_extension} {$worksheet} ";
+        $cmd1 = exec($cmdString1);
+        $cmdString2 = "{$site_home}/scripts/jmergeSync -w {$workdir} ";
+        $cmd2 = exec($cmdString2);
+        $uploadResult .= "<pre>Commands \n\t{$cmdString1}  \nand \n\t{$cmdString2} executed</pre></fieldset>";
 //        rmDirAll($workdir);
     }
     $_SESSION['userfile'] = $_FILES['userfile'];

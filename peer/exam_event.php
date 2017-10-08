@@ -6,7 +6,8 @@
  * $Id: exam_event.php 1723 2014-01-03 08:34:59Z hom $
  */
 require_once("ste.php");
-$page = new PageContainer("Exam_Event editor on DB $db_name ");
+$title="Exam_Event editor on DB {$db_name} ";
+$page = new PageContainer($title);
 $ste = new SimpleTableEditor( $dbConn ,$page);
 $ste->setShowQuery( true )
         ->setTitle( $title )

@@ -1,20 +1,6 @@
 -- üß utf-8
 begin work;
 drop view if exists sv09_as_student_email_v cascade;
-update sv09_ingeschrevenen set geboorteland='Bondsrepubliek Duitsland' where geboorteland='Duitsland';
-update sv09_ingeschrevenen set land='Bondsrepubliek Duitsland' where land='Duitsland';
-update sv09_ingeschrevenen set land='Verenigd Koninkrijk'  where land='Groot-Brittannië';
-update sv09_ingeschrevenen set geboorteland='Verenigd Koninkrijk'  where geboorteland='Groot-Brittannië';
-update sv09_ingeschrevenen set land='Republiek Moldavië'  where land='Moldavië';
-update sv09_ingeschrevenen set geboorteland='Republiek Moldavië'  where geboorteland='Moldavië';
-update sv09_ingeschrevenen set land='Groothertogdom Luxemburg'  where land='Luxemburg';
-update sv09_ingeschrevenen set geboorteland='Groothertogdom Luxemburg'  where geboorteland='Luxemburg';
-update sv09_ingeschrevenen set geboorteland='Israël'  where geboorteland='Israel';
-update sv09_ingeschrevenen set land='Israël'  where land='Israel';
-update sv09_ingeschrevenen set land='Verenigde Staten'  where land='Verenigde Staten van Amerika';
-update sv09_ingeschrevenen set geboorteland='Verenigde Staten'  where geboorteland='Verenigde Staten van Amerika';
-update sv09_ingeschrevenen set geboorteland='Tsjechië'  where geboorteland='Tsjecho-Slowakije';
-update sv09_ingeschrevenen set land='Tsjechië'  where land='Tsjecho-Slowakije';
 
 alter table  sv09_ingeschrevenen add constraint sv09_studielinkvariantcode_fk foreign key (studielinkvariantcode) references public.studieplan(studieplan);
 alter table  sv09_ingeschrevenen add constraint sv09_nat_mapper_fk foreign key (leidende_nationaliteit) references public.nat_mapper(nation_omschr);
@@ -30,7 +16,7 @@ create view sv09_as_student_email_v as
        roepnaam,
        substr(straat,1,40) as straat,
        substr(upper(trim(leading '0' from coalesce(huisnummer||huisnummertoevoeging,huisnummer::text,huisnummertoevoeging))),1,4) as huisnr,
-       postcode as pcode,
+       substr(postcode,1,7) as pcode,
        woonplaats as plaats,
        e_mail_instelling  as email1,
        nm.nationaliteit,

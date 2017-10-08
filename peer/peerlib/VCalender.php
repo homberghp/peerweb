@@ -35,7 +35,8 @@ $summary='assessment';
 $organisationname = 'fontys hogescholen';
 $replyto = 'no-reply@fontys.nl';
 $vcalendar = new VCalandar();
-$vcal= $vcalendar->expand($organisationname, 'hombergp', $replyto, '20170915T140000', '20170915T141500', 'Fontys Campus Venlo Room W1.81', 'assessment mod2', $summary, 'room');
+$vcal= $vcalendar->expand($organisationname, 'hombergp', $replyto, '20170915T140000', 
+        '20170915T141500', 'Fontys Campus Venlo Room W1.81', 'assessment mod2', $summary, 'room');
 $headers = "From: $from\r\nReply-To: $from"; 
 $headers .= "\r\nMIME-version: 1.0\r\nContent-Type: text/calendar; name=calendar.ics; method=REQUEST; charset=\"iso-8859-1\"";
 $headers .= "\r\nContent-Transfer-Encoding: 7bit\r\nX-Mailer: Microsoft Office Outlook 12.0"; 

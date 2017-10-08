@@ -38,7 +38,7 @@ $cap_names = array('CAP_TUTOR', //0
 		   'CAP26',//25
 		   'CAP27',//27
 		   'CAP28',//28
-		   'CAP29',//29
+		   'CAP_EXPERIMENTAL',//29
 		   'CAP_BIGFACE',//30 FIBS smoelenboek
 		   'CAP31',//31
 		   );

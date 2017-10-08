@@ -1,4 +1,5 @@
 begin work;
+drop table if exists sv09_ingeschrevenen cascade;
 set search_path=importer,public;
 CREATE TABLE if not exists sv09_ingeschrevenen (
     peildatum date,

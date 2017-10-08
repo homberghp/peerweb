@@ -24,6 +24,7 @@ $tabInterestCount['module'] = hasCap(CAP_MODULES) ? 1 : 0;
 $tabInterestCount['enrol'] = hasCap(CAP_ENROL) ? 1 : 0;
 $tabInterestCount['git'] = hasCap(CAP_GIT) ? 1 : 0;
 $tabInterestCount['sync'] = hasCap(CAP_SYNC_PROGRESS) ? 1 : 0;
+$tabInterestCount['experimental'] = hasCap(CAP_EXPERIMENTAL) ? 1 : 0;
 $tabInterestCount['none'] = 0;
 $sql = "select opl from student where snummer=$peer_id";
 $resultSet = $dbConn->Execute($sql);
@@ -581,27 +582,6 @@ $navtable = array(// index, defproject, citeria1,2, milestones
                 'image' => 'lego-tiny.png',
                 'interest' => 'module',
             ),
-            array('target' => 'exam_event.php',
-                'tooltip' => 'Define exam event',
-                'linktext' => 'Exam Event',
-                'menu_name' => 'exam_event',
-                'image' => 'lego-tiny.png',
-                'interest' => 'module',
-            ),
-            array('target' => 'uploadGrades.php',
-                'tooltip' => 'Upload exam grades',
-                'linktext' => 'Upload Grades',
-                'menu_name' => 'upload_grades',
-                'image' => 'file_cabinet.png',
-                'interest' => 'module',
-            ),
-            array('target' => 'examresults.php',
-                'tooltip' => 'View exam grades',
-                'linktext' => 'View Grades',
-                'menu_name' => 'viewUpload_grades',
-                'image' => 'file_cabinet.png',
-                'interest' => 'module',
-            ),
         ),
     ),
     array(
@@ -692,7 +672,44 @@ $navtable = array(// index, defproject, citeria1,2, milestones
                 'image' => 'ticket.png',
                 'interest' => 'adminstudent_class',
             ),
-            
+        ),
+    ),
+    array(
+        'interest' => 'experimental',
+        'toplinktext' => 'Experimental Feautures',
+        'tooltip' => 'experimental peerweb feautures',
+        'menu_name' => 'experimental',
+        'image' => 'experimental-icon.png',
+        'subitems' =>
+        array(
+            array('target' => 'exam_event.php',
+                'tooltip' => 'Define exam event',
+                'linktext' => 'Exam Event',
+                'menu_name' => 'exam_event',
+                'image' => 'lego-tiny.png',
+                'interest' => 'experimental',
+            ),
+            array('target' => 'uploadGrades.php',
+                'tooltip' => 'Upload exam grades',
+                'linktext' => 'Upload Grades',
+                'menu_name' => 'upload_grades',
+                'image' => 'file_cabinet.png',
+                'interest' => 'experimental',
+            ),
+            array('target' => 'examresults.php',
+                'tooltip' => 'View exam grades',
+                'linktext' => 'View Grades',
+                'menu_name' => 'viewUpload_grades',
+                'image' => 'file_cabinet.png',
+                'interest' => 'experimental',
+            ),
+            array('target' => 'gradeMailer.php',
+                'tooltip' => 'Mail xam grades',
+                'linktext' => 'Mail Grades',
+                'menu_name' => 'mailgrades',
+                'image' => 'mail_send.png',
+                'interest' => 'experimental',
+            ),
         ),
     ),
     array(
