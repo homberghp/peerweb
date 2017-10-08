@@ -20,7 +20,7 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
     $file_size = $_FILES['userfile']['size'];
     $tmp_file = $_FILES['userfile']['tmp_name'];
     $userfileName=$_FILES['userfile']['name'];
-    print_r($_FILES);
+//    print_r($_FILES);
     $ext = pathinfo($userfileName, PATHINFO_EXTENSION);
     $temp_file_extension="{$tmp_file}.{$ext}";
     $workdir = "{$tmp_file}.d";
