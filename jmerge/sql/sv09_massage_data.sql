@@ -20,8 +20,8 @@ update sv09_ingeschrevenen set land='Joegoslavië'  where land='Federale Republi
 update sv09_ingeschrevenen set geboorteland='Groothertogdom Luxemburg'  where geboorteland='Luxemburg';
 update sv09_ingeschrevenen set land='Groothertogdom Luxemburg'  where land='Luxemburg';
 
-update sv09_ingeschrevenen set geboorteland='Verenigde Staten'  where geboorteland='Verenigde Staten van Amerika';
-update sv09_ingeschrevenen set land='Verenigde Staten'  where land='Verenigde Staten van Amerika';
+update sv09_ingeschrevenen set geboorteland='Verenigde Staten van Amerika'  where geboorteland='Verenigde Staten';
+update sv09_ingeschrevenen set land='Verenigde Staten van Amerika'  where land='Verenigde Staten';
 
 update sv09_ingeschrevenen set geboorteland='Republiek Moldavië'  where geboorteland='Moldavië';
 update sv09_ingeschrevenen set land='Republiek Moldavië'  where land='Moldavië';
