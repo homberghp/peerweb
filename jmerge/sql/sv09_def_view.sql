@@ -16,7 +16,7 @@ create view sv09_as_student_email_v as
        roepnaam,
        substr(straat,1,40) as straat,
        substr(upper(trim(leading '0' from coalesce(huisnummer||huisnummertoevoeging,huisnummer::text,huisnummertoevoeging))),1,4) as huisnr,
-       substr(postcode,1,7) as pcode,
+       postcode as pcode,
        woonplaats as plaats,
        e_mail_instelling  as email1,
        nm.nationaliteit,
