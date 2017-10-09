@@ -17,16 +17,23 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
     $uploadResult = "<fieldset style='color:green; background:black;font-family:monospace'>";
     $file_size = $_FILES['userfile']['size'];
     $tmp_file = $_FILES['userfile']['tmp_name'];
+    $userfileName = $_FILES['userfile']['name'];
+    $ext = pathinfo($userfileName, PATHINFO_EXTENSION);
+    $temp_file_extension = "{$tmp_file}.{$ext}";
+
     $workdir = "{$tmp_file}.d";
     $worksheetbase = basename($tmp_file);
     $worksheet = "{$workdir}/sv05_aanmelders.xlsx";
     if (!mkdir($workdir, 0775, true)) {
         die('cannot create dir ' . $workdir . '<br/>');
     }
-    if (move_uploaded_file($tmp_file, "{$worksheet}")) {
-        $uploadResult .= "upload was succesfull {$file_size}, {$tmp_file}, {$worksheet}";
-        $cmdString = "{$site_home}/scripts/jmergeAndTicket -w {$workdir}"; // -c {$site_home}/jmerge -p {$site_home}/jmerge/sv05_import.properties";
-        $cmd = exec($cmdString);
+    if (move_uploaded_file($tmp_file, $temp_file_extension)) {
+        $uploadResult .= "upload was succesfull {$file_size}, {$tmp_file_extension}, {$worksheet}";
+        $cmdString1 = "{$site_home}/scripts/spreadsheet2xlsx {$temp_file_extension} {$worksheet} ";
+        $cmd1 = exec($cmdString1);
+        $cmdString2 = "{$site_home}/scripts/jmergeAndTicket -w {$workdir}";
+        $cmd2 = exec($cmdString2);
+        $uploadResult .= "<pre>Commands \n\t{$cmdString1}  \nand \n\t{$cmdString2} executed</pre></fieldset>";
         $uploadResult .= "<pre>results of this command will appear in the prospects table and in links on this page below.</pre></fieldset>";
     }
     $_SESSION['userfile'] = $_FILES['userfile'];
