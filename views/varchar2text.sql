@@ -56,14 +56,15 @@ drop view if exists unknown_student;
 drop view if exists upload_archive_names;
 drop view if exists import_naw;
 
-alter table student
-      rename column voorvoegsel to tussenvoegsel;
-alter table student
-      rename column voornaam to voornamen;
-alter table ingeschrevenen
-      rename column voorvoegsels to tussenvoegsel;
+-- alter table student
+--       rename column voorvoegsel to tussenvoegsel;
+-- alter table student
+--       rename column voornaam to voornamen;
+-- alter table ingeschrevenen
+--       rename column voorvoegsels to tussenvoegsel;
       
 alter table student
+      alter column pcode type text using pcode::text,
       alter column tussenvoegsel type text using tussenvoegsel::text,
       alter column voorletters type text using voorletters::text,
       alter column straat type text using straat::text,
