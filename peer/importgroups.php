@@ -16,7 +16,7 @@ $uploadResult = '';
 
 function validateStudents($dbConn, &$uploadResult) {
 
-    $query = "select * from importer.worksheet w where not exists\n"
+    $query = "select snummer,grp_num from importer.worksheet w where not exists\n"
             . " (select 1 from student where snummer=w.snummer) order by grp_num,snummer";
     $resultSet = $dbConn->Execute($query);
     $valid = true;
