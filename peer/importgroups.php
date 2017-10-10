@@ -72,7 +72,7 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
                     " from members join prj_tutor using (prjtg_id) join student using(snummer) join tutor on (tutor_id=userid)\n "
                     . " join student_class using(class_id)\n"
                     . " order by grp_num, achternaam,roepnaam";
-            $uploadResult .= "<fieldset><pre>{$query}</pre></fieldset>";
+            //$uploadResult .= "<fieldset><pre>{$query}</pre></fieldset>";
             $rainbow = new RainBow(STARTCOLOR, COLORINCREMENT_RED, COLORINCREMENT_GREEN, COLORINCREMENT_BLUE);
 
             $uploadResult .= "\n<fieldset style='background:white;color:#080'><h2>The following students have been added </h2>" .
