@@ -67,7 +67,7 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
         if ($valid) {
             $query = "with members as (with g as (select * from prj_tutor where prjm_id={$prjm_id})\n"
                     . "insert into prj_grp (snummer,prjtg_id) \n"
-                    . "select snummer, prjtg_id from g join worksheet using(grp_num) returning *)\n "
+                    . "select snummer, prjtg_id from g join importer.worksheet using(grp_num) returning *)\n "
                     . " select snummer,achternaam,roepnaam,grp_num,tutor,sclass as klas \n" .
                     " from members join prj_tutor using (prjtg_id) join student using(snummer) join tutor on (tutor_id=userid)\n "
                     . " join student_class using(class_id)\n"
