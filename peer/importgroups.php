@@ -20,7 +20,7 @@ function validateStudents($dbConn, &$uploadResult) {
             . " (select 1 from student where snummer=w.snummer) order by grp_num,snummer";
     $resultSet = $dbConn->Execute($query);
     $valid = true;
-    if ($resultSet === FALSE){
+    if ($resultSet === FALSE) {
         echo $uploadResult;
     }
     if (!$resultSet->EOF && (($rowCount = $resultSet->RowCount()) > 0)) {
