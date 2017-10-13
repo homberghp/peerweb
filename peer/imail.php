@@ -165,7 +165,7 @@ if (isSet($_REQUEST['getall']) && (!isSet($mailto) || count($mailto) == 0)) {
         $resultSet->moveNext();
     }
 }
-$nav->addLeftNavText(file_get_contents('news.html'));
+//$nav->addLeftNavText(file_get_contents('news.html'));
 ob_start();
 tutorHelper($dbConn, $isTutor);
 $page->addBodyComponent(new Component(ob_get_clean()));
@@ -177,7 +177,7 @@ if ($isTutor) {
 } else {
     $grpSelect = "and pg.prjtg_id=$prjtg_id ";
 }
-
+$pp['prjm_id']=$prjm_id;
 $sql = "select afko,apt.grp_num||coalesce(': '||alias,'') as grp_num,\n"
         . "'<input type=\"checkbox\"  name=\"mail[]\" value=\"'||s.snummer||'\"/>' as chk,\n"
         . "rtrim(role) as role, s.snummer,\n"
@@ -198,5 +198,6 @@ $pp['rtable']->setColorChangerColumn(1)
         ->setCheckName('mail[]')
         ->setCheckColumn(2);
 $page->addHtmlFragment('templates/imail.html', $pp);
+$page->addHtmlFragment('templates/tinymce_include.html', $pp);
 $page->show();
 ?>
