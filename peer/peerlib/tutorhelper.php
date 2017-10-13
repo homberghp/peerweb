@@ -134,35 +134,35 @@ function tutorHelperLayout($midForm, $rightForm) {
     if ($as_student) {
         $leftForm = $midForm = $rightForm = '&nbsp;';
     } else {
-        $leftForm = "<form method='get' name='scp' action='$PHP_SELF'>\n" .
+        $leftForm = "<form method='get' style='display:inline' name='scp' action='$PHP_SELF'>\n" .
                 "<label for='projectclass1'>by class</label><input type='radio' id='projectclass1' name='projectclass' value='class' $classchecked onchange='submit()' title='to a select student by class'/>\n" .
                 "<label for='projectclass2'>by project</label><input type='radio' id='projectclass2' name='projectclass' value='project' $projectchecked  onchange='submit()' title='to select a student by project'/>\n" .
                 "</form>\n";
     }
     ?>
     <!-- tutorhelper start -->
-    <div class='tutorhelper' align='center' >
+    <div class='tutorhelper' style='border-width:3px; border-color: white; width:100%;'>
         <div class='layout navopening' width='100%' summary='tutor helper'>
-            <form method='post' name='tutor_wants_as_student' action='<?= $PHP_SELF; ?>'>
+            <form method='post' width='100%' name='tutor_wants_as_student' action='<?= $PHP_SELF; ?>'>
                 Welcome tutor <?= $tutor_roepnaam ?> 
                 <?= $tutor_tussenvoegsel ?> <?= $tutor_achternaam ?>
                 <input align='center' type='checkbox' id='as_student' name='as_student' value='yes' <?= (($as_student == 'yes') ? 'checked' : '') ?> 
                        onChange='submit()' title='If you want student functionality for yourself'/>
                 <label for='as_student'>as student</label><input type='hidden' name='as_student_request' value='unimportant'/></form>
             <?php if (!$as_student) { ?>
-            <table style='width:100%'>
-                <tr>
-                    <th class='layout navopening'>
+            <div class='nix'  style='width: 100%;'>
+                <div class='nix' style='display:inline'>
                         <?= $leftForm ?>
-                    </th>
-                    <th class='layout navopening'>
+                    </div>
+                    
+                    <div class='nix' style='display:inline'>
                         <?= $midForm ?>
-                    </th>
-                    <th class='layout navopening'>
+                    </div>
+                    <div class='nix' style='display:inline'>
                         <?= $rightForm ?>
-                    </th>
-            </tr></table><?php } ?>
-        </div>
+                    </div>
+            </div><?php } ?>
+        </div></div>
         <!-- tutorhelper end -->
         <?php
     }
@@ -192,9 +192,9 @@ function tutorHelperLayout($midForm, $rightForm) {
                     ->getSelector();
             $classchecked = ($projectclass == 'class') ? 'checked' : '';
             $projectchecked = ($projectclass == 'project') ? 'checked' : '';
-            $leftForm = "<form method='get' name='class_id' action='$PHP_SELF'>\nClass: $classSelector&nbsp;" .
+            $leftForm = "<form method='get' name='class_id' style='display:inline' action='$PHP_SELF'>\nClass: $classSelector&nbsp;" .
                     "<input type='submit' value='get' title='press me if you have only one class'/>\n</form>\n";
-            $rightForm = "<form class='navopening' method='get' name='student' action='$PHP_SELF'>Student&nbsp;$judgeSelector<input type='submit' name='getstudent' value='Get student'/>\n</form>\n";
+            $rightForm = "<form class='navopening' style='display:inline' method='get' name='student' action='$PHP_SELF'>Student&nbsp;$judgeSelector<input type='submit' name='getstudent' value='Get student'/>\n</form>\n";
         } else {
             $leftForm = $rightForm = '&nbsp;';
         }
@@ -245,9 +245,9 @@ function tutorHelperLayout($midForm, $rightForm) {
             $projectSelector = $tuhe_prjSel->getSelector();
             $classchecked = ($projectclass == 'class') ? 'checked' : '';
             $projectchecked = ($projectclass == 'project') ? 'checked' : '';
-            $leftForm = "<form method='get' name='tuhe_prjm_id_mil' action='$PHP_SELF'>Project $projectSelector&nbsp;"
+            $leftForm = "<form method='get' style='display:inline' name='tuhe_prjm_id_mil' action='$PHP_SELF'>Project $projectSelector&nbsp;"
                     . "<input type='submit' value='get' title='press me if you have only one project'/>\n</form>\n";
-            $rightForm = "<form method='get' name='student' action='$PHP_SELF'>Student&nbsp;:$judgeSelector <input type='submit' name='getstudent' value='Get student'/>\n</form>\n";
+            $rightForm = "<form method='get' style='display:inline' name='student' action='$PHP_SELF'>Student&nbsp;:$judgeSelector <input type='submit' name='getstudent' value='Get student'/>\n</form>\n";
         } else {
             $leftForm = $rightForm = '&nbps';
         }
@@ -276,7 +276,7 @@ function tutorHelperLayout($midForm, $rightForm) {
             $student_class_id = $student_name = 'Unknown';
         }
         ?>
-        <div class='nav' align='center' style='background:#eee;'>
+        <div class='nav' style='background:#eee;'>
             <table align='center' border='0'>
                 <tr>
                     <th><i>You are watching this page for student</i> <span style='color:#070'><?= $student_name ?></span> </th>

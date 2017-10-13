@@ -317,16 +317,16 @@ if ($grp_open) {
 
             <fieldset class="control">
                 <legend>Assessment form</legend>
-                <h2 align='center'>Assessment for <?= $afko ?> <?= $year ?> <?= $description ?>
-                    <br/>group <?= $grp_num ?> (<?= $grp_alias ?>)
+                <h2>Assessment for <?= $afko ?> <?= $year ?> <?= $description ?>
+                    group <?= $grp_num ?> (<?= $grp_alias ?>)
                     <br/>for Student <?= $student_data ?>
                 </h2>
                 <form method="post" name="assessment" action="<?= $PHP_SELF ?>" onsubmit="return confirm('Are you sure you want to submit these data?')">
-                    <h4 align='center'><?= $gradetype ?></h4>
+                    <h4 ><?= $gradetype ?></h4>
                     <?= $pg->getGroupPhotos() ?>
                     <table align='center' class='navleft'>
-                        <tr><th><?= $langmap['criteria'][$lang] ?></th>
-                            <th><?= $langmap['verklaring'][$lang] ?></th></tr>
+                        <tr><td><?= $langmap['criteria'][$lang] ?></th>
+                            <td><?= $langmap['verklaring'][$lang] ?></th></tr>
                         <?= getCriteriaList($criteria, $lang, $rainbow) ?>
 
                     </table>

@@ -73,11 +73,11 @@ class Navigation extends HtmlContainer {
         // ruler
         echo "<div id='navopening' class='navopening'>\n";
         //	    taskTimerText($_SESSION['peer_id']).
-        ?><div style='position:relative;top:0px;left:0px;right:0px'>
+        ?><!--div style='position:relative;layout:flow;top:0px;left:0px;right:0px'-->
             <h1 align='left'><a class='logout' href='index.php' target='_top' title='goto peerweb home page'>
                     <img src='images/home.png' border='0' alt='home'/></a>&nbsp;&nbsp;
                 <a class='print' href='<?=$this->page?>' target='_blank' title='print this page'>
-                    <img src='images/printer.png' border='0' alt='print'/></a>&nbsp&nbsp;&nbsp&nbsp;<?= $this->pageOpening ?></h1></div>
+                    <img src='images/printer.png' border='0' alt='print'/></a>&nbsp&nbsp;&nbsp&nbsp;<?= $this->pageOpening ?></h1><!--/div-->
 
         <!--span style='align:right'>&nbsp;
             <a href='helpme.php?page=<?= $help_context ?>' target='_blank'>
