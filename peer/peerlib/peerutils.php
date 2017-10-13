@@ -319,6 +319,7 @@ function queryToTable($dbConn, $query, $numerate = 0, $watchColumn = -1, $rb) {
  * @param $checkName name of the column in the query that proces the check value
  * @param $checkSet set of values in checkcolumn that must have checkbox checked
  * @param $inputColumn array columns that are inputs. In array, type and width is defined
+ * @return the table rendered as string.
  */
 function getQueryToTableChecked($dbConn, $query, $numerate, $watchColumn, $rb, $checkColumn, $checkName, $checkSet = array(), $inputColumns = array(), $summary = 'list of data') {
     global $ADODB_FETCH_MODE;
@@ -333,6 +334,7 @@ function getQueryToTableChecked($dbConn, $query, $numerate, $watchColumn, $rb, $
         $result .= "<pre>Cannot read table data \nreason \n\t" . $dbConn->ErrorMsg() . " at <br/>\n";
         stacktrace(1);
         $result .= "</pre>";
+        return $result;
     }
     $colcount = $resultSet->FieldCount();
     if (!$resultSet->EOF && ($watchColumn >= 0) && ($watchColumn < $colcount))
