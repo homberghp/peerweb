@@ -34,7 +34,7 @@ if (isSet($_REQUEST['critique_id'])) {
 	if (!$resultSet->EOF) {
 	    extract($resultSet->fields);
 	}
-	$critique_text='<h1>My critique is</h1>';
+	$critique_text='<h4>My Feedback is</h4>';
 	$sql ="select * from all_prj_tutor join uploads using(prjtg_id) where upload_id=$doc_id";
 	$resultSet =$dbConn->Execute($sql);
 	if (!$resultSet->EOF) {
@@ -150,25 +150,6 @@ $page->addHeadText("<script type='text/javascript'>\n".
 		   "  return true;\n".
 		   "}\n".
 		   "</script>");
-// $page->addHeadText("<script language='JavaScript' type='text/javascript' src='js/html2xhtml.js'>".
-// 		   "</script>");
-// $page->addHeadText("<script language='JavaScript' type='text/javascript' ".
-// 		   "src='js/richtext.js'>"."</script>");
-
-$page->addHeadText(
-'<script language="javascript" type="text/javascript" src="'.SITEROOT.'/js/tiny_mce/tiny_mce.js"></script>
- <script language="javascript" type="text/javascript">
-   tinyMCE.init({
-        theme: "advanced",
-        theme_advanced_toolbar_location : "top",
-	mode : "textareas"
-    });
- </script>
-');
-$page->addHeadText("<style type='text/css'>\n".
-		   " p {text-align: justify;}\n".
-		   " p:first-letter {font-size:180%; font-family: script;font-weight:bold; color:#800;}\n".
-		   " </style>");
 $form1=new HtmlContainer("<div id='main'>");
 //$dbConn->log($sql);
 $critique_text = stripslashes($critique_text);
@@ -184,5 +165,7 @@ if ($template_text === false ) {
     $form1->addText($text);
  }
 $page->addBodyComponent( $form1 );
+$page->addHtmlFragment('templates/tinymce_include.html', $pp);
+
 $page->show();
 ?>

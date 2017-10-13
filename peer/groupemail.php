@@ -38,15 +38,22 @@ if (isSet($resultSet->fields['email2'])) {
     $email2 = '';
 
 $mailto = array();
-$pp['formsubject'] = 'Hello world';
-$pp['mailbody'] = 'This is a test mail<br/>' . $signature;
+$formsubject = 'Hello world';
+$mailbody = 'This is a test mail<br/>' . $signature;
 $afko = $description = '';
 if (isSet($_POST['mailbody'])) {
-    $mailbody = $_POST['mailbody'];
+    $SESSION['mailbody']=$mailbody = $_POST['mailbody'];
+} else if(isSet($SESSION['mailbody'])) {
+    $mailbody = $_SESSION['mailbody'];
 }
 if (isSet($_POST['formsubject'])) {
-    $formsubject = $_POST['formsubject'];
+    $SESSION['formsubject']=$formsubject = $_POST['formsubject'];
+} else if(isSet($SESSION['formsubject'])){
+    $formsubject = $SESSION['formsubject'];
 }
+$pp['formsubject'] = $formsubject;
+$pp['mailbody'] = $mailbody;
+
 $mailto = array();
 if (isSet($_POST['mailto'])) {
     $mailto = $_POST['mailto'];
@@ -101,7 +108,7 @@ $page = new PageContainer();
 $page->setTitle('Mail-list page');
 $nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
 $page->addBodyComponent($nav);
-$page->addFileContentsOnce('templates/tinymce_include.html');
+//$page->addFileContentsOnce('templates/tinymce_include.html');
 $page->addHeadText(
         '<script type="text/javascript">
  function checkThem(ref,state){
@@ -250,4 +257,5 @@ $pp['rTable'] = roleTable($dbConn, $prjm_id);
 $pp['classTable'] = classTable($dbConn, $prjm_id);
 $pp['selWidget'] = $prjSel->getWidget();
 $page->addHtmlFragment('templates/groupemail.php', $pp);
+$page->addHtmlFragment('templates/tinymce_include.html', $pp);
 $page->show();
