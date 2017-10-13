@@ -178,8 +178,9 @@ if (isSet($_REQUEST['bsubmit']) && isSet($_REQUEST['participant']) && isProjectS
 $script = '<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>'
         . '<script type="text/javascript" language="JavaScript">
     function checkAll(theForm, cName, cClass, status) {
-   for (i=0,n=theForm.elements.length;i<n;i++) {
-       if (theForm.elements[i].className.indexOf(cName) !=-1) {
+    var n=theForm.elements.length;
+   for (i=0;i<n;i++) {
+       if (theForm.elements[i].classList.contains(cName)) {
             theForm.elements[i].checked = status;
             if (status) {
                theForm.elements[i].parentNode.className=cClass;
