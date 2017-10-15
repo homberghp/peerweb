@@ -13,11 +13,6 @@ $nav = new Navigation( $tutor_navtable, basename( $PHP_SELF ), "Plan een meeloop
 $page->addBodyComponent( $nav );
 
 
-//$css = "<link rel='stylesheet' type='text/css' href='style/tablesorterstyle.css'/>";
-//$page->addScriptResource('js/jquery.js');
-//$page->addScriptResource('js/jquery.tablesorter.js');
-//$page->addJqueryFragment( '$("#myTable").tablesorter({widgets: [\'zebra\'],headers: {0:{sorter:false}}});' );
-//$page->addHeadText($css);
 $pp['subject_de'] = 'Einladung zum Schnuppertag an der Fontys FH in Venlo';
 $pp['subject_nl'] = 'Uitnodiging voor een meeloopdag bij Fontys Hogescholen in Venlo';
 
