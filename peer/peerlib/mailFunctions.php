@@ -30,7 +30,6 @@ function formMailer($dbConn, $sql, $fsubject, $body, $sender, $sender_name) {
         extract($resultSet->fields);
         $headers = htmlmailheaders($sender, $sender_name, $email1, $tutor_email);
         $recipients .= "$name ($email1)\n";
-        // eval user created subject and body template
         $subject = templateWith($fsubject, $resultSet->fields);
         $message = templateWith($fsubject, $resultSet->fields);
 

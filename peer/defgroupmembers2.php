@@ -4,6 +4,8 @@ include_once('./peerlib/peerutils.php');
 include_once('navigation2.php');
 require_once 'prjMilestoneSelector2.php';
 require_once 'maillists.inc.php';
+require_once 'TemplateWith.php';
+
 if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE')) {
     include_once 'templates/getrealbrowser.html';
     exit(0);
@@ -203,8 +205,7 @@ $template_text = file_get_contents($templatefile, true);
 if ($template_text === false) {
     $page->addBodyComponent(new Component("<strong>cannot read template file $templatefile</strong>"));
 } else {
-    eval("\$text = \"$template_text\";");
-    $page->addBodyComponent(new Component($text));
+    $page->addBodyComponent(new Component(templateWith($template_text, get_defined_vars())));
 }
 $page->addHeadText('
 <script src="' . $root_url . '/js/scriptaculous/prototype.js" type="text/javascript"></script>

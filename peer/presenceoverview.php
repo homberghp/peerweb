@@ -6,39 +6,40 @@ include_once('navigation2.php');
 require_once 'prjMilestoneSelector2.php';
 require_once 'presencetable.php';
 require_once 'CheckTable.class.php';
-requireScribeCap( $peer_id );
+require_once 'TemplateWith.php';
+requireScribeCap($peer_id);
 
 class MyRowHeaderBuilder implements RowHeaderBuilder {
 
-  public function build( $valueArray ) {
-    extract( $valueArray );
-    return "\t\t<td>$snummer</td>\n" .
-            "\t\t<td>$name</td>\n" .
-            "\t\t<td onmouseover=" . '"balloon.showTooltip(event,\'<div><center style=\\\'font-weight:bold;\\\'>' .
-            $name . '<br/><img src=\\\'' . $photo .
-            '\\\'/></center></div>\')"' . "><img src='$photo' width='24' height='36' /></td>\n";
-  }
+    public function build($valueArray) {
+        extract($valueArray);
+        return "\t\t<td>$snummer</td>\n" .
+                "\t\t<td>$name</td>\n" .
+                "\t\t<td onmouseover=" . '"balloon.showTooltip(event,\'<div><center style=\\\'font-weight:bold;\\\'>' .
+                $name . '<br/><img src=\\\'' . $photo .
+                '\\\'/></center></div>\')"' . "><img src='$photo' width='24' height='36' /></td>\n";
+    }
 
-  public function buildHeader( $data ) {
-    return "<th>snummer</th><th>Name</th><th>pict</th>\n";
-  }
+    public function buildHeader($data) {
+        return "<th>snummer</th><th>Name</th><th>pict</th>\n";
+    }
 
 }
 
 class MyCellBuilder implements TableCellBuilder {
 
-  public function build( $valueArray ) {
-    $result = '';
-    extract( $valueArray );
-    if ( isSet( $valueArray['title'] ) ) {
-      $title = " title='" . $valueArray['title'] . "' ";
-      $class = "class='hasnote notered' ";
-    } else {
-      $class = $title = '';
+    public function build($valueArray) {
+        $result = '';
+        extract($valueArray);
+        if (isSet($valueArray['title'])) {
+            $title = " title='" . $valueArray['title'] . "' ";
+            $class = "class='hasnote notered' ";
+        } else {
+            $class = $title = '';
+        }
+        $result .= "\t\t<td $class $title>" . $valueArray['check'] . "</td>\n";
+        return $result;
     }
-    $result .="\t\t<td $class $title>" . $valueArray['check'] . "</td>\n";
-    return $result;
-  }
 
 }
 
@@ -48,23 +49,23 @@ $prjm_id = 0;
 $milestone = 1;
 $afko = 'PRJ00';
 $description = '';
-extract( $_SESSION );
-$prjSel = new PrjMilestoneSelector2( $dbConn, $peer_id, $prjm_id );
+extract($_SESSION);
+$prjSel = new PrjMilestoneSelector2($dbConn, $peer_id, $prjm_id);
 //$prjSel->setJoin('milestone_grp using (prj_id,milestone) natural join activity_project ');
-$prjSel->setJoin( 'activity_project using(prj_id) join all_project_scribe using(prj_id) ' );
-$prjSel->setWhere( ' prjm_id in (select prjm_id from activity) and ' . $peer_id . '=scribe' );
-extract( $prjSel->getSelectedData() );
+$prjSel->setJoin('activity_project using(prj_id) join all_project_scribe using(prj_id) ');
+$prjSel->setWhere(' prjm_id in (select prjm_id from activity) and ' . $peer_id . '=scribe');
+extract($prjSel->getSelectedData());
 $_SESSION['prj_id'] = $prj_id;
 $_SESSION['prjm_id'] = $prjm_id;
 $_SESSION['milestone'] = $milestone;
 
-$filename = 'presencelist_' . $afko . '-' . date( 'Ymd' ) . '.csv';
+$filename = 'presencelist_' . $afko . '-' . date('Ymd') . '.csv';
 
 $csvout = 'N';
 $csvout_checked = '';
-if ( isSet( $_REQUEST['csvout'] ) ) {
-  $csvout = $_REQUEST['csvout'];
-  $csvout_checked = ($csvout == 'Y') ? 'checked' : '';
+if (isSet($_REQUEST['csvout'])) {
+    $csvout = $_REQUEST['csvout'];
+    $csvout_checked = ($csvout == 'Y') ? 'checked' : '';
 }
 
 //pagehead2("Presence list to $afko $year $description");//,$scripts);
@@ -82,8 +83,8 @@ $sql = "select snummer,roepnaam||coalesce(' '||tussenvoegsel||' ',' ')||achterna
 $page = new PageContainer();
 include 'js/balloonscript.php';
 
-$page->setTitle( 'Overview of presence during activities' );
-$page->addHeadComponent( new Component( "<style type='text/css'>
+$page->setTitle('Overview of presence during activities');
+$page->addHeadComponent(new Component("<style type='text/css'>
     *.notered { 
 	background-image:url('images/redNote.png');
     }
@@ -93,23 +94,23 @@ $page->addHeadComponent( new Component( "<style type='text/css'>
     *.noteblue { 
 	background-image:url('images/blueNote.png');
     }
- </style>" ) );
+ </style>"));
 $page_opening = "Presence list for project $afko $description prjm_id $prjm_id prj_id $prj_id milestone $milestone";
-$nav = new Navigation( $tutor_navtable, basename( $PHP_SELF ), $page_opening );
-$page->addBodyComponent( $nav );
-$tableBuilder = new CheckTable( $dbConn, new MyRowHeaderBuilder(), new MyCellBuilder() );
-$presence_table = $tableBuilder->getTable( $sql, 'snummer' );
+$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$page->addBodyComponent($nav);
+$tableBuilder = new CheckTable($dbConn, new MyRowHeaderBuilder(), new MyCellBuilder());
+$presence_table = $tableBuilder->getTable($sql, 'snummer');
 //$presence_table = checkTable($dbConn,$sql,0,4,5,6);
 $templatefile = 'templates/presenceoverview.html';
-$template_text = file_get_contents( $templatefile, true );
+$template_text = file_get_contents($templatefile, true);
 $text = '';
-if ( $template_text === false ) {
-  $text = "<strong>cannot read template file $templatefile</strong>";
+if ($template_text === false) {
+    $text = "<strong>cannot read template file $templatefile</strong>";
 } else {
-  eval( "\$text = \"$template_text\";" );
+    $text = templateWith($template_text, get_defined_vars());
 }
 
-$page->addBodyComponent( new Component( $text ) );
-$page->addBodyComponent( new Component( '<!-- db_name=' . $db_name . '-->' ) );
+$page->addBodyComponent(new Component($text));
+$page->addBodyComponent(new Component('<!-- db_name=' . $db_name . '-->'));
 $page->show();
 ?>

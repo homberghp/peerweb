@@ -5,7 +5,7 @@ require_once'./peerlib/validators.php';
 require_once 'navigation2.php';
 require_once 'prjMilestoneSelector2.php';
 require_once './peerlib/simplequerytable.php';
-
+require_once 'TemplateWith.php';
 requireCap(CAP_ENROL);
 extract($_SESSION);
 
@@ -79,8 +79,7 @@ if (count($products)) {
 if ($template_text === false) {
     $page->addBodyComponent(new Component("<strong>cannot read template file $templatefile</strong>"));
 } else {
-    eval("\$text = \"$template_text\";");
-    $page->addBodyComponent(new Component($text));
+    $page->addBodyComponent(new Component(templateWith($template_text, get_defined_vars())));
 }
 $page->show();
 

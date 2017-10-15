@@ -5,6 +5,7 @@ include_once('navigation2.php');
 require_once './peerlib/querytotable.php';
 require_once './peerlib/validators.php';
 require_once 'prjMilestoneSelector2.php';
+require_once 'TemplateWith.php';
 
 $prj_id=1;
 $milestone=1;
@@ -58,8 +59,7 @@ extract($resultSet->fields);
 if ($template_text === false ) {
   $form1Form->addText("<strong>cannot read template file $templatefile</strong>");
 } else {  
-  eval("\$text = \"$template_text\";");
-  $form1Form->addText($text);
+  $form1Form->addText(templateWith($template_text, get_defined_vars()));
 }
 $form1->add($form1Form);
 

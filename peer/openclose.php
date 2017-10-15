@@ -93,8 +93,7 @@ $text = '';
 if ($template_text === false) {
     $page->addBodyComponent(new Component("<strong>cannot read template file $templatefile</strong>"));
 } else {
-    eval("\$text = \"$template_text\";");
-    $page->addBodyComponent(new Component($text));
+    $page->addBodyComponent(new Component(templateWith($template_text, get_defined_vars())));
 }
 $page->addHeadText(
         '<script language="javascript" type="text/javascript" src="' . SITEROOT . '/js/tiny_mce/tiny_mce.js"></script>

@@ -6,6 +6,7 @@ require_once('./peerlib/validators.php');
 require_once('./peerlib/simplequerytable.php');
 include_once'navigation2.php';
 require_once 'studentPrjMilestoneSelector.php';
+require_once 'TemplateWith.php'; 
 $doctype = 0;
 $version_limit = 2;
 $url = $PHP_SELF;
@@ -197,8 +198,8 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
 
             $toAddress = implode(', ',$to_emails);
             $headers .= $reply_to;
-            eval("\$message=\"$mailbody\";");
-            eval("\$subject=\"$formsubject\";");
+            $message= templateWith($mailbody, get_defined_vars());
+            $subject= templateWith($formsubject, get_defined_vars());
             domail($toAddress, $subject, $message, $headers); // no mail on personal docs.
         }
     } else {

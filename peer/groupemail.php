@@ -5,9 +5,7 @@ include_once('./peerlib/peerutils.php');
 include_once 'navigation2.php';
 require_once 'prjMilestoneSelector2.php';
 include './peerlib/simplequerytable.php';
-require_once 'peerlib/mailFunctions.php';
-
-
+require_once 'mailFunctions.php';
 $prj_id = 1;
 $milestone = 1;
 $prjm_id = 0;

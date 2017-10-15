@@ -8,6 +8,7 @@ include_once('peerutils.php');
 include_once('navigation2.php');
 require_once('prjMilestoneSelector2.php');
 require_once('classMultiSelector.php');
+require_once 'TemplateWith.php';
 
 requireCap(CAP_MKCLASSES);
 unset($_SESSION['class_ids']);
@@ -100,8 +101,7 @@ $template_text = file_get_contents($templatefile, true);
 if ($template_text === false) {
     $page->addBodyComponent(new Component("<strong>cannot read template file $templatefile</strong>"));
 } else {
-    eval("\$text = \"$template_text\";");
-    $page->addBodyComponent(new Component($text));
+    $page->addBodyComponent(new Component(templateWith($template_text, get_defined_vars())));
 }
 $page->addBodyComponent($form2Fieldset);
 $page->show();

@@ -3,6 +3,7 @@ include_once('./peerlib/peerutils.php');
 require_once('navigation2.php');
 require_once('./peerlib/validators.php');
 include 'project_selector.php';
+
 requireCap(CAP_TUTOR);
 $page_opening='Alter a project definition';
 $afko='WHATFR';
@@ -155,8 +156,7 @@ $template_text= file_get_contents($templatefile, true);
 if ($template_text === false ) {
   $form1Form->addText("<strong>cannot read template file $templatefile</strong>");
 } else {  
-  eval("\$text = \"$template_text\";");
-  $form1->addText($text);
+  $form1->addText(templateWith($template_text, get_defined_vars()));
 }
 //$form1->add($form1Form);
 $page->addBodyComponent($nav);
