@@ -40,7 +40,7 @@ if (isSet($resultSet->fields['email2'])) {
 
 $mailto = array();
 $formsubject = 'Hello world';
-$mailbody = 'This is a test mail<br/>' . $signature;
+$mailbody = 'This is a test mail \u2035<br/>' . $signature;
 $afko = $description = '';
 if (isSet($_POST['mailbody'])) {
     $SESSION['mailbody'] = $mailbody = $_POST['mailbody'];
