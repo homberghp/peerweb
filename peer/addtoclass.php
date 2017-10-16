@@ -1,7 +1,7 @@
 <?php
 requireCap(CAP_ALTER_STUDENT_CLASS);
-require_once('./peerlib/peerutils.php');
-require_once('./peerlib/validators.php');
+require_once('peerutils.php');
+require_once('validators.php');
 include_once('navigation2.php');
 require_once 'studentpicker.php';
 require_once 'ClassSelectorClass.php';

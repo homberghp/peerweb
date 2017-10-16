@@ -1,7 +1,7 @@
 <?php
 
-require_once('./peerlib/peerutils.php');
-require_once './peerlib/youtubelink.php';
+require_once('peerutils.php');
+require_once 'youtubelink.php';
 
 /**
  * Menufield creates a input element to be put into a form (possibly inside a table)

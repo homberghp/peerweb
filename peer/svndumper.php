@@ -1,5 +1,5 @@
 <?php
-include_once './peerlib/peerutils.php';
+include_once 'peerutils.php';
 
   // This script dumps a repository to the webbrowser, advertising it as basename(repo)-date.tar.bz2
 

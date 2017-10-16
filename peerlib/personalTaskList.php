@@ -1,5 +1,5 @@
 <?php
-require_once './peerlib/peerutils.php';
+require_once 'peerutils.php';
 require_once 'TableBuilder.class.php';
 require_once 'TaskRowFactory.class.php';
 

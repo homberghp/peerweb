@@ -1,6 +1,6 @@
 <?php
 
-require_once 'peerlib/component.php';
+require_once 'component.php';
 
 class ConfFileEditor {
 

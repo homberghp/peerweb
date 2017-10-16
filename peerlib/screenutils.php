@@ -1,7 +1,7 @@
 <?php
 
-require_once('./peerlib/peerutils.php');
-require_once('./peerlib/MenuField.class.php');
+require_once('peerutils.php');
+require_once('MenuField.class.php');
 
 /**
  * Menu builds a (table) part of a form dependent on a relation (table)

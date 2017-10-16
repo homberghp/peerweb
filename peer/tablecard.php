@@ -1,7 +1,7 @@
 <?php
 $debug=0;
-include_once('./peerlib/peerutils.php');
-require_once('./peerlib/validators.php');
+include_once('peerutils.php');
+require_once('validators.php');
 require_once('component.php');
 require_once 'TemplateWith.php';
 ini_set('error_reporting',(E_ALL & ~E_NOTICE) );

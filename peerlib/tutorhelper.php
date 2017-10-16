@@ -1,9 +1,9 @@
 <?php
 /*  $Id: tutorhelper.php 1826 2014-12-27 15:01:13Z hom $ */
-require_once './peerlib/guessers.php';
-require_once './peerlib/validators.php';
+require_once 'guessers.php';
+require_once 'validators.php';
 require_once 'prjMilestoneSelector2.php';
-require_once './peerlib//ClassSelectorClass.php';
+require_once 'ClassSelectorClass.php';
 $isTutor = false;
 $snummer = 0;
 $class_id = 0;

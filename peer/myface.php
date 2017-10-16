@@ -1,6 +1,6 @@
 <?php
 require_once 'component.php';
-require_once('./peerlib/peerutils.php');
+require_once('peerutils.php');
 include_once('tutorhelper.php');
 require_once'navigation.php';
 

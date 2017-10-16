@@ -1,9 +1,9 @@
 <?php
 
-include_once('./peerlib/peerutils.php');
+include_once('peerutils.php');
 include_once('tutorhelper.php');
-require_once('./peerlib/validators.php');
-require_once './peerlib/component.php';
+require_once('validators.php');
+require_once 'component.php';
 require_once 'document_access.php';
 require_once 'selector.php';
 $hasCapSystem = 1;

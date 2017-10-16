@@ -1,5 +1,5 @@
 <?php
-require_once('./peerlib/peerutils.php');
+require_once('peerutils.php');
 if (isSet($_REQUEST['compact'])) {
     // try to join adjecent records with same snummer,project and task attributes
     // must be done in one transaction

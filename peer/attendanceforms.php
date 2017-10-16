@@ -1,7 +1,7 @@
 <?php
 
-include_once('./peerlib/peerutils.php');
-require_once('./peerlib/validators.php');
+include_once('peerutils.php');
+require_once('validators.php');
 require_once('component.php');
 $debug = false;
 $act_id = 11;

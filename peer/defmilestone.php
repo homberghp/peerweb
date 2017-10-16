@@ -1,7 +1,7 @@
 <?php
 
-include_once('./peerlib/peerutils.php');
-require_once('./peerlib/querytotable.php');
+include_once('peerutils.php');
+require_once('querytotable.php');
 include_once('navigation2.php');
 include_once 'project_selector.php';
 require_once 'TemplateWith.php';

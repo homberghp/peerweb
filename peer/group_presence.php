@@ -1,5 +1,5 @@
 <?php
-include_once './peerlib/peerutils.php';
+include_once 'peerutils.php';
 include_once 'tutorhelper.php';
 include_once 'navigation2.php';
 $snummer=$_SESSION['snummer'];

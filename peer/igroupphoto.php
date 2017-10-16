@@ -1,6 +1,6 @@
 <?php
-include_once('./peerlib/peerutils.php');
-require_once('./peerlib/validators.php');
+include_once('peerutils.php');
+require_once('validators.php');
 include_once('tutorhelper.php');
 include_once('navigation2.php');
 require_once 'GroupPhoto.class.php';

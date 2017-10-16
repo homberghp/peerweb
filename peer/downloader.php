@@ -2,8 +2,8 @@
 
 /* $Id: downloader.php 1723 2014-01-03 08:34:59Z hom $ */
 //session_start();
-include_once('./peerlib/peerutils.php');
-require_once('./peerlib/validators.php');
+include_once('peerutils.php');
+require_once('validators.php');
 require_once('document_access.php');
 require_once('tutorhelper.php');
 $doc_id = 1;

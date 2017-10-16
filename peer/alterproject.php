@@ -1,7 +1,7 @@
 <?php
-include_once('./peerlib/peerutils.php');
+include_once('peerutils.php');
 require_once('navigation2.php');
-require_once('./peerlib/validators.php');
+require_once('validators.php');
 include 'project_selector.php';
 
 requireCap(CAP_TUTOR);

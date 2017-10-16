@@ -1,8 +1,8 @@
 <?php
 
 /* $Id: activegroup.php 1825 2014-12-27 14:57:05Z hom $ */
-include_once('./peerlib/peerutils.php');
-include_once('./peerlib/simplequerytable.php');
+include_once('peerutils.php');
+include_once('simplequerytable.php');
 include_once('makeinput.php');
 include_once('tutorhelper.php');
 include_once 'navigation2.php';

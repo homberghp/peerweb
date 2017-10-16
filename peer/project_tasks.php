@@ -1,6 +1,6 @@
 <?php
 /* $Id: project_tasks.php 1723 2014-01-03 08:34:59Z hom $ */
-include_once('./peerlib/peerutils.php');
+include_once('peerutils.php');
 include_once('tutorhelper.php');
 include_once 'navigation2.php';
 $task_prj_id_milestone = '1:1';

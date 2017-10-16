@@ -1,10 +1,10 @@
 <?php
 
 /* $Id: groupemail.php 1845 2015-03-19 11:56:26Z hom $ */
-include_once('./peerlib/peerutils.php');
+include_once('peerutils.php');
 include_once 'navigation2.php';
 require_once 'prjMilestoneSelector2.php';
-include './peerlib/simplequerytable.php';
+include 'simplequerytable.php';
 require_once 'mailFunctions.php';
 $prj_id = 1;
 $milestone = 1;

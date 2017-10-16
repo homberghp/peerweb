@@ -1,6 +1,6 @@
 <?php
 
-require_once'./peerlib/rainbow.php';
+require_once'rainbow.php';
 
 /**
  * SimpleTableFormatter formats simple tables with optional table definitions and
