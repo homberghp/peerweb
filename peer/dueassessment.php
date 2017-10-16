@@ -27,7 +27,7 @@ if ($resultSet === false) {
 $replyto = $resultSet->fields['email'];
 $snmailto = array();
 $formsubject = 'Please fill in your peer assessment data for project {$afko}: {$description}';
-$templatefile = "templates/mailbodytemplate.html.inc";
+$templatefile = "templates/mailbodytemplate.html";
 $sqlsender = "select rtrim(email1) as sender,roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam as sender_name," .
         "coalesce(signature," .
         "'sent by the peerweb service on behalf of '||roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam)\n" .
