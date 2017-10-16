@@ -302,7 +302,7 @@ class MenuField {
                             'onfocus="clr();">' . "\n";
                     extract($_SESSION);
                     $q = $this->selectQuery;
-                    eval("\$q=\"$q\";");
+                    $q= templateWith($q, get_defined_vars());//$substitutions)
                     $result .= getOptionListGrouped($this->dbConn, $q, $this->value, 'value', isSet($this->optionPreloadList) ? $this->optionPreloadList : array('name' => '&nbsp;', 'value' => '') );
                     $result .= "\n" . '</select>' . "\n";
                 } else {
@@ -320,7 +320,7 @@ class MenuField {
                     extract($_SESSION);
                     $q = $this->selectQuery;
                     //echo "<pre style='color:blue'> {$_SESSION['prjm_id']}:{$q}</pre>";
-                    eval("\$q=\"$q\";");
+                    $q= templateWith($q, get_defined_vars());//$substitutions)
                     //echo "<pre style='color:green'>{$q}</pre>";
                     $result .= getOptionList($this->dbConn, $q, $this->value, isSet($this->optionPreloadList) ? $this->optionPreloadList : array('name' => '&nbsp;', 'value' => '') );
                     $result .= "\n" . '</select>' . "\n";

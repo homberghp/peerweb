@@ -151,7 +151,7 @@ $activity_project_checked = $resultSet->fields['active_project_set']?'checked':'
 
 $input_activity_project="<input type='checkbox' name='activity_project' value='set' $activity_project_checked/>";
 
-$templatefile='templates/alterproject.html.inc';
+$templatefile='templates/alterproject.html';
 $template_text= file_get_contents($templatefile, true);
 if ($template_text === false ) {
   $form1Form->addText("<strong>cannot read template file $templatefile</strong>");

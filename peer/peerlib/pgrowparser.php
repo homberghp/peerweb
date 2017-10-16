@@ -72,9 +72,9 @@ class RowWithArraysParser implements RowParser {
         for ( $i = 0; $i < $colcount; $i++ ) {
             $field = $pgResultSet->fields[ $i ];
             if ( '{' == substr( $field, 0, 1 ) && '}' == substr( $field, -1 ) ) {
-                $s = str_replace( '{', 'array(', $field );
-                $s = str_replace( '}', ')', $s );
-                $s = eval( "\$helper=$s;" );
+                $s = str_replace( '{', '', $field );
+                $s = str_replace( '}', '', $s );
+                $helper = preg_split( '/\s*,\s*/', $s );
                 $count = count( $helper );
                 for ( $j = 0; $j < $count; $j++ ) {
                     $result[] = $helper[ $j ];
@@ -98,10 +98,10 @@ class RowWithArraysParser implements RowParser {
             $fieldName = niceName( $pgResultSet->FieldName( $i ) );
             $field = $pgResultSet->fields[ $i ];
             if ( '{' == substr( $field, 0, 1 ) && '}' == substr( $field, -1 ) ) {
-                $s = str_replace( '{', 'array(', $field );
-                $s = str_replace( '}', ')', $s );
-                //echo $s;
-                $s = eval( "\$helper=$s;" );
+                $s = str_replace( '{', '', $field );
+                $s = str_replace( '}', '', $s );
+                $helper = preg_split( '/\s*,\s*/', $s );
+
                 $count = count( $helper );
                 $this->columnCellCount[ $i ] = $count;
                 for ( $j = 1; $j <= $count; $j++ ) {
@@ -125,11 +125,10 @@ class RowWithArraysParser implements RowParser {
             $type = $pgResultSet->MetaType( $i );
             $field = $pgResultSet->fields[ $i ];
             if ( '{' == substr( $field, 0, 1 ) && '}' == substr( $field, -1 ) ) {
-                error_log("composite type=".$type,0);
-                $s = str_replace( '{', 'array(', $field );
-                $s = str_replace( '}', ')', $s );
-                //echo $s;
-                $s = eval( "\$helper=$s;" );
+                error_log( "composite type=" . $type, 0 );
+                $s = str_replace( '{', '', $field );
+                $s = str_replace( '}', '', $s );
+                $helper= preg_split('/\s*,\s*/', $s);
                 $count = count( $helper );
 
                 for ( $j = 1; $j <= $count; $j++ ) {

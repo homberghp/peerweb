@@ -26,7 +26,7 @@ if ($resultSet === false) {
 }
 $replyto = $resultSet->fields['email'];
 $snmailto = array();
-$formsubject = "Please fill in your peer assessment data for project \$afko: \$description";
+$formsubject = 'Please fill in your peer assessment data for project {$afko}: {$description}';
 $templatefile = "templates/mailbodytemplate.html.inc";
 $sqlsender = "select rtrim(email1) as sender,roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam as sender_name," .
         "coalesce(signature," .
@@ -145,41 +145,17 @@ echo "<div>\n";
 queryToTableChecked($dbConn, $sql, true, 2, new RainBow(0x46B4B4, 64, 32, 0), 3, 'snmailto[]', $snmailto);
 echo "</div>\n";
 $selecttable = ob_get_clean();
-$templatefile = 'templates/dueassessment.html.inc';
+$templatefile = 'templates/dueassessment.html';
 $template_text = file_get_contents($templatefile, true);
 if ($template_text === false) {
     $page->addText("<strong>cannot read template file $templatefile</strong>");
 } else {
     $page->addBodyComponent(new Component(templateWith($template_text, get_defined_vars())));
 }
+$page->addHtmlFragment('templates/tinymce_include.html', $pp);
+
 $page->addHeadText(
-        '<script language="javascript" type="text/javascript" src="' . SITEROOT . '/js/tiny_mce/tiny_mce.js"></script>
- <script language="javascript" type="text/javascript">
-   tinyMCE.init({
-        theme: "advanced",
-        auto_resize: true,
-        gecko_spellcheck : true,
-        theme_advanced_toolbar_location : "top",
-	mode : "textareas", /*editor_selector : "mceEditor",*/
-
-        theme_advanced_styles : "Header 1=header1;Header 2=header2;Header 3=header3;Table Row=tableRow1",
-        plugins: "advlink,searchreplace,insertdatetime,table",
-	plugin_insertdate_dateFormat : "%Y-%m-%d",
-	plugin_insertdate_timeFormat : "%H:%M:%S",
-	table_styles : "Header 1=header1;Header 2=header2;Header 3=header3",
-	table_cell_styles : "Header 1=header1;Header 2=header2;Header 3=header3;Table Cell=tableCel1",
-	table_row_styles : "Header 1=header1;Header 2=header2;Header 3=header3;Table Row=tableRow1",
-	table_cell_limit : 100,
-	table_row_limit : 5,
-	table_col_limit : 5,
-	theme_advanced_buttons1_add : "search,replace,insertdate,inserttime,tablecontrols",
-
-
-/*        theme_advanced_buttons2 : "",
-	theme_advanced_buttons3 : ""*/
-    });
- </script>
-  <script type="text/javascript">
+        '<script type="text/javascript">
  function checkThem(ref){
   var checks = document.getElementsByName(ref);
   var boxLength = checks.length;

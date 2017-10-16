@@ -76,7 +76,7 @@ $nav->setInterestMap($tabInterestCount);
 
 $prjSel->setJoin('milestone_grp using (prj_id,milestone)');
 $prj_id_selector = $prjSel->getSelector();
-$emailList = '';
+$emailList = array();
 $grpList = array();
 $resultSet = $dbConn->Execute($sqlhead . $sqltail);
 if ($resultSet === false) {

@@ -58,7 +58,12 @@ class TemplateWithTest extends TestCase {
         return [
             ['hello {$world}','hello Schöne Heimat', array('world'=> 'Schöne Heimat')],
             ['hello {$süßes}','hello Schöne Heimat', array('süßes'=> 'Schöne Heimat')],
+            ['hello $schatz ','hello Schöne Heimat ', array('schatz'=> 'Schöne Heimat')],
+            ['hello $schatz','hello Schöne Heimat', array('schatz'=> 'Schöne Heimat')],
+            ['with underscores $schatz_z','with underscores Schöne Heimat', array('schatz_z'=> 'Schöne Heimat')],
             ['one well known pattern is Façade, {$süßes}','one well known pattern is Façade, Liebling', array('süßes'=> 'Liebling')],
+            ['dollar ony, utf8 hello $süßes','dollar ony, utf8 hello Schöne Heimat', array('süßes'=> 'Schöne Heimat')],
+            ['dollar ony, utf8 hello $süßes2','dollar ony, utf8 hello Schöne Heimat', array('süßes2'=> 'Schöne Heimat')],
             ];
         
         
