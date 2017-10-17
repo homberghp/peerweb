@@ -1,5 +1,7 @@
 <?php
 
+require_once 'peerpgdbconnection.php';
+
 /**
  * Create a query for the database.
  *
@@ -76,7 +78,7 @@ class SearchQuery {
      * @param $dbConn connection to use in queries
      * @param relname relation to select from
      */
-    function __construct( &$dbConn, $relName ) {
+    function __construct( PeerPGDBConnection &$dbConn, $relName ) {
         $this->dbConn = $dbConn;
         $this->setRelation( $relName );
     }
@@ -213,14 +215,14 @@ class SearchQuery {
      * This function sets it.
      * @param $dbc the database connection to use for alle the database actions
      */
-    function setDBConn( $dbc ) {
+    private function setDBConn( $dbc ) {
         $this->dbConn = $dbc;
         return $this;
     }
 
     /**
      * Test if a string could pass as a regex expression.
-     * Implementation only checks if there is a star (*) somewhere.
+     * Implementation only checks if there is a regex dot followed by a multiplier  (*,+, or ?) somewhere.
      * @return true if regex
      */
     function isRegex( $str ) {
@@ -469,11 +471,11 @@ class UpdateQuery extends SearchQuery {
      * Gets the query.
      * @return string: the query prepared to be submitted to the database.
      */
-    function getQuery() {
+    private function getQuery() {
         $result = 'update ' . $this->relation . ' set ';
         $continuation = '';
         while (list($key, $value) = each( $this->updateSet )) {
-            if ( $this->dataTypes[ $key ] == 'bool' && isSet( $value ) && ($vale === 'true' || $value == 'false') ) {
+            if ( $this->dataTypes[ $key ] == 'bool' && isSet( $value ) && ($value === 'true' || $value == 'false') ) {
                 $result .= $continuation . $key . '=' . $value;
                 $continuation = ',';
             } else {
@@ -484,6 +486,49 @@ class UpdateQuery extends SearchQuery {
         }
         $result .= ' where ' . $this->getWhereList();
         return $result;
+    }
+
+    /**
+     * Execute the query using prepared statement style.
+     * @return PeerResultSet type resultset of excute.
+     */
+    private function prepareAndExecute() {
+        $parmCtr = 1;
+        $values = array();
+        $columnExpr = array();
+        $query = "update {$this->relation} set \n";
+        while (list($key, $value) = each( $this->updateSet )) {
+            $columnExpr[] = "{$key} = $" . $parmCtr++;
+            $values[] = $value;
+        }
+        $whereClause = " where ";
+        $whereExpr = array();
+        for ( $i = 0; $i < count( $this->keyColumns ); $i++ ) {
+            $name = $this->keyColumns[ $i ];
+            $value = $this->submitValueSet[ $name ];
+            if ( $value != '' ) {
+                $whereExpr[] = "{$name}=$" . $parmCtr++;
+                $values[] = $value;
+            }
+        }
+        $whereClause .= join( $this->whereJoin, $whereExpr );
+        $query .= join( ', ', $columnExpr ) . "\n"
+                . $whereClause;
+        
+        $stmnt = $this->dbConn->Prepare( $query, '' );
+        return $stmnt->execute( $values );
+    }
+
+    function __toString() {
+        return getQuery();
+    }
+
+    /**
+     * Execute the query and returns a resultset.
+     * @return mixed resultSet of the query.
+     */
+    function excute() {
+        return $this->prepareAndExecute(); // $this->dbConn->Execute( $this->getQuery() );
     }
 
 }
@@ -536,7 +581,7 @@ class InsertQuery extends SearchQuery {
      * produce the query assembled by this class
      * @return string te query to be submitted to the database
      */
-    function getQuery() {
+    private function getQuery() {
         $result = 'insert into ' . $this->relation . ' (';
         $continuation1 = '';
         $continuation2 = '';
@@ -558,6 +603,41 @@ class InsertQuery extends SearchQuery {
         }
         $result .= $cols . ') values (' . $vals . ')';
         return $result;
+    }
+
+    /**
+     * 
+     * @return PeerResultSet when successful
+     */
+    private function prepareAndExecute() {
+        $query = "insert into {$this->relation} (";
+        $columns = array();
+        $values = array();
+        $params = array();
+        $paramCtr = 1;
+        while (list($key, $value) = each( $this->submitValueSet )) {
+            // the test ensures that non set values take their default or null.
+            if ( $key != '' ) {
+                $columns[] = $key;
+                $values[] = ($value !== '') ? $value : null;
+                $params[] = '$' . $paramCtr++;
+            }
+        }
+        $query .= join( ',', $columns ) . ") \n values(" . join( ',', $params ) . ')';
+        $stmnt = $this->dbConn->Prepare( $query, '' );
+        return $stmnt->execute( $values );
+    }
+
+    function __toString() {
+        return $this->getQuery();
+    }
+
+    /**
+     * Execute the insert query and return a resultSet.
+     * @return PeerResultSet resultSet
+     */
+    public function execute() {
+        return $this->prepareAndExecute();
     }
 
 }

@@ -20,11 +20,10 @@ else {
 if (isSet($_POST['signature'])){
   $signature=$_POST['signature'];
   $sql_signature=pg_escape_string($signature);
-  $sql="begin work;\n".
-    " delete from email_signature where snummer=$peer_id;\n".
-    " insert into email_signature (snummer,signature) values($peer_id,'$signature');\n".
-    "commit";
- $dbConn->doSilent($sql);
+  $sql = 'insert into email_signature (snummer,signature) values($1,$2)
+          on conflict(snummer) do update set signature=EXCLUDED.signature';
+  $stmnt=$dbConn->Prepare($sql);
+  $stmnt->execute(array($peer_id,$signature));
 }
 $page_opening="Set you mailer signature";
 $page= new PageContainer();
@@ -52,6 +51,6 @@ $signature
 ";
 
 $page->addBodyComponent(new Component($mailer_signature));
-$page->addHtmlFragment('templates/tinymce_include.html', $pp);
+$page->addHtmlFragment('templates/tinymce_include.html');
 $page->show();
 ?>
