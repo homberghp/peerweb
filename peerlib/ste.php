@@ -876,13 +876,13 @@ class SimpleTableEditor {
                     // test if must show searchquery through log
                     //$this->dbMessage .="\n<br/>list_query=[" . $this->list_query . "]=list_query\n";
                     $this->addLogQuery($sq->getLog());
-                    $this->ste_query = $sq->getAllQuery();
+                    //$this->ste_query = $sq->getAllQuery();
                     $this->spreadSheetWriter->setQuery($this->ste_query);
                     if ($this->showQuery) {
                         $this->dbConn->log("<br/>\nste query=" . $this->ste_query . "<br/>");
                     }
                     //$this->dbMessage .= "\nste query=".$this->ste_query;
-                    $rs = $this->dbConnExecute($this->ste_query);
+                    $rs = $sq->executeAllQuery();//$this->dbConnExecute($this->ste_query);
                     if ($rs !== false && !$rs->EOF) {
                         /* if search succeeded, load the first hit */
                         $this->setMenuValues($rs->fields);
@@ -924,12 +924,14 @@ class SimpleTableEditor {
                     ->setSubRel($this->subRel)
                     ->setSubRelJoinColumns($this->subRelJoinColumns);
             $sq->setSubmitValueSet($_GET);
-            $this->dbMessage .= $sq->getQuery();
+            $this->dbMessage .= $sq;//->getQuery();
             if ($sq->areKeyColumnsSet()) {
 
-                $sql = $sq->getAllQuery();
+                //$sql = $sq->getAllQuery();
+                
                 $arr = array();
-                $rs = $this->dbConnExecute($sql);
+                //$rs = $this->dbConnExecute($sql);
+                $rs= $sq->executeAllQuery();
                 if ($this->showQuery) {
                     $this->dbConn->log('query ' . $sql);
                 }

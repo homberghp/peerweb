@@ -5,7 +5,7 @@
  */
 
 /**
- * Prduces a widget and the processing code to output a table from a query as one on three 
+ * Produces a widget and the processing code to output a table from a query as one on three 
  * output formats.
  * Output formats supported are Excel2007, Excel5 and CSV.
  *
