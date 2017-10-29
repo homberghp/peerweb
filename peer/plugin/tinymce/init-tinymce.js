@@ -7,7 +7,7 @@
 tinymce.init({
 	/* replace textarea having class .tinymce with tinymce editor */
 	selector: "textarea.tinymce",
-	
+        browser_spellcheck: true
 	/* theme of the editor */
 	theme: "modern",
 	skin: "lightgray",
@@ -16,7 +16,7 @@ tinymce.init({
 	width: "100%",
 	height: 300,
 	
-	/* display statusbar */
+        /* display statusbar */
 	statubar: true,
 	
 	/* plugin */
@@ -27,7 +27,7 @@ tinymce.init({
 	],
 
 	/* toolbar */
-	toolbar: "insertfile undo redo | styleselect fontselect fontsizeselect | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview spelchecker media fullpage | code forecolor backcolor emoticons",
+	toolbar: "insertfile undo redo | styleselect fontselect fontsizeselect | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | code forecolor backcolor emoticons",
 	
 	/* style */
 	style_formats: [
