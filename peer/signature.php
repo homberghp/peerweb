@@ -19,7 +19,7 @@ else {
 }
 if (isSet($_POST['signature'])){
   $signature=$_POST['signature'];
-  $sql_signature=pg_escape_string($signature);
+//  $sql_signature=$signature;
   $sql = 'insert into email_signature (snummer,signature) values($1,$2)
           on conflict(snummer) do update set signature=EXCLUDED.signature';
   $stmnt=$dbConn->Prepare($sql);
