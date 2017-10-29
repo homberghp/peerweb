@@ -7,7 +7,8 @@
 tinymce.init({
 	/* replace textarea having class .tinymce with tinymce editor */
 	selector: "textarea.tinymce",
-        browser_spellcheck: true
+    browser_spellcheck: true,
+    gecko_spellcheck: true,
 	/* theme of the editor */
 	theme: "modern",
 	skin: "lightgray",
