@@ -1,4 +1,5 @@
 <?php
+
 require_once('peerutils.php');
 require_once('validators.php');
 require_once('querytotable.php');
@@ -127,10 +128,6 @@ if ( $resultSet === false ) {
     echo "<br>Cannot get tutor owner <pre>" . $sql . "</pre> reason " . $dbConn->ErrorMsg() . "<br>";
 }
 extract( $resultSet->fields );
-pagehead( 'Define types of roles students can play.' );
-$page_opening = "Define the roles the students may assume in a project team. <span style='font-size:6pt;'>prj_id $prj_id milestone $milestone </span>";
-$nav = new Navigation( $tutor_navtable, basename( $PHP_SELF ), $page_opening );
-$nav->setInterestMap( $tabInterestCount );
 
 $prjSel->setJoin( 'milestone_grp using (prj_id,milestone)' );
 //if ($db_name =='peer2') $dbConn->log($prjSel->getQuery());
@@ -150,160 +147,88 @@ if ( !$has_roles ) {
 $defrollist = "<select name='defrolenum' >\n" .
         getOptionList( $dbConn, "select rolenum as value, role as name from project_roles\n" .
                 " where prj_id=$prj_id order by rolenum", $defrolenum ) . "\n</select>\n";
-$nav->show()
-?>
-<div id='navmain' style='padding:1em;'>
-    <fieldset>
-        <legend>Project group data <?= $prj_id ?>M<?= $milestone ?> group <?= $grp_num ?></legend>
-        <table class='layout' summary='project and milestone form'>
-            <tr><td><td valign='top'>
-                    <p> To be able to give students roles, you should define roles if not already defined. 
-                        The owning tutor can define roles at the bottom of this page.</p>
-                    <p>Each milestone has it's own set of roles. This permits changing roles when passing milestones.</p>
-                    <p>Roles are defined per project, but role to student assignment is defined per milestone. 
-                        If the roles are defined, then pressing the &lt;set roles&gt; button will assign the roles to the students.</p></td></tr>
-        </table>
-        <tr>
-            <th>Project and milestone</th>
-            <td>
-                <form method="get" name="project" action="<?= $PHP_SELF; ?>">
-                    <?= $prj_id_selector ?><br/>
-
-                    <input type='hidden' name='grp_num' value='<?= $grp_num ?>'/>
-                </form></td>
-        </tr>
-        <tr>
-            <th>
-                Group</th><td>
-                <form method='get' name='groupname' action='<?= $PHP_SELF; ?>'>
-                    <select name='grp_num' onchange='submit()'>
-                        <?=
-                        getOptionList( $dbConn, "select distinct pt.grp_num||': '||coalesce(alias,'')"
-                                . "||' / '||tutor||'#'||coalesce(gs.size,0) as name, \n"
-                                . "pt.grp_num as value from prj_tutor pt \n"
-                                . " join tutor t on (t.userid=pt.tutor_id)\n"
-                                . "left join grp_alias using(prjtg_id) \n"
-                                . "left join grp_size gs on(pt.prjtg_id=gs.prjtg_id) where\n"
-                                . "prjm_id=$prjm_id order by pt.grp_num", $grp_num )
-                        ?>
-                    </select>
-                    <input type='hidden' name='prj_id_milestone' value='<?= $prj_id . ':' . $milestone ?>'/>
-                    <input type='submit' name='bsubmit' value='get'/>
-                </form></td></tr>
-        <h3>Student roles</h3>
-        <table class='layout' summary='student roles'>
-            <tr><td width='70%'>
-                    <form name='studentroles' method='post' action='<?= $PHP_SELF ?>'>
-                        <input type='hidden' name='grp_num' value='<?= $grp_num ?>'/>
-                        <table class='tabledata' border='1' summary='current roles'>
-                            <?php
-                            $tdattrib = 'class=\'tabledata\' style=\'background:#ffc\'';
-                            ?>
-                            <tr><th <?= $tdattrib ?>>Snumber</th><th <?= $tdattrib ?>>Student</th><th <?= $tdattrib ?>>Current Role</th><th <?= $tdattrib ?>>Cap</th><th <?= $tdattrib ?>>New Role</th></tr>
-                            <?php
-                            $sqltut = "select s.snummer,achternaam,roepnaam,tussenvoegsel,\n" .
-                                    "pr.rolenum,role,pr.capabilities as capabilities \n" .
-                                    "from prj_grp pg join student s using(snummer) \n" .
-                                    " join prj_tutor pt on(pg.prjtg_id=pt.prjtg_id)\n" .
-                                    " join prj_milestone pm on(pm.prjm_id=pt.prjm_id)\n" .
-                                    " left join student_role sr on(sr.prjm_id=pt.prjm_id and sr.snummer=pg.snummer)\n" .
-                                    " left join project_roles pr on(sr.rolenum=pr.rolenum and pr.prj_id=pm.prj_id)\n" .
-                                    " where pt.prjm_id=$prjm_id and pt.grp_num=$grp_num\n" .
-                                    " order by achternaam asc,roepnaam asc";
-                            //$dbConn->log($sqltut);
-                            $resultSet = $dbConn->Execute( $sqltut );
-                            if ( $resultSet === false ) {
-                                die( "<br>Cannot get groups with \"<pre>" . $sqltut . '</pre>", cause ' . $dbConn->ErrorMsg() . "<br>" );
-                            }
+$grpoptionlist = "<select name='grp_num' onchange='submit()'>\n" . getOptionList( $dbConn, "select distinct pt.grp_num||': '||coalesce(alias,'')"
+                . "||' / '||tutor||'#'||coalesce(gs.size,0) as name, \n"
+                . "pt.grp_num as value from prj_tutor pt \n"
+                . " join tutor t on (t.userid=pt.tutor_id)\n"
+                . "left join grp_alias using(prjtg_id) \n"
+                . "left join grp_size gs on(pt.prjtg_id=gs.prjtg_id) where\n"
+                . "prjm_id=$prjm_id order by pt.grp_num", $grp_num ) . "\n</select>\n";
+$tdattrib = 'class=\'tabledata\' style=\'background:#ffc\'';
+$roleTable = "<table class='tabledata' border='1' summary='current roles'>"
+        . "<caption>Current student roles</caption>\n"
+        . "<tr><th {$tdattrib}>Snumber</th><th {$tdattrib }>Student</th>"
+        . "<th {$tdattrib }>Current Role</th><th {$tdattrib}>Cap</th><th {$tdattrib}>New Role</th></tr>";
+$sqltut = "select s.snummer,achternaam,roepnaam,tussenvoegsel,\n" .
+        "pr.rolenum,role,pr.capabilities as capabilities \n" .
+        "from prj_grp pg join student s using(snummer) \n" .
+        " join prj_tutor pt on(pg.prjtg_id=pt.prjtg_id)\n" .
+        " join prj_milestone pm on(pm.prjm_id=pt.prjm_id)\n" .
+        " left join student_role sr on(sr.prjm_id=pt.prjm_id and sr.snummer=pg.snummer)\n" .
+        " left join project_roles pr on(sr.rolenum=pr.rolenum and pr.prj_id=pm.prj_id)\n" .
+        " where pt.prjm_id=$prjm_id and pt.grp_num=$grp_num\n" .
+        " order by achternaam asc,roepnaam asc";
+//$dbConn->log($sqltut);
+$resultSet = $dbConn->Execute( $sqltut );
+if ( $resultSet === false ) {
+    die( "<br>Cannot get groups with \"<pre>" . $sqltut . '</pre>", cause ' . $dbConn->ErrorMsg() . "<br>" );
+}
 //echo "<pre>$sqltut</pre>";
-                            while (!$resultSet->EOF) {
-                                extract( $resultSet->fields );
-                                if ( $isGroupTutor || $isTutorOwner ) {
-                                    $roleList = "<select name='rolenum[]' style='background:#FF8'>\n" .
-                                            getOptionList( $dbConn, "select rolenum as value, role as name from project_roles\n" .
-                                                    " where prj_id=$prj_id order by rolenum", $rolenum ) . "\n</select>\n";
-                                } else {
-                                    $roleList = $role;
-                                }
-                                echo "\t<tr>\n" .
-                                "\t\t<td $tdattrib>$snummer</td>\n" .
-                                "\t\t<td $tdattrib>$achternaam,$roepnaam $tussenvoegsel</td>\n" .
-                                "\t\t<td $tdattrib>$role</td>\n" .
-                                "\t\t<td $tdattrib>$capabilities</td>\n" .
-                                "\t\t<td $tdattrib>" . $roleList . "<input type='hidden' name='sactor[]' value='$snummer'/></td>" .
-                                "\n\t</tr>\n";
-                                $resultSet->moveNext();
-                            }
-                            if ( $isGroupTutor || $isTutorOwner ) {
-                                $submitButton = "<input type='submit' name='broles' value='set roles' />";
-                            } else {
-                                $submitButton = '&nbsp';
-                            }
-                            ?>
-                        </table>
-                        <input type='hidden' name='grp_num' value='<?= $grp_num ?>'/>
-                        <input type='hidden' name='prj_id_milestone' value='<?= $prj_id . ':' . $milestone ?>'/>
-                        <table width='100%' border='0' summary='layout'>
-                            <tr><td>
-                                    <?= $submitButton ?> &nbsp;
-                                    <input type='reset' name='reset' value='Reset form'/>
-                                </td>
-                            </tr></table>
-                    </form></td></tr>
-        </table>
-    </fieldset>
-    <?php if ( $isTutorOwner ) { ?>
-        <?= $copy_form ?>
-        <h2>Define new roles for this project.</h2>
-        <fieldset><legend>Redefine role</legend>
-            <p>The following convention applies: Role with nr 0 is the default role (employee for generic project, software engineer for SE projects, consultant for BI projects), nr 1 is top brass (e.g. General Manager) whose name will be shown on the active project page. In projects like mini you would give role number 2 to the HRM with rights to update roles and read the consolidated assessment results.</p>
-            <form method="post" name="possibleroles" action="<?= $PHP_SELF; ?>">
-                <input type='hidden' name='grp_num' value='<?= $grp_num ?>'/>
-                <?php
-                $sql = "select rolenum as role_id,role as old_description,short as role_short,role,rolenum,capabilities from project_roles where prj_id=$prj_id order by rolenum";
+while (!$resultSet->EOF) {
+    extract( $resultSet->fields );
+    if ( $isGroupTutor || $isTutorOwner ) {
+        $roleList = "<select name='rolenum[]' style='background:#FF8'>\n" .
+                getOptionList( $dbConn, "select rolenum as value, role as name from project_roles\n" .
+                        " where prj_id=$prj_id order by rolenum", $rolenum ) . "\n</select>\n";
+    } else {
+        $roleList = $role;
+    }
+    $roleTable .= "\t<tr>\n" .
+            "\t\t<td {$tdattrib}>{$snummer}</td>\n" .
+            "\t\t<td {$tdattrib}>{$achternaam},{$roepnaam} {$tussenvoegsel}</td>\n" .
+            "\t\t<td $tdattrib>{$role}</td>\n" .
+            "\t\t<td $tdattrib>{$capabilities}</td>\n" .
+            "\t\t<td $tdattrib>{$roleList} <input type='hidden' name='sactor[]' value='{$snummer}'/></td>" .
+            "\n\t</tr>\n";
+    $resultSet->moveNext();
+}
+if ( $isGroupTutor || $isTutorOwner ) {
+    $submitButton = "<input type='submit' name='broles' value='set roles' />";
+} else {
+    $submitButton = '&nbsp';
+}
+$roleTable .= "</table>\n";
+$sql = "select rolenum as role_id,role as old_description,short as role_short,role,rolenum,capabilities from project_roles where prj_id=$prj_id order by rolenum";
 // echo "<pre>$sql</pre>\n";
-                $inputColumns = array(
-                    '2' => array( 'type' => 'T', 'size' => '8' ),
-                    '3' => array( 'type' => 'T', 'size' => '30' ),
-                    '4' => array( 'type' => 'H', 'size' => '0' ),
-                    '5' => array( 'type' => 'N', 'size' => '2' ),
-                );
-                queryToTableChecked2( $dbConn, $sql, false, -1, new RainBow( 0x46B4B4, 64, 32, 0 ), 'document[]', $doctype_set, $inputColumns );
-                ?>
-                <input type='hidden' name='prj_id' value='<?= $prj_id ?>'/>
-                <table width='100%' border='0'summary='layout'>
-                    <tr>
-                        <td><input type='submit' name='defroles' value='Update role definition'/></td>
-                        <td align='right'><input type='reset' name='reset' value='reset form'/></td>
-                    </tr></table>
-            </form>
-        </fieldset>
-        <fieldset><legend>Add role</legend>
-            <form method="post" name="addrole" action="<?= $PHP_SELF; ?>">
-                <input type='hidden' name='grp_num' value='<?= $grp_num ?>'/>
-                <input type='hidden' name='prj_id' value='<?= $prj_id ?>'/>
-                <table class='layout' summary='layout'>
-                    <tr><th>&nbsp;</th><th align='left'>Role description (1..30 char) </th><th>Short (1..4 char)</th></tr>
-                    <tr><th>new role</th><td><input type='text' name='role_description' value='' size='30' align='left' maxlength='30'/></td>
-                        <td><input type='text' name='role_short' value='' size='6' align='left' maxlength='4'/></td></tr>
-                    <tr>
-                        <td><input type='submit' name='baddtype' value='Add Role'/>
-                        </td></tr>
-                </table>
-            </form>
-        </fieldset>
-        <fieldset><legend>Set default roles for all non assigned</legend>
-            <form method="post" name ='applydefault' action='<?= $PHP_SELF ?>'>
-                Set the role for all students, for which the role is not yet set.
-                <input type='hidden' name='prjm_id' value='<?= $prjm_id ?>'>
-                <input type='hidden' name='prj_id' value='<?= $prj_id ?>'>
-                <?= $defrollist ?>
-                <input type='submit' name='setdefrole' value='Set Default Role'/>
-            </form></fieldset>
-    <?php }
-    ?>
-</div>
-<!-- db_name=<?= $db_name ?> -->
-<!-- $Id: defprojectroles.php 1847 2015-03-19 14:23:15Z hom $ -->
-</body>
-</html>
+$inputColumns = array(
+    '2' => array( 'type' => 'T', 'size' => '8' ),
+    '3' => array( 'type' => 'T', 'size' => '30' ),
+    '4' => array( 'type' => 'H', 'size' => '0' ),
+    '5' => array( 'type' => 'N', 'size' => '2' ),
+);
+$roleDefTable = getQueryToTableChecked2( $dbConn, $sql, false, -1, new RainBow( 0x46B4B4, 64, 32, 0 ), 'document[]', $doctype_set, $inputColumns );
+pagehead( 'Define types of roles students can play.' );
+$page_opening = "Define the roles the students may assume in a project team.";
+$nav = new Navigation( $tutor_navtable, basename( $PHP_SELF ), $page_opening );
+$nav->setInterestMap( $tabInterestCount );
+$page = new PageContainer();
+$page->setTitle( $page_opening );
+$page->addBodyComponent( $nav );
+$templatefile = 'templates/defprojectrolestop.html';
+$template_text = file_get_contents( $templatefile, true );
+if ( $template_text === false ) {
+    $page->addBodyComponent( "<strong>cannot read template file $templatefile</strong>" );
+} else {
+    $page->addBodyComponent( templateWith( $template_text, get_defined_vars() ) );
+}
+if ( $isTutorOwner ) {
+    $templatefile = 'templates/defprojectrolesbottom.html';
+    $template_text = file_get_contents( $templatefile, true );
+    if ( $template_text === false ) {
+        $page->addBodyComponent( "<strong>cannot read template file $templatefile</strong>" );
+    } else {
+        $page->addBodyComponent( templateWith( $template_text, get_defined_vars() ) );
+    }
+}
+
+$page->show();
