@@ -1,6 +1,6 @@
 <?php
 /* $Id: emailaddress.php 1792 2014-09-15 11:51:29Z hom $ */
-include_once('./peerlib/peerutils.php');
+include_once('peerutils.php');
 include_once('tutorhelper.php');
 include_once 'navigation2.php';
 
@@ -296,7 +296,7 @@ ob_start();
             By entering an empty line here (erasing the current value) you delete that current entry.
         </p>
     </fieldset>
-<?php include 'templates/student.html.inc' ?>
+<?php include 'templates/student.html' ?>
 </div>
 <!-- db_name=<?= $db_name ?> -->
 <?php

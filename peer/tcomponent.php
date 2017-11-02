@@ -1,5 +1,5 @@
 <?php
-require_once('./peerlib/peerutils.php');
+require_once('peerutils.php');
 require_once('component.php');
 $page = new PageContainer();
 $html= new HtmlContainer('<html>');

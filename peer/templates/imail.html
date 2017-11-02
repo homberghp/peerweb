@@ -3,27 +3,18 @@
     <?= $prjList ?><span style='font-size:8pt;'>Project_id <?= $prj_id ?> group <?= $grp_num ?> milestone <?= $milestone ?></span>
 </form>
 
-<fieldset><legend>Select recipients and type you mail</legend>
+<fieldset ><legend>Select recipients and type you mail</legend>
     <p><strong>Note that a copy of that mail is also sent to the tutor.</strong></p>
     <form name='mailer' method='post' action='<?= $PHP_SELF ?>'>
         <?=$rtable; ?>
-        <table>
-            <tr>
-                <th valign='top'>
-                    subject:
-                </th>
-                <td valign='top'>
-                    <input type='text' name='formsubject' size='60' value='<?= $formsubject ?>'/>
-                </td>
-            </tr>
-            <tr><th valign='top'>Body text:</th>
-                <td valign='top'>
-                    <textarea name='mailbody' cols='120' rows='20'><?= $mailbody ?></textarea></td></tr>
-            <tr>
-                <td><input type='hidden' name='prj_id_milestone' value='<?= $prj_id . ':' . $milestone ?>'/>
-                    <input type='submit' name='bsubmit' value='Submit'/></td>
-            </tr>
-        </table>
+        <div style='background-color: #eee;'>
+        <label for='subject'><strong>Subject:</strong></label>
+                    <input type='text' id='subject' name='formsubject' size='60' value='<?= $formsubject ?>'/><br/>
+Body text<br/>
+                    <textarea name='mailbody' class='tinymce' cols='120' rows='20'><?= $mailbody ?></textarea>
+                    <input type='hidden' name='prjm_id' value='<?= $prjm_id ?>'/>
+                    <input type='submit' name='bsubmit' value='Submit'/>
+                    </div>
     </form>
     <p>Note that you can change the default signature in 'personal data and settings &gt; email signature'</p>
 

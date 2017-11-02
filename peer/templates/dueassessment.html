@@ -1,17 +1,19 @@
-<div id='navmain' style='padding:1em;'>
 <h2 class='normal'>Select the students you would like to warn by mail.</h2>
-<p>The student names shown here have missed the deadline for a <i style='color:red'>still open</i> assessment. If the assessment is closed, the student names will 
-<i style='color:red'>not</i> show up, not even if they missed to fill in their assessment form.</p>
-<form name='mailer' method='post' action='$PHP_SELF'>
-$selecttable
-subject:<input type='text' name='formsubject' size='60' value='$formsubject'/><br/>
-<p>Body text</p>
 
-<textarea name='mailbody' cols='64' rows='20'>$mailbody</textarea><br/>
-<input type='submit' name='submit' value='Submit'/>
+   {$prj_id_selector}
+
+<fieldset><legend>Mail form</legend>
+<p>The student names shown here have missed the deadline for a <i style='color:red'>still open</i> assessment. If the assessment is closed, the student names will 
+  <i style='color:red'>not</i> show up, not even if they failed to fill in their assessment form.</p>
+<form name='mailer' method='post' action='{$PHP_SELF}'>
+  {$selecttable}
+  <br/>
+   <div style='background:#eee'>
+  Subject:<input type='text' name='formsubject' style='width:85%;background-color: #fff;' value='{$formsubject}'/><br/>
+  Body text:<br/>
+    <textarea name='mailbody' cols='80' rows='20' class='tinymce'>{$mailbody}</textarea>
+   {$mailbutton}
+   </div>
 </form>
-<!--?php echo $dbConn->getLogHtml();?-->
-</div>
-</body>
-<!-- db_name=$db_name-->
-</html>
+<p>Note that you can change the default signature in 'personal data and settings &gt; email signature'</p>
+</fieldset>

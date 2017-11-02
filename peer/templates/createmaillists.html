@@ -1,17 +1,17 @@
 <div id='navmain' style='padding:1em;'>
   <fieldset><legend>Select project</legend>
     <form method='get' name='project' action='$PHP_SELF'>
-      $prj_id_selector
+      {$prj_id_selector}
       <input type='submit' name='get' value='Get' /><br/>
 
-      $selection_details
+      {$selection_details}
 
     </form>
   </fieldset>
   <div align='center' id='maillisttable'>
-    <form method='get' name='maillist' action='$PHP_SELF'>
-    Maillists for project $afko, $year: $description prjm_id=$prjm_id prj_id=$prj_id milestone $milestone<br/>
-    $maillist_table
+    <form method='get' name='maillist' action='{$PHP_SELF}'>
+    Maillists for project {$afko}, {$year}: {$description} prjm_id={$prjm_id} prj_id={$prj_id} milestone {$milestone}<br/>
+    {$maillist_table}
     <br/>
     <input type='submit' name='createmaillists' value='Create maillists'/><br/><strong>New since 2013-02-05: </strong> The mail
     lists are created immediately in effect after creation.<br/>

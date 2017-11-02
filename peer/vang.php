@@ -1,6 +1,6 @@
 <?php
   //  phpinfo();
-require_once('./peerlib/peerutils.php');
+require_once('peerutils.php');
 if (isSet($_REQUEST['id']) &&
     isSet($_REQUEST['boxes'])) {
   $id=$_REQUEST['id'];

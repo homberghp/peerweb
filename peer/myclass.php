@@ -1,7 +1,7 @@
 <?php
-include_once('./peerlib/peerutils.php');
+include_once('peerutils.php');
 include_once('tutorhelper.php');
-require_once('./peerlib/validators.php');
+require_once('validators.php');
 include_once('navigation2.php');
 define('MAXROW', '3');
 define('MAXCOL', '5');

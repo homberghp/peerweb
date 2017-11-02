@@ -1,12 +1,11 @@
 <?php
 
 /* $Id: groupemail.php 1845 2015-03-19 11:56:26Z hom $ */
-include_once('./peerlib/peerutils.php');
+include_once('peerutils.php');
 include_once 'navigation2.php';
 require_once 'prjMilestoneSelector2.php';
-include './peerlib/simplequerytable.php';
-
-
+include 'simplequerytable.php';
+require_once 'mailFunctions.php';
 $prj_id = 1;
 $milestone = 1;
 $prjm_id = 0;
@@ -38,53 +37,35 @@ if (isSet($resultSet->fields['email2'])) {
     $email2 = '';
 
 $mailto = array();
-$pp['formsubject'] = 'Hello world';
-$pp['mailbody'] = 'This is a test mail<br/>' . $signature;
+$formsubject = 'Hello world';
+$mailbody = 'This is a test mail \u2035<br/>' . $signature;
 $afko = $description = '';
 if (isSet($_POST['mailbody'])) {
-    $mailbody = $_POST['mailbody'];
+    $SESSION['mailbody'] = $mailbody = $_POST['mailbody'];
+} else if (isSet($SESSION['mailbody'])) {
+    $mailbody = $_SESSION['mailbody'];
 }
 if (isSet($_POST['formsubject'])) {
-    $formsubject = $_POST['formsubject'];
+    $SESSION['formsubject'] = $formsubject = $_POST['formsubject'];
+} else if (isSet($SESSION['formsubject'])) {
+    $formsubject = $SESSION['formsubject'];
 }
+$pp['formsubject'] = $formsubject;
+$pp['mailbody'] = $mailbody;
+$pp['prjm_id'] = $prjm_id;
+
 $mailto = array();
 if (isSet($_POST['mailto'])) {
     $mailto = $_POST['mailto'];
     //    print_r($mailto);
     $toAddress = '';
     $mailset = '\'' . implode("','", $mailto) . '\'';
-    $replyto = getEmailAddresses($dbConn, array($_SESSION['peer_id']));
-    $toAddress = getEmailAddresses($dbConn, $_POST['mailto']);
-    $headers = "From: peerweb@fontysvenlo.org\n" .
-            "Reply-To: $replyto\n" .
-            "Cc: $replyto\n";
-    $headers = htmlmailheaders($replyto, $sender_name, $toAddress, $ccAddress);
-    $subject = $formsubject;
-    $bodyprefix = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-<head>
-<title>' . $subject . '</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
-</head>
-<body>
-';
-    $message = $bodyprefix . $mailbody . "\n</body>\n</html>\n";
-    domail($toAddress, $subject, $message, $headers);
-    // send author a copy, so he 'll know he is confirmed of sending the email.
-    $recipients = htmlentities(preg_replace('/,/', ",\n", $toAddress));
-    domail($replyto, $subject . ', your copy', $bodyprefix
-            . $mailbody
-            . "\n<br/><hr/>The above mail has been sent to the following recipients:\n<pre>"
-            . $recipients
-            . "\n</pre>\n"
-            . "\n</body>\n</html>\n", $headers);
-    if ($triggerList != '') {
-        $subject = 'You have mail at your fontys email address';
-        domail($triggerList, $subject, "See the subject.\n" .
-                "One way to read your mail there is to visit " .
-                "http://webmail.fontys.nl\n---\nKind Regards,\n Peerweb services", 'From: peerweb@fontysvenlo.org'); //$headers
-    }
+    $mailerQuery = "select snummer,roepnaam||' '||coalesce(tussenvoegsel||' ','')||achternaam "
+            . " as name, roepnaam as firstname, email1 as email from student where snummer in ({$mailset})";
+    $formMailer = new FormMailer($dbConn, $formsubject, $mailbody, $peer_id);
+    $formMailer->mailWithData($mailerQuery);
 }
+
 $prjSel->setJoin('milestone_grp using (prj_id,milestone)');
 $prjList = $prjSel->getSelector();
 
@@ -101,7 +82,7 @@ $page = new PageContainer();
 $page->setTitle('Mail-list page');
 $nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
 $page->addBodyComponent($nav);
-$page->addFileContentsOnce('templates/tinymce_include.html');
+//$page->addFileContentsOnce('templates/tinymce_include.html');
 $page->addHeadText(
         '<script type="text/javascript">
  function checkThem(ref,state){
@@ -250,4 +231,5 @@ $pp['rTable'] = roleTable($dbConn, $prjm_id);
 $pp['classTable'] = classTable($dbConn, $prjm_id);
 $pp['selWidget'] = $prjSel->getWidget();
 $page->addHtmlFragment('templates/groupemail.php', $pp);
+$page->addHtmlFragment('templates/tinymce_include.html', $pp);
 $page->show();

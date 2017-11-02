@@ -1,10 +1,10 @@
 <?php
 
-require_once 'peerlib/component.php';
+require_once 'component.php';
 require_once 'navigation2.php';
 
-require_once 'peerlib/SimpleTableFormatter.php';
-require_once 'peerlib/mailFunctions.php';
+require_once 'SimpleTableFormatter.php';
+require_once 'mailFunctions.php';
 
 $pp = array( );
 $page = new PageContainer();
@@ -13,12 +13,6 @@ $nav = new Navigation( $tutor_navtable, basename( $PHP_SELF ), "Plan een meeloop
 $page->addBodyComponent( $nav );
 
 
-//$css = "<link rel='stylesheet' type='text/css' href='style/tablesorterstyle.css'/>";
-//$page->addScriptResource('js/jquery.js');
-//$page->addScriptResource('js/jquery.tablesorter.js');
-//$page->addJqueryFragment( '$("#myTable").tablesorter({widgets: [\'zebra\'],headers: {0:{sorter:false}}});' );
-//$page->addHeadText($css);
-$page->addHeadFragment( 'templates/tinymce_include.html' );
 $pp['subject_de'] = 'Einladung zum Schnuppertag an der Fontys FH in Venlo';
 $pp['subject_nl'] = 'Uitnodiging voor een meeloopdag bij Fontys Hogescholen in Venlo';
 
@@ -122,9 +116,8 @@ $pp['rtable']->setCheckColumn( 0 )
                 . " style='empty-cells:show;border-collapse:collapse' border='1'>" );
 $page->addHtmlFragment( 'templates/meeloopdag.html', $pp );
 $page->addHeadText( file_get_contents( 'templates/simpledatepicker.html' ) );
-$page->addScriptResource( 'js/jquery-1.7.1.min.js' );
-$page->addScriptResource( 'js/jquery-ui-1.8.17.custom.min.js' );
+//$page->addScriptResource( 'js/jquery-1.7.1.min.js' );
+//$page->addScriptResource( 'js/jquery-ui-1.8.17.custom.min.js' );
 $page->addJqueryFragment( '$(\'#meeloop_datum\').datepicker(dpoptions);' );
-
+$page->addHtmlFragment('templates/tinymce_include.html', $pp);
 $page->show();
-?>

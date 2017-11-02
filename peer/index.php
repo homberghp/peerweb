@@ -29,9 +29,9 @@ if (isSet($login_tutor)) {
     </head>
     <body class='<?= BODY_CLASS ?>' >
         <img id='resizer' src='images/peertreemenu.png' id='peertreemenuimg' border="1" onclick="resizeTree()" title="click to resize menu frame"/>
-        <iframe id='peertree' frameborder='0' src='peertree.php'>navigation</iframe>
+        <iframe id='peertree' frameborder='0' src='peertree.php' style='background-color: #fff;'>navigation</iframe>
         <div id='main-wrapper'>
-            <iframe id='main'  frameborder='0' name='mainframe' id='mainframe' src='<?= $homepage ?>' >main</iframe> 
+            <iframe id='main'  frameborder='0' name='mainframe' style='background-color: #fff;z-index: 10;' id='mainframe' src='<?= $homepage ?>' >main</iframe> 
         </div>
     </body>
     <script type='text/javascript'>

@@ -19,12 +19,11 @@ else {
 }
 if (isSet($_POST['signature'])){
   $signature=$_POST['signature'];
-  $sql_signature=pg_escape_string($signature);
-  $sql="begin work;\n".
-    " delete from email_signature where snummer=$peer_id;\n".
-    " insert into email_signature (snummer,signature) values($peer_id,'$signature');\n".
-    "commit";
- $dbConn->doSilent($sql);
+//  $sql_signature=$signature;
+  $sql = 'insert into email_signature (snummer,signature) values($1,$2)
+          on conflict(snummer) do update set signature=EXCLUDED.signature';
+  $stmnt=$dbConn->Prepare($sql);
+  $stmnt->execute(array($peer_id,$signature));
 }
 $page_opening="Set you mailer signature";
 $page= new PageContainer();
@@ -40,44 +39,18 @@ This signature will be appended to your email editor on startup.
 You may use html enriched tex.
 <div>
 
-<b>Signature:</b><br/>
-<textarea cols='120' rows='20' id='signature' name='signature' class='mceEditor'>
+<div style='background-color:#eee'><b>Signature:</b><br/>
+<textarea cols='120' rows='20' id='signature' name='signature' class='mceEditor tinymce'>
 $signature
 </textarea >
 <input type='submit' name='set' value='Update signature'/>
-<input type='reset' name='reset' value='reset'/>
+<input type='reset' name='reset' value='reset'/></div>
 </div>
 </fieldset>
 </form>
 ";
 
 $page->addBodyComponent(new Component($mailer_signature));
-$page->addHeadText(
-'<script language="javascript" type="text/javascript" src="'.SITEROOT.'/js/tiny_mce/tiny_mce.js"></script>
- <script language="javascript" type="text/javascript">
-   tinyMCE.init({
-        theme: "advanced",
-        gecko_spellcheck : true,
-        theme_advanced_toolbar_location : "top",
-	mode : "textareas", /*editor_selector : "mceEditor",*/
-
-        theme_advanced_styles : "Header 1=header1;Header 2=header2;Header 3=header3;Table Row=tableRow1",
-        plugins: "advlink,searchreplace,insertdatetime,table",
-	plugin_insertdate_dateFormat : "%Y-%m-%d",
-	plugin_insertdate_timeFormat : "%H:%M:%S",
-	table_styles : "Header 1=header1;Header 2=header2;Header 3=header3",
-	table_cell_styles : "Header 1=header1;Header 2=header2;Header 3=header3;Table Cell=tableCel1",
-	table_row_styles : "Header 1=header1;Header 2=header2;Header 3=header3;Table Row=tableRow1",
-	table_cell_limit : 100,
-	table_row_limit : 5,
-	table_col_limit : 5,
-	theme_advanced_buttons1_add : "search,replace,insertdate,inserttime,tablecontrols",
-
-
-/*        theme_advanced_buttons2 : "",
-	theme_advanced_buttons3 : ""*/
-    });
- </script>
-');
+$page->addHtmlFragment('templates/tinymce_include.html');
 $page->show();
 ?>

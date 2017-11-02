@@ -62,13 +62,13 @@ $mailer = "
 <fieldset><legend>Mailer</legend>
 <p>Mailer is a simple mailer that sends out emails on behalf of your peerweb registered email account.<br/>
 You mails will appear to come from your fontys email address.</p>
-<div>
-<table><tr><th>subject:</th><td>
+<div style='background-color:#eee;'>
+<label for='mailerto'>Recipient</label>
+<input type='text' size='100' name='mailerto' id='mailerto' value='$mailerto'/><br/>
+<label for='mailersubject'>Subject</label>
 <input type='text' name='mailersubject' id='mailersubject' value='$mailersubject' 
-size='80'/></td></tr>
-<tr><th>Recipient:</th><td><input type='text' size='100' name='mailerto' value='$mailerto'/></td></tr>
-</table>
-<textarea cols='120' rows='20' id='mailertext' name='mailertext' class='mceEditor'>
+size='80'/>
+<textarea cols='120' rows='20' id='mailertext' name='mailertext' class='tinymce'>
 $mailertext
 </textarea >
 <input type='submit' name='send' value='send'/>
@@ -80,33 +80,7 @@ Note that you can change the default signature in 'personal data and settings &g
 ";
 
 $page->addBodyComponent( new Component( $mailer ) );
-$page->addHeadText(
-        '<script language="javascript" type="text/javascript" src="' . SITEROOT . '/js/tiny_mce/tiny_mce.js"></script>
- <script language="javascript" type="text/javascript">
-   tinyMCE.init({
-        theme: "advanced",
-        /*auto_resize: true,*/
-        gecko_spellcheck : true,
-        theme_advanced_toolbar_location : "top",
-	mode : "textareas", /*editor_selector : "mceEditor",*/
+$page->addHtmlFragment('templates/tinymce_include.html', $pp);
 
-        theme_advanced_styles : "Header 1=header1;Header 2=header2;Header 3=header3;Table Row=tableRow1",
-        plugins: "advlink,searchreplace,insertdatetime,table",
-	plugin_insertdate_dateFormat : "%Y-%m-%d",
-	plugin_insertdate_timeFormat : "%H:%M:%S",
-	table_styles : "Header 1=header1;Header 2=header2;Header 3=header3",
-	table_cell_styles : "Header 1=header1;Header 2=header2;Header 3=header3;Table Cell=tableCel1",
-	table_row_styles : "Header 1=header1;Header 2=header2;Header 3=header3;Table Row=tableRow1",
-	table_cell_limit : 100,
-	table_row_limit : 5,
-	table_col_limit : 5,
-	theme_advanced_buttons1_add : "search,replace,insertdate,inserttime,tablecontrols",
-
-
-/*        theme_advanced_buttons2 : "",
-	theme_advanced_buttons3 : ""*/
-    });
- </script>
-' );
 $page->show();
 ?>

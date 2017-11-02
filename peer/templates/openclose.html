@@ -5,7 +5,7 @@
   <table class='layout' summary='layout'>
     <tr>
       <td class='layout' valign='top'>
-	$prjm_id_selector
+	{$prjm_id_selector}
       </td>
     </tr>
     <tr><td>
@@ -13,7 +13,7 @@
     </td></tr>
     <tr>
       <td>
-	$grpTutorString
+	{$grpTutorString}
       </td>
     </tr>
   </table>
@@ -22,7 +22,7 @@
   
   <fieldset><legend>Invite participants</legend>
     <p>You cab use the mail from below to invite the
-    participants. The words with a '$'-prefix will be mapped to the
+    participants. The words with a '\$'-prefix will be mapped to the
     actual participants data.
     You may change the mail text to your liking, which will then be
     used for the mail you send.</p>
@@ -32,7 +32,7 @@
     <td><input type='text' size='84' name='mailsubject' value='$mailsubject'/></td>
   </tr>
   <tr><td colspan='2'>
-    <textarea cols='120' rows='20' name='mailbody' id='mailbody'>$mailbody</textarea>
+    <textarea cols='120' rows='20' class='tinymce' name='mailbody' id='mailbody'>{$mailbody}</textarea>
   </td>
 </tr>
 </table>

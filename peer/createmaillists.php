@@ -1,13 +1,14 @@
 <?php
 
-include_once './peerlib/peerutils.php';
-require_once './peerlib/validators.php';
+include_once 'peerutils.php';
+require_once 'validators.php';
 include_once 'navigation2.php';
-include_once './peerlib/simplequerytable.php';
+include_once 'simplequerytable.php';
 require_once 'prjMilestoneSelector2.php';
 require_once 'presencetable.php';
 require_once 'CheckTable.class.php';
 require_once 'maillists.inc.php';
+require_once 'TemplateWith.php';
 requireScribeCap( $peer_id );
 
 // get group tables for a project
@@ -61,7 +62,7 @@ $text = '';
 if ( $template_text === false ) {
   $text = "<strong>cannot read template file $templatefile</strong>";
 } else {
-  eval( "\$text = \"$template_text\";" );
+   $text= templateWith($template_text, get_defined_vars());
 }
 
 $page->addBodyComponent( new Component( $text ) );

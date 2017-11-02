@@ -1,6 +1,6 @@
 <?php
 /* $Id: timebook.php 1761 2014-05-24 13:17:31Z hom $ */
-include_once('./peerlib/peerutils.php');
+include_once('peerutils.php');
 include_once('tutorhelper.php');
 include_once 'navigation2.php';
 $start_time = date( 'Y-m-d' ) . ' 08:45:00'; // defaults to schooltime start

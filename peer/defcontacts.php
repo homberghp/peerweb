@@ -1,10 +1,11 @@
 <?php
-include_once './peerlib/peerutils.php';
+include_once 'peerutils.php';
 requireCap(CAP_TUTOR);
 include_once('navigation2.php');
-require_once './peerlib/querytotable.php';
-require_once './peerlib/validators.php';
+require_once 'querytotable.php';
+require_once 'validators.php';
 require_once 'prjMilestoneSelector2.php';
+require_once 'TemplateWith.php';
 
 $prj_id=1;
 $milestone=1;
@@ -48,7 +49,7 @@ $prjSel->setJoin('milestone_grp using (prj_id,milestone)');
 
 $prj_id_selector=$prjSel->getSelector();
 
-$templatefile='templates/defcontacts1.html.inc';
+$templatefile='templates/defcontacts1.html';
 $template_text= file_get_contents($templatefile, true);
 $sql ="select * from project join tutor on(owner_id=userid) join student on(userid=snummer)\n".
     "where prj_id=$prj_id";
@@ -58,8 +59,7 @@ extract($resultSet->fields);
 if ($template_text === false ) {
   $form1Form->addText("<strong>cannot read template file $templatefile</strong>");
 } else {  
-  eval("\$text = \"$template_text\";");
-  $form1Form->addText($text);
+  $form1Form->addText(templateWith($template_text, get_defined_vars()));
 }
 $form1->add($form1Form);
 

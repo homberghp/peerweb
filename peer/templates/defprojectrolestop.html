@@ -1,0 +1,32 @@
+<div id='navmain' style='padding:1em;'>
+    <fieldset>
+        <legend>Project group data {$prj_id}M{$milestone} group {$grp_num}</legend>
+        <p> To be able to give students roles, you should define roles if not already defined. 
+            The owning tutor can define roles at the bottom of this page.<br/>
+            Each milestone has it's own set of roles. This permits changing roles when passing milestones.<br/>
+            Roles are defined per project, but role to student assignment is defined per milestone. 
+            If the roles are defined, then pressing the &lt;set roles&gt; button will assign the roles to the students.</p>
+        <h3>Project and milestone</h3>
+        <td>
+            <form method="get" name="project" action="{$PHP_SELF;}">
+                {$prj_id_selector}<br/>
+
+                <input type='hidden' name='grp_num' value='{$grp_num}'/>
+            </form>
+            <form method='get' name='groupname' action='{$PHP_SELF;}'>
+                <strong>Group</strong>
+                {$grpoptionlist}
+                <input type='hidden' name='prjm_id' value='{$prjm_id}'/>
+                <input type='submit' name='bsubmit' value='get'/>
+            </form>
+            <form name='studentroles' method='post' action='{$PHP_SELF}'>
+                <input type='hidden' name='grp_num' value='{$grp_num}'/>
+                {$roleTable}
+
+                <input type='hidden' name='grp_num' value='{$grp_num}'/>
+                <input type='hidden' name='prjm_id' value='{$prjm_id}'/>
+                {$submitButton} &nbsp;
+                <input type='reset' name='reset' value='Reset form'/>
+            </form>
+    </fieldset>
+</div>

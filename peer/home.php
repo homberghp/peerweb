@@ -1,5 +1,5 @@
 <?php
-require_once('./peerlib/peerutils.php');
+require_once('peerutils.php');
 include_once('tutorhelper.php');
 require_once'navigation2.php';
 /**
@@ -40,7 +40,7 @@ ob_start();
     </colgroup>
     <tr>
         <td valign='top' width='80%' style='padding:0px'>
-                <h1 class='normal' style='width:100%;top:0px;margin:0;text-align:center'>Peerweb?</h1>
+                <h1 class='normal' style='width:100%;top:0px;margin:0;'>Peerweb?</h1>
             <div style='padding: 0 1em 0 1em'>
                 <?php if ($lang == 'nl') { ?>
                     <p>Peerweb is een plaats waar je bestanden en beoordelingen kunt

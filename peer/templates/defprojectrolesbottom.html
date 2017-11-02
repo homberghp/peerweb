@@ -1,0 +1,40 @@
+<div>
+    {$copy_form}
+    <h2>Define new roles for this project.</h2>
+    <fieldset><legend>Redefine role</legend>
+        <p>The following convention applies: Role with nr 0 is the default role (employee for generic project, software engineer for SE projects, consultant for BI projects), nr 1 is top brass (e.g. General Manager) whose name will be shown on the active project page. In projects like mini you would give role number 2 to the HRM with rights to update roles and read the consolidated assessment results.</p>
+        <form method="post" name="possibleroles" action="{$PHP_SELF}">
+            <input type='hidden' name='grp_num' value='{$grp_num}'/>
+            {$roleDefTable}
+            <input type='hidden' name='prj_id' value='{$prj_id}'/>
+            <table width='100%' border='0' summary='layout'>
+                <tr>
+                    <td><input type='submit' name='defroles' value='Update role definition'/></td>
+                    <td align='right'><input type='reset' name='reset' value='reset form'/></td>
+                </tr></table>
+        </form>
+    </fieldset>
+    <fieldset><legend>Add role</legend>
+        <form method="post" name="addrole" action="{$PHP_SELF}">
+            <input type='hidden' name='grp_num' value='{$grp_num}'/>
+            <input type='hidden' name='prj_id' value='{$prj_id}'/>
+            <table class='layout' summary='layout'>
+                <tr><th>&nbsp;</th><th align='left'>Role description (1..30 char) </th><th>Short (1..4 char)</th></tr>
+                <tr><th>new role</th><td><input type='text' name='role_description' value='' size='30' align='left' maxlength='30'/></td>
+                    <td><input type='text' name='role_short' value='' size='6' align='left' maxlength='4'/></td></tr>
+                <tr>
+                    <td><input type='submit' name='baddtype' value='Add Role'/>
+                    </td></tr>
+            </table>
+        </form>
+    </fieldset>
+    <fieldset><legend>Set default roles for all non assigned</legend>
+        <form method="post" name ='applydefault' action='{$PHP_SELF}'>
+            <p>Set the role for all students, for which the role is not yet set.</p>
+            <input type='hidden' name='prjm_id' value='{$prjm_id}'>
+            <input type='hidden' name='prj_id' value='{$prj_id}'>
+            {$defrollist}
+            <input type='submit' name='setdefrole' value='Set Default Role'/>
+        </form>
+    </fieldset>
+</div>

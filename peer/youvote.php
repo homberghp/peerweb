@@ -24,7 +24,7 @@
         <h1>your votes please</h1>
         <form id='votes' action="youvote.php" method='get'>
             <?php
-            require_once'./peerlib/youtubelink.php';
+            require_once'youtubelink.php';
             /*
              * To change this template, choose Tools | Templates
              * and open the template in the editor.

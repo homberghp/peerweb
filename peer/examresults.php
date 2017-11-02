@@ -2,7 +2,7 @@
 require_once 'component.php';
 require_once 'navigation2.php';
 require_once 'selector.php';
-require_once './peerlib/SimpleTableFormatter.php';
+require_once 'SimpleTableFormatter.php';
 if (!isSet($_SESSION['exam_event_id'])) {
     $sql = "select max(exam_event_id) as exam_event_id from exam_grades ";
     

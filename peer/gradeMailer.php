@@ -1,10 +1,10 @@
 <?php
 
-require_once 'peerlib/component.php';
+require_once 'component.php';
 require_once 'navigation2.php';
 
-require_once 'peerlib/SimpleTableFormatter.php';
-require_once 'peerlib/mailFunctions.php';
+require_once 'SimpleTableFormatter.php';
+require_once 'mailFunctions.php';
 
 $pp = array( );
 $title="Grade Mailer on {$db_name}";

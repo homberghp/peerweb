@@ -1,8 +1,8 @@
 <?php
 
-require_once('./peerlib/peerutils.php');
-require_once('./peerlib/validators.php');
-require_once('./peerlib/simplequerytable.php');
+require_once('peerutils.php');
+require_once('validators.php');
+require_once('simplequerytable.php');
 
 if ( isSet( $_REQUEST['newscancode'] ) ) {
   $id = validate( $_REQUEST['newscancode'], 'integer', '0' );

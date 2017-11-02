@@ -1,10 +1,11 @@
 <?php
-include_once('./peerlib/peerutils.php');
-require_once('./peerlib/validators.php');
+include_once('peerutils.php');
+require_once('validators.php');
 include_once('navigation2.php');
 require_once 'prjMilestoneSelector2.php';
 require_once 'TableBuilder.class.php';
 require_once 'TaskRowFactory.class.php';
+require_once 'TemplateWith.php';
 
 requireScribeCap($peer_id);
 
@@ -77,7 +78,7 @@ $text='';
 if ($template_text === false ) {
   $text="<strong>cannot read template file $templatefile</strong>";
 } else {  
-  eval("\$text = \"$template_text\";");
+  $text=templateWith($template_text, get_defined_vars());
 }
 
 $page->addBodyComponent(new Component($text));

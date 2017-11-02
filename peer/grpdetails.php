@@ -2,7 +2,7 @@
 require_once 'ste.php';
 require_once 'GroupPhoto.class.php';
 require_once 'prjMilestoneSelector2.php';
-require_once('./peerlib/querytotable.php');
+require_once('querytotable.php');
 
 $title = "Project group details";
 

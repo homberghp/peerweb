@@ -1,8 +1,8 @@
 <?php
-include_once('./peerlib/peerutils.php');
-require_once('./peerlib/validators.php');
+include_once('peerutils.php');
+require_once('validators.php');
 include_once('navigation2.php');
-include './peerlib/simplequerytable.php';
+include 'simplequerytable.php';
 require_once 'prjMilestoneSelector2.php';
 requireCap(CAP_TUTOR);
 

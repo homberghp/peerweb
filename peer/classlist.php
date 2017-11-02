@@ -1,9 +1,9 @@
 <?php
-include_once('./peerlib/peerutils.php');
-require_once('./peerlib/validators.php');
+include_once('peerutils.php');
+require_once('validators.php');
 include_once('navigation2.php');
 requireCap(CAP_TUTOR);
-include './peerlib/simplequerytable.php';
+include 'simplequerytable.php';
 require_once 'ClassSelectorClass.php';
 require_once 'SpreadSheetWriter.php';
 // get group tables for a project

@@ -1,8 +1,8 @@
 <?php
-include_once('./peerlib/peerutils.php');
-require_once('./peerlib/validators.php');
+include_once('peerutils.php');
+require_once('validators.php');
 include_once('navigation2.php');
-include './peerlib/simplequerytable.php';
+include 'simplequerytable.php';
 require_once 'prjMilestoneSelector2.php';
 require_once 'SpreadSheetWriter.php';
 
@@ -76,7 +76,7 @@ $nav->setInterestMap($tabInterestCount);
 
 $prjSel->setJoin('milestone_grp using (prj_id,milestone)');
 $prj_id_selector = $prjSel->getSelector();
-$emailList = '';
+$emailList = array();
 $grpList = array();
 $resultSet = $dbConn->Execute($sqlhead . $sqltail);
 if ($resultSet === false) {

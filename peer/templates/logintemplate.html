@@ -6,7 +6,7 @@
         <meta http-equiv='Content-Script-Type' content='text/javascript'/>
         <meta http-equiv='Content-Style-Type' content='text/css'/>
         <meta name='GENERATOR' content='(x)emacs'/>
-        <link rel='stylesheet' type='text/css' href='$root_url/style/peertreestyle.css'/>
+        <link rel='stylesheet' type='text/css' href='{$root_url}/style/peertreestyle.css'/>
         <title>Peerweb login</title>
 
     </head>
@@ -22,7 +22,7 @@
                     <table>
                         <tr>
                             <td>
-                                <form method='post' name='login' action='$action_uri'>
+                                <form method='post' name='login' action='{$action_uri}'>
                                     <table width='40%'>
                                         <tr>
                                             <td>peer_id</td>
@@ -46,10 +46,10 @@
                 <div style='padding:2em;'><h2>Documentation</h2>
                     <p>     You can find a short user guide by following this <a
                             href='http://www.fontysvenlo.org/pdf_files/peerweb.pdf'>link:
-                            <img src='$pdficon' border='0'/ alt='pdf'></a>. There is
+                            <img src='{$pdficon}' border='0'/ alt='pdf'></a>. There is
                         also a <a
                             href='http://www.fontysvenlo.org/pdf_files/peerweb_sheets.pdf'>pdf
-                            presentation&nbsp;<img src='$pdficon' border='0' alt='pdf'/></a> 
+                            presentation&nbsp;<img src='{$pdficon}' border='0' alt='pdf'/></a> 
                         on the subject, given to the HR managers of the
                         minis 2006 on 5 and 12 October 2006.  
 
@@ -62,7 +62,7 @@
                 </div>
                 <fieldset>
                     <legend>Authentication request</legend>
-                    <form name='accessrequest' method='post' autocomplete='off' action='$PHP_SELF?'>
+                    <form name='accessrequest' method='post' autocomplete='off' action='{$PHP_SELF}'>
                         <table class='layout'>
                             <tr>
                                 <td>Logincode (student number if you are a student, pcn if you are staff member) </td>
@@ -79,7 +79,7 @@
                         </table> 
                     </form>
                     <p>$result</p>
-                    <div class='notice' style='width:15%'><img src='$ktipicon' alt='tip'/>Why my birthday?</div>
+                    <div class='notice' style='width:15%'><img src='{$ktipicon}' alt='tip'/>Why my birthday?</div>
                     <p>In case you wonder why I want your birthday: Not asking for some kind of 'secret' would make it to trivial
                         for script kiddies to make this service into a <i>denial of service</i> for the intended users. 
                         The new authentication becomes effective immediately, so someone could generate passwords faster then you can read your mail.
@@ -96,5 +96,5 @@
             </div>
         </div>
     </body>
-    <!-- \$Id: logintemplate.html 1769 2014-08-01 10:04:30Z hom $ <?= $db_name ?>-->
+    <!-- \$Id: logintemplate.html 1769 2014-08-01 10:04:30Z hom $ <?= {$db_name} ?>-->
 </html>

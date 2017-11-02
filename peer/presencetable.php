@@ -1,5 +1,5 @@
 <?php
-require_once('./peerlib/peerutils.php');
+require_once('peerutils.php');
 function checkTable($dbConn,$query,$rowTriggerColumn,$headColumn,$checkcolumn,$notecolumn,$tabledef="<table summary='simple table' border='1' style='border-collapse:collapse'>") {
   $result ='';
   $head="<tr>\n";

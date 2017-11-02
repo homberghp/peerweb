@@ -2,23 +2,23 @@
     <table class='layout' summary='layout'>
         <tr>
             <td class='layout' valign='top'>
-                $prjm_id_selector
+                {$prjm_id_selector}
             </td>
         </tr>
         <tr>
             <td>
                 <fieldset><legend>Group members</legend>
-                    <form method='post' id='grpmembers' name='grpmembers' action='$PHP_SELF'>
-                        <span style='font-size:180%;color:#800;'>$ie_warning</span>
+                    <form method='post' id='grpmembers' name='grpmembers' action='{$PHP_SELF}'>
+                        <span style='font-size:180%;color:#800;'>{$ie_warning}</span>
                         <table class='layout' border='0' summary='layout'>
                             <tr>
                                 <th colspan='2'>Select the new group for move actions:</th>
-                                <td class='layout' colspan='3'><select name='grp_num'>    $grpList    </select></td>
+                                <td class='layout' colspan='3'><select name='grp_num'>    {$grpList}    </select></td>
                             </tr>
                             <tr>
                                 <td class='layout' colspan='1' align='left'>
                                     <select name='oldmembers[]' id='leftselect' size='25'
-                                            onDblClick='moveSelectedOptions(this,this.form.rightselect)' multiple>$studentList
+                                            onDblClick='moveSelectedOptions(this,this.form.rightselect)' multiple>{$studentList}
                                     </select>
                                 </td>
                                 <td class='layout' valign='top'>
@@ -34,8 +34,8 @@
                                 </td>
                                 <td class='layout' valign='top'>
                                     <table summary='layout'>
-                                        <tr><td class='layout'>$updateButton</td></tr>
-                                        <tr><td class='layout'>$deleteButton</td></tr>
+                                        <tr><td class='layout'>{$updateButton}</td></tr>
+                                        <tr><td class='layout'>{$deleteButton}</td></tr>
                                         <tr><td class='layout'><button type='submit' name='reset' value='Reset form' title='Reset form
                                                                        data'>Reset Form</button></td></tr>
                                     </table>

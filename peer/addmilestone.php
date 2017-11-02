@@ -1,9 +1,11 @@
 <?php
 
-include_once './peerlib/peerutils.php';
-require_once './peerlib/querytotable.php';
+include_once 'peerutils.php';
+require_once 'querytotable.php';
 include_once 'navigation2.php';
 include_once 'project_selector.php';
+require_once 'TemplateWith.php';
+
 requireCap( CAP_TUTOR );
 $milestones = 1;
 extract( $_SESSION );
@@ -123,8 +125,7 @@ $template_text = file_get_contents( $templatefile, true );
 if ( $template_text === false ) {
   $form1Form->addText( "<strong>cannot read template file $templatefile</strong>" );
 } else {
-  eval( "\$text = \"$template_text\";" );
-  $form1Form->addText( $text );
+  $form1Form->addText( templateWith($template_text, get_defined_vars()) );
 }
 $form1->add( $form1Form );
 $page->addBodyComponent( $form1 );

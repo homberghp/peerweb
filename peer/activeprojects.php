@@ -1,11 +1,11 @@
 <?php
 
 /* $Id: activeprojects.php 1761 2014-05-24 13:17:31Z hom $ */
-include_once('./peerlib/peerutils.php');
-include_once('./peerlib/makeinput.php');
+include_once('peerutils.php');
+include_once('makeinput.php');
 include_once('tutorhelper.php');
 include_once 'navigation2.php';
-require_once './peerlib/SimpleTableFormatter.php';
+require_once 'SimpleTableFormatter.php';
 
 $page_opening = "Active projects and websites";
 $page = new PageContainer();

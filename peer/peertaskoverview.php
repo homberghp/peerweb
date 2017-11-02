@@ -1,9 +1,10 @@
 <?php
-include_once('./peerlib/peerutils.php');
+include_once('peerutils.php');
 include_once('tutorhelper.php');
 include_once('navigation2.php');
 include_once 'navigation2.php';
 require_once 'personalTaskList.php';
+require_once 'TemplateWith.php';
 // get group tables for a project
 $prj_id=0;
 $prjm_id = 0;
@@ -38,7 +39,7 @@ $text='';
 if ($template_text === false ) {
   $text="<strong>cannot read template file $templatefile</strong>";
 } else {  
-  eval("\$text = \"$template_text\";");
+  $text=templateWith($template_text, get_defined_vars());
 }
 
 $page->addBodyComponent(new Component($text));

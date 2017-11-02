@@ -1,11 +1,11 @@
 <?php
 
-require_once './peerlib/peerutils.php';
-require_once'./peerlib/validators.php';
+require_once 'peerutils.php';
+require_once'validators.php';
 require_once 'navigation2.php';
 require_once 'prjMilestoneSelector2.php';
-require_once './peerlib/simplequerytable.php';
-
+require_once 'simplequerytable.php';
+require_once 'TemplateWith.php';
 requireCap(CAP_SYSTEM);
 $prjm_id = 0;
 $prj_id = 1;
@@ -107,8 +107,7 @@ $template_text = file_get_contents($templatefile, true);
 if ($template_text === false) {
     $page->addBodyComponent(new Component("<strong>cannot read template file $templatefile</strong>"));
 } else {
-    eval("\$text = \"$template_text\";");
-    $page->addBodyComponent(new Component($text));
+    $page->addBodyComponent(new Component(templateWith($template_text, get_defined_vars())));
 }
 $page->show();
 

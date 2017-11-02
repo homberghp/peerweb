@@ -1,10 +1,12 @@
 <?php
-include_once('./peerlib/peerutils.php');
-require_once('./peerlib/validators.php');
+include_once('peerutils.php');
+require_once('validators.php');
 requireCap(CAP_TUTOR);
 include_once('navigation2.php');
-include './peerlib/simplequerytable.php';
+include 'simplequerytable.php';
 require_once 'SpreadSheetWriter.php';
+require_once 'TemplateWith.php';
+
 $sql = $query_text = '';
 $expanded_query = $query_name = '';
 if (isSet($_REQUEST['query_id'])) {
@@ -18,7 +20,7 @@ if (isSet($_REQUEST['query_id'])) {
 }
 if (isSet($_REQUEST['query_text'])) {
     $sql = $query_text = $_REQUEST['query_text'];
-    eval("\$expanded_query=\"\$query_text\";");
+    $expanded_query=templateWith($query_text, get_defined_vars());
 }
 if (isSet($_REQUEST['query_name'])) {
     $query_name = $_REQUEST['query_name'];
@@ -111,7 +113,7 @@ $nav->show()
     <div>For query <pre><?= $sql ?></pre>
         <?php
         if ($sql != '' && !preg_match("/(begin|drop|delete|insert|commit)/", $sql)) {
-            eval("\$expanded_sql=\"$sql\";");
+            $expanded_sql=templateWith($sql, get_defined_vars());
             simpletable($dbConn, $expanded_sql, "<table id='myTable' class='tablesorter' summary='your requested data'"
                     . " style='empty-cells:show;border-collapse:collapse' border='1'>");
         }

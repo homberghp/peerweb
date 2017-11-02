@@ -1,8 +1,9 @@
 <?php
 $debug=0;
-include_once('./peerlib/peerutils.php');
-require_once('./peerlib/validators.php');
+include_once('peerutils.php');
+require_once('validators.php');
 require_once('component.php');
+require_once 'TemplateWith.php';
 ini_set('error_reporting',(E_ALL & ~E_NOTICE) );
 extract($_SESSION);
 $sql="select roepnaam||' '||coalesce(tussenvoegsel||' ','')||' '||achternaam as line1,snummer \n".
@@ -69,8 +70,7 @@ $template_text= file_get_contents($templatefile, true);
 if ($template_text === false ) {
   $form1->addText("<strong>cannot read template file $templatefile</strong>");
 } else {  
-  eval("\$text = \"$template_text\";");
-  $form1->addText($text);
+  $form1->addText(templateWith($template_text, get_defined_vars()));
 }
 $page->addBodyComponent($form1);
 $page->show();

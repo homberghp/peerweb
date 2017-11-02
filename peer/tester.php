@@ -1,6 +1,6 @@
 <?php
 
-require_once './peerlib/peerutils.php';
+require_once 'peerutils.php';
 require_once 'queryToXlsx.php';
 require_once 'SpreadSheetWriter.php';
 require_once 'pgrowparser.php';

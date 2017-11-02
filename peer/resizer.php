@@ -1,6 +1,6 @@
 <?php
-require_once 'peerlib/peerutils.php';
-require_once 'peerlib/imageresize.php';
+require_once 'peerutils.php';
+require_once 'imageresize.php';
 //
 // phpinfo();
 //setlocale(LC_CTYPE,'en_US.UTF-8');
