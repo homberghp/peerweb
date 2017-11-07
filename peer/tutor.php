@@ -9,8 +9,7 @@ require_once("ste.php");
 $title = "Tutor editor on DB {$db_name} ";
 $page = new PageContainer($title);
 $ste = new SimpleTableEditor($dbConn, $page);
-$ste->setShowQuery(true)
-        ->setTitle($title)
+$ste->setTitle($title)
         ->setFormAction($PHP_SELF)
         ->setRelation('tutor')
         ->setMenuName('tutor')

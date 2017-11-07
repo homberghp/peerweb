@@ -8,8 +8,7 @@
 require_once("ste.php");
 $page = new PageContainer("Peerweb colloqium speakers" . $PHP_SELF . " on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page);
-$ste->setShowQuery(true)
-        ->setFormAction($PHP_SELF)
+$ste->setFormAction($PHP_SELF)
         ->setRelation('colloquium_speakers')
         ->setMenuName('colloquium_speakers')
         ->setKeyColumns(array('colloquium_speaker_id'))

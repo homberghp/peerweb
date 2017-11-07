@@ -9,8 +9,7 @@ require_once("ste.php");
 $title="Exam_Event editor on DB {$db_name} ";
 $page = new PageContainer($title);
 $ste = new SimpleTableEditor( $dbConn ,$page);
-$ste->setShowQuery( true )
-        ->setTitle( $title )
+$ste->setTitle( $title )
         ->setFormAction( $PHP_SELF )
         ->setRelation( 'exam_event' )
         ->setMenuName( 'exam_event' )

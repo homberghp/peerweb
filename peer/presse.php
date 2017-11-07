@@ -10,7 +10,6 @@ requireCap(CAP_RECRUITER);
 
 $page = new PageContainer("Peerweb presse " . $PHP_SELF . " on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page);
-$ste->setShowQuery(true);
 $ste->setFormAction($PHP_SELF);
 $ste->setRelation('presse');
 $ste->setMenuName('presse');

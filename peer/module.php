@@ -11,8 +11,7 @@ $page = new PageContainer();
 $page->setTitle($title);
 
 $ste = new SimpleTableEditor($dbConn, $page);
-$ste->setShowQuery(true)
-        ->setTitle($title)
+$ste->setTitle($title)
         ->setFormAction($PHP_SELF)
         ->setRelation('module')
         ->setMenuName('module')

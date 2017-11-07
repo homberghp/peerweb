@@ -10,8 +10,7 @@ requireCap(CAP_RECRUITER);
 
 $page = new PageContainer("Peerweb scholen internationaal" . $PHP_SELF . " on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page);
-$ste->setShowQuery(true)
-        ->setFormAction($PHP_SELF)
+$ste->setFormAction($PHP_SELF)
         ->setRelation('scholen_int')
         ->setMenuName('scholen_int')
         ->setKeyColumns(array('scholen_int_id'))

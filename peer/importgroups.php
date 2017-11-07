@@ -23,7 +23,7 @@ function validateStudents($dbConn, &$uploadResult) {
     if ($resultSet === FALSE) {
         echo $uploadResult;
     }
-    if (!$resultSet->EOF && (($rowCount = $resultSet->RowCount()) > 0)) {
+    if (!$resultSet->EOF && (($rowCount = $resultSet->rowCount()) > 0)) {
         $valid = false;
         $uploadResult .= "\n<fieldset style='background:white;color:#800'><pre>$query</pre><h2>The following student numbers are not known in peerweb</h2>" .
                 simpleTableString($dbConn, $query)

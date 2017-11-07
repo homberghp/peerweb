@@ -12,7 +12,7 @@ include_once("ste.php");
 requireCap(CAP_LOOKUP_STUDENT);
 $page = new PageContainer("Student adminstration page " . $PHP_SELF . " on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page, hasCap(CAP_ALTER_STUDENT));
-$ste->setFormAction($PHP_SELF)->setShowQuery(true)
+$ste->setFormAction($PHP_SELF)//->setShowQuery(true)
         ->setRelation('student_email')
         ->setMenuName('student_admin')
         ->setKeyColumns(array('snummer'))
@@ -25,7 +25,9 @@ $ste->setFormAction($PHP_SELF)->setShowQuery(true)
         ->setOrderList(array('achternaam', 'roepnaam'))
         ->setFormTemplate('templates/student_admin.html')
         ->setListRowTemplate(array('st_.snummer', 'minifoto', 'email1', 'pcn', 'hoofdgrp', 'sclass', 'cohort', 'gebdat', 'slb', 'studieplan', 'phone_gsm'))
-        ->setListQueryExtension(' join minifoto fo on(st_.snummer=fo.snummer) left join student_class scn using (class_id) ')
+        ->setListQueryExtension("\n"
+                . "   join minifoto fo on(st_.snummer=fo.snummer) \n"
+                . "   left join student_class scn using (class_id) " )
         ->show();
 ?>
 

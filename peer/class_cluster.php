@@ -8,8 +8,7 @@
 include_once("ste.php");
 $page = new PageContainer("Peerweb class clusters " . $PHP_SELF . " on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page);
-$ste->setShowQuery(true)
-        ->setFormAction($PHP_SELF)
+$ste->setFormAction($PHP_SELF)
         ->setRelation('class_cluster')
         ->setMenuName('class_cluster')
         ->setKeyColumns(array('class_cluster'))

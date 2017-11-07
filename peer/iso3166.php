@@ -8,8 +8,7 @@
 require_once("ste.php");
 $page = new PageContainer("Country table $db_name ");
 $ste = new SimpleTableEditor( $dbConn ,$page);
-$ste->setShowQuery( true )
-        ->setTitle( "country codes" )
+$ste->setTitle( "country codes" )
         ->setFormAction( $PHP_SELF )
         ->setRelation( 'iso3166' )
         ->setMenuName( 'iso3166' )

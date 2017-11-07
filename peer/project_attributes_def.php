@@ -9,8 +9,7 @@ include_once("ste.php");
 
 $page = new PageContainer("Project attributes and performance indicators on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page);
-$ste->setShowQuery(true)
-        ->setFormAction($PHP_SELF)
+$ste->setFormAction($PHP_SELF)
         ->setRelation('project_attributes_def')
         ->setMenuName('project_attributes')
         ->setKeyColumns(array('project_attributes_def'))

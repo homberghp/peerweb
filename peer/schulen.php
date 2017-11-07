@@ -9,8 +9,7 @@ include_once("ste.php");
 requireCap(CAP_RECRUITER);
 $page = new PageContainer("Peerweb schulen in NRW on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn,$page);
-$ste->setShowQuery(true)
-        ->setFormAction($PHP_SELF)
+$ste->setFormAction($PHP_SELF)
         ->setRelation('schulen')
         ->setMenuName('schulen')
         ->setKeyColumns(array('schulen_id'))
