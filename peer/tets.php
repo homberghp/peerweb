@@ -29,10 +29,30 @@ foreach ($a as $key => $value) {
         $aA[$key] = $value;
     }
 }
-print_r($aA);
-print_r($a);
-echo expandListRowTemplate($aA);
-phpinfo();
+/* print_r($aA); */
+/* print_r($a); */
+/* echo expandListRowTemplate($aA); */
+$dbConn=pg_connect('host=localhost port=5432 user=peerweb dbname=peer2 password=eysGhawfOaw4');
+echo 'hallo<br/>';
+$pq = pg_prepare($dbConn,'','select * from student where achternaam ~* $1');
+echo print_r($dbConn,false)."<br/>";
+$rs=pg_execute($dbConn,'',array("den$"));
+echo print_r($rs,false)."<br/>";
+$nr=pg_num_rows($rs);
+echo "found {$nr} rows<br/>";
+echo "<pre>";
+while($row=pg_fetch_assoc($rs)){
+    print_r($row);
+}
+echo "</pre>";
+
+echo "<br/>done";
+//echo pg_affected_rows($rs);
+/* while(!$rs->EOF){ */
+/*     print_r($s->fields); */
+/*     $rs->MoveNext(); */
+/* } */
+//phpinfo();
 //setlocale(LC_CTYPE,'en_US.UTF-8');
 //setlocale(LC_ALL,'en_US.UTF-8','en_EN');
 //passthru('export LC_CTYPE=en_US.UTF-8;/usr/bin/locale');
