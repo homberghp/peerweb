@@ -188,6 +188,10 @@ class SearchQuery {
         }
         return $this;
     }
+    
+    function getSubmitValueSet($vs){
+        return $this->submitValueSet;
+    }
 
     /**
      * In a supporting join query the concept aux col names is used.
@@ -415,10 +419,10 @@ class SearchQuery {
                         case 'int8':
                             if ($valueIsRegex) {
                                 $whereTerms[] = "{$rp}.{$name}::text ~* $" . $valueCtr++;
-                                $values[] = "'E'^" . $value . "$'";
+                                $values[] = "^" . $value . "$";
                             } else {
                                 $whereTerms[] .= "{$rp}.{$name} =  $" . $valueCtr++;
-                                $values[] = $nvalue;
+                                $values[] = $value;
                             }
                             break;
                         case 'bpchar':
@@ -427,11 +431,11 @@ class SearchQuery {
                         case 'text':
                         default:
                             if ($valueIsRegex) {
-                                $whereTerms[] = "{$rp}.{$name}::text ~* E$" . $valueCtr++;
-                                $values[] = "'E'^" . $value . "$'";
+                                $whereTerms[] = "{$rp}.{$name}::text ~* $" . $valueCtr++;
+                                $values[] = "^" . $value . "$";
                             } else {
                                 $whereTerms[] .= "{$rp}.{$name}::text ilike $" . $valueCtr++;
-                                $values[] = $nvalue;
+                                $values[] = $value;
                             }
                             break;
                     }
@@ -447,23 +451,22 @@ class SearchQuery {
                 . $this->getQueryExtension() . ' where ' . $whereClause . $orderBy;
         $this->values = $values;
         // $this->queryTailText = $q;
-        echo "<pre>$q</pre>";
+        //echo "<pre>$q</pre>";
         return $q;
     }
 
     function getQueryTailText() {
         if ($this->queryTailText === null) {
             $this->queryTailText = $this->prepareQueryTailText();
-            echo "<pre>{$this->queryTailText}</pre>";
+            //echo "<pre>{$this->queryTailText}</pre>";
         }
         return $this->queryTailText;
     }
 
-    public function executeAllQuery2($fromList) {
-
-        $q = $fromList . $this->getQueryTailText();
-        echo "<pre>{$q}</pre>";
-        return $this->dbConn->Prepare($q)->execute($values);
+    public function executeAllQuery2($fromList='') {
+        $q = $fromList . " select * from " .$this->getQueryTailText();
+        //echo " <span style='font-weight:bold;' >$q</span>" ;
+        return $this->dbConn->Prepare($q)->execute($this->values);
     }
 
     public function getSubRelQuery() {

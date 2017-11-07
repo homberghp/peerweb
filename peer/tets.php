@@ -1,49 +1,52 @@
 <?php
 require_once 'peerutils.php';
-echo pg_escape_string("Hello world nice isn't it");
-require_once 'rainbow.php';
-echo "<br/>";
-$rb= new RainBow();
-for ($i=0; $i < $rb->count(); $i++) {
-    echo $rb->getCurrentAsARGBString()."<br/>";
-    $rb->getNext();
-}
-function expandListRowTemplate($la){
-    $result='';
-    $con=', ';
-    foreach ($la as $expr => $colName) {
-        $result .= $con."$expr as $colName";
-    }
-    return $result;
-}
-
-$a=array('a', 'b', "achternaam||','||roepnaam"=>'C');
-$aA=array();
-foreach ($a as $key => $value) {
-    echo "$key = $value</br>";
-}
-foreach ($a as $key => $value) {
-    if (is_numeric($key)) {
-        $aA[$value] = $value;
-    } else {
-        $aA[$key] = $value;
-    }
-}
+//echo pg_escape_string("Hello world nice isn't it");
+//require_once 'rainbow.php';
+//echo "<br/>";
+//$rb= new RainBow();
+//for ($i=0; $i < $rb->count(); $i++) {
+//    echo $rb->getCurrentAsARGBString()."<br/>";
+//    $rb->getNext();
+//}
+//function expandListRowTemplate($la){
+//    $result='';
+//    $con=', ';
+//    foreach ($la as $expr => $colName) {
+//        $result .= $con."$expr as $colName";
+//    }
+//    return $result;
+//}
+//
+//$a=array('a', 'b', "achternaam||','||roepnaam"=>'C');
+//$aA=array();
+//foreach ($a as $key => $value) {
+//    echo "$key = $value</br>";
+//}
+//foreach ($a as $key => $value) {
+//    if (is_numeric($key)) {
+//        $aA[$value] = $value;
+//    } else {
+//        $aA[$key] = $value;
+//    }
+//}
 /* print_r($aA); */
 /* print_r($a); */
 /* echo expandListRowTemplate($aA); */
-$dbConn=pg_connect('host=localhost port=5432 user=peerweb dbname=peer2 password=eysGhawfOaw4');
-echo 'hallo<br/>';
-$pq = pg_prepare($dbConn,'','select * from student where achternaam ~* $1');
-echo print_r($dbConn,false)."<br/>";
-$rs=pg_execute($dbConn,'',array("den$"));
-echo print_r($rs,false)."<br/>";
-$nr=pg_num_rows($rs);
+//var_dump($dbConn);
+echo 'hallo p<br/>';
+$pq = $dbConn->Prepare('select * from student where achternaam ~* $1');
+//var_dump($pq);
+$rs=$pq->execute(array("den$"));
+echo '<br/>';
+//var_dump($rs);
+$nr=$rs->rowCount();
 echo "found {$nr} rows<br/>";
 echo "<pre>";
-while($row=pg_fetch_assoc($rs)){
-    print_r($row);
+while(!$rs->EOF){
+    print_r($rs->fields);
+    $rs->MoveNext();
 }
+$pq->close();
 echo "</pre>";
 
 echo "<br/>done";

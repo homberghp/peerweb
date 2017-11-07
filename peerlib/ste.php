@@ -43,7 +43,7 @@ require_once 'SpreadSheetWriter.php';
 class SimpleTableEditor {
 
     private $logQuery = true;
-
+    private $submitset=null; // previous query on this page, from session.
     /**
      * the constructor
      */
@@ -55,15 +55,11 @@ class SimpleTableEditor {
         $this->allowIUD = $allowIUD;
         $this->page = $page;
         $this->setDefaultButtons();
-        if (isSet($_SESSION['list_query']) && ($PHP_SELF == $_SESSION['ste_referer'])) {
-            $this->list_query = $_SESSION['list_query'];
+        if (isSet($_SESSION['submitset']) && ($PHP_SELF == $_SESSION['ste_referer'])) {
+            $this->submitset = json_decode($_SESSION['submitset']);
         } else {
-            $_SESSION['list_query'] = $this->list_query = '';
+            $_SESSION['sumbitset' ] = array();
         }
-        if (isSet($_SESSION['ste_query'])) {
-            $this->ste_query = $_SESSION['ste_query'];
-        }
-        $this->spreadSheetWriter = new SpreadSheetWriter($this->dbConn, $this->ste_query);
     }
 
     private $page;
@@ -524,7 +520,8 @@ class SimpleTableEditor {
                 $continuation = '&amp;';
             }
         }
-        if ($this->list_query != '') {
+        $_SESSION['submitset']= json_encode($this->submitset);
+        if ($this->list_query !== '') {
             // SAVE in SESSION
             $_SESSION['list_query'] = $this->list_query;
             $_SESSION['ste_query'] = $this->ste_query;
@@ -613,7 +610,7 @@ class SimpleTableEditor {
      * from the Search request-query ($this->list_query)
      */
     function generateResultList() {
-        if (($this->list_query != '')) {
+        if (($this->list_query !== NULL)) {
             $this->page->addHeadText('<link rel="stylesheet" href="style/tablesorterstyle.css" type="text/css" media="print, projection, screen" />')
                     ->addScriptResource('js/jquery-1.7.1.min.js')
                     ->addScriptResource('js/jquery.tablesorter.min.js')
@@ -867,11 +864,12 @@ class SimpleTableEditor {
                     $this->list_query = $sq->setSubRel($this->subRel)
                             ->setSubRelJoinColumns($this->subRelJoinColumns)
                             ->getExtendedQuery();
-                    $this->spreadSheetWriter->setQuery($this->ste_query);
+                    //$this->spreadSheetWriter->setQuery($this->ste_query);
                     if ($this->showQuery) {
                         $this->addDbMessage("<br/>list query=<pre>{$this->list_query}</pre>");
                     }
-                    $rs = $sq->executeAllQuery();
+                    $rs = $sq->executeAllQuery2();
+                    //echo "<span style=' color:#f0f;font-size:120%' >  aha {$rs}</span>" ;
                     if ($rs !== false && !$rs->EOF) {
                         /* if search succeeded, load the first hit */
                         $rowCount = $rs->rowCount();
