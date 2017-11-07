@@ -64,7 +64,7 @@ class SearchQuery {
     protected $dbConn;
     protected $queryExtension;
 
-    function setQueryExtension( $qe ) {
+    function setQueryExtension($qe) {
         $this->queryExtension = $qe;
         return $this;
     }
@@ -78,9 +78,9 @@ class SearchQuery {
      * @param $dbConn connection to use in queries
      * @param relname relation to select from
      */
-    function __construct( PeerPGDBConnection &$dbConn, $relName ) {
+    function __construct(PeerPGDBConnection &$dbConn, $relName) {
         $this->dbConn = $dbConn;
-        $this->setRelation( $relName );
+        $this->setRelation($relName);
     }
 
     private $log = '';
@@ -88,6 +88,8 @@ class SearchQuery {
     function getLog() {
         return $this->log;
     }
+
+    /* meuk */
 
     /**
      * cache: assoc to hold the names of the columns
@@ -104,10 +106,10 @@ class SearchQuery {
      * sets the relation for this search.
      * @param $relName string name of the relation (tabel or view)
      */
-    function setRelation( $relName ) {
+    function setRelation($relName) {
         //    global $dbConn;
         $this->relation = $relName;
-        $this->relPrefix = substr( $this->relation, 0, 2 ) . '_';
+        $this->relPrefix = substr($this->relation, 0, 2) . '_';
         $query = " select column_name,data_type from information_schema.columns where table_name='$this->relation'";
         $dbMessage = '';
         $this->matchColumnSet = array();
@@ -115,12 +117,12 @@ class SearchQuery {
         $count = 0;
         $this->columnNames = array();
         $this->dataTypes = array();
-        $rs = $this->dbConn->Execute( $query );
+        $rs = $this->dbConn->Execute($query);
         while (!$rs->EOF) {
-            $name = trim( stripslashes( $rs->fields[ 'column_name' ] ) );
-            $this->matchColumnSet[ $count++ ] = $name;
-            $this->columnNames[ $name ] = $name;
-            $this->dataTypes[ $name ] = $rs->fields[ 'data_type' ];
+            $name = trim(stripslashes($rs->fields['column_name']));
+            $this->matchColumnSet[$count++] = $name;
+            $this->columnNames[$name] = $name;
+            $this->dataTypes[$name] = $rs->fields['data_type'];
 
             $rs->moveNext();
         }
@@ -133,14 +135,14 @@ class SearchQuery {
      * Set the list of names that are key in this relation.
      * @param $kc array of columnNames
      */
-    function setKeyColumns( $kc ) {
+    function setKeyColumns($kc) {
         $this->keyColumns = $kc;
         $this->keyColumnNames = array();
-        for ( $i = 0; $i < count( $kc ); $i++ ) {
-            $this->keyColumnNames[ $kc[ $i ] ] = $kc[ $i ];
+        for ($i = 0; $i < count($kc); $i++) {
+            $this->keyColumnNames[$kc[$i]] = $kc[$i];
         }
-        $this->log .= "<br/>key columns<pre>" . print_r( $kc, true ) . "</pre><br/>";
-        $this->log .= "<br/>key columns names<pre>" . print_r( $this->keyColumnNames, true ) . "</pre><br/>";
+//        $this->log .= "<br/>key columns<pre>" . print_r($kc, true) . "</pre><br/>";
+//        $this->log .= "<br/>key columns names<pre>" . print_r($this->keyColumnNames, true) . "</pre><br/>";
         return $this;
     }
 
@@ -150,8 +152,8 @@ class SearchQuery {
      */
     function areKeyColumnsSet() {
         $result = true;
-        for ( $i = 0; $i < count( $this->keyColumns ); $i++ ) {
-            if ( !isSet( $this->submitValueSet[ $this->keyColumns[ $i ] ] ) || $this->submitValueSet[ $this->keyColumns[ $i ] ] == '' ) {
+        for ($i = 0; $i < count($this->keyColumns); $i++) {
+            if (!isSet($this->submitValueSet[$this->keyColumns[$i]]) || $this->submitValueSet[$this->keyColumns[$i]] == '') {
                 return false;
             }
         }
@@ -162,7 +164,7 @@ class SearchQuery {
      * The nameExpression is the sql expression that is returned by executing the query (on the database)
      * name NAME_RESULT. It's purpose is to create a name for the <a href...></a> link.
      */
-    function setNameExpression( $expr ) {
+    function setNameExpression($expr) {
         $this->nameExpression = $expr;
         return $this;
     }
@@ -172,15 +174,15 @@ class SearchQuery {
      * @param $vs valueset: array of key-values pairs
      * This function copies the data and constructs a hash map of the key value pairs.
      */
-    function setSubmitValueSet( $vs ) {
+    function setSubmitValueSet($vs) {
         $this->submitValueSet = array();
-        foreach ( $vs as $key => $value ) {
-            $skey = trim( naddslashes( $key ) );
-            $sval = trim( naddslashes( $value ) );
-            $this->submitValueSet[ $skey ] = $sval;
+        foreach ($vs as $key => $value) {
+            $skey = trim(naddslashes($key));
+            $sval = trim(naddslashes($value));
+            $this->submitValueSet[$skey] = $sval;
         }
-        if ( isSet( $vs[ 'where_join' ] ) ) {
-            if ( $vs[ 'where_join' ] == 'Any' ) {
+        if (isSet($vs['where_join'])) {
+            if ($vs['where_join'] == 'Any') {
                 $this->whereJoin = ' or ';
             }
         }
@@ -196,7 +198,7 @@ class SearchQuery {
     /**
      * additional columns for result list
      */
-    function setAuxColNames( $acn ) {
+    function setAuxColNames($acn) {
         $this->auxColNames = $acn;
         return $this;
     }
@@ -205,18 +207,8 @@ class SearchQuery {
      * The order list determines the way a search list is sorted
      * @param $ol array of column names.
      */
-    function setOrderList( $ol ) {
+    function setOrderList($ol) {
         $this->orderList = $ol;
-        return $this;
-    }
-
-    /**
-     * To retreive data form the database a database connenction is needed
-     * This function sets it.
-     * @param $dbc the database connection to use for alle the database actions
-     */
-    private function setDBConn( $dbc ) {
-        $this->dbConn = $dbc;
         return $this;
     }
 
@@ -225,10 +217,10 @@ class SearchQuery {
      * Implementation only checks if there is a regex dot followed by a multiplier  (*,+, or ?) somewhere.
      * @return true if regex
      */
-    function isRegex( $str ) {
+    function isRegex($str) {
         // match if a character is followed by a regex multiplier.
         $r = array();
-        if ( preg_match( '/\.[+*?]?/', $str, $r, 0, 1 ) ) {
+        if (preg_match('/[.+*?]/', $str, $r, 0, 1)) {
             return true;
         }
         return false;
@@ -242,23 +234,23 @@ class SearchQuery {
         $whereClause = '';
         $continuation = '';
         $rp = $this->relPrefix;
-        for ( $i = 0; $i < count( $this->matchColumnSet ); $i++ ) {
-            $name = $this->matchColumnSet[ $i ];
+        for ($i = 0; $i < count($this->matchColumnSet); $i++) {
+            $name = $this->matchColumnSet[$i];
             $value = '';
-            if ( isSet( $this->submitValueSet[ $name ] ) ) {
-                $value = $this->submitValueSet[ $name ];
-                $valueIsRegex = $this->isRegex( $value );
-                if ( $value != '' ) {
-                    $type = $this->dataTypes[ $name ];
-                    switch ( $type ) {
+            if (isSet($this->submitValueSet[$name])) {
+                $value = $this->submitValueSet[$name];
+                $valueIsRegex = $this->isRegex($value);
+                if ($value != '') {
+                    $type = $this->dataTypes[$name];
+                    switch ($type) {
                         case 'bool':
-                            $nvalue = (isSet( $value ) && ($value != 'false')) ? 'true' : 'false';
+                            $nvalue = (isSet($value) && ($value != 'false')) ? 'true' : 'false';
                             $whereClause .= $continuation . $rp . '.' . $name . ' = ' . $nvalue . ' ';
                             break;
                         case 'int2':
                         case 'int4':
                         case 'int8':
-                            if ( $valueIsRegex ) {
+                            if ($valueIsRegex) {
                                 $whereClause .= $continuation . $rp . '.' . $name . '::text ~* E\'^' . $value . '$\' ';
                             } else {
                                 $whereClause .= $continuation . $rp . '.' . $name . ' =  ' . $value . ' ';
@@ -269,7 +261,7 @@ class SearchQuery {
                         case 'date':
                         case 'text':
                         default:
-                            if ( $valueIsRegex ) {
+                            if ($valueIsRegex) {
                                 $whereClause .= $continuation . $rp . '.' . $name . '::text ~* E\'^' . $value . '$\' ';
                             } else {
                                 $whereClause .= $continuation . $rp . '.' . $name . '::text ilike \'' . $value . '\' ';
@@ -294,14 +286,14 @@ class SearchQuery {
     function getQueryTail() {
         $result = '';
         $whereClause = $this->getWhereList();
-        if ( strlen( $whereClause ) > 0 ) {
+        if (strlen($whereClause) > 0) {
             $result .= "\n where " . $whereClause;
         }
         $continuation = ' ';
-        if ( isSet( $this->orderList ) ) {
+        if (isSet($this->orderList)) {
             $result .= "\n order by ";
-            for ( $i = 0; $i < count( $this->orderList ); $i++ ) {
-                $result .= $continuation . $this->orderList[ $i ];
+            for ($i = 0; $i < count($this->orderList); $i++) {
+                $result .= $continuation . $this->orderList[$i];
                 $continuation = ', ';
             }
         }
@@ -310,12 +302,12 @@ class SearchQuery {
 
     function getQueryHead() {
         $result = 'select ' . $this->nameExpression . ' as RESULT_NAME ';
-        $continuation = ', ';
-        for ( $i = 0; $i < count( $this->keyColumns ); $i++ ) {
-            $result .= $continuation . $this->relPrefix . '.' . $this->keyColumns[ $i ];
+        $continuation = ",\n   ";
+        for ($i = 0; $i < count($this->keyColumns); $i++) {
+            $result .= $continuation . $this->relPrefix . '.' . $this->keyColumns[$i];
         }
-        if ( isSet( $this->auxColNames ) ) {
-            foreach ( $this->auxColNames as $expr => $auxColName ) {
+        if (isSet($this->auxColNames)) {
+            foreach ($this->auxColNames as $expr => $auxColName) {
                 /* drop name if already added via keyColumnNames */
                 //if (!isSet($this->keyColumnNames[$auxColName])) {
                 $result .= $continuation . $auxColName;
@@ -333,8 +325,8 @@ class SearchQuery {
      */
     private function getQuery() {
         $result = $this->getQueryHead()
-                . ' from '
-                . $this->relation . ' ' . $this->relPrefix . ' '
+                . '\n from \n'
+                . $this->relation . '\n ' . $this->relPrefix . '\n '
                 . $this->getQueryTail();
         return $result;
     }
@@ -351,8 +343,8 @@ class SearchQuery {
      * @param type $s
      * @return this searchquery
      */
-    public function setSubRel( $s ) {
-        if ( $s !== '' ) {
+    public function setSubRel($s) {
+        if ($s !== '') {
             $this->subRel = $s;
         }
         return $this;
@@ -363,8 +355,8 @@ class SearchQuery {
      * @param array. Keys are left hand, values right hand column names $a
      * @return this \SearchQuery
      */
-    public function setSubRelJoinColumns( $a ) {
-        if ( is_array( $a ) ) {
+    public function setSubRelJoinColumns($a) {
+        if (is_array($a)) {
             $this->subRelJoinColumns = $a;
         }
         return $this;
@@ -385,16 +377,98 @@ class SearchQuery {
     }
 
     public function getAllQuery() {
-        return "select * from " . $this->getExtendedQueryTail();
+        return "select * from \n" . $this->getExtendedQueryTail();
     }
 
+    /**
+     * Execute the query and return a result set.
+     * @return \PeerResultSet of this query 
+     */
     public function executeAllQuery() {
-        return $this->dbConn->Execute( $this->getAllQuery() );
+        return $this->dbConn->Execute($this->getAllQuery());
+    }
+
+    private $queryTailText = null;
+    private $values = null;
+
+    private function prepareQueryTailText() {
+        $values = array();
+        $whereTerms = array();
+        $valueCtr = 1;
+        $rp = $this->relPrefix;
+        for ($i = 0; $i < count($this->matchColumnSet); $i++) {
+            $name = $this->matchColumnSet[$i];
+            $value = '';
+            if (isSet($this->submitValueSet[$name])) {
+                $value = $this->submitValueSet[$name];
+                $valueIsRegex = $this->isRegex($value);
+                if ($value != '') {
+                    $type = $this->dataTypes[$name];
+                    switch ($type) {
+                        case 'bool':
+                            $nvalue = (isSet($value) && ($value != 'false')) ? 'true' : 'false';
+                            $whereTerms[] = "{$rp}.{$name} = $" . $valueCtr++;
+                            $values[] = $nvalue;
+                            break;
+                        case 'int2':
+                        case 'int4':
+                        case 'int8':
+                            if ($valueIsRegex) {
+                                $whereTerms[] = "{$rp}.{$name}::text ~* $" . $valueCtr++;
+                                $values[] = "'E'^" . $value . "$'";
+                            } else {
+                                $whereTerms[] .= "{$rp}.{$name} =  $" . $valueCtr++;
+                                $values[] = $nvalue;
+                            }
+                            break;
+                        case 'bpchar':
+                        case 'varchar':
+                        case 'date':
+                        case 'text':
+                        default:
+                            if ($valueIsRegex) {
+                                $whereTerms[] = "{$rp}.{$name}::text ~* E$" . $valueCtr++;
+                                $values[] = "'E'^" . $value . "$'";
+                            } else {
+                                $whereTerms[] .= "{$rp}.{$name}::text ilike $" . $valueCtr++;
+                                $values[] = $nvalue;
+                            }
+                            break;
+                    }
+                }
+            }
+        }
+        //echo "<pre style='color:#080'>{$whereClause}</pre>";
+        $whereClause = join($this->whereJoin, $whereTerms);
+        $orderBy = isSet($this->orderList) ? ' order by ' . join(',', $this->orderList) : '';
+
+        $q = $this->relation . ' ' . $this->relPrefix
+                . ' ' . $this->subRelExpression() . ' '
+                . $this->getQueryExtension() . ' where ' . $whereClause . $orderBy;
+        $this->values = $values;
+        // $this->queryTailText = $q;
+        echo "<pre>$q</pre>";
+        return $q;
+    }
+
+    function getQueryTailText() {
+        if ($this->queryTailText === null) {
+            $this->queryTailText = $this->prepareQueryTailText();
+            echo "<pre>{$this->queryTailText}</pre>";
+        }
+        return $this->queryTailText;
+    }
+
+    public function executeAllQuery2($fromList) {
+
+        $q = $fromList . $this->getQueryTailText();
+        echo "<pre>{$q}</pre>";
+        return $this->dbConn->Prepare($q)->execute($values);
     }
 
     public function getSubRelQuery() {
         return 'select sub_rel.* '
-                . ' from '
+                . " \n from \n"
                 . $this->getExtendedQueryTail();
     }
 
@@ -402,14 +476,14 @@ class SearchQuery {
 
         $subRelExpr = '';
         $rpf = $this->relPrefix;
-        if ( isSet( $this->subRel ) && isSet( $this->subRelJoinColumns ) ) {
+        if (isSet($this->subRel) && isSet($this->subRelJoinColumns)) {
             $joinOn = "";
             $joinGlue = '';
-            foreach ( $this->subRelJoinColumns as $left => $right ) {
+            foreach ($this->subRelJoinColumns as $left => $right) {
                 $joinOn .= $joinGlue . " {$rpf}.{$left}=sub_rel.{$right}";
                 $joinGlue = " and \n";
             }
-            $subRelExpr = " left join (select * from $this->subRel) sub_rel on ($joinOn) ";
+            $subRelExpr = " \nleft join (select * \nfrom $this->subRel) sub_rel on ($joinOn) ";
         }
         return $subRelExpr;
     }
@@ -436,29 +510,29 @@ class UpdateQuery extends SearchQuery {
      * Set the update set.
      * @param $us the update set (hashmap key=> value)
      */
-    function setUpdateSet( $us ) {
+    function setUpdateSet($us) {
         $this->updateSet = array();
-        while (list($key, $value) = each( $us )) {
-            $key = trim( naddslashes( $key ) );
-            $value = trim( naddslashes( $value ) );
-            if ( isSet( $this->columnNames[ $key ] ) && !isSet( $this->keyColumnNames[ $key ] ) ) {
-                $this->updateSet[ $key ] = $value;
+        while (list($key, $value) = each($us)) {
+            $key = trim(naddslashes($key));
+            $value = trim(naddslashes($value));
+            if (isSet($this->columnNames[$key]) && !isSet($this->keyColumnNames[$key])) {
+                $this->updateSet[$key] = $value;
             }
         }
-        reset( $us );
+        reset($us);
     }
 
     /**
-     * returns the key column value set, since that identifies the record.
+     * Returns the key column value set, since that identifies the record.
      * @return string the where-list
      */
-    function getWhereList() {
+    private function getWhereList() {
         $whereClause = '';
         $continuation = '';
-        for ( $i = 0; $i < count( $this->keyColumns ); $i++ ) {
-            $name = $this->keyColumns[ $i ];
-            $value = $this->submitValueSet[ $name ];
-            if ( $value != '' ) {
+        for ($i = 0; $i < count($this->keyColumns); $i++) {
+            $name = $this->keyColumns[$i];
+            $value = $this->submitValueSet[$name];
+            if ($value != '') {
                 $value = "'" . $value . "'";
                 $whereClause .= $continuation . $name . '=' . $value . ' ';
                 $continuation = $this->whereJoin;
@@ -474,8 +548,8 @@ class UpdateQuery extends SearchQuery {
     private function getQuery() {
         $result = 'update ' . $this->relation . ' set ';
         $continuation = '';
-        while (list($key, $value) = each( $this->updateSet )) {
-            if ( $this->dataTypes[ $key ] == 'bool' && isSet( $value ) && ($value === 'true' || $value == 'false') ) {
+        while (list($key, $value) = each($this->updateSet)) {
+            if ($this->dataTypes[$key] == 'bool' && isSet($value) && ($value === 'true' || $value == 'false')) {
                 $result .= $continuation . $key . '=' . $value;
                 $continuation = ',';
             } else {
@@ -497,26 +571,26 @@ class UpdateQuery extends SearchQuery {
         $values = array();
         $columnExpr = array();
         $query = "update {$this->relation} set \n";
-        while (list($key, $value) = each( $this->updateSet )) {
+        while (list($key, $value) = each($this->updateSet)) {
             $columnExpr[] = "{$key} = $" . $parmCtr++;
             $values[] = $value;
         }
         $whereClause = " where ";
         $whereExpr = array();
-        for ( $i = 0; $i < count( $this->keyColumns ); $i++ ) {
-            $name = $this->keyColumns[ $i ];
-            $value = $this->submitValueSet[ $name ];
-            if ( $value != '' ) {
+        for ($i = 0; $i < count($this->keyColumns); $i++) {
+            $name = $this->keyColumns[$i];
+            $value = $this->submitValueSet[$name];
+            if ($value != '') {
                 $whereExpr[] = "{$name}=$" . $parmCtr++;
                 $values[] = $value;
             }
         }
-        $whereClause .= join( $this->whereJoin, $whereExpr );
-        $query .= join( ', ', $columnExpr ) . "\n"
+        $whereClause .= join($this->whereJoin, $whereExpr);
+        $query .= join(', ', $columnExpr) . "\n"
                 . $whereClause;
-        
-        $stmnt = $this->dbConn->Prepare( $query, '' );
-        return $stmnt->execute( $values );
+
+        $stmnt = $this->dbConn->Prepare($query, '');
+        return $stmnt->execute($values);
     }
 
     function __toString() {
@@ -549,17 +623,17 @@ class InsertQuery extends SearchQuery {
      * @param $vs valueset: array of key-values pairs
      * This function copies the data and constructs a hash map of the key value pairs.
      */
-    function setUpdateSet( $us ) {
-        reset( $us );
+    function setUpdateSet($us) {
+        reset($us);
         $this->updateSet = array();
-        while (list($key, $value) = each( $us )) {
-            $key = trim( naddslashes( $key ) );
-            $value = trim( naddslashes( $value ) );
-            if ( isSet( $this->columnNames[ $key ] ) ) {
-                $this->updateSet[ $key ] = $value;
+        while (list($key, $value) = each($us)) {
+            $key = trim(naddslashes($key));
+            $value = trim(naddslashes($value));
+            if (isSet($this->columnNames[$key])) {
+                $this->updateSet[$key] = $value;
             }
         }
-        reset( $us );
+        reset($us);
     }
 
     /**
@@ -568,9 +642,9 @@ class InsertQuery extends SearchQuery {
      */
     function areKeyColumnsSet() {
         $result = true;
-        for ( $i = 0; $i < count( $this->keyColumns ); $i++ ) {
-            if ( !isSet( $this->updateSet[ $this->keyColumns[ $i ] ] ) || $this->updateSet[ $this->keyColumns[ $i ] ] == '' ) {
-                error_log( "key columns not all set" );
+        for ($i = 0; $i < count($this->keyColumns); $i++) {
+            if (!isSet($this->updateSet[$this->keyColumns[$i]]) || $this->updateSet[$this->keyColumns[$i]] == '') {
+                error_log("key columns not all set");
                 return false;
             }
         }
@@ -587,12 +661,12 @@ class InsertQuery extends SearchQuery {
         $continuation2 = '';
         $cols = '';
         $vals = '';
-        while (list($key, $value) = each( $this->updateSet )) {
+        while (list($key, $value) = each($this->updateSet)) {
             // the test ensures that non set values take their default or null.
-            if ( $key != '' && $value != '' ) {
+            if ($key != '' && $value != '') {
                 $cols .= $continuation1 . $key;
-                if ( $this->dataTypes[ $key ] == 'bool' ) {
-                    $value = (isSet( $value ) && ($value != '')) ? 'true' : 'false';
+                if ($this->dataTypes[$key] == 'bool') {
+                    $value = (isSet($value) && ($value != '')) ? 'true' : 'false';
                     $vals .= $continuation2 . '\'' . $value . '\'::bool';
                 } else {
                     $vals .= $continuation2 . '\'' . $value . '\'';
@@ -615,17 +689,17 @@ class InsertQuery extends SearchQuery {
         $values = array();
         $params = array();
         $paramCtr = 1;
-        while (list($key, $value) = each( $this->submitValueSet )) {
+        while (list($key, $value) = each($this->submitValueSet)) {
             // the test ensures that non set values take their default or null.
-            if ( $key != '' ) {
+            if ($key != '') {
                 $columns[] = $key;
                 $values[] = ($value !== '') ? $value : null;
                 $params[] = '$' . $paramCtr++;
             }
         }
-        $query .= join( ',', $columns ) . ") \n values(" . join( ',', $params ) . ')';
-        $stmnt = $this->dbConn->Prepare( $query, '' );
-        return $stmnt->execute( $values );
+        $query .= join(',', $columns) . ") \n values(" . join(',', $params) . ')';
+        $stmnt = $this->dbConn->Prepare($query, '');
+        return $stmnt->execute($values);
     }
 
     function __toString() {
@@ -659,16 +733,16 @@ class DeleteQuery extends UpdateQuery {
      * @param $vs valueset: array of key-values pairs
      * This function copies the data and constructs a hash map of the key value pairs.
      */
-    function setUpdateSet( $us ) {
+    function setUpdateSet($us) {
         $this->updateSet = array();
-        while (list($key, $value) = each( $us )) {
-            $key = trim( naddslashes( $key ) );
-            $value = trim( naddslashes( $value ) );
-            if ( isSet( $this->keyColumnNames[ $key ] ) ) {
-                $this->updateSet[ $key ] = $value;
+        while (list($key, $value) = each($us)) {
+            $key = trim(naddslashes($key));
+            $value = trim(naddslashes($value));
+            if (isSet($this->keyColumnNames[$key])) {
+                $this->updateSet[$key] = $value;
             }
         }
-        reset( $us );
+        reset($us);
     }
 
     /**
@@ -692,7 +766,7 @@ class SupportingJoinQuery {
 
     protected $relation;
 
-    function setRelation( $rel ) {
+    function setRelation($rel) {
         $this->relation = $rel;
     }
 
@@ -709,7 +783,7 @@ class SupportingJoinQuery {
     /**
      * set keyMap
      */
-    function setKeyMap( $map ) {
+    function setKeyMap($map) {
         //    stacktrace();
         $this->keyMap = $map;
     }
@@ -724,16 +798,16 @@ class SupportingJoinQuery {
      * @param $vs valueset: array of key-values pairs
      * This function copies the data and constructs a hash map of the key value pairs.
      */
-    function setSubmitValueSet( $vs ) {
+    function setSubmitValueSet($vs) {
         //    stacktrace();
         $this->submitValueSet = array();
-        reset( $vs );
-        foreach ( $vs as $key => $value ) {
-            $skey = trim( naddslashes( $key ) );
-            $sval = trim( naddslashes( $value ) );
-            $this->submitValueSet[ $skey ] = $sval;
+        reset($vs);
+        foreach ($vs as $key => $value) {
+            $skey = trim(naddslashes($key));
+            $sval = trim(naddslashes($value));
+            $this->submitValueSet[$skey] = $sval;
         }
-        reset( $vs );
+        reset($vs);
     }
 
     /**
@@ -745,10 +819,10 @@ class SupportingJoinQuery {
         $result = 'select * from ' . $this->relation . ' ' . $this->relPrefix . ' ' . ' where ';
         $tail = '';
         $continuation = '';
-        while (list($fkey, $pkey) = each( $this->keyMap )) {
-            if ( $fkey != '' && $pkey != '' ) {
-                $val = $this->submitValueSet[ $fkey ];
-                if ( isSet( $val ) && $val != '' ) {
+        while (list($fkey, $pkey) = each($this->keyMap)) {
+            if ($fkey != '' && $pkey != '') {
+                $val = $this->submitValueSet[$fkey];
+                if (isSet($val) && $val != '') {
                     $tail .= $continuation . $pkey . '=\'' . $val . '\'';
                 } else {
                     $tail .= $continuation . $pkey . ' isnull';
@@ -756,7 +830,7 @@ class SupportingJoinQuery {
                 $continuation = ' and ';
             }
         }
-        if ( $tail == '' ) {
+        if ($tail == '') {
             return $tail;
         } else {
             return $result . $tail;

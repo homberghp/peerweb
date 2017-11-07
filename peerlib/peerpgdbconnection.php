@@ -678,7 +678,7 @@ class PeerResultSet {
      * Updates size field.
      * @return the number of rows in this resultSet.
      */
-    function RowCount() {
+    function rowCount() {
         return $this->size = pg_num_rows( $this->resource );
     }
 

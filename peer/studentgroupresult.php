@@ -62,7 +62,7 @@ if ( $resultSet === false ) {
     stacktrace( 1 );
 }
 $lazyjudges = '<table>';
-$lazycount = $resultSet->RowCount();
+$lazycount = $resultSet->rowCount();
 if ( $lazycount > 0 ) {
     while ( !$resultSet->EOF ) {
         $lazyjudges.="\t<tr><td>" . $resultSet->fields[ 'naam' ] . "</td></tr>\n";
