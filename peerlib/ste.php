@@ -563,7 +563,7 @@ class SimpleTableEditor {
         if (($this->dbMessage != '' || $this->queryLog != '')) {
             $result = "<fieldset><legend>Database message</legend>\n";
             if ($this->dbMessage != '') {
-                $result .= "<span style='font-weight:bold; color:#060;'>db {$this->dbMessage} db</span>\n";
+                $result .= "<span style='font-weight:bold; color:#060;'>{$this->dbMessage}</span>\n";
             }
             if ($this->queryLog != '') {
                 $result .= "<span style='font-weight:bold; color:#008;'>q {$this->queryLog} q</span>\n";
