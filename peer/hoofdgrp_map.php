@@ -8,8 +8,7 @@
 require_once("ste.php");
 $page = new PageContainer("Hoofdgrp mapper $db_name ");
 $ste = new SimpleTableEditor( $dbConn ,$page);
-$ste->setShowQuery( true )
-        ->setTitle( $title )
+$ste->setTitle( $title )
         ->setFormAction( $PHP_SELF )
         ->setRelation( 'hoofdgrp_map' )
         ->setMenuName( 'hoofdgrp_map' )

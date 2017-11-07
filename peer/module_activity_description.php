@@ -8,8 +8,7 @@
 require_once("ste.php");
 $page = new PageContainer("Module activity description editor on DB $db_name ");
 $ste = new SimpleTableEditor($dbConn,$page);
-$ste->setShowQuery(true)
-        ->setTitle($title)
+$ste->setTitle($title)
         ->setFormAction($PHP_SELF)
         ->setRelation('module_activity_description')
         ->setMenuName('module_activity_description')

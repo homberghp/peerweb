@@ -12,7 +12,7 @@ include_once("ste.php");
 requireCap(CAP_LOOKUP_STUDENT);
 $page = new PageContainer("Prospect Student adminstration " . $PHP_SELF . " on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page, hasCap(CAP_ALTER_STUDENT));
-$ste->setFormAction($PHP_SELF)->setShowQuery(true)
+$ste->setFormAction($PHP_SELF)
         ->setRelation('prospects')
         ->setMenuName('prospects')
         ->setKeyColumns(array('snummer'))

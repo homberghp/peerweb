@@ -8,8 +8,7 @@
 require_once("ste.php");
 $page = new PageContainer("Nat mapper $db_name ");
 $ste = new SimpleTableEditor( $dbConn ,$page);
-$ste->setShowQuery( true )
-        ->setTitle( "Map nationalities" )
+$ste->setTitle( "Map nationalities" )
         ->setFormAction( $PHP_SELF )
         ->setRelation( 'nat_mapper' )
         ->setMenuName( 'nat_mapper' )

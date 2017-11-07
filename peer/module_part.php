@@ -10,8 +10,7 @@ $title = "Module Part Editor On DB $db_name ";
 
 $page = new PageContainer("Module part on DB $db_name ");
 $ste = new SimpleTableEditor($dbConn, $page);
-$ste->setShowQuery(true)
-        ->setTitle($title)
+$ste->setTitle($title)
         ->setFormAction($PHP_SELF)
         ->setRelation('module_part')
         ->setMenuName('module_part')

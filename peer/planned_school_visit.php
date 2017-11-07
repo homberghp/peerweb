@@ -13,8 +13,7 @@ requireCap(CAP_RECRUITER);
 
 $page = new PageContainer("Peerweb planned_school_visit" . $PHP_SELF . " on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page);
-$ste->setShowQuery(true)
-        ->setTransactional(true)
+$ste->setTransactional(true)
         ->setFormAction($PHP_SELF)
         ->setRelation('planned_school_visit')
         ->setMenuName('planned_school_visit')

@@ -9,8 +9,7 @@ require_once("ste.php");
 requireCap(CAP_RECRUITER);
 $page = new PageContainer("Peerweb verbaende on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page);
-$ste->setShowQuery(true)
-        ->setFormAction($PHP_SELF)
+$ste->setFormAction($PHP_SELF)
         ->setRelation('verbaende')
         ->setMenuName('verbaende')
         ->setKeyColumns(array('verbaende_id'))

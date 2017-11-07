@@ -10,8 +10,7 @@ $navTitle = "Peerweb settings" . $PHP_SELF . " on DB " . $db_name;
 $page = new PageContainer();
 $page->setTitle($navTitle);
 $ste = new SimpleTableEditor($dbConn, $page);
-$ste->setShowQuery(true)
-        ->setFormAction($PHP_SELF)->setRelation('peer_settings')->setMenuName('peer_settings')
+$ste->setFormAction($PHP_SELF)->setRelation('peer_settings')->setMenuName('peer_settings')
         ->setKeyColumns(array('key'))
         ->setNameExpression("rtrim(key)")
         ->setListRowTemplate(array('key', 'value', 'comment'))
