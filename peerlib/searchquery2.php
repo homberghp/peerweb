@@ -548,22 +548,22 @@ class UpdateQuery extends SearchQuery {
      * Gets the query.
      * @return string: the query prepared to be submitted to the database.
      */
-    private function getQuery() {
-        $result = 'update ' . $this->relation . ' set ';
-        $continuation = '';
-        while (list($key, $value) = each($this->updateSet)) {
-            if ($this->dataTypes[$key] == 'bool' && isSet($value) && ($value === 'true' || $value == 'false')) {
-                $result .= $continuation . $key . '=' . $value;
-                $continuation = ',';
-            } else {
-                $nvalue = ( $value != '') ? ('\'' . $value . '\'') : ('default');
-                $result .= $continuation . $key . '=' . $nvalue;
-                $continuation = ',';
-            }
-        }
-        $result .= ' where ' . $this->getWhereList();
-        return $result;
-    }
+//    private function getQuery() {
+//        $result = 'update ' . $this->relation . ' set ';
+//        $continuation = '';
+//        while (list($key, $value) = each($this->updateSet)) {
+//            if ($this->dataTypes[$key] == 'bool' && isSet($value) && ($value === 'true' || $value == 'false')) {
+//                $result .= $continuation . $key . '=' . $value;
+//                $continuation = ',';
+//            } else {
+//                $nvalue = ( $value != '') ? ('\'' . $value . '\'') : ('default');
+//                $result .= $continuation . $key . '=' . $nvalue;
+//                $continuation = ',';
+//            }
+//        }
+//        $result .= ' where ' . $this->getWhereList().' returning *';
+//        return $result;
+//    }
 
     /**
      * Execute the query using prepared statement style.
