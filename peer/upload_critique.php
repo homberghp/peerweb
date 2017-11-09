@@ -137,12 +137,17 @@ if (!isSet($_REQUEST['doc_id'])) {
         $pp['filepath'] = $upload_path_prefix . '/' . $rel_file_path;
         $pp['title'] = stripslashes($title);
         $refreshUrl = htmlspecialchars("$PHP_SELF?doc_id=$doc_id&sortorder=$sortorder");
+        
         $pp['downloadUrl'] = $root_url . "/downloader/$doc_id/" . $pp['filename'];
         $pp['file_size'] = $filesize;//@filesize($filepath);
         $pp['page_opening'] = "Hello $jroepnaam $jtussenvoegsel $jachternaam " .
                 "<span style='font-size:6pt;'>($snummer)</span>, " .
                 "this the critique page. ";
         $pp['mime_type_sel'] = $mime_type;
+        $pp['imagedisplay'] ='';
+        if ($mime_type =='image/jpeg'){
+            $pp['imagedisplay'] ="<img src='{$pp['downloadUrl']}' alt='{$pp['downloadUrl']}' />";
+        }
         $pp['grp_name'] = $grp_name;
         $pp['doc_type_sel'] = $documenttype;
         if (($author == $peer_id) || $hasCapSystem) {

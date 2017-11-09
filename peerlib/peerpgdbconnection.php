@@ -102,6 +102,7 @@ class PeerPGDBConnection {
             }
             return $result;
         }
+        
         $this->aRowCount = pg_affected_rows($result);
 
         if ($this->sqlAutoLog) {
@@ -557,7 +558,8 @@ class PreparedStatement {
      */
     public function execute($params = array()) {
         $resource = pg_execute($this->dbConn->unWrap(), $this->stmntName, $params);
-        return new PeerResultSet($this->dbConn, $resource);
+        $affectedRows= pg_affected_rows($resource);
+        return new PeerResultSet($this->dbConn, $resource,$affectedRows);
     }
 
     public function close() {
@@ -598,6 +600,7 @@ class PeerResultSet {
         }
         $this->dbConn = $con;
         $this->resource = $res;
+        $this->affected_rows =$affect_rows;
         //$this->MoveFirst();
         $this->size = pg_num_rows($this->resource);
         if ($this->size <= 0) {

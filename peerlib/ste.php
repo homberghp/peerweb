@@ -709,12 +709,12 @@ class SimpleTableEditor {
             $iq->setUpdateSet($arr);
             if ($iq->areKeyColumnsSet()) {
                 /* allow insert */
-                $result = $iq->execute()->affected_rows();
-                if ($result < 0) {
+                $affectedRows = $iq->execute()->affected_rows();
+                if ($affectedRows < 0) {
                     $this->addDbMessage('STE: Insert Failed with query ' . $iq);
                     $this->dbConn->Execute("ROLLBACK");
                 } else {
-                    $this->addDbMessage("  added {$result} record(s)");
+                    $this->addDbMessage("  added or updated {$affectedRows} record".($affectedRows==1?'':'s'));
                     $this->dbConn->transactionEnd();
                 }
             } else {
