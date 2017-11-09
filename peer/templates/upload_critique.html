@@ -11,22 +11,26 @@
 
     <h2 class='normal'>Data of document "<a href='<?= $downloadUrl ?>' target='_blank'><?= $title ?></a>" to critisize</h2>
     <?= $formstart ?>
-    <table class='layout' summary='document data'>
-        <tr><td>Document title</td><th align='left'><?= $titleinput ?></th></tr>
-        <tr><td>Filename</td><th align='left'><?= $filename ?></th></tr>
-        <tr><td>File size</td><th align='left'><?= $file_size ?> bytes</th></tr>
-        <tr><td>Upload date</td><th align='left'><?= $uploadts ?> (Due <?= $due ?>)</th></tr>
-        <tr><td>Document id</td><th align='left'><?= $doc_id ?></th></tr>
-        <tr><td>Document type</td><th align='left'><?= $doc_type_sel ?></th></tr>
-        <tr><td>Mime type</td><th align='left'><?= $mime_type_sel ?></th></tr>
-        <tr><td>Document version</td><th align='left'><?= $vers ?></th></tr>
-        <tr><td>Uploader</td><th align='left'><?= $roepnaam ?> <?= $tussenvoegsel ?> <?= $achternaam ?> (<?= $author ?>)</th></tr>
-        <tr><td>Author(s)</td><th align='left'><?= $coauthors ?> currently in group <?=$sgrp_name?></th></tr>
-        <tr><td>Project data</td><th align='left'> <?= $afko ?> <?= $year ?>: <?= $project_description ?> prj_id <?= $prj_id ?> milestone <?= $milestone ?></th></tr>
-        <tr><td>Document Group</td><th align='left'><?= $grp_num ?> (prjtg_id=<?= $prjtg_id ?>) <?= $grp_name ?></th></tr>
-        <tr><td>New doc Group</td><td><?=$grp_sel?></td></tr>
-        <tr><td>Read access</td><th align='left'><?= $groupRights ?>,&nbsp;<?= $projectRights ?></th></tr>
-        <?= $docbutton ?>
+    <table class='layout'>
+        <tr><td>
+                <table class='layout' summary='document data'>
+                    <tr><td>Document title</td><th align='left'><?= $titleinput ?></th></tr>
+                    <tr><td>Filename</td><th align='left'><?= $filename ?></th></tr>
+                    <tr><td>File size</td><th align='left'><?= $file_size ?> bytes</th></tr>
+                    <tr><td>Upload date</td><th align='left'><?= $uploadts ?> (Due <?= $due ?>)</th></tr>
+                    <tr><td>Document id</td><th align='left'><?= $doc_id ?></th></tr>
+                    <tr><td>Document type</td><th align='left'><?= $doc_type_sel ?></th></tr>
+                    <tr><td>Mime type</td><th align='left'><?= $mime_type_sel ?></th></tr>
+                    <tr><td>Document version</td><th align='left'><?= $vers ?></th></tr>
+                    <tr><td>Uploader</td><th align='left'><?= $roepnaam ?> <?= $tussenvoegsel ?> <?= $achternaam ?> (<?= $author ?>)</th></tr>
+                    <tr><td>Author(s)</td><th align='left'><?= $coauthors ?> currently in group <?=$sgrp_name?></th></tr>
+                    <tr><td>Project data</td><th align='left'> <?= $afko ?> <?= $year ?>: <?= $project_description ?> prj_id <?= $prj_id ?> milestone <?= $milestone ?></th></tr>
+                    <tr><td>Document Group</td><th align='left'><?= $grp_num ?> (prjtg_id=<?= $prjtg_id ?>) <?= $grp_name ?></th></tr>
+                    <tr><td>New doc Group</td><td><?=$grp_sel?></td></tr>
+                    <tr><td>Read access</td><th align='left'><?= $groupRights ?>,&nbsp;<?= $projectRights ?></th></tr>
+                    <?= $docbutton ?>
+                </table>
+            </td><td valign='top'><?=$imagedisplay?></td></tr>
     </table>
     <?= $formend ?>
     <?php

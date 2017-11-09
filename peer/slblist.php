@@ -12,7 +12,7 @@ $slb = $peer_id;
 $hoofdgrp = 'TUTORINF';
 
 if (isSet($_REQUEST['slb'])) {
-    $_SESSION['slb'] = $hoofdgrp = validate($_REQUEST['slb'], 'integer');
+    $_SESSION['slb'] = $hoofdgrp = validate($_REQUEST['slb'], 'integer', '0');
 }
 
 extract($_SESSION);
