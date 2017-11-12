@@ -558,6 +558,10 @@ class PreparedStatement {
      */
     public function execute($params = array()) {
         $resource = pg_execute($this->dbConn->unWrap(), $this->stmntName, $params);
+        if ($resource === FALSE){
+            echo "cannot execute statement {$this->stmntName} error=".$this->dbConn->ErrorMsg();
+            stacktrace(1);
+        }
         $affectedRows= pg_affected_rows($resource);
         return new PeerResultSet($this->dbConn, $resource,$affectedRows);
     }

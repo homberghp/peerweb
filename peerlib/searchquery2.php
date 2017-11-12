@@ -110,7 +110,7 @@ class SearchQuery {
         //    global $dbConn;
         $this->relation = $relName;
         $this->relPrefix = substr($this->relation, 0, 2) . '_';
-        $query = " select column_name,data_type from information_schema.columns where table_name='$this->relation'";
+        $query = "select column_name,data_type from information_schema.columns where table_name='$this->relation'";
         $dbMessage = '';
         $this->matchColumnSet = array();
 
@@ -179,7 +179,9 @@ class SearchQuery {
         foreach ($vs as $key => $value) {
             $skey = trim(naddslashes($key));
             $sval = trim(naddslashes($value));
-            $this->submitValueSet[$skey] = $sval;
+            if ($sval != '') {
+                $this->submitValueSet[$skey] = $sval;
+            }
         }
         if (isSet($vs['where_join'])) {
             if ($vs['where_join'] == 'Any') {
@@ -188,8 +190,8 @@ class SearchQuery {
         }
         return $this;
     }
-    
-    function getSubmitValueSet($vs){
+
+    function getSubmitValueSet() {
         return $this->submitValueSet;
     }
 
@@ -234,7 +236,7 @@ class SearchQuery {
      * gets the where ... part without the where.
      * @return a string containing the where clause without the word 'where'
      */
-    private function getWhereList() {
+    private function _getWhereList() {
         $whereClause = '';
         $continuation = '';
         $rp = $this->relPrefix;
@@ -375,9 +377,18 @@ class SearchQuery {
 
     public function getExtendedQuery() {
 
-        return $this->getQueryHead()
-                . ' from '
-                . $this->getExtendedQueryTail();
+//        return $this->getQueryHead()
+//                . ' from '
+//                . $this->getExtendedQueryTail();
+        return $this->getQueryHead() . ' from '
+                . $this->getQueryTailText();
+    }
+
+    public function executeExtendedQuery() {
+        $qt = $this->getExtendedQuery();
+        //echo " <pre>{$qt}</pre>";
+        $rs = $this->dbConn->Prepare($qt)->execute($this->values);
+        return $rs;
     }
 
     public function getAllQuery() {
@@ -443,29 +454,49 @@ class SearchQuery {
             }
         }
         //echo "<pre style='color:#080'>{$whereClause}</pre>";
+        $this->values = $values;
         $whereClause = join($this->whereJoin, $whereTerms);
         $orderBy = isSet($this->orderList) ? ' order by ' . join(',', $this->orderList) : '';
 
         $q = $this->relation . ' ' . $this->relPrefix
                 . ' ' . $this->subRelExpression() . ' '
-                . $this->getQueryExtension() . ' where ' . $whereClause . $orderBy;
-        $this->values = $values;
-        // $this->queryTailText = $q;
-        //echo "<pre>$q</pre>";
+                . $this->getQueryExtension();
+        if ($whereClause != '') {
+            $q .= ' where ' . $whereClause;
+        }
+        $q .= $orderBy;
+        //echo "<pre>$q</pre><br/>";
         return $q;
     }
 
     function getQueryTailText() {
         if ($this->queryTailText === null) {
             $this->queryTailText = $this->prepareQueryTailText();
-            //echo "<pre>{$this->queryTailText}</pre>";
         }
         return $this->queryTailText;
     }
 
-    public function executeAllQuery2($fromList='') {
-        $q = $fromList . " select * from " .$this->getQueryTailText();
-        //echo " <span style='font-weight:bold;' >$q</span>" ;
+    function setQueryTailText($tt) {
+        $this->queryTailText = $tt;
+        return $this;
+    }
+
+    function getPreparedValues() {
+        return $this->values;
+    }
+
+    function setPreparedValues($nv) {
+        if (is_array($nv)) {
+            $this->values = $nv;
+        } else {
+            throw new Exception("{$nv} is not an array");
+        }
+        return $this;
+    }
+
+    public function executeAllQuery2() {
+        $q = " select * from " . $this->getQueryTailText();
+        //echo " <span style='font-weight:bold;' >$q</span>";
         return $this->dbConn->Prepare($q)->execute($this->values);
     }
 
@@ -753,6 +784,7 @@ class DeleteQuery extends UpdateQuery {
      * @return string the query for the database.
      */
     function getQuery() {
+        $this->whereJoin=' and ';
         $result = 'delete from ' . $this->relation . ' where ';
         $result .= $this->getWhereList();
         return $result;

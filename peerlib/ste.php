@@ -43,7 +43,9 @@ require_once 'SpreadSheetWriter.php';
 class SimpleTableEditor {
 
     private $logQuery = true;
-    private $submitset=null; // previous query on this page, from session.
+    private $searchQueryValues = null;
+    private $searchQuery = null;
+
     /**
      * the constructor
      */
@@ -55,10 +57,9 @@ class SimpleTableEditor {
         $this->allowIUD = $allowIUD;
         $this->page = $page;
         $this->setDefaultButtons();
-        if (isSet($_SESSION['submitset']) && ($PHP_SELF == $_SESSION['ste_referer'])) {
-            $this->submitset = json_decode($_SESSION['submitset']);
-        } else {
-            $_SESSION['sumbitset' ] = array();
+        $this->searchQuery = new SearchQuery($this->dbConn, null);
+        if ($PHP_SELF == $_SESSION['ste_referer'] && isSet($_SESSION['searchQueryValues'])) {
+            $this->searchQueryValues = $_SESSION['searchQueryValues'];
         }
     }
 
@@ -146,7 +147,8 @@ class SimpleTableEditor {
      */
     function setRelation($rel) {
         $this->relation = strtolower($rel);
-        $this->ste_query = 'select * from ' . $this->relation . ' where false';
+//        $this->searchQuery->setRelation($rel);
+//        $this->ste_query = 'select * from ' . $this->relation . ' where false';
         return $this;
     }
 
@@ -256,7 +258,7 @@ class SimpleTableEditor {
     /**
      * This sql-syntax element is used to create the link-tag, used in <a href=....></a> in the list that results from a query
      */
-    private $nameExpression;
+    private $nameExpression = '*';
 
     public function setNameExpression($ne) {
         $this->nameExpression = $ne;
@@ -520,12 +522,6 @@ class SimpleTableEditor {
                 $continuation = '&amp;';
             }
         }
-        $_SESSION['submitset']= json_encode($this->submitset);
-        if ($this->list_query !== '') {
-            // SAVE in SESSION
-            $_SESSION['list_query'] = $this->list_query;
-            $_SESSION['ste_query'] = $this->ste_query;
-        }
         if ($urlGetOptions != '') {
             $this->actionURL .= $urlGetOptions;
         }
@@ -610,7 +606,8 @@ class SimpleTableEditor {
      * from the Search request-query ($this->list_query)
      */
     function generateResultList() {
-        if (($this->list_query !== NULL)) {
+        
+        if ($this->searchQueryValues != NULL) {
             $this->page->addHeadText('<link rel="stylesheet" href="style/tablesorterstyle.css" type="text/css" media="print, projection, screen" />')
                     ->addScriptResource('js/jquery-1.7.1.min.js')
                     ->addScriptResource('js/jquery.tablesorter.min.js')
@@ -618,15 +615,20 @@ class SimpleTableEditor {
             echo "<table id='resultlist' class='tablesorter'>\n";
             $headRow = '';
             if (isSet($this->listRowTemplate)) {
-                $headRow .= "<thead>\n\t<tr>\n\t\t<th>&nbsp;</th>\n\t\t<th class=\"listhead\" align=\"right\">#</th>\n\t\t<th class=\"listhead\">Link</th>\n";
+                $headRow .= "<thead>\n\t<tr>\n\t\t<th>&nbsp;"
+                        . "</th>\n\t\t<th class=\"listhead\" "
+                        . "align=\"right\">#</th>\n"
+                        . "\t\t<th class=\"listhead\">Link</th>\n";
                 $headRow .= $this->getHtmlHeaderListCells() . "</tr>\n</thead>\n";
             }
             echo $headRow;
             echo "<tbody>\n";
             $counter = 1;
-            $rs = $this->dbConnExecute($this->list_query);
+            $this->searchQuery->setSubmitValueSet($this->searchQueryValues);
+            $rs = $this->searchQuery->executeExtendedQuery();
+            //$rs = $this->dbConnExecute($this->list_query);
             if ($rs === false) {
-                $this->dbConn->log("cannot get with " . $this->list_query . " error "
+                $this->dbConn->log("cannot get with " . $this->searchQuery . " error "
                         . $this->dbConn->ErrorMsg() . "<br/>");
             } else {
                 while (!$rs->EOF) {
@@ -714,7 +716,7 @@ class SimpleTableEditor {
                     $this->addDbMessage('STE: Insert Failed with query ' . $iq);
                     $this->dbConn->Execute("ROLLBACK");
                 } else {
-                    $this->addDbMessage("  added or updated {$affectedRows} record".($affectedRows==1?'':'s'));
+                    $this->addDbMessage("  added or updated {$affectedRows} record" . ($affectedRows == 1 ? '' : 's'));
                     $this->dbConn->transactionEnd();
                 }
             } else {
@@ -754,8 +756,7 @@ class SimpleTableEditor {
             /* test if all keycolumn values are set */
             $dq = new DeleteQuery($this->dbConn, $this->relation);
             $dq->setKeyColumns($this->keyColumns);
-            $dq->setSubmitValueSet($_POST);
-            $dq->setUpdateSet($_POST);
+            $dq->setSubmitValueSet($this->searchQueryValues);
             /* leave an empty menu .. */
             if ($dq->areKeyColumnsSet()) {
                 /* allow delete */
@@ -774,7 +775,32 @@ class SimpleTableEditor {
         }
     }
 
-    /* doDelete() */
+    /* end doDelete() */
+
+    function doSearch() {
+        global $_SESSION;
+        $this->searchQuery->setSubmitValueSet($_POST);
+        $this->searchQueryTailText = $this->searchQuery->getQueryTailText();
+        $this->searchQueryValues = $this->searchQuery->getPreparedValues();
+        //echo " <pre>"; var_dump($this->searchQuery); echo " </pre>";
+        if ($this->showQuery) {
+            $this->addDbMessage("<br/>list query=<pre>{$this->searchQuery}</pre>");
+        }
+        $rs = $this->searchQuery->executeAllQuery2();
+        //echo "<span style=' color:#f0f;font-size:120%' >  aha {$rs}</span>" ;
+        if ($rs !== false && !$rs->EOF) {
+            /* if search succeeded, load the first hit */
+            $rowCount = $rs->rowCount();
+            $this->addDbMessage("found {$rowCount} row" . ($rowCount == 1 ? '' : 's'));
+            $this->setMenuValues($rs->fields);
+            $this->keyValues = $this->getKeyValues($rs->fields);
+        } else {
+            /* reload screen from _POST data */
+            $this->setMenuValues($_POST);
+            $this->dbMessage .= "Nothing found<br/>";
+        }
+        $_SESSION['searchQueryValues']=$this->searchQueryValues = $this->searchQuery->getSubmitValueSet();
+    }
 
     /**
      * Process the user response from $_GET, $_POST or $_SESSION.
@@ -805,6 +831,17 @@ class SimpleTableEditor {
         if (!empty($_SESSION['list_query']) && $PHP_SELF == $_SESSION['ste_referer']) {
             $this->list_query = $_SESSION['list_query'];
         }
+        // prepare query width defintions  from client-page.
+        $this->searchQuery = new SearchQuery($this->dbConn, $this->relation);
+        $this->searchQuery->setKeyColumns($this->keyColumns);
+        $this->searchQuery->setNameExpression($this->nameExpression);
+        if (isSet($this->listRowTemplate)) {
+            $this->searchQuery->setAuxColNames($this->listRowTemplate);
+        }
+
+        $this->searchQuery->setQueryExtension($this->listQueryExtension);
+        $this->searchQuery->setOrderList($this->orderList);
+
 
         /* pick up potential key values from $_GET */
         $this->keyValues = $this->getKeyValues($_GET);
@@ -819,12 +856,11 @@ class SimpleTableEditor {
                 /* by kicking it out of the $_GET array */
                 $_GET = array();
                 $_POST = array();
-                $this->list_query = '';
-                $this->keyValues = array();
-                unset($_SESSION['list_query']);
-                unset($_SESSION['ste_query']);
-                $this->list_query = '';
-                $this->ste_query = '';
+                unset($_SESSION['searchQueryTex']);
+                unset($_SESSION['searchQueryValues']);
+                $this->searchQueryTailText = null;
+                $this->searchQueryValues = null;
+
                 /* THATS all folks, empty results etc */
                 return;
             }
@@ -849,38 +885,9 @@ class SimpleTableEditor {
                     /*
                      * S E A R C H
                      */
+
                     /** build a query from the $_POST data */
-                    $sq = new SearchQuery($this->dbConn, $this->relation);
-                    $sq->setKeyColumns($this->keyColumns);
-                    $sq->setNameExpression($this->nameExpression);
-                    if (isSet($this->listRowTemplate)) {
-                        $sq->setAuxColNames($this->listRowTemplate);
-                    }
-
-                    $sq->setQueryExtension($this->listQueryExtension);
-                    $sq->setOrderList($this->orderList);
-
-                    $sq->setSubmitValueSet($_POST);
-                    $this->list_query = $sq->setSubRel($this->subRel)
-                            ->setSubRelJoinColumns($this->subRelJoinColumns)
-                            ->getExtendedQuery();
-                    //$this->spreadSheetWriter->setQuery($this->ste_query);
-                    if ($this->showQuery) {
-                        $this->addDbMessage("<br/>list query=<pre>{$this->list_query}</pre>");
-                    }
-                    $rs = $sq->executeAllQuery2();
-                    //echo "<span style=' color:#f0f;font-size:120%' >  aha {$rs}</span>" ;
-                    if ($rs !== false && !$rs->EOF) {
-                        /* if search succeeded, load the first hit */
-                        $rowCount = $rs->rowCount();
-                        $this->addDbMessage("found {$rowCount} row" . ($rowCount == 1 ? '' : 's'));
-                        $this->setMenuValues($rs->fields);
-                        $this->keyValues = $this->getKeyValues($rs->fields);
-                    } else {
-                        /* reload screen from _POST data */
-                        $this->setMenuValues($_POST);
-                        $this->dbMessage .= "Nothing found<br/>";
-                    }
+                    $this->doSearch();
                 } else if ($this->allowIUD && isSet($_POST['Insert'])) {
                     /*
                      * I N S E R T
@@ -913,13 +920,14 @@ class SimpleTableEditor {
                     ->setSubRel($this->subRel)
                     ->setSubRelJoinColumns($this->subRelJoinColumns);
             $sq->setSubmitValueSet($_GET);
+            //var_dump($_GET);
             if ($sq->areKeyColumnsSet()) {
 
 
                 $arr = array();
                 $rs = $sq->executeAllQuery();
                 $rowCount = $rs->rowCount();
-                $this->addDbMessage("found {$rowCount} row" + $rowCount == 1 ? '' : 's');
+                $this->addDbMessage("found {$rowCount} row" . ($rowCount == 1) ? '' : 's');
                 if ($rs !== false && !$rs->EOF) {
                     $this->setMenuValues($rs->fields);
                     $this->dbConn->log("<pre>" . print_r($rs->fields, true) . "</pre><br>");
@@ -958,6 +966,8 @@ class SimpleTableEditor {
          */
         $this->generateHTML();
         $_SESSION['ste_referer'] = $PHP_SELF;
+        $_SESSION['searchQueryText'] = $this->searchQueryTailText;
+        $_SESSION['searchQueryValues'] = $this->searchQueryValues;
     }
 
     /**
