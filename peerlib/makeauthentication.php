@@ -60,8 +60,8 @@ function mkpasswordmail( $email,$logincode,$roepnaam,$tussenvoegsel,$achternaam,
   $filename = $basename.'.tex';
   $pdfname  =  $basename.'.pdf';
   $handle  =  fopen("$filename", "w");
-  $notestring = '\\briefje{'.$achternaam.','.$roepnaam.' '.
-      $tussenvoegsel.'}{'.$logincode.'}{'.$db_name.'}{'.$password."}\n";
+  $notestring = "\\SaveVerb{pass}*{$password}*\n" . '\\briefje{'.$achternaam.','.$roepnaam.' '.
+      $tussenvoegsel.'}{'.$logincode."}\n";
   fwrite($handle,"\\input{../notestart}%\n");
   fwrite($handle,$notestring);
   fwrite($handle,"\\input{../notesend}\n");
