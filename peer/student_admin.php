@@ -29,5 +29,5 @@ $ste->setFormAction($PHP_SELF)
                 . "   join minifoto fo on(st_.snummer=fo.snummer) \n"
                 . "   left join student_class scn using (class_id) " )
         ->show();
-?>
+
 
