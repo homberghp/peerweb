@@ -384,6 +384,12 @@ class SearchQuery {
                 . $this->getQueryTailText();
     }
 
+    /**
+     * Execute the extended query. An extended query combines primary tables with details from other tables or views.
+     * @return result set (resource)
+     * @throws SQLPrepareException on prepared text error
+     * @throws SQLExevuteException on execution error
+     */
     public function executeExtendedQuery() {
         $qt = $this->getExtendedQuery();
         //echo " <pre>{$qt}</pre>";
@@ -607,7 +613,7 @@ class UpdateQuery extends SearchQuery {
         $query = "update {$this->relation} set \n";
         while (list($key, $value) = each($this->updateSet)) {
             $columnExpr[] = "{$key} = $" . $parmCtr++;
-            $values[] = $value!==''?$value:NULL;
+            $values[] = $value !== '' ? $value : NULL;
         }
         $whereClause = " where ";
         $whereExpr = array();
@@ -756,60 +762,41 @@ class InsertQuery extends SearchQuery {
  */
 class DeleteQuery extends UpdateQuery {
 
-    /**
-     * build an array of the requested updates.
-     * Test if the columnNames in update set exist.
-     */
-    protected $updateSet;
-
-    /**
-     * set the values submitted by the client
-     * @param $vs valueset: array of key-values pairs
-     * This function copies the data and constructs a hash map of the key value pairs.
-     */
-    private function _setUpdateSet($us) {
-        $this->updateSet = array();
-        while (list($key, $value) = each($us)) {
-            $key = trim(naddslashes($key));
-            $value = trim(naddslashes($value));
-            if (isSet($this->keyColumnNames[$key])) {
-                $this->updateSet[$key] = $value;
-            }
-        }
-        reset($us);
-    }
-
-    /**
-     * Gets the query composed  based upon the attributes of the delete query.
-     * @return string the query for the database.
-     */
-    function getQuery() {
-        $this->whereJoin = ' and ';
-        $result = 'delete from ' . $this->relation . ' where ';
-        $result .= $this->getWhereList();
-        return $result;
-    }
+    private $complete = true;
+    private $keysList = array();
+    private $values = array();
+    private $requestValues = array();
 
     function getQueryText() {
-        $result = 'delete from ' . $this->relation . ' where ';
-        $whereTerms = array();
+        $queryText = "delete from {$this->relation} where ";
+        $this->complete = true;
+        $this->keysList = array();
         $this->values = array();
-        foreach ($this->submitValueSet as $key => $val) {
-            if (in_array($key, $this->keyColumns)) {
-                //if (isSet())
-                $whereTerms[] = "{$key}=?";
-                $this->values = $val;
+        $this->requestValues = array();
+        $kctr = 1;
+        $this->requestValues = array_merge($this->requestValues, $_POST);
+        $this->requestValues = array_merge($this->requestValues, $_GET);
+        foreach ($this->keyColumns as $key) {
+            if (isSet($this->requestValues[$key])) {
+                $this->keysList[] = "{$key}=\$" . $kctr;
+                $kctr++;
+                $this->values[] = $this->requestValues[$key];
+            } else {
+                $this->complete = false;
+                break;
             }
         }
-        $result .= join(' and ', $whereTerms);
-        return $result;
+        $queryText .= join(' and ', $this->keysList);
+        return $queryText;
     }
 
-    public function execute() {
-        $qt = getQueryText();
-        echo "<pre>{$qt}</pre>";
-        return 1;
-        //$this->dbConn->Prepare($qt)->execute($this->values);
+    function execute() {
+        if (!$this->complete) {
+            throw new SQLExecuteException('DB ERROR: Delete failed. Not all keyColumns have been set');
+        } else {
+                $res = $this->dbConn->Prepare($this->getQueryText())->execute($this->values);
+        }
+        return $res;
     }
 
 }

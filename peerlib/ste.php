@@ -551,18 +551,25 @@ class SimpleTableEditor {
         echo "\n</fieldset>\n";
     }
 
+    private $errorLog='';
+    function addError($e){
+        $this->errorLog .=$e;
+    }
     /**
      * make the db message box 
      */
     function generateMessageBox() {
         $result = '';
-        if (($this->dbMessage != '' || $this->queryLog != '')) {
+        if (($this->dbMessage != '' || $this->queryLog != '' || $this->errorLog != '')) {
             $result = "<fieldset><legend>Database message</legend>\n";
             if ($this->dbMessage != '') {
                 $result .= "<span style='font-weight:bold; color:#060;'>{$this->dbMessage}</span>\n";
             }
             if ($this->queryLog != '') {
-                $result .= "<span style='font-weight:bold; color:#008;'>q {$this->queryLog} q</span>\n";
+                $result .= "<span style='font-weight:bold; color:#008;'>{$this->queryLog}</span>\n";
+            }
+            if ($this->errorLog != '') {
+                $result .= "<span style='font-weight:bold; color:#800;'>{$this->errorLog}</span>\n";
             }
             $result .= "</fieldset>\n";
         }
@@ -601,6 +608,48 @@ class SimpleTableEditor {
         }
     }
 
+    function printResulList($rs) {
+        echo "<table id='resultlist' class='tablesorter'>\n";
+        $headRow = '';
+        if (isSet($this->listRowTemplate)) {
+            $headRow .= "<thead>\n\t<tr>\n\t\t<th>&nbsp;"
+                    . "</th>\n\t\t<th class=\"listhead\" "
+                    . "align=\"right\">#</th>\n"
+                    . "\t\t<th class=\"listhead\">Link</th>\n";
+            $headRow .= $this->getHtmlHeaderListCells() . "</tr>\n</thead>\n";
+        }
+        echo $headRow;
+        echo "<tbody>\n";
+        $counter = 1;
+        while (!$rs->EOF) {
+            $continuation = '?';
+            $itsMe = '';
+            $itsMeStyle = '';
+            if ($this->keyColumnsEqual($rs->fields)) {
+                $itsMe = '<img src="' . IMAGEROOT . '/right-arrow.gif" alt=">>"/>';
+                $itsMeStyle = 'style=\'background:#fff;font-weight:bold\'';
+            }
+            echo "<tr $itsMeStyle>\n\t<td>$itsMe</td>\n" .
+            "\t<td class=\"listdata\" align=\"right\">$counter</td>\n" .
+            "\t<td class=\"listlink\">\n" .
+            "\t\t<a href=\"" . htmlspecialchars($this->formAction);
+            $urlTail = '';
+            for ($i = 0; $i < count($this->keyColumns); $i++) {
+                $urlTail .= $continuation . strtolower($this->keyColumns[$i]) . '=' . trim($rs->fields[strtolower($this->keyColumns[$i])]);
+                $continuation = '&amp;';
+            }
+            echo $urlTail . "\">\n\t\t\t";
+            echo trim($rs->fields['result_name']) . "\n\t\t</a>\n\t</td>\n";
+            if (isSet($this->listRowTemplate)) {
+                echo $this->getHtmlListCells($rs->fields);
+            }
+            echo "</tr>\n";
+            $counter++;
+            $rs->moveNext();
+        } /* while OCI */
+        echo "</tbody>\n</table>\n";
+    }
+
     /**
      * generate a list (a table with one link per row)
      * from the Search request-query ($this->list_query)
@@ -612,54 +661,13 @@ class SimpleTableEditor {
                     ->addScriptResource('js/jquery-1.7.1.min.js')
                     ->addScriptResource('js/jquery.tablesorter.min.js')
                     ->addJqueryFragment("$('#resultlist').tablesorter({widthFixed: true, widgets: ['zebra']});");
-            echo "<table id='resultlist' class='tablesorter'>\n";
-            $headRow = '';
-            if (isSet($this->listRowTemplate)) {
-                $headRow .= "<thead>\n\t<tr>\n\t\t<th>&nbsp;"
-                        . "</th>\n\t\t<th class=\"listhead\" "
-                        . "align=\"right\">#</th>\n"
-                        . "\t\t<th class=\"listhead\">Link</th>\n";
-                $headRow .= $this->getHtmlHeaderListCells() . "</tr>\n</thead>\n";
-            }
-            echo $headRow;
-            echo "<tbody>\n";
             $this->searchQuery->setSubmitValueSet($this->searchQueryValues);
-            $rs = $this->searchQuery->executeExtendedQuery();
-            //$rs = $this->dbConnExecute($this->list_query);
-            if ($rs === false) {
-                $this->dbConn->log("cannot get with " . $this->searchQuery . " error "
-                        . $this->dbConn->ErrorMsg() . "<br/>");
-            } else {
-                $counter = 1;
-                while (!$rs->EOF) {
-                    $continuation = '?';
-                    $itsMe = '';
-                    $itsMeStyle = '';
-                    if ($this->keyColumnsEqual($rs->fields)) {
-                        $itsMe = '<img src="' . IMAGEROOT . '/right-arrow.gif" alt=">>"/>';
-                        $itsMeStyle = 'style=\'background:#fff;font-weight:bold\'';
-                    }
-                    echo "<tr $itsMeStyle>\n\t<td>$itsMe</td>\n" .
-                    "\t<td class=\"listdata\" align=\"right\">$counter</td>\n" .
-                    "\t<td class=\"listlink\">\n" .
-                    "\t\t<a href=\"" . htmlspecialchars($this->formAction);
-                    $urlTail = '';
-                    for ($i = 0; $i < count($this->keyColumns); $i++) {
-                        $urlTail .= $continuation . strtolower($this->keyColumns[$i]) . '=' . trim($rs->fields[strtolower($this->keyColumns[$i])]);
-                        $continuation = '&amp;';
-                    }
-                    echo $urlTail . "\">\n\t\t\t";
-                    echo trim($rs->fields['result_name']) . "\n\t\t</a>\n\t</td>\n";
-                    if (isSet($this->listRowTemplate)) {
-                        echo $this->getHtmlListCells($rs->fields);
-                    }
-                    echo "</tr>\n";
-                    $counter++;
-                    $rs->moveNext();
-                } /* while OCI */
+            try {
+                $rs = $this->searchQuery->executeExtendedQuery();
+                $this->printResulList($rs);
+            } catch (SQLExecuteException $se) {
+                $this->addError("cannot get list with {$se->getMessage()}<br/>");
             }
-            echo "</tbody>\n";
-            echo "</table>\n";
         } /* if (!empty...) */
     }
 
@@ -682,10 +690,12 @@ class SimpleTableEditor {
         $uq->setUpdateSet($arr);
         if ($uq->areKeyColumnsSet()) {
             /* allow update */
-            $afrows = $uq->excute()->affected_rows();
-            $this->addDbMessage(" {$afrows} row(s) updated");
-        } else {
-            $this->addDbMessage("\n" . 'DB ERROR: Update failed.<br>Not all keyColumns have been set');
+            try {
+                $afrows = $uq->excute()->affected_rows();
+                $this->addDbMessage(" {$afrows} row(s) updated");
+            } catch (SQLExecuteException $se) {
+                $this->addError("DB ERROR: Update failed with {$se->getMessage()}");
+            }
         }
     }
 
@@ -704,24 +714,18 @@ class SimpleTableEditor {
             $iq->setKeyColumns($this->keyColumns);
             $cnames = $this->menu->getColumnNames();
             $arr = $this->menu->getColumnValues($cnames);
-            if ($this->isTransactional) {
-                $arr['trans_id'] = $this->dbConn->createTransactionId();
-            }
             $iq->setSubmitvalueSet($arr);
             $iq->setUpdateSet($arr);
             if ($iq->areKeyColumnsSet()) {
                 /* allow insert */
-                $affectedRows = $iq->execute()->affected_rows();
-                if ($affectedRows < 0) {
-                    $this->addDbMessage('STE: Insert Failed with query ' . $iq);
-                    $this->dbConn->Execute("ROLLBACK");
-                } else {
+                try {
+                    $affectedRows = $iq->execute()->affected_rows();
                     $this->addDbMessage("  added or updated {$affectedRows} record" . ($affectedRows == 1 ? '' : 's'));
-                    $this->dbConn->transactionEnd();
+                } catch (SQLExecuteException $se) {
+                    $this->addError("failed with {$se->getMessage()}");
                 }
             } else {
-                $this->addDbMessage("DB ERROR: Insert failed with query <pre>{$iq}</pre><br/>Not all keyColumns have been set");
-                $this->dbConn->Execute("ROLLBACK");
+                $this->addError("DB ERROR: Insert failed with query <pre>{$iq}</pre><br/>Not all keyColumns have been set");
             }
         }
     }
@@ -753,63 +757,19 @@ class SimpleTableEditor {
             }
         }
         if (hasCap($this->menu->requiredCap)) {
-            /* test if all keycolumn values are set */
             $dq = new DeleteQuery($this->dbConn, $this->relation);
             $dq->setKeyColumns($this->keyColumns);
-            $dq->setSubmitValueSet($this->searchQueryValues);
-            $dq = "delete from {$this->relation} where ";
-            $complete = true;
-            $keysList = array();
-            $values = array();
-            $kctr = 1;
-            foreach ($this->keyColumns as $key) {
-                if (isSet($this->searchQueryValues[$key])) {
-                    $keysList[] = "{$key}=\$" . $kctr;
-                    $kcrt++;
-                    $val = $this->searchQueryValues[$key];
-                    $v0 = is_numeric($val) ? $val + 0 : $val;
-                    $values[] = $v0; //$this->searchQueryValues[$key];
+            try {
+                $res = $dq->execute();
+                $rowCount = $res->affected_rows();
+                if ($rowCount > 0) {
+                    $this->dbMessage .= $rowCount . ' rows deleted';
                 } else {
-                    $complete = false;
-                    break;
+                    $this->addError('delete failed');
                 }
+            } catch (SQLExecuteException $sqe) {
+                $this->addError('delete failed with ' . $sqe->getMessage());
             }
-            if ($complete) {
-                $dq .= join(' and ', $keysList);
-//                echo"<pre> ";
-//                echo "{$dq}<br/> ";
-//                var_dump($values);
-//                echo"</pre> ";
-                try {
-                    $res = $this->dbConn->Prepare($dq)->execute($values);
-                    $rowCount = $res->affected_rows();
-                    if ($rowCount > 0) {
-                        $this->dbMessage .= $rowCount . ' rows deleted';
-                    } else {
-                        $this->dbMessage .= ' delete failed';
-                    }
-                } catch (SQLExecuteException $sqe) {
-                    $this->dbMessage='delete failed with '.$sqe->getMessage();
-                }
-            } else {
-                $this->dbMessage .= 'DB ERROR: Delete failed.<br>Not all keyColumns have been set';
-            }
-            /* leave an empty menu .. */
-            //if ($dq->areKeyColumnsSet()) {
-            /* allow delete */
-//                $query = $dq->getQuery();
-//                $result = doDelete($this->dbConn, $query, $this->dbMessage);
-//            $result = $dq->excute();
-//            if ($result > 0) {
-//                $this->dbMessage .= $result . ' rows deleted';
-//            } else {
-//                $this->dbMessage .= ' delete failed';
-//            }
-//            $_GET = array();
-//            $this->keyValues = array(); /* after delete frop values */
-//            //} else {
-//            $this->dbMessage .= 'DB ERROR: Delete failed.<br>Not all keyColumns have been set';
-//            //}
         }
     }
 
@@ -817,7 +777,7 @@ class SimpleTableEditor {
 
     function doSearch() {
         global $_SESSION;
-        $this->searchQuery->setSubmitValueSet($_POST);
+        //$this->searchQuery->setSubmitValueSet($_POST);
         $this->searchQueryTailText = $this->searchQuery->getQueryTailText();
         $this->searchQueryValues = $this->searchQuery->getPreparedValues();
         //echo " <pre>"; var_dump($this->searchQuery); echo " </pre>";
@@ -962,17 +922,17 @@ class SimpleTableEditor {
             //var_dump($_GET);
             if ($sq->areKeyColumnsSet()) {
 
-
-                $arr = array();
-                $rs = $sq->executeAllQuery();
-                $rowCount = $rs->rowCount();
-                $this->addDbMessage("found {$rowCount} row" . ($rowCount == 1) ? '' : 's');
-                if ($rs !== false && !$rs->EOF) {
-                    $this->setMenuValues($rs->fields);
-                    $this->dbConn->log("<pre>" . print_r($rs->fields, true) . "</pre><br>");
-                    $this->keyValues = $this->getKeyValues($rs->fields);
-                } else {
-                    $this->addDbMessage("\n Found nothing " . $this->dbConn->ErrorMsg() . ' with ' . $sq);
+                try {
+                    $rs = $sq->executeAllQuery();
+                    $rowCount = $rs->rowCount();
+                    $this->addDbMessage("found {$rowCount} row" . ($rowCount == 1) ? '' : 's');
+                    if ($rs !== false && !$rs->EOF) {
+                        $this->setMenuValues($rs->fields);
+                        $this->dbConn->log("<pre>" . print_r($rs->fields, true) . "</pre><br>");
+                        $this->keyValues = $this->getKeyValues($rs->fields);
+                    }
+                } catch (SQLExecuteException $se) {
+                    $this->addError("search failed with {$se->getMessage()}");
                 }
             }
         } /* end of else branch if (count($_POST)) */
@@ -1005,7 +965,7 @@ class SimpleTableEditor {
          */
         $this->generateHTML();
         $_SESSION['ste_referer'] = $PHP_SELF;
-        $_SESSION['searchQueryText'] = $this->searchQueryTailText;
+        //        $_SESSION['searchQueryText'] = $this->searchQueryTailText;
         $_SESSION['searchQueryValues'] = $this->searchQueryValues;
     }
 
