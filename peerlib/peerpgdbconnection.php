@@ -8,6 +8,16 @@
 //require_once($adodb_path . "/adodb.inc.php");
 //require_once($adodb_path . '/adodb-pager.inc.php');
 
+class SQLPrepareException extends Exception{
+   public function __construct($message, $code = 0, Exception $previous = null) {
+        parent::__construct($message,$code,$previous);
+    }
+}
+class SQLExecuteException extends Exception{
+   public function __construct($message, $code = 0, Exception $previous = null) {
+        parent::__construct($message,$code,$previous);
+    }
+}
 class PeerPGDBConnection {
 
     /** a pd connection. */
@@ -132,7 +142,9 @@ class PeerPGDBConnection {
         if (false !== $resource) {
             return new PreparedStatement($this, $stName);
         } else {
-            return false;
+            $pg_errormessage = pg_errormessage($this->connection);
+            throw new SQLPrepareException($pg_errormessage);
+//            return false;
         }
     }
 
@@ -559,8 +571,7 @@ class PreparedStatement {
     public function execute($params = array()) {
         $resource = pg_execute($this->dbConn->unWrap(), $this->stmntName, $params);
         if ($resource === FALSE){
-            echo "cannot execute statement {$this->stmntName} error=".$this->dbConn->ErrorMsg();
-            stacktrace(1);
+            throw new SQLExecuteException($this->dbConn->ErrorMsg());
         }
         $affectedRows= pg_affected_rows($resource);
         return new PeerResultSet($this->dbConn, $resource,$affectedRows);

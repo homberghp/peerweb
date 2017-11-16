@@ -236,7 +236,7 @@ class SearchQuery {
      * gets the where ... part without the where.
      * @return a string containing the where clause without the word 'where'
      */
-    private function _getWhereList() {
+    private function getWhereList() {
         $whereClause = '';
         $continuation = '';
         $rp = $this->relPrefix;
@@ -287,7 +287,7 @@ class SearchQuery {
 
     /**
      * gets the query part starting with from
-     * @return string 'form ......'
+     * @return string 'from ......'
      */
     function getQueryTail() {
         $result = '';
@@ -607,7 +607,7 @@ class UpdateQuery extends SearchQuery {
         $query = "update {$this->relation} set \n";
         while (list($key, $value) = each($this->updateSet)) {
             $columnExpr[] = "{$key} = $" . $parmCtr++;
-            $values[] = $value;
+            $values[] = $value!==''?$value:NULL;
         }
         $whereClause = " where ";
         $whereExpr = array();
@@ -767,7 +767,7 @@ class DeleteQuery extends UpdateQuery {
      * @param $vs valueset: array of key-values pairs
      * This function copies the data and constructs a hash map of the key value pairs.
      */
-    function setUpdateSet($us) {
+    private function _setUpdateSet($us) {
         $this->updateSet = array();
         while (list($key, $value) = each($us)) {
             $key = trim(naddslashes($key));
@@ -784,10 +784,32 @@ class DeleteQuery extends UpdateQuery {
      * @return string the query for the database.
      */
     function getQuery() {
-        $this->whereJoin=' and ';
+        $this->whereJoin = ' and ';
         $result = 'delete from ' . $this->relation . ' where ';
         $result .= $this->getWhereList();
         return $result;
+    }
+
+    function getQueryText() {
+        $result = 'delete from ' . $this->relation . ' where ';
+        $whereTerms = array();
+        $this->values = array();
+        foreach ($this->submitValueSet as $key => $val) {
+            if (in_array($key, $this->keyColumns)) {
+                //if (isSet())
+                $whereTerms[] = "{$key}=?";
+                $this->values = $val;
+            }
+        }
+        $result .= join(' and ', $whereTerms);
+        return $result;
+    }
+
+    public function execute() {
+        $qt = getQueryText();
+        echo "<pre>{$qt}</pre>";
+        return 1;
+        //$this->dbConn->Prepare($qt)->execute($this->values);
     }
 
 }

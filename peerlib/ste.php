@@ -606,7 +606,7 @@ class SimpleTableEditor {
      * from the Search request-query ($this->list_query)
      */
     function generateResultList() {
-        
+
         if ($this->searchQueryValues != NULL) {
             $this->page->addHeadText('<link rel="stylesheet" href="style/tablesorterstyle.css" type="text/css" media="print, projection, screen" />')
                     ->addScriptResource('js/jquery-1.7.1.min.js')
@@ -623,7 +623,6 @@ class SimpleTableEditor {
             }
             echo $headRow;
             echo "<tbody>\n";
-            $counter = 1;
             $this->searchQuery->setSubmitValueSet($this->searchQueryValues);
             $rs = $this->searchQuery->executeExtendedQuery();
             //$rs = $this->dbConnExecute($this->list_query);
@@ -631,6 +630,7 @@ class SimpleTableEditor {
                 $this->dbConn->log("cannot get with " . $this->searchQuery . " error "
                         . $this->dbConn->ErrorMsg() . "<br/>");
             } else {
+                $counter = 1;
                 while (!$rs->EOF) {
                     $continuation = '?';
                     $itsMe = '';
@@ -757,21 +757,59 @@ class SimpleTableEditor {
             $dq = new DeleteQuery($this->dbConn, $this->relation);
             $dq->setKeyColumns($this->keyColumns);
             $dq->setSubmitValueSet($this->searchQueryValues);
-            /* leave an empty menu .. */
-            if ($dq->areKeyColumnsSet()) {
-                /* allow delete */
-                $query = $dq->getQuery();
-                $result = doDelete($this->dbConn, $query, $this->dbMessage);
-                if ($result > 0) {
-                    $this->dbMessage .= $result . ' rows deleted';
+            $dq = "delete from {$this->relation} where ";
+            $complete = true;
+            $keysList = array();
+            $values = array();
+            $kctr = 1;
+            foreach ($this->keyColumns as $key) {
+                if (isSet($this->searchQueryValues[$key])) {
+                    $keysList[] = "{$key}=\$" . $kctr;
+                    $kcrt++;
+                    $val = $this->searchQueryValues[$key];
+                    $v0 = is_numeric($val) ? $val + 0 : $val;
+                    $values[] = $v0; //$this->searchQueryValues[$key];
                 } else {
-                    $this->dbMessage .= ' delete failed';
+                    $complete = false;
+                    break;
                 }
-                $_GET = array();
-                $this->keyValues = array(); /* meuk */
+            }
+            if ($complete) {
+                $dq .= join(' and ', $keysList);
+//                echo"<pre> ";
+//                echo "{$dq}<br/> ";
+//                var_dump($values);
+//                echo"</pre> ";
+                try {
+                    $res = $this->dbConn->Prepare($dq)->execute($values);
+                    $rowCount = $res->affected_rows();
+                    if ($rowCount > 0) {
+                        $this->dbMessage .= $rowCount . ' rows deleted';
+                    } else {
+                        $this->dbMessage .= ' delete failed';
+                    }
+                } catch (SQLExecuteException $sqe) {
+                    $this->dbMessage='delete failed with '.$sqe->getMessage();
+                }
             } else {
                 $this->dbMessage .= 'DB ERROR: Delete failed.<br>Not all keyColumns have been set';
             }
+            /* leave an empty menu .. */
+            //if ($dq->areKeyColumnsSet()) {
+            /* allow delete */
+//                $query = $dq->getQuery();
+//                $result = doDelete($this->dbConn, $query, $this->dbMessage);
+//            $result = $dq->excute();
+//            if ($result > 0) {
+//                $this->dbMessage .= $result . ' rows deleted';
+//            } else {
+//                $this->dbMessage .= ' delete failed';
+//            }
+//            $_GET = array();
+//            $this->keyValues = array(); /* after delete frop values */
+//            //} else {
+//            $this->dbMessage .= 'DB ERROR: Delete failed.<br>Not all keyColumns have been set';
+//            //}
         }
     }
 
@@ -799,7 +837,7 @@ class SimpleTableEditor {
             $this->setMenuValues($_POST);
             $this->dbMessage .= "Nothing found<br/>";
         }
-        $_SESSION['searchQueryValues']=$this->searchQueryValues = $this->searchQuery->getSubmitValueSet();
+        $_SESSION['searchQueryValues'] = $this->searchQueryValues = $this->searchQuery->getSubmitValueSet();
     }
 
     /**
@@ -841,13 +879,14 @@ class SimpleTableEditor {
 
         $this->searchQuery->setQueryExtension($this->listQueryExtension);
         $this->searchQuery->setOrderList($this->orderList);
-
+        $this->searchQuery->setSubRel($this->subRel);
+        $this->searchQuery->setSubRelJoinColumns($this->subRelJoinColumns);
 
         /* pick up potential key values from $_GET */
         $this->keyValues = $this->getKeyValues($_GET);
         /* pick up the _POST inputs such as the submit values */
         if (count($_POST) > 0) {
-
+            $this->searchQuery->setSubmitValueSet($_POST);
             if (isSet($_POST['Clear'])) {
                 /*
                  * L E E G
