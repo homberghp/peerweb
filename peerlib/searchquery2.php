@@ -563,46 +563,6 @@ class UpdateQuery extends SearchQuery {
     }
 
     /**
-     * Returns the key column value set, since that identifies the record.
-     * @return string the where-list
-     */
-    private function getWhereList() {
-        $whereClause = '';
-        $continuation = '';
-        for ($i = 0; $i < count($this->keyColumns); $i++) {
-            $name = $this->keyColumns[$i];
-            $value = $this->submitValueSet[$name];
-            if ($value != '') {
-                $value = "'" . $value . "'";
-                $whereClause .= $continuation . $name . '=' . $value . ' ';
-                $continuation = $this->whereJoin;
-            }
-        }
-        return $whereClause;
-    }
-
-    /**
-     * Gets the query.
-     * @return string: the query prepared to be submitted to the database.
-     */
-//    private function getQuery() {
-//        $result = 'update ' . $this->relation . ' set ';
-//        $continuation = '';
-//        while (list($key, $value) = each($this->updateSet)) {
-//            if ($this->dataTypes[$key] == 'bool' && isSet($value) && ($value === 'true' || $value == 'false')) {
-//                $result .= $continuation . $key . '=' . $value;
-//                $continuation = ',';
-//            } else {
-//                $nvalue = ( $value != '') ? ('\'' . $value . '\'') : ('default');
-//                $result .= $continuation . $key . '=' . $nvalue;
-//                $continuation = ',';
-//            }
-//        }
-//        $result .= ' where ' . $this->getWhereList().' returning *';
-//        return $result;
-//    }
-
-    /**
      * Execute the query using prepared statement style.
      * @return PeerResultSet type resultset of excute.
      */
