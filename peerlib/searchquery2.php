@@ -110,7 +110,7 @@ class SearchQuery {
         //    global $dbConn;
         $this->relation = $relName;
         $this->relPrefix = substr($this->relation, 0, 2) . '_';
-        $query = "select column_name,data_type from information_schema.columns where table_name='$this->relation'";
+        $query = "select column_name,data_type from information_schema.columns where table_name='{$this->relation}'";
         $dbMessage = '';
         $this->matchColumnSet = array();
 
@@ -553,8 +553,8 @@ class UpdateQuery extends SearchQuery {
     function setUpdateSet($us) {
         $this->updateSet = array();
         while (list($key, $value) = each($us)) {
-            $key = trim(naddslashes($key));
-            $value = trim(naddslashes($value));
+            $key = trim($key);
+            $value = trim($value);
             if (isSet($this->columnNames[$key]) && !isSet($this->keyColumnNames[$key])) {
                 $this->updateSet[$key] = $value;
             }
