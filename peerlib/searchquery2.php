@@ -53,10 +53,6 @@ class SearchQuery {
      */
     protected $orderList;
 
-    /**
-     * Where join
-     */
-    protected $whereJoin = ' and ';
 
     /**
      * $dbConn
@@ -183,11 +179,6 @@ class SearchQuery {
                 $this->submitValueSet[$skey] = $sval;
             }
         }
-        if (isSet($vs['where_join'])) {
-            if ($vs['where_join'] == 'Any') {
-                $this->whereJoin = ' or ';
-            }
-        }
         return $this;
     }
 
@@ -275,7 +266,7 @@ class SearchQuery {
                             break;
                             break;
                     }
-                    $continuation = $this->whereJoin . "\n";
+                    $continuation = ' and '. "\n";
                 }
             }
         }
@@ -377,9 +368,6 @@ class SearchQuery {
 
     public function getExtendedQuery() {
 
-//        return $this->getQueryHead()
-//                . ' from '
-//                . $this->getExtendedQueryTail();
         return $this->getQueryHead() . ' from '
                 . $this->getQueryTailText();
     }
@@ -461,7 +449,7 @@ class SearchQuery {
         }
         //echo "<pre style='color:#080'>{$whereClause}</pre>";
         $this->values = $values;
-        $whereClause = join($this->whereJoin, $whereTerms);
+        $whereClause = join(' and ', $whereTerms);
         $orderBy = isSet($this->orderList) ? ' order by ' . join(',', $this->orderList) : '';
 
         $q = $this->relation . ' ' . $this->relPrefix
@@ -585,7 +573,7 @@ class UpdateQuery extends SearchQuery {
                 $values[] = $value;
             }
         }
-        $whereClause .= join($this->whereJoin, $whereExpr);
+        $whereClause .= join(' and ', $whereExpr);
         $query .= join(', ', $columnExpr) . "\n"
                 . $whereClause;
 
