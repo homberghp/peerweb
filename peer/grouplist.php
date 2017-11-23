@@ -29,7 +29,7 @@ $sqlhead = "select s.snummer as snummer,";
 $sqltail = "achternaam||rtrim(coalesce(', '||tussenvoegsel,'')) as achternaam ,roepnaam, pcn,gebdat as birth_date,cohort,\n"
         . "role,slb.tutor as slb,rtrim(email1) as email1,rtrim(email2) as email2,c.sclass as klas,afko,milestone,"
         . "sp.studieplan_short as studplan,\n"
-        . "gi.github_id,\n"
+        . "gi.github_id,stick.stick,\n"
         . "apt.grp_num,ga.alias,apt.grp_name,apt.tutor,'' as grade\n"
         . "from prj_grp pg join student s using (snummer)\n"
         . " join all_prj_tutor apt on(pg.prjtg_id=apt.prjtg_id)\n"
@@ -41,6 +41,7 @@ $sqltail = "achternaam||rtrim(coalesce(', '||tussenvoegsel,'')) as achternaam ,r
         . "left join alt_email aem on(aem.snummer=pg.snummer) \n"
         . "left join tutor slb on (s.slb=slb.userid) \n"
         . "left join github_id gi on(s.snummer=gi.snummer)\n"
+        . "left join sebi_stick stick on(s.snummer=stick.snummer)\n"
         . "where apt.prjm_id=$prjm_id order by grp_num,achternaam,roepnaam";
 $spreadSheetWriter = new SpreadSheetWriter($dbConn, $sqlhead . $sqltail);
 

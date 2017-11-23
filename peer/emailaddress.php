@@ -192,20 +192,23 @@ if (isSet($_POST['bsubmit_student_data'])) {
     $resultSet = $dbConn->executeCompound($sql);
 }
 
-$sql = "select s.snummer,rtrim(s.achternaam) as achternaam,\n" .
-        "s.tussenvoegsel,\n" .
-        "rtrim(s.roepnaam) as roepnaam,\n" .
-        "rtrim(s.straat) as straat,\n" .
-        "s.huisnr,s.pcode,s.plaats,\n" .
-        "s.email1,coalesce(ae.email3,'') as email3, rtrim(s.nationaliteit) as nationaliteit,s.hoofdgrp,s.cohort,s.pcn,s.opl,s.sex,s.gebdat,\n" .
-        "rtrim(s.phone_home) as phone_home,rtrim(s.phone_gsm) as phone_gsm,rtrim(s.phone_postaddress) as phone_postaddress, s.lang,\n" .
-        "acd.course_description as tweede_opl,\n" .
-        "s.class_id,\n" .
-        "s.faculty_id,lpi_id,\n" .
-        "slb.achternaam||', '||slb.roepnaam||coalesce(' '||slb.tussenvoegsel,'') as study_coach\n, gi.github_id" .
-        " from student_email s left join alt_email ae using(snummer) \n" .
-        " left join github_id gi using(snummer) ".
-        " left join additional_course_descr acd using(snummer) left join lpi_id using(snummer) left join student slb on(slb.snummer=s.slb) where s.snummer=$snummer";
+$sql = "select s.snummer,rtrim(s.achternaam) as achternaam,\n" 
+    . "s.tussenvoegsel,\n" 
+    . "rtrim(s.roepnaam) as roepnaam,\n" 
+    . "rtrim(s.straat) as straat,\n" 
+    . "s.huisnr,s.pcode,s.plaats,\n" 
+    . "s.email1,coalesce(ae.email3,'') as email3, rtrim(s.nationaliteit) as nationaliteit,"
+    . "s.hoofdgrp,s.cohort,s.pcn,s.opl,s.sex,s.gebdat,\n" 
+    . "rtrim(s.phone_home) as phone_home,rtrim(s.phone_gsm) as phone_gsm,rtrim(s.phone_postaddress) as phone_postaddress, s.lang,\n" 
+    . "acd.course_description as tweede_opl,\n" 
+    . "s.class_id,\n" 
+    . "s.faculty_id,lpi_id,\n" 
+    . "slb.achternaam||', '||slb.roepnaam||coalesce(' '||slb.tussenvoegsel,'') as study_coach\n, gi.github_id,stick.stick as stick " 
+    . " from student_email s left join alt_email ae using(snummer) \n" 
+    . " left join github_id gi on(gi.snummer=s.snummer) "
+    . " left join sebi_stick stick  on (s.snummer=stick.snummer) "
+    . " left join additional_course_descr acd on(s.snummer=acd.snummer) "
+    . "left join lpi_id lid on(s.snummer=lid.snummer) left join student slb on(slb.snummer=s.slb) where s.snummer=$snummer";
 $resultSet = $dbConn->Execute($sql);
 if ($resultSet === false) {
     echo "cannot read email address with<pre>$sql</pre>, error " . $dbConn->ErrorMsg();
@@ -223,6 +226,7 @@ $name = $roepnaam . ' ' . $tussenvoegsel . ' ' . $achternaam;
 $lpi_id_field = "<input type='text' name='lpi_id' value ='$lpi_id' size='12'/>";
 $github_id_field = "<input type='text' name='github_id' value ='$github_id' size='24'/>";
 $photo = PHOTOROOT . '/' . $snummer . '.jpg';
+$sebi_stick="SEBI{$stick}";
 //$dbConn->log($photo);
 if (!file_exists('fotos/' . $snummer . '.jpg'))
     $photo = '';
@@ -289,6 +293,7 @@ ob_start();
                 <tr><th  align='right'>Third email address </th><td><input type='text' size='64' name='email3' value='<?= $email3 ?>'/></td></tr>
                 <tr><th  align='right'>Linux Prof Inst. id LPI_ID</th><td><?= $lpi_id_field ?>(Used for Linux Professional Institute certificates LPI-101 etc.)</td></tr>
                 <tr><th align='right'>Github ID</th><td><?= $github_id_field ?>(Used for sem 7 ESD course.)</td></tr>
+    <tr><th align='right'>Sebi Stick Number</th><td><b><?= $sebi_stick ?></b>&nbsp;(You Exam preparation and exercise stick.)</td></tr>
                 <tr><td>&nbsp;</td><td><input type='submit' name='bsubmit' value='update'/></td></tr>
             </table>
         </form>
