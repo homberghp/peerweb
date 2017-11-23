@@ -7,7 +7,8 @@ char consonants[]="bBcCdDfFgGhHjJkKlLmMnNpPqQrRsStTvVwWyYzZ"; /* formatcode % */
 char cons2[]="bcdfghjklmnpqrstvwyz";                          /* formactcode b */
 char cons3[]="BCDFGHJKLMNPQRSTVWYZ";                          /* formactcode B */
 char digits[]="0123456789";                                   /* formatcode 1 */
-char punct[]="~!@#$%*()_+.,:;-|?<>\\/#$%&*(){}[]_";           /* formatcode . */
+
+char punct[]="~!@#%^&()_+=:;\"<.>,?/{}[]|";
 static int randseed;
 char anyletter[]="aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ"; /* formatcode ~*/
 char anychar[]="aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ0123456789.,;-_+|!?<>\\/"; /* default*/
