@@ -53,10 +53,6 @@ class SearchQuery {
      */
     protected $orderList;
 
-    /**
-     * Where join
-     */
-    protected $whereJoin = ' and ';
 
     /**
      * $dbConn
@@ -110,7 +106,7 @@ class SearchQuery {
         //    global $dbConn;
         $this->relation = $relName;
         $this->relPrefix = substr($this->relation, 0, 2) . '_';
-        $query = "select column_name,data_type from information_schema.columns where table_name='$this->relation'";
+        $query = "select column_name,data_type from information_schema.columns where table_name='{$this->relation}'";
         $dbMessage = '';
         $this->matchColumnSet = array();
 
@@ -181,11 +177,6 @@ class SearchQuery {
             $sval = trim(naddslashes($value));
             if ($sval != '') {
                 $this->submitValueSet[$skey] = $sval;
-            }
-        }
-        if (isSet($vs['where_join'])) {
-            if ($vs['where_join'] == 'Any') {
-                $this->whereJoin = ' or ';
             }
         }
         return $this;
@@ -275,7 +266,7 @@ class SearchQuery {
                             break;
                             break;
                     }
-                    $continuation = $this->whereJoin . "\n";
+                    $continuation = ' and '. "\n";
                 }
             }
         }
@@ -377,9 +368,6 @@ class SearchQuery {
 
     public function getExtendedQuery() {
 
-//        return $this->getQueryHead()
-//                . ' from '
-//                . $this->getExtendedQueryTail();
         return $this->getQueryHead() . ' from '
                 . $this->getQueryTailText();
     }
@@ -461,7 +449,7 @@ class SearchQuery {
         }
         //echo "<pre style='color:#080'>{$whereClause}</pre>";
         $this->values = $values;
-        $whereClause = join($this->whereJoin, $whereTerms);
+        $whereClause = join(' and ', $whereTerms);
         $orderBy = isSet($this->orderList) ? ' order by ' . join(',', $this->orderList) : '';
 
         $q = $this->relation . ' ' . $this->relPrefix
@@ -553,54 +541,14 @@ class UpdateQuery extends SearchQuery {
     function setUpdateSet($us) {
         $this->updateSet = array();
         while (list($key, $value) = each($us)) {
-            $key = trim(naddslashes($key));
-            $value = trim(naddslashes($value));
+            $key = trim($key);
+            $value = trim($value);
             if (isSet($this->columnNames[$key]) && !isSet($this->keyColumnNames[$key])) {
                 $this->updateSet[$key] = $value;
             }
         }
         reset($us);
     }
-
-    /**
-     * Returns the key column value set, since that identifies the record.
-     * @return string the where-list
-     */
-    private function getWhereList() {
-        $whereClause = '';
-        $continuation = '';
-        for ($i = 0; $i < count($this->keyColumns); $i++) {
-            $name = $this->keyColumns[$i];
-            $value = $this->submitValueSet[$name];
-            if ($value != '') {
-                $value = "'" . $value . "'";
-                $whereClause .= $continuation . $name . '=' . $value . ' ';
-                $continuation = $this->whereJoin;
-            }
-        }
-        return $whereClause;
-    }
-
-    /**
-     * Gets the query.
-     * @return string: the query prepared to be submitted to the database.
-     */
-//    private function getQuery() {
-//        $result = 'update ' . $this->relation . ' set ';
-//        $continuation = '';
-//        while (list($key, $value) = each($this->updateSet)) {
-//            if ($this->dataTypes[$key] == 'bool' && isSet($value) && ($value === 'true' || $value == 'false')) {
-//                $result .= $continuation . $key . '=' . $value;
-//                $continuation = ',';
-//            } else {
-//                $nvalue = ( $value != '') ? ('\'' . $value . '\'') : ('default');
-//                $result .= $continuation . $key . '=' . $nvalue;
-//                $continuation = ',';
-//            }
-//        }
-//        $result .= ' where ' . $this->getWhereList().' returning *';
-//        return $result;
-//    }
 
     /**
      * Execute the query using prepared statement style.
@@ -625,7 +573,7 @@ class UpdateQuery extends SearchQuery {
                 $values[] = $value;
             }
         }
-        $whereClause .= join($this->whereJoin, $whereExpr);
+        $whereClause .= join(' and ', $whereExpr);
         $query .= join(', ', $columnExpr) . "\n"
                 . $whereClause;
 

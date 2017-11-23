@@ -221,7 +221,8 @@
         to { background:#ffffff; }
 
     }
-
+    .menu >label{display:block;font-weight: bold;} 
+    input{font-weight: normal;}
     textarea:focus, input:focus, button:focus { 
         background:white; 
         box-shadow: rgba(255,255,255,0.5) 3px 3px 5px;
