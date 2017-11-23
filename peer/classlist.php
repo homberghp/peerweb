@@ -34,12 +34,13 @@ $sqlhead = "select distinct snummer,"
         . "achternaam ,roepnaam, tussenvoegsel as tussenvoegsel, "
         . "pcn,lang,gebdat as birth_date,t.tutor as slb,country as nation,rtrim(email1) as email1,rtrim(email2) as email2,\n"
         . "studieplan_short as studieplan,sclass,hoofdgrp ,\n"
-        . "straat,huisnr,plaats,phone_gsm,phone_home\n"
+        . "straat,huisnr,plaats,stick,phone_gsm,phone_home\n"
         . " from \n";
 $sqltail = " join student_class using(class_id) left join tutor t on (s.slb=t.userid)\n"
-        . " left join studieplan using(studieplan)\n"
-        . "left join iso3166 on(nationaliteit=a2)\n"
-        . "where class_id={$class_id} order by achternaam,roepnaam";
+    . " left join studieplan using(studieplan)\n"
+    . " left join iso3166 on(nationaliteit=a2)\n"
+    . " left join sebi_stick using(snummer)\n"
+    . "where class_id={$class_id} order by achternaam,roepnaam";
 
 
 $fdate = date('Y-m-d');
@@ -60,7 +61,7 @@ $sqlhead = "select distinct '<a href=''student_admin.php?snummer='||snummer||'''
         . "achternaam ,roepnaam, tussenvoegsel as tussenvoegsel," .
         "pcn,lang,cohort,t.tutor as slb,country as nation,gebdat as birth_date,rtrim(email1) as email1,rtrim(email2) as email2,\n" .
         "studieplan_short as studieplan,sclass,hoofdgrp,\n" .
-        "straat,huisnr,plaats,phone_gsm,phone_home\n" .
+        "straat,huisnr,plaats,stick,phone_gsm,phone_home\n" .
         " from \n";
 $sql2 = $sqlhead . ' student_email s natural join portrait ' . $sqltail;
 $rainbow = new RainBow(STARTCOLOR, COLORINCREMENT_RED, COLORINCREMENT_GREEN, COLORINCREMENT_BLUE);
