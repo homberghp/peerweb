@@ -53,7 +53,6 @@ class SearchQuery {
      */
     protected $orderList;
 
-
     /**
      * $dbConn
      */
@@ -106,17 +105,18 @@ class SearchQuery {
         //    global $dbConn;
         $this->relation = $relName;
         $this->relPrefix = substr($this->relation, 0, 2) . '_';
-        $query = "select column_name,data_type from information_schema.columns where table_name='{$this->relation}'";
+        $query = "select column_name,data_type "
+                . "from information_schema.columns "
+                . "where table_name='{$this->relation}'";
         $dbMessage = '';
         $this->matchColumnSet = array();
 
-        $count = 0;
         $this->columnNames = array();
         $this->dataTypes = array();
         $rs = $this->dbConn->Execute($query);
         while (!$rs->EOF) {
-            $name = trim(stripslashes($rs->fields['column_name']));
-            $this->matchColumnSet[$count++] = $name;
+            $name = trim($rs->fields['column_name']);
+            $this->matchColumnSet[] = $name;
             $this->columnNames[$name] = $name;
             $this->dataTypes[$name] = $rs->fields['data_type'];
 
@@ -266,11 +266,10 @@ class SearchQuery {
                             break;
                             break;
                     }
-                    $continuation = ' and '. "\n";
+                    $continuation = ' and ' . "\n";
                 }
             }
         }
-        //echo "<pre style='color:#080'>{$whereClause}</pre>";
         return $whereClause;
     }
 
@@ -380,7 +379,6 @@ class SearchQuery {
      */
     public function executeExtendedQuery() {
         $qt = $this->getExtendedQuery();
-        //echo " <pre>{$qt}</pre>";
         $rs = $this->dbConn->Prepare($qt)->execute($this->values);
         return $rs;
     }
@@ -447,7 +445,6 @@ class SearchQuery {
                 }
             }
         }
-        //echo "<pre style='color:#080'>{$whereClause}</pre>";
         $this->values = $values;
         $whereClause = join(' and ', $whereTerms);
         $orderBy = isSet($this->orderList) ? ' order by ' . join(',', $this->orderList) : '';
@@ -459,7 +456,6 @@ class SearchQuery {
             $q .= ' where ' . $whereClause;
         }
         $q .= $orderBy;
-        //echo "<pre>$q</pre><br/>";
         return $q;
     }
 
@@ -490,8 +486,7 @@ class SearchQuery {
 
     public function executeAllQuery2() {
         $q = " select * from " . $this->getQueryTailText();
-        //echo " <span style='font-weight:bold;' >$q</span>";
-        return $this->dbConn->Prepare($q)->execute($this->values);
+       return $this->dbConn->Prepare($q)->execute($this->values);
     }
 
     public function getSubRelQuery() {
@@ -639,32 +634,39 @@ class InsertQuery extends SearchQuery {
         return $result;
     }
 
+    private $values = null;
+
+    public function getValues() {
+
+        return $this->values;
+    }
+
+    private $queryText = null;
+
     /**
-     * produce the query assembled by this class
-     * @return string te query to be submitted to the database
+     * Get the query based on the relation information and the submitted values.
+     * The submitted values are collected in the values array.
+     * @return the text.
      */
-    private function getQuery() {
-        $result = 'insert into ' . $this->relation . ' (';
-        $continuation1 = '';
-        $continuation2 = '';
-        $cols = '';
-        $vals = '';
-        while (list($key, $value) = each($this->updateSet)) {
-            // the test ensures that non set values take their default or null.
-            if ($key != '' && $value != '') {
-                $cols .= $continuation1 . $key;
-                if ($this->dataTypes[$key] == 'bool') {
-                    $value = (isSet($value) && ($value != '')) ? 'true' : 'false';
-                    $vals .= $continuation2 . '\'' . $value . '\'::bool';
-                } else {
-                    $vals .= $continuation2 . '\'' . $value . '\'';
+    private function getQueryText() {
+        if ($this->queryText == null) {
+            $query = "insert into {$this->relation} (";
+            $columns = array();
+            $this->values = array();
+            $params = array(); // the $1... params  in the query text
+            $paramCtr = 1;
+            while (list($key, $value) = each($this->updateSet)) {
+                // the test ensures that non set values take their default or null.
+                if ($key != '') {
+                    $columns[] = $key;
+                    $this->values[] = ($value !== '') ? $value : null;
+                    $params[] = '$' . $paramCtr++;
                 }
-                $continuation1 = ', ';
-                $continuation2 = ', ';
             }
+            $query .= join(',', $columns) . ") \n values(" . join(',', $params) . ')';
+            $this->queryText = $query;
         }
-        $result .= $cols . ') values (' . $vals . ')';
-        return $result;
+        return $this->queryText;
     }
 
     /**
@@ -672,26 +674,13 @@ class InsertQuery extends SearchQuery {
      * @return PeerResultSet when successful
      */
     private function prepareAndExecute() {
-        $query = "insert into {$this->relation} (";
-        $columns = array();
-        $values = array();
-        $params = array();
-        $paramCtr = 1;
-        while (list($key, $value) = each($this->submitValueSet)) {
-            // the test ensures that non set values take their default or null.
-            if ($key != '') {
-                $columns[] = $key;
-                $values[] = ($value !== '') ? $value : null;
-                $params[] = '$' . $paramCtr++;
-            }
-        }
-        $query .= join(',', $columns) . ") \n values(" . join(',', $params) . ')';
+        $query = $this->getQueryText();
         $stmnt = $this->dbConn->Prepare($query, '');
-        return $stmnt->execute($values);
+        return $stmnt->execute($this->values);
     }
 
     function __toString() {
-        return $this->getQuery();
+        return $this->getQueryText() . " with values:<pre>" . print_r($this->columnNames, true) . "</pre>";
     }
 
     /**
@@ -742,7 +731,7 @@ class DeleteQuery extends UpdateQuery {
         if (!$this->complete) {
             throw new SQLExecuteException('DB ERROR: Delete failed. Not all keyColumns have been set');
         } else {
-                $res = $this->dbConn->Prepare($this->getQueryText())->execute($this->values);
+            $res = $this->dbConn->Prepare($this->getQueryText())->execute($this->values);
         }
         return $res;
     }

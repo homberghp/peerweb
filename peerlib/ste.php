@@ -469,7 +469,7 @@ class SimpleTableEditor {
     }
 
     /**
-     * prepare this record for Insertion into database
+     * prepare this record for Insertion into database.
      */
     function prepareForInsert() {
         if (isSet($this->menu)) {
@@ -714,9 +714,10 @@ class SimpleTableEditor {
             /* then get the data into the query */
             $iq = new InsertQuery($this->dbConn, $this->relation);
             $iq->setKeyColumns($this->keyColumns);
+            
             $cnames = $this->menu->getColumnNames();
             $arr = $this->menu->getColumnValues($cnames);
-            $iq->setSubmitvalueSet($arr);
+            //$iq->setSubmitvalueSet($arr);
             $iq->setUpdateSet($arr);
             if ($iq->areKeyColumnsSet()) {
                 /* allow insert */
@@ -791,7 +792,7 @@ class SimpleTableEditor {
         if ($rs !== false && !$rs->EOF) {
             /* if search succeeded, load the first hit */
             $rowCount = $rs->rowCount();
-            $this->addDbMessage("did find {$rowCount} row" . ($rowCount == 1 ? '' : 's'));
+            $this->addDbMessage("found {$rowCount} row" . ($rowCount == 1 ? '' : 's'));
             $this->setMenuValues($rs->fields);
             $this->keyValues = $this->getKeyValues($rs->fields);
             $_SESSION['searchQueryValues'] = $this->searchQueryValues = $this->searchQuery->getSubmitValueSet();
@@ -849,6 +850,7 @@ class SimpleTableEditor {
         $this->keyValues = $this->getKeyValues($_GET);
         /* pick up the _POST inputs such as the submit values */
         if (count($_POST) > 0) {
+            $this->searchQuery->setSubmitValueSet($_POST);
             if (isSet($_POST['Clear'])) {
                 /*
                  * L E E G
@@ -867,9 +869,8 @@ class SimpleTableEditor {
                 return;
             }
             /* load only  if request is not LEEG */
-            $this->searchQuery->setSubmitValueSet($_POST);
 
-            //$this->setMenuValues($_POST);
+            $this->setMenuValues($_POST);
             if ($validator_clearance) {
                 // save edit values to session.
                 if (isSet($system_settings['edit_to_session'])) {
