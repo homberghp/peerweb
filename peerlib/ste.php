@@ -701,6 +701,17 @@ class SimpleTableEditor {
         }
     }
 
+    /**
+     * 
+     * @return typeGet the values from the form, filtered by type and generation type.
+     * It replaces post values with new values from the relevant sequence.
+     * @return the values to use form an insert.
+     */
+    function getPostValusForInsert(){
+        $cnames = $this->menu->getColumnNames();
+            $arr = $this->menu->getColumnValues($cnames);
+        return $arr;
+    }
     /* doUpdate() */
 
     /**
@@ -714,11 +725,8 @@ class SimpleTableEditor {
             /* then get the data into the query */
             $iq = new InsertQuery($this->dbConn, $this->relation);
             $iq->setKeyColumns($this->keyColumns);
-            
-            $cnames = $this->menu->getColumnNames();
-            $arr = $this->menu->getColumnValues($cnames);
-            //$iq->setSubmitvalueSet($arr);
-            $iq->setUpdateSet($arr);
+            // The menu knows how to generate values from form or e.g. sequences.
+            $iq->setUpdateSet($this->getPostValusForInsert());
             if ($iq->areKeyColumnsSet()) {
                 /* allow insert */
                 try {
