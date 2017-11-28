@@ -13,7 +13,7 @@ $pdj_id = 1;
 $milestone = 1;
 extract($_SESSION);
 $dbConn->setSqlAutoLog(true);
-$page = new PageContainer("Define activity " . $PHP_SELF . " on DB " . $db_name);
+$page = new PageContainer("Define or update Activity ");
 $ste = new SimpleTableEditor($dbConn, $page);
 $ste->setFormAction($PHP_SELF)
         ->setRelation('activity')
