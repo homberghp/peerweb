@@ -674,6 +674,9 @@ class InsertQuery extends SearchQuery {
      * @return PeerResultSet when successful
      */
     private function prepareAndExecute() {
+        if (!$this->areKeyColumnsSet()) {
+            throw new SQLExecuteException("not all key columns have been set");
+        }
         $query = $this->getQueryText();
         $stmnt = $this->dbConn->Prepare($query, '');
         return $stmnt->execute($this->values);

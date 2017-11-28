@@ -707,11 +707,12 @@ class SimpleTableEditor {
      * It replaces post values with new values from the relevant sequence.
      * @return the values to use form an insert.
      */
-    function getPostValusForInsert(){
+    function getPostValusForInsert() {
         $cnames = $this->menu->getColumnNames();
-            $arr = $this->menu->getColumnValues($cnames);
+        $arr = $this->menu->getColumnValues($cnames);
         return $arr;
     }
+
     /* doUpdate() */
 
     /**
@@ -727,16 +728,11 @@ class SimpleTableEditor {
             $iq->setKeyColumns($this->keyColumns);
             // The menu knows how to generate values from form or e.g. sequences.
             $iq->setUpdateSet($this->getPostValusForInsert());
-            if ($iq->areKeyColumnsSet()) {
-                /* allow insert */
-                try {
-                    $affectedRows = $iq->execute()->affected_rows();
-                    $this->addDbMessage("  added or updated {$affectedRows} record" . ($affectedRows == 1 ? '' : 's'));
-                } catch (SQLExecuteException $se) {
-                    $this->addError("failed with {$se->getMessage()}");
-                }
-            } else {
-                $this->addError("DB ERROR: Insert failed with query <pre>{$iq}</pre><br/>Not all keyColumns have been set");
+            try {
+                $affectedRows = $iq->execute()->affected_rows();
+                $this->addDbMessage("  added or updated {$affectedRows} record" . ($affectedRows == 1 ? '' : 's'));
+            } catch (SQLExecuteException $se) {
+                $this->addError("failed with {$se->getMessage()}");
             }
         }
     }

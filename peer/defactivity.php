@@ -15,13 +15,14 @@ extract($_SESSION);
 $dbConn->setSqlAutoLog(true);
 $page = new PageContainer("Define activity " . $PHP_SELF . " on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page);
+print_r($_SESSION);
 $ste->setFormAction($PHP_SELF)
         ->setRelation('activity')
         ->setMenuName('activity')
         ->setKeyColumns(array('act_id'))
         ->setNameExpression("rtrim(short)||'*'||part||': '||rtrim(description)")
         ->setOrderList(array('datum desc', 'start_time', 'short'))
-        ->setListRowTemplate(array('datum', 'start_time', 'act_type', 'part'))
+        ->setListRowTemplate(array('datum', 'start_time', 'act_id','act_type', 'part'))
         ->setFormTemplate('templates/activity.html')
         ->show();
 ?>
