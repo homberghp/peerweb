@@ -57,9 +57,21 @@ class SimpleTableEditor {
         $this->allowIUD = $allowIUD;
         $this->page = $page;
         $this->setDefaultButtons();
-        $this->searchQuery = new SearchQuery($this->dbConn, null);
-        if ($PHP_SELF == $_SESSION['ste_referer'] && isSet($_SESSION['searchQueryValues'])) {
+        // self redirect?
+        $referer=$this->getRefererScript();
+        echo " {$referer}";
+        if (basename($PHP_SELF) == $referer && isSet($_SESSION['searchQueryValues'])) {
             $this->searchQueryValues = $_SESSION['searchQueryValues'];
+        }
+    }
+
+    private function getRefererScript() {
+        $b = basename($_SERVER['HTTP_REFERER']);
+        $refererParts = preg_split('/\?/', $b);
+        if (count($refererParts)) {
+            return $referer = $refererParts[0];
+        } else {
+            return '';
         }
     }
 
@@ -147,8 +159,7 @@ class SimpleTableEditor {
      */
     function setRelation($rel) {
         $this->relation = strtolower($rel);
-//        $this->searchQuery->setRelation($rel);
-//        $this->ste_query = 'select * from ' . $this->relation . ' where false';
+        $this->searchQuery = new SearchQuery($this->dbConn, $this->relation);
         return $this;
     }
 
@@ -429,15 +440,15 @@ class SimpleTableEditor {
         return $result;
     }
 
-    /**
-     * the search result generating query
-     */
-    private $list_query;
+//    /**
+//     * the search result generating query
+//     */
+//    private $list_query;
 
     /**
      * the menu generating query. (should fetch one record)
      */
-    private $ste_query;
+    //private $ste_query;
 
     /**
      * the key values of the record. (prim keys)
@@ -493,7 +504,7 @@ class SimpleTableEditor {
 
     /**
      * the actionURL is the set of keyColumns (name,value) and a
-     * list_query packed onto the page URL
+     * list query packed onto the page URL
      * it is composed from a Search request-query and the keyColumns defining
      * the record presented in the Menu table.
      * the search request query is used to rebuild the resultlist
@@ -502,19 +513,19 @@ class SimpleTableEditor {
         $this->actionURL = $this->formAction;
         $urlGetOptions = '';
         $continuation = '?';
-        if ($this->ste_query != '') {
-            $rs = $this->dbConnExecute($this->ste_query);
-            if ($rs === false) {
-                $this->dbConn->log('Error occured, cause ' . $this->dbConn->ErrorMsg() . ' with statement ' . $this->ste_query);
-                return 'Boe';
-            }
-            if (!$rs->EOF) {
-                $this->setMenuValues($rs->fields);
-                $this->keyValues = $this->getKeyValues($rs->fields);
-            } else {
-                $this->keyValues = array();
-            }
-        }
+//        if ($this->ste_query != '') {
+//            $rs = $this->dbConnExecute($this->ste_query);
+//            if ($rs === false) {
+//                $this->dbConn->log('Error occured, cause ' . $this->dbConn->ErrorMsg() . ' with statement ' . $this->ste_query);
+//                return 'Boe';
+//            }
+//            if (!$rs->EOF) {
+//                $this->setMenuValues($rs->fields);
+//                $this->keyValues = $this->getKeyValues($rs->fields);
+//            } else {
+//                $this->keyValues = array();
+//            }
+//        }
         if (count($this->keyValues) > 0) {
             // prepare a $_GET set for the action url,
             while (list($key, $val) = each($this->keyValues)) {
@@ -545,9 +556,9 @@ class SimpleTableEditor {
         $this->buttonTable();
         echo "</td>\n\t</tr>\n</table>\n<input type=\"hidden\" name=\"keys\"/>\n" .
         "</form>";
-        if (isSet($this->spreadSheetWriter) && isSet($this->ste_query) && ($this->ste_query !== '')) {
-            echo $this->spreadSheetWriter->getForm($this->formAction);
-        }
+//        if (isSet($this->spreadSheetWriter) && isSet($this->ste_query) && ($this->ste_query !== '')) {
+//            echo $this->spreadSheetWriter->getForm($this->formAction);
+//        }
         echo "\n</fieldset>\n";
     }
 
@@ -667,6 +678,7 @@ class SimpleTableEditor {
             try {
                 $rs = $this->searchQuery->executeExtendedQuery();
                 $this->printResulList($rs);
+                $_SESSION['searchQueryValues'] = $this->searchQueryValues;
             } catch (SQLExecuteException $se) {
                 $this->addError("cannot get list with {$se->getMessage()}<br/>");
             }
@@ -784,10 +796,10 @@ class SimpleTableEditor {
 
     function doSearch() {
         global $_SESSION;
-        //$this->searchQuery->setSubmitValueSet($_POST);
-        $this->searchQueryTailText = $this->searchQuery->getQueryTailText();
-        $this->searchQueryValues = $this->searchQuery->getPreparedValues();
-        //echo " <pre>"; var_dump($this->searchQuery); echo " </pre>";
+//        //$this->searchQuery->setSubmitValueSet($_POST);
+//        $this->searchQueryTailText = $this->searchQuery->getQueryTailText();
+//        $this->searchQueryValues = $this->searchQuery->getPreparedValues();
+//        //echo " <pre>"; var_dump($this->searchQuery); echo " </pre>";
         if ($this->showQuery) {
             $this->addDbMessage("<br/>list query=<pre>{$this->searchQuery}</pre>");
         }
@@ -817,8 +829,8 @@ class SimpleTableEditor {
         global $_SESSION;
         global $validator_clearance;
         global $system_settings;
-        $this->list_query = ''; // declare list query
-        $this->ste_query = ''; // declare main query
+//        $this->list_query = ''; // declare list query
+        //$this->ste_query = ''; // declare main query
         $this->menu = new ExtendedMenu($this->itemValidator, $this->page);
         if (isSet($this->rawNames)) {
             $this->menu->setRawNames($this->rawNames);
@@ -834,9 +846,9 @@ class SimpleTableEditor {
         $this->menu->setSubRel($this->subRel);
         $this->menu->setSubRelJoinColumns($this->subRelJoinColumns);
         /* now menu knows its columns, process the inputs */
-        if (!empty($_SESSION['list_query']) && $PHP_SELF == $_SESSION['ste_referer']) {
-            $this->list_query = $_SESSION['list_query'];
-        }
+//        if (!empty($_SESSION['list_query']) && $PHP_SELF == $_SESSION['ste_referer']) {
+//            $this->list_query = $_SESSION['list_query'];
+//        }
         // prepare query width defintions  from client-page.
         $this->searchQuery = new SearchQuery($this->dbConn, $this->relation);
         $this->searchQuery->setKeyColumns($this->keyColumns);
@@ -854,7 +866,6 @@ class SimpleTableEditor {
         $this->keyValues = $this->getKeyValues($_GET);
         /* pick up the _POST inputs such as the submit values */
         if (count($_POST) > 0) {
-            $this->searchQuery->setSubmitValueSet($_POST);
             if (isSet($_POST['Clear'])) {
                 /*
                  * L E E G
@@ -874,6 +885,7 @@ class SimpleTableEditor {
             }
             /* load only  if request is not LEEG */
 
+            $this->searchQuery->setSubmitValueSet($_POST);
             $this->setMenuValues($_POST);
             if ($validator_clearance) {
                 // save edit values to session.
@@ -913,10 +925,11 @@ class SimpleTableEditor {
                      * reset is handled by the browser
                      */
                 }
-            } else {
-                // redisplay input
-                $this->setMenuValues($_POST);
             }
+//            else {
+//                // redisplay input
+//                $this->setMenuValues($_POST);
+//            }
         }/* end of if (count($_POST))) */ {
             /*
              * use _GET to determine the key columns
@@ -944,13 +957,14 @@ class SimpleTableEditor {
                     $this->addError("search failed with {$se->getMessage()}");
                 }
             }
+            $this->searchQuery->setSubmitValueSet($_SESSION['searchQueryValues']);
         } /* end of else branch if (count($_POST)) */
     }
 
     /* end processResponse() */
 
     /**
-     * Do it all, proces the user response and
+     * Do it all, process the user response and
      * generate the actual record menu, buttons, table, messageBox, and result list
      */
     function generateForm() {
@@ -959,13 +973,13 @@ class SimpleTableEditor {
         $fdate = date('Y-m-d');
         $filename = $this->menuName . '-' . $fdate;
         $this->processResponse();
-        if (isSet($this->spreadSheetWriter)) {
-            $this->spreadSheetWriter->setTitle("peerweb query $fdate")
-                    ->setLinkUrl($server_url . $PHP_SELF)
-                    ->setFilename($filename)
-                    ->setAutoZebra(true);
-            $this->spreadSheetWriter->processRequest();
-        }
+//        if (isSet($this->spreadSheetWriter)) {
+//            $this->spreadSheetWriter->setTitle("peerweb query $fdate")
+//                    ->setLinkUrl($server_url . $PHP_SELF)
+//                    ->setFilename($filename)
+//                    ->setAutoZebra(true);
+//            $this->spreadSheetWriter->processRequest();
+//        }
 
         /*
          * All processing is done, showtime 
@@ -975,7 +989,6 @@ class SimpleTableEditor {
         $this->generateHTML();
         $_SESSION['ste_referer'] = $PHP_SELF;
         //        $_SESSION['searchQueryText'] = $this->searchQueryTailText;
-        $_SESSION['searchQueryValues'] = $this->searchQueryValues;
     }
 
     /**

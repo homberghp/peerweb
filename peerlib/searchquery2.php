@@ -173,8 +173,8 @@ class SearchQuery {
     function setSubmitValueSet($vs) {
         $this->submitValueSet = array();
         foreach ($vs as $key => $value) {
-            $skey = trim(naddslashes($key));
-            $sval = trim(naddslashes($value));
+            $skey = trim($key);
+            $sval = trim($value);
             if ($sval != '') {
                 $this->submitValueSet[$skey] = $sval;
             }
@@ -486,7 +486,7 @@ class SearchQuery {
 
     public function executeAllQuery2() {
         $q = " select * from " . $this->getQueryTailText();
-       return $this->dbConn->Prepare($q)->execute($this->values);
+        return $this->dbConn->Prepare($q)->execute($this->values);
     }
 
     public function getSubRelQuery() {
@@ -610,8 +610,8 @@ class InsertQuery extends SearchQuery {
         reset($us);
         $this->updateSet = array();
         while (list($key, $value) = each($us)) {
-            $key = trim(naddslashes($key));
-            $value = trim(naddslashes($value));
+            $key = trim($key);
+            $value = trim($value);
             if (isSet($this->columnNames[$key])) {
                 $this->updateSet[$key] = $value;
             }
@@ -787,8 +787,8 @@ class SupportingJoinQuery {
         $this->submitValueSet = array();
         reset($vs);
         foreach ($vs as $key => $value) {
-            $skey = trim(naddslashes($key));
-            $sval = trim(naddslashes($value));
+            $skey = trim($key);
+            $sval = trim($value);
             $this->submitValueSet[$skey] = $sval;
         }
         reset($vs);

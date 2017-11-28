@@ -111,7 +111,7 @@ class Menu {
         $sql = $this->itemDefQuery;
         $resultSet = getFirstRecordSetFields($this->dbConn, $sql);
         while (!$resultSet->EOF) {
-            $name = trim(nstripslashes($resultSet->fields['column_name']));
+            $name = trim($resultSet->fields['column_name']);
             //echo "myname=".$name. ",";
             $edit_type = trim($resultSet->fields['edit_type']);
             if ($edit_type == 'B') { /* handle bitsets seperately, they expand into a set of items */
@@ -154,7 +154,7 @@ class Menu {
             $name = trim($key);
             // test if this 'name' is present
             if (isSet($this->menuItems[$name])) {
-                $value = nstripslashes(trim($val));
+                $value = trim($val);
                 $this->menuItems[$name]->setValue($value);
             }
         }
