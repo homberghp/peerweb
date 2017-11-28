@@ -584,7 +584,7 @@ class UpdateQuery extends SearchQuery {
      * Execute the query and returns a resultset.
      * @return mixed resultSet of the query.
      */
-    function excute() {
+    function execute() {
         return $this->prepareAndExecute(); // $this->dbConn->Execute( $this->getQuery() );
     }
 

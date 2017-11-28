@@ -58,8 +58,8 @@ class SimpleTableEditor {
         $this->page = $page;
         $this->setDefaultButtons();
         // self redirect?
-        $referer=$this->getRefererScript();
-        echo " {$referer}";
+        $referer = $this->getRefererScript();
+        //echo " {$referer}";
         if (basename($PHP_SELF) == $referer && isSet($_SESSION['searchQueryValues'])) {
             $this->searchQueryValues = $_SESSION['searchQueryValues'];
         }
@@ -705,8 +705,8 @@ class SimpleTableEditor {
         if ($uq->areKeyColumnsSet()) {
             /* allow update */
             try {
-                $afrows = $uq->excute()->affected_rows();
-                $this->addDbMessage(" {$afrows} row(s) updated");
+                $afrows = $uq->execute()->affected_rows();
+                $this->addDbMessage("{$afrows} row(s) updated");
             } catch (SQLExecuteException $se) {
                 $this->addError("DB ERROR: Update failed with {$se->getMessage()}");
             }
