@@ -15,7 +15,6 @@ extract($_SESSION);
 $dbConn->setSqlAutoLog(true);
 $page = new PageContainer("Define activity " . $PHP_SELF . " on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page);
-print_r($_SESSION);
 $ste->setFormAction($PHP_SELF)
         ->setRelation('activity')
         ->setMenuName('activity')
