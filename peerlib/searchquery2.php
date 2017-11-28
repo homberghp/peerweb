@@ -485,7 +485,7 @@ class SearchQuery {
     }
 
     public function executeAllQuery2() {
-        $q = " select * from " . $this->getQueryTailText();
+        $q = "select * from " . $this->getQueryTailText().' limit 1';
         return $this->dbConn->Prepare($q)->execute($this->values);
     }
 

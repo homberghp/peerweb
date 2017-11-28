@@ -440,16 +440,6 @@ class SimpleTableEditor {
         return $result;
     }
 
-//    /**
-//     * the search result generating query
-//     */
-//    private $list_query;
-
-    /**
-     * the menu generating query. (should fetch one record)
-     */
-    //private $ste_query;
-
     /**
      * the key values of the record. (prim keys)
      * if set, should produce one record
@@ -498,10 +488,6 @@ class SimpleTableEditor {
         return $this;
     }
 
-    private function dbConnExecute($q) {
-        return $this->dbConn->Execute($q);
-    }
-
     /**
      * the actionURL is the set of keyColumns (name,value) and a
      * list query packed onto the page URL
@@ -513,19 +499,6 @@ class SimpleTableEditor {
         $this->actionURL = $this->formAction;
         $urlGetOptions = '';
         $continuation = '?';
-//        if ($this->ste_query != '') {
-//            $rs = $this->dbConnExecute($this->ste_query);
-//            if ($rs === false) {
-//                $this->dbConn->log('Error occured, cause ' . $this->dbConn->ErrorMsg() . ' with statement ' . $this->ste_query);
-//                return 'Boe';
-//            }
-//            if (!$rs->EOF) {
-//                $this->setMenuValues($rs->fields);
-//                $this->keyValues = $this->getKeyValues($rs->fields);
-//            } else {
-//                $this->keyValues = array();
-//            }
-//        }
         if (count($this->keyValues) > 0) {
             // prepare a $_GET set for the action url,
             while (list($key, $val) = each($this->keyValues)) {
@@ -796,13 +769,11 @@ class SimpleTableEditor {
 
     function doSearch() {
         global $_SESSION;
-//        //$this->searchQuery->setSubmitValueSet($_POST);
-//        $this->searchQueryTailText = $this->searchQuery->getQueryTailText();
-//        $this->searchQueryValues = $this->searchQuery->getPreparedValues();
-//        //echo " <pre>"; var_dump($this->searchQuery); echo " </pre>";
+        unset($_SESSION['searchQueryValues']);
         if ($this->showQuery) {
             $this->addDbMessage("<br/>list query=<pre>{$this->searchQuery}</pre>");
         }
+        //print_r($this->searchQuery);
         $rs = $this->searchQuery->executeAllQuery2();
         //echo "<span style=' color:#f0f;font-size:120%' >  aha {$rs}</span>" ;
         if ($rs !== false && !$rs->EOF) {
@@ -816,7 +787,6 @@ class SimpleTableEditor {
             /* reload screen from _POST data */
             $this->setMenuValues($_POST);
             $this->dbMessage .= "Nothing found<br/>";
-            unset($_SESSION['searchQueryValues']);
         }
     }
 
@@ -926,10 +896,6 @@ class SimpleTableEditor {
                      */
                 }
             }
-//            else {
-//                // redisplay input
-//                $this->setMenuValues($_POST);
-//            }
         }/* end of if (count($_POST))) */ {
             /*
              * use _GET to determine the key columns
@@ -973,14 +939,6 @@ class SimpleTableEditor {
         $fdate = date('Y-m-d');
         $filename = $this->menuName . '-' . $fdate;
         $this->processResponse();
-//        if (isSet($this->spreadSheetWriter)) {
-//            $this->spreadSheetWriter->setTitle("peerweb query $fdate")
-//                    ->setLinkUrl($server_url . $PHP_SELF)
-//                    ->setFilename($filename)
-//                    ->setAutoZebra(true);
-//            $this->spreadSheetWriter->processRequest();
-//        }
-
         /*
          * All processing is done, showtime 
          * first build an action URL for this page. That is, save the list_query in the _GET by adding it
