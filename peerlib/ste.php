@@ -43,7 +43,7 @@ require_once 'SpreadSheetWriter.php';
 class SimpleTableEditor {
 
     private $logQuery = true;
-    private $searchQueryValues = null;
+    //private $searchQueryValues = null;
     private $searchQuery = null;
 
     /**
@@ -59,9 +59,12 @@ class SimpleTableEditor {
         $this->setDefaultButtons();
         // self redirect?
         $referer = $this->getRefererScript();
-        //echo " {$referer}";
-        if (basename($PHP_SELF) == $referer && isSet($_SESSION['searchQueryValues'])) {
-            $this->searchQueryValues = $_SESSION['searchQueryValues'];
+        echo "referer={$referer}";
+        if (basename($PHP_SELF) == $referer) {// && isSet($_SESSION['searchQueryValues'])) {
+            //$this->searchQueryValues = $_SESSION['searchQueryValues'];
+            echo "<pre>ses[" . print_r($_SESSION['searchQueryValues'], true) . "]</pre>";
+        } else {
+            unset($_SESSION['searchQueryValues']);
         }
     }
 
@@ -642,16 +645,16 @@ class SimpleTableEditor {
      */
     function generateResultList() {
 
-        if ($this->searchQueryValues != NULL) {
+        if (isset($_SESSION['searchQueryValues'])) {//$this->searchQueryValues != NULL) {
             $this->page->addHeadText('<link rel="stylesheet" href="style/tablesorterstyle.css" type="text/css" media="print, projection, screen" />')
                     ->addScriptResource('js/jquery-1.7.1.min.js')
                     ->addScriptResource('js/jquery.tablesorter.min.js')
                     ->addJqueryFragment("$('#resultlist').tablesorter({widthFixed: true, widgets: ['zebra']});");
-            $this->searchQuery->setSubmitValueSet($this->searchQueryValues);
+            $this->searchQuery->setSubmitValueSet($_SESSION['searchQueryValues']);
             try {
                 $rs = $this->searchQuery->executeExtendedQuery();
                 $this->printResulList($rs);
-                $_SESSION['searchQueryValues'] = $this->searchQueryValues;
+                //$_SESSION['searchQueryValues'] = $this->searchQueryValues;
             } catch (SQLExecuteException $se) {
                 $this->addError("cannot get list with {$se->getMessage()}<br/>");
             }
@@ -769,9 +772,11 @@ class SimpleTableEditor {
 
     function doSearch() {
         global $_SESSION;
-        unset($_SESSION['searchQueryValues']);
+        //unset($_SESSION['searchQueryValues']);
+        //$this->searchQuery->setSubmitValueSet($_POST);
+        $this->searchQuery->setSubmitValueSet($_POST);
         if ($this->showQuery) {
-            $this->addDbMessage("<br/>list query=<pre>{$this->searchQuery}</pre>");
+            $this->addDbMessage("<br/>list query=<pre>{$this->searchQuery}.\nparams=" . print_r($this->searchQuery->getPreparedValues(), true) . "</pre>");
         }
         //print_r($this->searchQuery);
         $rs = $this->searchQuery->executeAllQuery2();
@@ -782,7 +787,9 @@ class SimpleTableEditor {
             $this->addDbMessage("found {$rowCount} row" . ($rowCount == 1 ? '' : 's'));
             $this->setMenuValues($rs->fields);
             $this->keyValues = $this->getKeyValues($rs->fields);
-            $_SESSION['searchQueryValues'] = $this->searchQueryValues = $this->searchQuery->getSubmitValueSet();
+            //$_SESSION['searchQueryValues'] = $this->searchQueryValues = $this->searchQuery->getSubmitValueSet();
+            $_SESSION['searchQueryValues'] = $this->searchQuery->getSubmitValueSet();
+            echo  "<pre>".print_r($_SESSION['searchQueryValues'],true)."</pre>";
         } else {
             /* reload screen from _POST data */
             $this->setMenuValues($_POST);
@@ -847,8 +854,8 @@ class SimpleTableEditor {
                 unset($_SESSION['searchQueryText']);
                 unset($_SESSION['searchQueryValues']);
                 unset($_SESSION['ste_referer']);
-                $this->searchQueryTailText = null;
-                $this->searchQueryValues = null;
+                //$this->searchQueryTailText = null;
+                //$this->searchQueryValues = null;
 
                 /* THATS all folks, empty results etc */
                 return;
@@ -877,6 +884,7 @@ class SimpleTableEditor {
                      */
 
                     /** build a query from the $_POST data */
+                    $this->searchQuery->setSubmitValueSet($_POST);
                     $this->doSearch();
                 } else if ($this->allowIUD && isSet($_POST['Insert'])) {
                     /*
@@ -916,7 +924,7 @@ class SimpleTableEditor {
                     $this->addDbMessage("found {$rowCount} row" . ($rowCount == 1) ? '' : 's');
                     if ($rs !== false && !$rs->EOF) {
                         $this->setMenuValues($rs->fields);
-                        $this->dbConn->log("<pre>" . print_r($rs->fields, true) . "</pre><br>");
+                        $this->addDbMessage("<pre> filling menu" . print_r($rs->fields, true) . "</pre><br>");
                         $this->keyValues = $this->getKeyValues($rs->fields);
                     }
                 } catch (SQLExecuteException $se) {

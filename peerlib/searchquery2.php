@@ -179,6 +179,8 @@ class SearchQuery {
                 $this->submitValueSet[$skey] = $sval;
             }
         }
+        // recompute
+        $this->queryTailText=null;
         return $this;
     }
 
@@ -279,7 +281,7 @@ class SearchQuery {
      * gets the query part starting with from
      * @return string 'from ......'
      */
-    function getQueryTail() {
+    private function getQueryTail() {
         $result = '';
         $whereClause = $this->getWhereList();
         if (strlen($whereClause) > 0) {
@@ -296,7 +298,7 @@ class SearchQuery {
         return $result;
     }
 
-    function getQueryHead() {
+    private function getQueryHead() {
         $result = 'select ' . $this->nameExpression . ' as RESULT_NAME ';
         $continuation = ",\n   ";
         for ($i = 0; $i < count($this->keyColumns); $i++) {
@@ -328,7 +330,7 @@ class SearchQuery {
     }
 
     public function __toString() {
-        return $this->getQuery();
+        return $this->getQueryTailText();
     }
 
     private $subRel = null;
@@ -446,14 +448,14 @@ class SearchQuery {
             }
         }
         $this->values = $values;
-        $whereClause = join(' and ', $whereTerms);
+        $whereClause = join("\n and " , $whereTerms);
         $orderBy = isSet($this->orderList) ? ' order by ' . join(',', $this->orderList) : '';
 
         $q = $this->relation . ' ' . $this->relPrefix
                 . ' ' . $this->subRelExpression() . ' '
                 . $this->getQueryExtension();
         if ($whereClause != '') {
-            $q .= ' where ' . $whereClause;
+            $q .= " \n where " . $whereClause;
         }
         $q .= $orderBy;
         return $q;
@@ -485,7 +487,7 @@ class SearchQuery {
     }
 
     public function executeAllQuery2() {
-        $q = "select * from " . $this->getQueryTailText().' limit 1';
+        $q = "select * from " . $this->getQueryTailText();//.' limit 1';
         return $this->dbConn->Prepare($q)->execute($this->values);
     }
 
@@ -506,7 +508,7 @@ class SearchQuery {
                 $joinOn .= $joinGlue . " {$rpf}.{$left}=sub_rel.{$right}";
                 $joinGlue = " and \n";
             }
-            $subRelExpr = " \nleft join (select * \nfrom $this->subRel) sub_rel on ($joinOn) ";
+            $subRelExpr = " \nleft join $this->subRel sub_rel on ($joinOn) ";
         }
         return $subRelExpr;
     }
