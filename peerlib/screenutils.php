@@ -253,7 +253,7 @@ class Menu {
      */
     function generate() {
         $this->expand();
-        $this->logString .= "<br/>menu.generate <pre>" . print_r($this->expandedMenuItems, true) . "</pre><br/>";
+        //$this->logString .= "<br/>menu.generate <pre>" . print_r($this->expandedMenuItems, true) . "</pre><br/>";
         if (isSet($this->rawNames)) {
             extract($this->rawNames, EXTR_PREFIX_ALL, 'raw');
         }

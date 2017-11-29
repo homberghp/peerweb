@@ -59,10 +59,10 @@ class SimpleTableEditor {
         $this->setDefaultButtons();
         // self redirect?
         $referer = $this->getRefererScript();
-        echo "referer={$referer}";
+        //echo "referer={$referer}";
         if (basename($PHP_SELF) == $referer) {// && isSet($_SESSION['searchQueryValues'])) {
             //$this->searchQueryValues = $_SESSION['searchQueryValues'];
-            echo "<pre>ses[" . print_r($_SESSION['searchQueryValues'], true) . "]</pre>";
+            //echo "<pre>ses[" . print_r($_SESSION['searchQueryValues'], true) . "]</pre>";
         } else {
             unset($_SESSION['searchQueryValues']);
         }
@@ -789,7 +789,7 @@ class SimpleTableEditor {
             $this->keyValues = $this->getKeyValues($rs->fields);
             //$_SESSION['searchQueryValues'] = $this->searchQueryValues = $this->searchQuery->getSubmitValueSet();
             $_SESSION['searchQueryValues'] = $this->searchQuery->getSubmitValueSet();
-            echo  "<pre>".print_r($_SESSION['searchQueryValues'],true)."</pre>";
+            //echo  "<pre>".print_r($_SESSION['searchQueryValues'],true)."</pre>";
         } else {
             /* reload screen from _POST data */
             $this->setMenuValues($_POST);
@@ -908,23 +908,21 @@ class SimpleTableEditor {
             /*
              * use _GET to determine the key columns
              */
-            $sq = new SearchQuery($this->dbConn, $this->relation);
-            $sq->setKeyColumns($this->keyColumns);
-            $sq->setNameExpression($this->nameExpression);
-            $sq->setOrderList($this->orderList)
-                    ->setSubRel($this->subRel)
-                    ->setSubRelJoinColumns($this->subRelJoinColumns);
-            $sq->setSubmitValueSet($_GET);
-            //var_dump($_GET);
-            if ($sq->areKeyColumnsSet()) {
+            if (count($_GET) > 0) {
+                $this->searchQuery->setSubmitValueSet($_GET);
+            } else {
+                $this->searchQuery->setSubmitValueSet($_SESSION['searchQueryValues']);
+            }
+            if ($this->searchQuery->areKeyColumnsSet()) {
 
                 try {
-                    $rs = $sq->executeAllQuery2();
+
+                    $rs = $this->searchQuery->executeAllQuery2();
                     $rowCount = $rs->rowCount();
                     $this->addDbMessage("found {$rowCount} row" . ($rowCount == 1) ? '' : 's');
                     if ($rs !== false && !$rs->EOF) {
                         $this->setMenuValues($rs->fields);
-                        $this->addDbMessage("<pre> filling menu" . print_r($rs->fields, true) . "</pre><br>");
+                        //$this->addDbMessage("<pre> filling menu " . print_r($rs->fields, true) . "</pre><br>");
                         $this->keyValues = $this->getKeyValues($rs->fields);
                     }
                 } catch (SQLExecuteException $se) {
