@@ -49,7 +49,7 @@ $spreadSheetWriter->setFilename($filename)
         ->setLinkUrl($server_url . $PHP_SELF . '?prjm_id=' . $prjm_id)
         ->setTitle($title)
         ->setAutoZebra(false)
-        ->setColorChangerColumn(15);
+        ->setColorChangerColumn(16);
 
 $spreadSheetWriter->processRequest();
 
@@ -107,7 +107,7 @@ $nav->show()
     </fieldset>
     <a href='classtablecards.php?prjm_id=<?= $prjm_id ?>'>Project table cards</a>
     <div align='left'>
-<?= queryToTableChecked($dbConn, $sqlhead . $sqltail, true, 15, $rainbow, -1, '', ''); ?>
+<?= queryToTableChecked($dbConn, $sqlhead . $sqltail, true, 16, $rainbow, -1, '', ''); ?>
     </div>
     <div align='left'>
         <table>
