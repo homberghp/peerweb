@@ -204,7 +204,7 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
         }
     } else {
         $pp['uploadMessage'] = "<span style='color:red;font-weight:bold;'>Upload failed, "
-                . "possibly empty file ($user_upload_path) or Version limit ($vesr &gt; $version_limit) exceeded, file not uploaded</span><br/>\n";
+                . "possibly empty file ($user_upload_path) or Version limit ($vers &gt; $version_limit) exceeded, file not uploaded</span><br/>\n";
     }
 }
 //$dbConn->log("2 prj_id=$prj_id, milestone=$milestone\n");
