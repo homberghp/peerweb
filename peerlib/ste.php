@@ -929,7 +929,9 @@ class SimpleTableEditor {
                     $this->addError("search failed with {$se->getMessage()}");
                 }
             }
-            $this->searchQuery->setSubmitValueSet($_SESSION['searchQueryValues']);
+            if (isSet($_SESSION['searchQueryValues'])) {
+                $this->searchQuery->setSubmitValueSet($_SESSION['searchQueryValues']);
+            }
         } /* end of else branch if (count($_POST)) */
     }
 

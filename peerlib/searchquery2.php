@@ -171,6 +171,7 @@ class SearchQuery {
      * This function copies the data and constructs a hash map of the key value pairs.
      */
     function setSubmitValueSet($vs) {
+        if (!isSet($vs) || $vs === null) return;
         $this->submitValueSet = array();
         foreach ($vs as $key => $value) {
             $skey = trim($key);
