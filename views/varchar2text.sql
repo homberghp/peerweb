@@ -1,6 +1,7 @@
 
 begin work;
 
+drop view if exists all_email;
 drop view if exists alien_email;
 drop view if exists alumnus;
 drop view if exists alu_student_mail;
@@ -8,6 +9,7 @@ drop view if exists assessment_remarks_view;
 drop view if exists barchart_view;
 drop view if exists bigface_view;
 drop view if exists birthdays;
+drop view if exists class_selector;
 drop view if exists contestant_assessment;
 drop view if exists current_student_class;
 drop view if exists dead_class;
@@ -55,7 +57,7 @@ drop view if exists tutor_join_student;
 drop view if exists unknown_student;
 drop view if exists upload_archive_names;
 drop view if exists import_naw;
-
+drop view if exists all_alumni_email;
 -- alter table student
 --       rename column voorvoegsel to tussenvoegsel;
 -- alter table student
@@ -82,9 +84,9 @@ alter table student
 alter table alt_email
       alter column email2 type email using email2::email,
       alter column email3 type email using email3::email;
-      
-      
 
+alter table student_class alter column sclass type text using sclass::text;
+      
 \i upload_archive_names.sql
 \i student_email.sql 
 \i import_naw.sql
@@ -139,4 +141,7 @@ alter table alt_email
 \i alu_student_mail.sql
 \i alumnus.sql
 \i alien_email.sql
+\i all_alumni_email.sql
+\i all_email.sql
+\i class_selector.sql
 commit;
