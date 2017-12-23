@@ -62,7 +62,8 @@ if (!$rs->EOF) {
 $mailbody .= $signature;
 
 if (isSet($_POST['mailbody'])) {
-    $mailbody = preg_replace('/"/', '\'', $_POST['mailbody']);
+//    $mailbody = preg_replace('/"/', '\'', $_POST['mailbody']);
+    $mailbody = bless($_POST['mailbody']);
 }
 if (isSet($_POST['mailsubject'])) {
     $mailsubject = $_POST['mailsubject'];

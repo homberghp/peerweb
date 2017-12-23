@@ -92,9 +92,8 @@ function getUserDataInto($dbConn, $unix_id, &$arr) {
     }
 #  var_dump($arr);
 }
-
 /**
- * test the capabilty the user has
+ * test the capability the user has.
  * @param $cap required capability
  * @return true if user has required cap, false if not
  */
