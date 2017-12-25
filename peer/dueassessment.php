@@ -51,9 +51,21 @@ if (isSet($_POST['formsubject'])) {
     $formsubject = $_POST['formsubject'];
 }
 
+$sql = "select distinct email1,email2, tutor_email, \n"
+            . "s.roepnaam ||' '||coalesce(s.tussenvoegsel,'')||' '||s.achternaam as name\n"
+            . ", afko, description,milestone,assessment_due as due \n"
+            . " from prj_grp pg \n"
+            . " join student s on (s.snummer=pg.snummer) \n"
+            . " join prj_tutor pt on(pt.prjtg_id=pg.prjtg_id) \n"
+            . " join tutor t on(userid=tutor_id) \n"
+            . " join prj_milestone pm on(pt.prjm_id=pm.prjm_id) \n"
+            . " join project p on (pm.prj_id=p.prj_id)\n"
+            . " join tutor_data td on (pt.tutor_id=td.tutor_id)"
+            . " left join alt_email aem on (s.snummer=aem.snummer)\n"
+            . "where s.snummer in ($mailset) and pm.prjm_id=$prjm_id";
+    echo "$sql";
 
 if (isSet($_POST['snmailto']) && isSet($_POST['domail'])) {
-
     $snmailto = $_POST['snmailto'];
     $mailset = '\'' . implode("','", $snmailto) . '\'';
 

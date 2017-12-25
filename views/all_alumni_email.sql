@@ -1,10 +1,9 @@
-begin work;
 --
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.5
--- Dumped by pg_dump version 9.6.5
+-- Dumped from database version 10.0
+-- Dumped by pg_dump version 10.0
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -20,7 +19,7 @@ SET search_path = public, pg_catalog;
 --
 -- Name: all_alumni_email; Type: VIEW; Schema: public; Owner: hom
 --
-drop view if exists all_alumni_email;
+
 CREATE VIEW all_alumni_email AS
  SELECT s.snummer,
     s.class_id,
@@ -32,24 +31,36 @@ CREATE VIEW all_alumni_email AS
     a.email2 AS email4,
     a.email3 AS email5
    FROM ((student s
-     LEFT JOIN alt_email ae on(s.snummer=ae.snummer))
-     LEFT JOIN alumni_email a on(s.snummer=a.snummer));
+     LEFT JOIN alt_email ae ON ((s.snummer = ae.snummer)))
+     LEFT JOIN alumni_email a ON ((s.snummer = a.snummer)));
 
 
 ALTER TABLE all_alumni_email OWNER TO hom;
 
-CREATE RULE all_alumni_email_delete AS
-    ON DELETE TO all_alumni_email  DO INSTEAD NOTHING;
+--
+-- Name: all_alumni_email all_alumni_email_delete; Type: RULE; Schema: public; Owner: hom
+--
 
-create rule all_alumni_email_update as
-    on update to all_alumni_email do instead
-     (update student set email1=new.email1 where student.snummer=new.snummer;
-      insert into alt_email (snummer,email2,email3) select new.snummer,new.email2,new.email3
-      on conflict(snummer) do update set (email2,email3) =(excluded.email2,excluded.email3);
-      update alumni_email set (email2,email3) =(new.email4,new.email5) where alumni_email.snummer=new.snummer;
-     );
+CREATE RULE all_alumni_email_delete AS
+    ON DELETE TO all_alumni_email DO INSTEAD NOTHING;
+
+
+--
+-- Name: all_alumni_email all_alumni_email_update; Type: RULE; Schema: public; Owner: hom
+--
+
+CREATE RULE all_alumni_email_update AS
+    ON UPDATE TO all_alumni_email DO INSTEAD ( UPDATE student SET email1 = new.email1
+  WHERE (student.snummer = new.snummer);
+ INSERT INTO alt_email (snummer, email2, email3)  SELECT new.snummer,
+            new.email2,
+            new.email3 ON CONFLICT(snummer) DO UPDATE SET email2 = excluded.email2, email3 = excluded.email3;
+ UPDATE alumni_email SET email2 = new.email4, email3 = new.email5
+  WHERE (alumni_email.snummer = new.snummer);
+);
+
+
 --
 -- PostgreSQL database dump complete
 --
 
-commit;
