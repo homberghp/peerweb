@@ -60,15 +60,25 @@ if (isSet($_POST['mailto'])) {
     //    print_r($mailto);
     $toAddress = '';
     $mailset = '\'' . implode("','", $mailto) . '\'';
-    $mailerQuery = <<<"SQL"
-           with pro as (select * from all_prj_tutor where prjm_id={$prjm_id}),
+//    $mailerQuery = <<<"SQL"
+//           with pro as (select * from all_prj_tutor where prjm_id={$prjm_id}),
+//  rec as (select snummer as recipient,prjtg_id from prj_grp join pro using(prjtg_id)
+//  union select tutor_id as recipient,prjtg_id from pro)
+//select snummer, email1 as email, email2,
+//       roepnaam ||' '||coalesce(tussenvoegsel||' ','')||achternaam as name,roepnaam as firstname,
+//       afko,description,milestone,assessment_due as due,milestone_name
+//  from rec  join pro using(prjtg_id) join student_email on(recipient=snummer) where snummer in ({$mailset})
+//SQL;
+  $mailerQuery = <<<"SQL"
+          with pro as (select * from all_prj_tutor where prjm_id=861),
   rec as (select snummer as recipient,prjtg_id from prj_grp join pro using(prjtg_id)
   union select tutor_id as recipient,prjtg_id from pro)
-select snummer, email1 as email, email2,
-       roepnaam ||' '||coalesce(tussenvoegsel||' ','')||achternaam as name,roepnaam as firstname,
+select distinct snummer, email1 as email, email2,
+       roepnaam ||' '||coalesce(tussenvoegsel||' ','')||achternaam as name,roepnaam,
        afko,description,milestone,assessment_due as due,milestone_name
-  from rec  join pro using(prjtg_id) join student_email on(recipient=snummer) where snummer in ({$mailset})
+  from rec  join pro using(prjtg_id) join student_email on(recipient=snummer) where snummer in (3162869,879417)
 SQL;
+
     $formMailer = new FormMailer($dbConn, $formsubject, $mailbody, $peer_id);
     $formMailer->mailWithData($mailerQuery);
 }
