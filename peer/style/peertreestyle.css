@@ -120,6 +120,7 @@
     }
     tr.even {background:rgba(80,80,80,0.2);}
     tr.odd {background:rgba(224,224,255,0.2);}
+    
     a:active {color: black; text-decoration: none; 
               position: relative; top:1px;left: 1px;}
     .navtop > a:link, 
