@@ -79,7 +79,7 @@ if (hasCap(CAP_SYSTEM)) {
     $tutor_select = " and (tutor='$tutor' or tutor_owner='$tutor') ";
 }
 
-ob_start();
+//ob_start();
 
 $prjSel->setWhere("assessment_due <now() and pm.prj_milestone_open=true");
 $prj_id_selector = $prjSel->getWidget();
@@ -157,4 +157,3 @@ $page->addHeadText(
 ');
 
 $page->show();
-?>
