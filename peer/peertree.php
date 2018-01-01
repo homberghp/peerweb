@@ -58,6 +58,8 @@ require_once'treebuilder.php';
       <a href='http://www.cacert.org' title='free ssl ceritificates' 
          target='mainframe'><img align='bottom' src='images/small-ssl-security.png' border='0' alt='ca cert free certificate'/></a>
     </div>
+        <hr/>
+        <?=phpversion()?>
     </div>
   </body> 
 </html>
