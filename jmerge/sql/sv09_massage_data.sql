@@ -26,4 +26,7 @@ update sv09_ingeschrevenen set land='Verenigde Staten van Amerika'  where land='
 update sv09_ingeschrevenen set geboorteland='Republiek Moldavië'  where geboorteland='Moldavië';
 update sv09_ingeschrevenen set land='Republiek Moldavië'  where land='Moldavië';
 
+update sv09_ingeschrevenen set geboorteland='Somalia'  where geboorteland='Somalië';
+update sv09_ingeschrevenen set land='Somalia'  where land='Somalië';
+
 commit;
