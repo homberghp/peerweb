@@ -73,7 +73,8 @@ function mkpasswordmail( $email,$logincode,$roepnaam,$tussenvoegsel,$achternaam,
   fwrite($handle,$makemailcmd."\n");
   fclose($handle);
   //  $result = @`$makemailcmd`;
-  mail_attachment($pdffilename,$texoutdir,$email,'peerweb@fontysvenlo.org','Peerweb service','peerweb authentication',"authentication data in attachement for $root_url using database $db_name.");
+  mail_attachment($pdffilename,$texoutdir,$email,'peerweb@fontysvenlo.org','Peerweb service','peerweb@fontysvenlo.org'
+                  ,'peerweb authentication',"authentication data in attachement for $root_url using database $db_name.");
   $cpassword = password_hash($password,PASSWORD_BCRYPT);
   $sql ="begin work;\n".
       "update passwd set password ='{$cpassword}' where userid='$logincode';\n".
