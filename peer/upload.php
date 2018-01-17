@@ -10,7 +10,7 @@ require_once 'TemplateWith.php';
 $doctype = 0;
 $version_limit = 2;
 $url = $PHP_SELF;
-$filesizelimit = 10000000;
+$filesizelimit = 25*1024*1024;
 $prj_id = 1;
 $milestone = 1;
 $prjm_id = 0;
@@ -204,7 +204,7 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
         }
     } else {
         $pp['uploadMessage'] = "<span style='color:red;font-weight:bold;'>Upload failed, "
-                . "possibly empty file ($user_upload_path) OR Version limit (current version limit is $version_limit) exceeded, file not uploaded</span><br/>\n";
+                . "{$_POST['doctype']} possibly empty file ($user_upload_path) OR Version limit (current version limit is $version_limit) exceeded, file not uploaded</span><br/>\n";
     }
 }
 //$dbConn->log("2 prj_id=$prj_id, milestone=$milestone\n");
