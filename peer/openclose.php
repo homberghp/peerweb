@@ -72,12 +72,12 @@ if (isSet($_POST['formsubject'])) {
     $formsubject = $SESSION['formsubject'];
 }
 
-$substitutions='{$email1}, {$email2}, {$roepnaam}, {$name},{$afko}, {$description}, {$milestone}, {$assessment_due}, and {$milestone_name}' ;
+$substitutions='{$email1}, {$email2}, {$roepnaam}, {$name},{$afko}, {$description}, {$milestone}, {$assessment_due}, {$prjm_id}, and {$milestone_name}' ;
 if (isSet($_POST['invite'])) {
 
     $mailerQuery = "select email1 as email, email2,\n"
             . " roepnaam ||' '||coalesce(tussenvoegsel||' ','')||achternaam as name,roepnaam,\n"
-            . " afko,description,milestone,assessment_due as due,milestone_name \n"
+            . " prjm_id,afko,description,milestone,assessment_due as due,milestone_name \n"
             . "  from prj_grp join all_prj_tutor using(prjtg_id) \n"
             . " join student using(snummer) \n"
             . " left join alt_email using(snummer) where prjm_id=$prjm_id and prj_grp_open=true";
@@ -105,4 +105,4 @@ if ($template_text === false) {
 }
 $page->addHtmlFragment('templates/tinymce_include.html', $pp);
 $page->show();
-?>
+
