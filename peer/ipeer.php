@@ -200,7 +200,7 @@ SQL;
             }
             $q =
 <<<'SQL'
-select roepnaam,tussenvoegsel,achternaam,email1,email2
+select roepnaam,tussenvoegsel,achternaam,email1,email2,prjm_id 
 from student
 left join alt_email using(snummer)
 join prj_grp using (snummer)
