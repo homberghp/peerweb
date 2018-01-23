@@ -62,21 +62,28 @@ if (!$rs->EOF) {
 $mailbody .= $signature;
 
 if (isSet($_POST['mailbody'])) {
-    $mailbody = preg_replace('/"/', '\'', $_POST['mailbody']);
+    $SESSION['mailbody'] = $mailbody = $_POST['mailbody'];
+} else if (isSet($SESSION['mailbody'])) {
+    $mailbody = $_SESSION['mailbody'];
 }
-if (isSet($_POST['mailsubject'])) {
-    $mailsubject = $_POST['mailsubject'];
+if (isSet($_POST['formsubject'])) {
+    $SESSION['formsubject'] = $formsubject = $_POST['formsubject'];
+} else if (isSet($SESSION['formsubject'])) {
+    $formsubject = $SESSION['formsubject'];
 }
 
+$substitutions='{$email1}, {$email2}, {$roepnaam}, {$name},{$afko}, {$description}, {$milestone}, {$assessment_due}, and {$milestone_name}' ;
 if (isSet($_POST['invite'])) {
 
-    $sql = "select email1, email2,\n"
-            . " roepnaam ||' '||coalesce(tussenvoegsel,'')||' '||achternaam as name,\n"
+    $mailerQuery = "select email1 as email, email2,\n"
+            . " roepnaam ||' '||coalesce(tussenvoegsel||' ','')||achternaam as name,roepnaam,\n"
             . " afko,description,milestone,assessment_due as due,milestone_name \n"
             . "  from prj_grp join all_prj_tutor using(prjtg_id) \n"
             . " join student using(snummer) \n"
             . " left join alt_email using(snummer) where prjm_id=$prjm_id and prj_grp_open=true";
-    formMailer($dbConn, $sql, $mailsubject, $mailbody, $sender, $sender_name);
+    //formMailer($dbConn, $sql, $mailsubject, $mailbody, $sender, $sender_name);
+    $formMailer= new FormMailer($dbConn,$mailsubject,$mailbody,$peer_id);
+    $formMailer->mailWithData($mailerQuery);
 }
 
 $page = new PageContainer();
@@ -90,6 +97,7 @@ $page->addBodyComponent($nav);
 $templatefile = 'templates/openclose.html';
 $template_text = file_get_contents($templatefile, true);
 $text = '';
+$pp=array();
 if ($template_text === false) {
     $page->addBodyComponent(new Component("<strong>cannot read template file $templatefile</strong>"));
 } else {

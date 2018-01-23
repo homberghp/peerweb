@@ -15,8 +15,6 @@ $_SESSION['prj_id'] = $prj_id;
 $_SESSION['prjm_id'] = $prjm_id;
 $_SESSION['milestone'] = $milestone;
 
-ob_start();
-// get tutor email address
 $tutor = $_SESSION['tutor_code'];
 $tutor_id = $_SESSION['tutor_id'];
 $sql = "select email1 as email from tutor join student on(userid=snummer) where tutor='$tutor'";
@@ -27,7 +25,7 @@ if ($resultSet === false) {
 $replyto = $resultSet->fields['email'];
 $snmailto = array();
 $formsubject = 'Please fill in your peer assessment data for project {$afko}: {$description}';
-$templatefile = "templates/mailbodytemplate.html";
+$templatefile = "templates/duemailbodytemplate.html";
 $sqlsender = "select rtrim(email1) as sender,roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam as sender_name," .
         "coalesce(signature," .
         "'sent by the peerweb service on behalf of '||roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam)\n" .
@@ -45,21 +43,18 @@ $mailbody = file_get_contents($templatefile, true);
 $mailbody .=$signature;
 if (isSet($_POST['mailbody'])) {
     $mailbody = preg_replace('/"/', '\'', $_POST['mailbody']);
-    //    $dbConn->log($mailbody);
 }
 if (isSet($_POST['formsubject'])) {
     $formsubject = $_POST['formsubject'];
 }
 
-
 if (isSet($_POST['snmailto']) && isSet($_POST['domail'])) {
-
     $snmailto = $_POST['snmailto'];
     $mailset = '\'' . implode("','", $snmailto) . '\'';
 
     $sql = "select distinct email1,email2, tutor_email, \n"
             . "s.roepnaam ||' '||coalesce(s.tussenvoegsel,'')||' '||s.achternaam as name\n"
-            . ", afko, description,milestone,assessment_due as due \n"
+            . ", afko, description,milestone,assessment_due as due,milestone_name \n"
             . " from prj_grp pg \n"
             . " join student s on (s.snummer=pg.snummer) \n"
             . " join prj_tutor pt on(pt.prjtg_id=pg.prjtg_id) \n"
@@ -70,20 +65,21 @@ if (isSet($_POST['snmailto']) && isSet($_POST['domail'])) {
             . " left join alt_email aem on (s.snummer=aem.snummer)\n"
             . "where s.snummer in ($mailset) and pm.prjm_id=$prjm_id";
     $dbConn->log($sql);
-    formMailer($dbConn, $sql, $formsubject, $mailbody, $sender, $sender_name);
+    //formMailer($dbConn, $sql, $formsubject, $mailbody, $sender, $sender_name);
+    $formMailer = new FormMailer($dbConn, $formsubject, $mailbody, $peer_id);
+    $formMailer->mailWithData($sql);
 }
 $page_opening = "These students are overdue with filling in their peer assessment forms.";
 $nav = new Navigation(array(), basename($PHP_SELF), $page_opening);
 $page = new PageContainer();
 $page->addBodyComponent($nav);
-ob_end_clean();
 if (hasCap(CAP_SYSTEM)) {
     $tutor_select = "";
 } else {
     $tutor_select = " and (tutor='$tutor' or tutor_owner='$tutor') ";
 }
 
-ob_start();
+//ob_start();
 
 $prjSel->setWhere("assessment_due <now() and pm.prj_milestone_open=true");
 $prj_id_selector = $prjSel->getWidget();
@@ -131,20 +127,7 @@ $sql = $sqlhead . " from  \n"
         . "where prjm_id=$prjm_id"
         . " and snummer in" . $sqllate . "\n"
         . " order by afko,grp_num,achternaam,roepnaam";
-echo "<div>\n";
-?><table>
-    <tr>
-        <td>To mail to (almost) all students, select <input type='hidden' name='peerdata' value='prj_id_milestone'/>
-            <button name='checkAll' type='button' onclick='javascript:checkThem("snmailto[]")'>Select All</button></td>
-
-        <td> To mail to a few choose 
-            <button name='checkNone' type='button' onclick='javascript:unCheckThem("snmailto[]")'>Select None</button></td>
-    </tr>
-</table>
-<?php
-queryToTableChecked($dbConn, $sql, true, 2, new RainBow(0x46B4B4, 64, 32, 0), 3, 'snmailto[]', $snmailto);
-echo "</div>\n";
-$selecttable = ob_get_clean();
+$dueTable=getQueryToTableChecked($dbConn, $sql, true, 2, new RainBow(0x46B4B4, 64, 32, 0), 3, 'snmailto[]', $snmailto);
 $templatefile = 'templates/dueassessment.html';
 $template_text = file_get_contents($templatefile, true);
 if ($template_text === false) {
@@ -171,8 +154,6 @@ $page->addHeadText(
       }
 }
 </script>
-
 ');
 
 $page->show();
-?>

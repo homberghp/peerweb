@@ -37,8 +37,8 @@ if (isSet($resultSet->fields['email2'])) {
     $email2 = '';
 
 $mailto = array();
-$formsubject = 'Hello world';
-$mailbody = 'This is a test mail \u2035<br/>' . $signature;
+$formsubject = 'ref: project {$afko}, {$description}';
+$mailbody = 'Dear {$firstname},<br/>This is a test mail.<br/>' . $signature;
 $afko = $description = '';
 if (isSet($_POST['mailbody'])) {
     $SESSION['mailbody'] = $mailbody = $_POST['mailbody'];
@@ -60,8 +60,16 @@ if (isSet($_POST['mailto'])) {
     //    print_r($mailto);
     $toAddress = '';
     $mailset = '\'' . implode("','", $mailto) . '\'';
-    $mailerQuery = "select snummer,roepnaam||' '||coalesce(tussenvoegsel||' ','')||achternaam "
-            . " as name, roepnaam as firstname, email1 as email from student where snummer in ({$mailset})";
+  $mailerQuery = <<<"SQL"
+          with pro as (select * from all_prj_tutor where prjm_id=861),
+  rec as (select snummer as recipient,prjtg_id from prj_grp join pro using(prjtg_id)
+  union select tutor_id as recipient,prjtg_id from pro)
+select distinct snummer, email1 as email, email2,
+       roepnaam ||' '||coalesce(tussenvoegsel||' ','')||achternaam as name,roepnaam,
+       afko,description,milestone,assessment_due as due,milestone_name
+  from rec  join pro using(prjtg_id) join student_email on(recipient=snummer) where snummer in (3162869,879417)
+SQL;
+
     $formMailer = new FormMailer($dbConn, $formsubject, $mailbody, $peer_id);
     $formMailer->mailWithData($mailerQuery);
 }

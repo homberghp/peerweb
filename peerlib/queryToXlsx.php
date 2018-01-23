@@ -24,8 +24,8 @@ class XLSWriter {
     private $description = "Class list extracted from peerweb, generated using PHPExcel student_class by Maarten Balliauw.  http://phpexcel.codeplex.com/";
     private $keywords = "peerweb fontys venlo informatica php";
     private $catagory = "class list";
-    private $linkUrl = 'https://www.fontysvenlo.org/peerweb';
-    private $linkText = 'https://www.fontysvenlo.org/peerweb';
+    private $linkUrl = 'https://peerweb.fontysvenlo.org';
+    private $linkText = 'https://peerweb.fontysvenlo.org';
     private $excelFormat = '';
     private $mimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
     private $filename = "excel.xlsx";

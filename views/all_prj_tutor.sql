@@ -1,9 +1,10 @@
+begin work;
 --
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.3
--- Dumped by pg_dump version 9.6.3
+-- Dumped from database version 10.1
+-- Dumped by pg_dump version 10.1
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -19,8 +20,8 @@ SET search_path = public, pg_catalog;
 --
 -- Name: all_prj_tutor; Type: VIEW; Schema: public; Owner: hom
 --
-
-CREATE VIEW all_prj_tutor AS
+drop view if exists all_prj_tutor;
+CREATE or replace VIEW all_prj_tutor AS
  SELECT prj_tutor.prjtg_id,
     prj_milestone.prj_id,
     prj_milestone.prjm_id,
@@ -36,8 +37,8 @@ CREATE VIEW all_prj_tutor AS
     prj_milestone.weight,
     prj_milestone.milestone_name,
     prj_milestone.has_assessment,
-    project.afko,
-    project.description,
+    trim(project.afko) as afko,
+    trim(project.description) as description,
     project.year,
     tt.tutor AS tutor_owner,
     project.comment,
@@ -79,3 +80,4 @@ GRANT SELECT,REFERENCES ON TABLE all_prj_tutor TO wwwrun;
 -- PostgreSQL database dump complete
 --
 
+commit;

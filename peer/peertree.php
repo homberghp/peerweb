@@ -24,7 +24,7 @@ require_once'treebuilder.php';
     <!-- some basic css properties to make it look ok -->
     <link href="<?php echo TREEVIEW_SOURCE; ?>css/style.css" rel="stylesheet" type="text/css"/>
   </head>
-  <body class='<?= BODY_CLASS ?>' style='<?=BODY_BACKGROUND?>'>
+  <body class='<?= BODY_CLASS ?>' style='<?=BODY_BACKGROUND?>; padding:0;margin:0;z-index:-1'>
     <?php
 //IMPORTANT! To be able to see the changes you have made to the code you have to clean the session.
 //(By uncomment the line below during one page load). 
@@ -58,6 +58,9 @@ require_once'treebuilder.php';
       <a href='http://www.cacert.org' title='free ssl ceritificates' 
          target='mainframe'><img align='bottom' src='images/small-ssl-security.png' border='0' alt='ca cert free certificate'/></a>
     </div>
+        <hr/><div style='text-align:center' >
+        <?=phpversion()?><br/><?=$_SERVER['SERVER_SOFTWARE']?>
+	</div>
     </div>
   </body> 
 </html>
