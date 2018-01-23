@@ -62,12 +62,16 @@ if (!$rs->EOF) {
 $mailbody .= $signature;
 
 if (isSet($_POST['mailbody'])) {
-//    $mailbody = preg_replace('/"/', '\'', $_POST['mailbody']);
-    $mailbody = bless($_POST['mailbody']);
+    $SESSION['mailbody'] = $mailbody = $_POST['mailbody'];
+} else if (isSet($SESSION['mailbody'])) {
+    $mailbody = $_SESSION['mailbody'];
 }
-if (isSet($_POST['mailsubject'])) {
-    $mailsubject = $_POST['mailsubject'];
+if (isSet($_POST['formsubject'])) {
+    $SESSION['formsubject'] = $formsubject = $_POST['formsubject'];
+} else if (isSet($SESSION['formsubject'])) {
+    $formsubject = $SESSION['formsubject'];
 }
+
 $substitutions='{$email1}, {$email2}, {$roepnaam}, {$name},{$afko}, {$description}, {$milestone}, {$assessment_due}, and {$milestone_name}' ;
 if (isSet($_POST['invite'])) {
 
@@ -93,6 +97,7 @@ $page->addBodyComponent($nav);
 $templatefile = 'templates/openclose.html';
 $template_text = file_get_contents($templatefile, true);
 $text = '';
+$pp=array();
 if ($template_text === false) {
     $page->addBodyComponent(new Component("<strong>cannot read template file $templatefile</strong>"));
 } else {

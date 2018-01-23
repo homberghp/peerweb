@@ -7,7 +7,8 @@ require_once "{$etc_dir}/settings.php";
 $rubberbase = "{$site_home}/rubberreports";
 $site_dir = $site_home . '/peer'; // the dir on the server
 ini_set('error_reporting', E_ALL);
-$include_path = ini_get('include_path');
+ini_set('display_errors','On');
+    $include_path = ini_get('include_path');
 $include_path = $site_home . '/peerlib:' . $include_path . ':/usr/share/php/PHPExcel/Classes';
 $include_path = ini_set('include_path', $include_path);
 $subversionscriptdir = "{$site_home}/subversion";
