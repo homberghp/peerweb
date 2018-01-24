@@ -205,7 +205,7 @@ if ($grp_open && isSet($_POST['peerdata'])) {
 	      "Alle studenten van groep $grp_num in project $afko ($description) hebben ".
 	      "hun beoordeling ingegeven.\n".
 	      "Je kunt de gegevens bekijken op de bekende plaats ".
-	      "(https://www.fontysvenlo.org/peerweb/iresult.php) inzien.\n".
+	      "(https://peerweb.fontysvenlo.org/iresult.php) inzien.\n".
 	      "---\nMet vriendelijke groet,\nHet peerassessment systeem";
 	    $headers = "Reply-To: hom@fontysvenlo.org\n";
 	    dopeermail($to,$subject,$body,$headers,$altemail);
