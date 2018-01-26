@@ -1,4 +1,5 @@
 <?php
+
 include_once('peerutils.php');
 requireCap(CAP_TUTOR);
 include_once('navigation2.php');
@@ -16,7 +17,7 @@ $_SESSION['prjm_id'] = $prjm_id;
 $_SESSION['milestone'] = $milestone;
 
 $tutor = $_SESSION['tutor_code'];
-$tutor_id = $_SESSION['tutor_id'];
+//$tutor_id = $_SESSION['tutor_id'];
 $sql = "select email1 as email from tutor join student on(userid=snummer) where tutor='$tutor'";
 $resultSet = $dbConn->Execute($sql);
 if ($resultSet === false) {
@@ -40,7 +41,7 @@ if (!$rs->EOF) {
 }
 
 $mailbody = file_get_contents($templatefile, true);
-$mailbody .=$signature;
+$mailbody .= $signature;
 if (isSet($_POST['mailbody'])) {
     $mailbody = preg_replace('/"/', '\'', $_POST['mailbody']);
 }
@@ -51,23 +52,27 @@ if (isSet($_POST['formsubject'])) {
 if (isSet($_POST['snmailto']) && isSet($_POST['domail'])) {
     $snmailto = $_POST['snmailto'];
     $mailset = '\'' . implode("','", $snmailto) . '\'';
-
-    $sql = "select distinct email1,email2, tutor_email, \n"
-            . "s.roepnaam ||' '||coalesce(s.tussenvoegsel,'')||' '||s.achternaam as name\n"
-            . ", afko, description,milestone,assessment_due as due,milestone_name \n"
-            . " from prj_grp pg \n"
-            . " join student s on (s.snummer=pg.snummer) \n"
-            . " join prj_tutor pt on(pt.prjtg_id=pg.prjtg_id) \n"
-            . " join tutor t on(userid=tutor_id) \n"
-            . " join prj_milestone pm on(pt.prjm_id=pm.prjm_id) \n"
-            . " join project p on (pm.prj_id=p.prj_id)\n"
-            . " join tutor_data td on (pt.tutor_id=td.tutor_id)"
-            . " left join alt_email aem on (s.snummer=aem.snummer)\n"
-            . "where s.snummer in ($mailset) and pm.prjm_id=$prjm_id";
-    $dbConn->log($sql);
+    $paramtext = setToParamList($snmailto, 2);
+    $sql = <<<"SQL"
+select distinct email1 as email, tutor_email,s.roepnaam as firstname,
+    s.roepnaam ||' '||coalesce(s.tussenvoegsel,'')||' '||s.achternaam as name,
+    trim(afko) as afko, trim(description) as description,milestone,assessment_due as due,milestone_name 
+    from prj_grp pg 
+    join student s on (s.snummer=pg.snummer)
+    join prj_tutor pt on(pt.prjtg_id=pg.prjtg_id)
+    join tutor t on(userid=tutor_id)
+    join prj_milestone pm on(pt.prjm_id=pm.prjm_id)
+    join project p on (pm.prj_id=p.prj_id)
+    join tutor_data td on (pt.tutor_id=td.tutor_id)
+    left join alt_email aem on (s.snummer=aem.snummer)
+where  pm.prjm_id=\$1 and s.snummer in ($paramtext)
+SQL;
+    //$dbConn->log($sql);
     //formMailer($dbConn, $sql, $formsubject, $mailbody, $sender, $sender_name);
     $formMailer = new FormMailer($dbConn, $formsubject, $mailbody, $peer_id);
-    $formMailer->mailWithData($sql);
+    $params = [$prjm_id];
+    $params = array_merge($params, $snmailto);
+    $formMailer->mailWithData($sql,$params);
 }
 $page_opening = "These students are overdue with filling in their peer assessment forms.";
 $nav = new Navigation(array(), basename($PHP_SELF), $page_opening);
@@ -127,9 +132,10 @@ $sql = $sqlhead . " from  \n"
         . "where prjm_id=$prjm_id"
         . " and snummer in" . $sqllate . "\n"
         . " order by afko,grp_num,achternaam,roepnaam";
-$dueTable=getQueryToTableChecked($dbConn, $sql, true, 2, new RainBow(0x46B4B4, 64, 32, 0), 3, 'snmailto[]', $snmailto);
+$dueTable = getQueryToTableChecked($dbConn, $sql, true, 2, new RainBow(0x46B4B4, 64, 32, 0), 3, 'snmailto[]', $snmailto);
 $templatefile = 'templates/dueassessment.html';
 $template_text = file_get_contents($templatefile, true);
+$pp=[];
 if ($template_text === false) {
     $page->addText("<strong>cannot read template file $templatefile</strong>");
 } else {

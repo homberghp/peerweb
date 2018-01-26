@@ -76,14 +76,14 @@ $substitutions='{$email1}, {$email2}, {$roepnaam}, {$name},{$afko}, {$descriptio
 if (isSet($_POST['invite'])) {
 
     $mailerQuery = "select email1 as email, email2,\n"
-            . " roepnaam ||' '||coalesce(tussenvoegsel||' ','')||achternaam as name,roepnaam,\n"
-            . " prjm_id,afko,description,milestone,assessment_due as due,milestone_name \n"
+            . " roepnaam ||' '||coalesce(tussenvoegsel||' ','')||achternaam as name,roepnaam as firstname,\n"
+            . " prjm_id,trim(afko) as afko,trim(description) as description,milestone,assessment_due as due,milestone_name \n"
             . "  from prj_grp join all_prj_tutor using(prjtg_id) \n"
             . " join student using(snummer) \n"
-            . " left join alt_email using(snummer) where prjm_id=$prjm_id and prj_grp_open=true";
+            . " left join alt_email using(snummer) where prjm_id =\$1 and prj_grp_open=true";
     //formMailer($dbConn, $sql, $mailsubject, $mailbody, $sender, $sender_name);
     $formMailer= new FormMailer($dbConn,$mailsubject,$mailbody,$peer_id);
-    $formMailer->mailWithData($mailerQuery);
+    $formMailer->mailWithData($mailerQuery,[$prjm_id]);
 }
 
 $page = new PageContainer();
