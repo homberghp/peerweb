@@ -59,19 +59,24 @@ if (isSet($_POST['mailto'])) {
     $mailto = $_POST['mailto'];
     //    print_r($mailto);
     $toAddress = '';
-    $mailset = '\'' . implode("','", $mailto) . '\'';
-  $mailerQuery = <<<"SQL"
-          with pro as (select * from all_prj_tutor where prjm_id=861),
+    //$mailset = '\'' . implode("','", $mailto) . '\'';
+    $params = [];
+    $params[] = $prjm_id;
+    $params = array_merge($params, $mailto);
+    $paramtext = setToParamList($mailto, 2);
+
+    // in the query below we have one constructed parameter, paramtext
+    $mailerQuery = <<<"SQL"
+with pro as (select * from all_prj_tutor where prjm_id=\$1),
   rec as (select snummer as recipient,prjtg_id from prj_grp join pro using(prjtg_id)
   union select tutor_id as recipient,prjtg_id from pro)
 select distinct snummer, email1 as email, email2,
-       roepnaam ||' '||coalesce(tussenvoegsel||' ','')||achternaam as name,roepnaam,
-       afko,description,milestone,assessment_due as due,milestone_name
-  from rec  join pro using(prjtg_id) join student_email on(recipient=snummer) where snummer in (3162869,879417)
+       roepnaam ||' '||coalesce(tussenvoegsel||' ','')||achternaam as name,roepnaam as firstname,
+       trim(afko)as afko,trim(description)as description,milestone,assessment_due as due,milestone_name
+  from rec  join pro using(prjtg_id) join student_email on(recipient=snummer) where snummer in ({$paramtext})
 SQL;
-
     $formMailer = new FormMailer($dbConn, $formsubject, $mailbody, $peer_id);
-    $formMailer->mailWithData($mailerQuery);
+    $formMailer->mailWithData($mailerQuery, $params);
 }
 
 $prjSel->setJoin('milestone_grp using (prj_id,milestone)');

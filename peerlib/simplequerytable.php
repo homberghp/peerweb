@@ -3,6 +3,7 @@
 function simpleTableString($dbConn, $query, $tabledef = "<table summary='simple table'>") {
     global $ADODB_FETCH_MODE;
     $result = '';
+    $row = 1;
     $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
     $coltypes = array();
     $columnNames = array();
@@ -48,8 +49,10 @@ function simpleTableString($dbConn, $query, $tabledef = "<table summary='simple 
                 case 'float':
                 case 'real';
                 case 'N':
-                    $tdclass .=' num';
-                    $sums[$i] +=$val;
+                    $tdclass .= ' num';
+                    if ($val !== '') {
+                        $sums[$i] += $val;
+                    }
                     break;
                 default:
                     break;
@@ -57,6 +60,7 @@ function simpleTableString($dbConn, $query, $tabledef = "<table summary='simple 
             $result .= "\t\t<td class='$tdclass'>" . $val . "</td>\n";
         }
         $result .= "\t</tr>\n";
+        $row++;
         $resultSet->MoveNext();
     }
     $result .= "</tbody>\n</table>\n";

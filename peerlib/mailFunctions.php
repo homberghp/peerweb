@@ -51,6 +51,20 @@ function formMailer($dbConn, $sql, $fsubject, $body, $sender, $sender_name) {
 }
 
 /**
+ * Create a prepared statement parameter list from a set
+ * @param type $set
+ */
+function setToParamList($set, $firstnumber = 1) {
+    $paramset = [];
+    $pc = $firstnumber;
+    for ($i = 0; $i < count($set); $i++) {
+        $paramset[] = '$' . "{$pc}";
+        $pc++;
+    }
+    return join(",", $paramset);
+}
+
+/**
  * Create a form, process data.
  */
 class FormMailer {
@@ -70,8 +84,8 @@ class FormMailer {
      */
     public function __construct($dbConn, $subject, $bodytemplate, $senderid) {
         $this->dbConn = $dbConn;
-        $this->subject = $subject;// preg_replace("/\"/", "'", $subject);
-        $this->bodytemplate = $bodytemplate;//preg_replace("/\"/", "'", $bodytemplate);
+        $this->subject = $subject; // preg_replace("/\"/", "'", $subject);
+        $this->bodytemplate = $bodytemplate; //preg_replace("/\"/", "'", $bodytemplate);
         $this->senderid = $senderid;
     }
 
@@ -79,13 +93,16 @@ class FormMailer {
      * Send the mail with data from a result. The resultSet must contain at 
      * least one column named 'email' and one called name, containing the 
      * full name of the recipient.
-     * @param type $resultSet of a successful query.
+     * @param type query.
+     * @param argments to prepared statement.
      */
-    public function mailWithData($query) {
+    public function mailWithData($query, $params = []) {
         $recipients = '';
         $sql = "select roepnaam||' '||coalesce(tussenvoegsel||' ','')||achternaam "
                 . " as sendername, email1 as sendermail from student where snummer=$this->senderid";
-        //echo "{$query}<br/>{$sql}</br>";
+//        echo "<pre>[{$query}]</pre><br/>";
+//        echo "<pre> params=".print_r($params, true)."</pre>";
+//        echo "<br/>";
 
         $resultSet = $this->dbConn->Execute($sql);
         if (!$resultSet) {
@@ -93,10 +110,11 @@ class FormMailer {
             return;
         }
         extract($resultSet->fields);
-        $resultSet = $this->dbConn->Execute($query);
+        $resultSet = $this->dbConn->Prepare($query)->execute($params);
 
         while (!$resultSet->EOF) {
             extract($resultSet->fields);
+
             $recipients .= "{$name} ({$email})\n";
             $headers = htmlmailheaders($sendermail, $sendername, $email);
             //print_r($headers);
