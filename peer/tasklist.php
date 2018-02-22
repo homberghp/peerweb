@@ -142,7 +142,7 @@ if (isSet($_REQUEST['bsubmit']) && isSet($_REQUEST['participant']) && isProjectS
                 $mark = substr($mark, 0, 1);
 	  }
 	  if (!$grade) {
-                $mark = 'null';
+                $grade = 'null';
 	  }
 	  if (!$comment)
 	    $commentInsert = 'null';
@@ -170,7 +170,7 @@ if (isSet($_REQUEST['bsubmit']) && isSet($_REQUEST['participant']) && isProjectS
 }
 
 
-$sql3 = "select task_id as value,name||': '||description as name from project_task where prj_id=$prj_id order by task_number";
+$sql3 = "select task_id as value,name||'('||task_id||')'||': '||description as name from project_task where prj_id=$prj_id order by task_number";
 $taskSel = new Selector($dbConn, 'task_id', $sql3, $task_id);
 $task_id_selector = $taskSel->getSelector();
 $participant = array();
