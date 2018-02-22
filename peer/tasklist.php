@@ -81,8 +81,7 @@ $_SESSION['prjm_id'] = $prjm_id;
 $_SESSION['milestone'] = $milestone;
 
 if (isSet($_REQUEST['task_id'])) {
-    $_SESSION['task_id'] =
-            $task_id = validate($_REQUEST['task_id'], 'integer', $task_id);
+    $_SESSION['task_id'] = $task_id = validate($_REQUEST['task_id'], 'integer', $task_id);
 } else if (!isSet($_SESSION['task_id'])) {
     // get last defined activity for project milestone
     $sql = "select max(task_id) as task_id from project_task where prj_id=$prj_id";
@@ -126,47 +125,25 @@ if (isSet($_REQUEST['bsubmit']) && isSet($_REQUEST['participant']) && isProjectS
         $map[$sn]['comment'] = stripslashes($comment);
         $rs->moveNext();
     }
-    $sql = ''// "begin work;" // delete from project_task_completed where task_id=$task_id;\n"
-            . "insert into project_task_completed (task_id,snummer,mark,grade,comment,trans_id) values \n";
-    $continue = "";
-    $sqlTail = '';
+//    $sql = ''// "begin work;" // delete from project_task_completed where task_id=$task_id;\n"
+//            . "insert into project_task_completed (task_id,snummer,mark,grade,comment,trans_id) values \n";
+
+    $sql = <<<'SQL'
+insert into project_task_completed (task_id,snummer,mark,grade,comment,trans_id) 
+    values($1,$2,$3,$4,$5,$6);
+    
+SQL;
+    $stmt = $dbConn->Prepare($sql);
     for ($i = 0; $i < count($_REQUEST['participant']); $i++) {
         $participant = $_REQUEST['participant'][$i];
         $mark = trim($_REQUEST['mark'][$i]);
         $grade = trim($_REQUEST['grade'][$i]);
+        if ($grade ==='') $grade=null;
         $comment = trim($_REQUEST['comment'][$i]);
-        if ($mark || $comment) {
-	  if (!$mark) {
-                $mark = 'null';
-	  } else {
-                $mark = substr($mark, 0, 1);
-	  }
-	  if (!$grade) {
-                $grade = 'null';
-	  }
-	  if (!$comment)
-	    $commentInsert = 'null';
-	  else
-	    $commentInsert = "'" . pg_escape_string($comment) . "'";
-	  $sn = 's' . $participant;
-	  if (($mark != $map[$sn]['mark']) || ($comment != $map[$sn]['comment']) || $grade != $map[$sn]['grade']) {
-	    $sqlTail .=$continue . "($task_id,$participant,'$mark',$grade,$commentInsert,$trans_id)";
-	    $continue = ",\n";
-	  }
-        }
+        $stmt->execute(array($task_id, $participant, $mark, $grade, $comment, $trans_id));
     }
-    if ($sqlTail != '') {
-        $sql .=$sqlTail;
-        $dbConn->log($sql);
-        $rts = $dbConn->Execute($sql);
-        if ($rts === false) {
-            $dbConn->Execute("rollback;");
-        } else {
-            $dbConn->transactionEnd();
-        }
-    } else {
-        $dbConn->transactionEnd();
-    }
+
+    $dbConn->transactionEnd();
 }
 
 
@@ -219,8 +196,8 @@ $nav->show();
         <form method="post" name="activity" action="<?= $PHP_SELF; ?>">
             Select task: <input type='hidden' name='prjm_id' value='<?= $prjm_id ?>'/>
             <input type='hidden' name='task_id' value='<?= $task_id ?>'/>
-<?= $task_id_selector ?><input type='submit' name='sbm' value='Get'>
-<?= $taskTable ?>
+            <?= $task_id_selector ?><input type='submit' name='sbm' value='Get'>
+            <?= $taskTable ?>
             <input type='submit' name='bsubmit' value='submit'/>
         </form>
     </fieldset>
