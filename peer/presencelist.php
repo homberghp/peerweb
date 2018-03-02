@@ -112,9 +112,10 @@ extract($_SESSION);
 
 $prjSel = new PrjMilestoneSelector2($dbConn, $peer_id, $prjm_id);
 $prjSel->setJoin(' all_project_scribe aps using(prj_id) ');
-$prjSel->setWhere(" {$peer_id} =aps.scribe ");
+$prjSel->setWhere(" {$peer_id} =aps.scribe and exists(select 1 from activity where prjm_id=pm.prjm_id)");
 extract($prjSel->getSelectedData());
 $_SESSION['prj_id'] = $prj_id;
+$_SESSION['act_id'] = $act_id;
 $_SESSION['prjm_id'] = $prjm_id;
 $_SESSION['milestone'] = $milestone;
 

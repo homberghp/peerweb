@@ -13,6 +13,7 @@ class ConfFileEditor {
     private $description = '<p>The file access rights or authorization file is stored in the root repos at svnroot/conf/authz. Here you can edit it using a html form.</p>';
     private $testStyle = '';
     private $client;
+    private $textName= 'text';
 
     function __construct($client, $template = 'templates/confeditor.html') {
         $this->client = $client;
@@ -30,7 +31,8 @@ class ConfFileEditor {
         $pp['editorName'] = $this->editorName;
         $pp['filename'] = $_SESSION['fileToEdit'];
         $mode = 'sh';
-        $extension = end(explode('.', $pp['filename']));
+        $parts=explode('.', $pp['filename']);
+        $extension = end($parts);
         switch ($extension) {
             case 'sql': $mode = 'pgsql';
                 break;

@@ -140,25 +140,27 @@ $pp['twigs'] = $twigs;
 $pp['new_repos_name']= '';//$new_repos_name;
 $groups = array();
 // get tutors and scribes
-$sql = "select distinct 'tutor' as alias,snummer from svn_tutor_snummer\n"
+$sql = "select snummer from svn_tutor_snummer\n"
         . " natural join prj_milestone where prjm_id=$prjm_id order by snummer";
 $resultSet = $dbConn->Execute($sql);
 if ($resultSet !== false) {
+    $groups['tutor']=[];
     while (!$resultSet->EOF) {
         extract($resultSet->fields);
-        $groups[$alias][] = $snummer;
+        $groups['tutor'][] = $snummer;
         $resultSet->moveNext();
     }
 }
 // get scribes
 $groups['auditor'] = '';
-$sql = "select distinct 'auditor' as alias,scribe as snummer \n"
+$sql = "select distinct scribe as snummer \n"
         . "from project_scribe where prj_id=$prj_id and scribe not in (select userid from tutor)";
 $resultSet = $dbConn->Execute($sql);
 if ($resultSet !== false) {
+    $groups['auditor']=[];
     while (!$resultSet->EOF) {
         extract($resultSet->fields);
-        $groups[$alias][] = $snummer;
+        $groups['auditor'][] = $snummer;
         $resultSet->moveNext();
     }
 }
