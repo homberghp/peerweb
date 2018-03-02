@@ -166,13 +166,17 @@ if ($resultSet !== false) {
 }
 // get students
 $sql = "select grp_name, snummer from prj_tutor \n"
-  ."join prj_grp using (prjtg_id)  "
+  ."left join prj_grp using (prjtg_id)  "
         . " where prjm_id=$prjm_id order by grp_name,snummer";
 $resultSet = $dbConn->Execute($sql);
 if ($resultSet !== false) {
     while (!$resultSet->EOF) {
         extract($resultSet->fields);
-        $groups[$grp_name][] = $snummer;
+        if (isSet($snummer)) {
+            $groups[$grp_name][] = $snummer;
+        } else{
+            $groups[$grp_name]=[];
+        }
         $resultSet->moveNext();
     }
 }
@@ -184,7 +188,7 @@ foreach ($groups as $grp => $list) {
         $grpStr = join(',', $list);
         $all[] = join(',',$list);
     } else {
-        $grpStr = '';
+        $grpStr = $grp;
     }
     $pp['grpLists'] .= "<span>$grp=$grpStr</span><br/>\n";
 }
