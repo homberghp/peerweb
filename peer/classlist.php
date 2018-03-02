@@ -16,7 +16,7 @@ if (isSet($_REQUEST['class_id'])) {
 extract($_SESSION);
 
 $classSelectorClass = new ClassSelectorClass($dbConn, $class_id);
-$oldClassSelector = $classSelectorClass->addConstraint('sort1 < 10 and student_count <>0')->getSelector();
+$oldClassSelector = $classSelectorClass->addConstraint('sort1 < 10 and student_count <>0')->setAutoSubmit(true)->getSelector();
 
 
 if (isSet($class_id)) {
@@ -64,7 +64,7 @@ $sqlhead = "select distinct '<a href=''student_admin.php?snummer='||snummer||'''
         "straat,huisnr,plaats,stick,phone_gsm,phone_home\n" .
         " from \n";
 $sql2 = $sqlhead . ' student_email s natural join portrait ' . $sqltail;
-$rainbow = new RainBow(STARTCOLOR, COLORINCREMENT_RED, COLORINCREMENT_GREEN, COLORINCREMENT_BLUE);
+
 $scripts = '<script type="text/javascript" src="js/jquery.js"></script>
     <script src="js/jquery.tablesorter.js"></script>
     <script type="text/javascript">                                         
