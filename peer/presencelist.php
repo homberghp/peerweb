@@ -200,13 +200,13 @@ $page_opening = "Presence list for students attending activities xyz";
 $nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $nav->show();
-$sql3 = "select datum||', '||' ('||act_id||', #'||coalesce(apc.count,0)||') '||act_type_descr||' '||rtrim(short)" .
+$sql3 = "select datum||'@'||start_time||', '||' ('||act_id||', #'||coalesce(apc.count,0)||') '||act_type_descr||' '||rtrim(short)" .
         "||'*'||part||': '||rtrim(description) as name, act_id as value," .
         "to_char(datum,'IYYY')||':'||milestone as namegrp\n" .
         " from activity join activity_type using(act_type) join prj_milestone using(prjm_id) ".
         "left join act_part_count apc using(act_id) \n\t" .
         " where prjm_id=$prjm_id\n" .
-        "order by namegrp desc,datum desc,part asc";
+        "order by namegrp desc,datum desc,start_time asc,part asc";
 $actSel = new Selector($dbConn, 'act_id', $sql3, $act_id);
 $act_id_selector = $actSel->getSelector();
 $participant = array();
