@@ -63,8 +63,8 @@ $sql = "select pt.grp_num, pt.prjtg_id, ga.long_name, ga.alias, ga.website, ga.p
 $inputColumns = array(
 //    '0' => array('type' => 'N', 'size' => '6'), // grpnum
     '1' => array('type' => 'H', 'size' => '6'), // prjtg_id
-    '2' => array('type' => 'T', 'size' => '15'), // long_name
-    '3' => array('type' => 'T', 'size' => '64'), // alias
+    '2' => array('type' => 'T', 'size' => '40'), // long_name
+    '3' => array('type' => 'T', 'size' => '15'), // alias
     '4' => array('type' => 'T', 'size' => '64'), // website
     '5' => array('type' => 'T', 'size' => '64'), // product_name
     '6' => array('type' => 'T', 'size' => '64'), // yt link
