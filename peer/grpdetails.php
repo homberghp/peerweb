@@ -25,7 +25,10 @@ if (isSet($_POST['submit'])) {
     if ($grps > 0) {
         $sql = <<<'SQL'
 insert into grp_alias (prjtg_id,alias,long_name,website,productname,youtube_link,youtube_icon_url)
-    values($1,$2,$3,$4,$5,$6,$7);
+    values($1,$2,$3,$4,$5,$6,$7)
+    on conflict(prjtg_id) do update set 
+    (alias,long_name,website,productname,youtube_link,youtube_icon_url)=
+    (EXCLUDED.alias,EXCLUDED.long_name,EXCLUDED.website,EXCLUDED.productname,EXCLUDED.youtube_link,EXCLUDED.youtube_icon_url);
 SQL;
         $dbConn->Execute("begin work;");
         try {
