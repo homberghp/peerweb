@@ -23,9 +23,9 @@ if (isSet($_POST['submit'])) {
     $sql = "begin work;\n"
             . "delete from grp_alias where prjtg_id in (select prjtg_id from prj_tutor where prjm_id={$prjm_id});\n";
     $grps = count($_POST['prjtg_id']);
-    echo "<pre>";
-    print_r($_POST);
-    echo "</pre>";
+    /* echo "<pre>"; */
+    /* print_r($_POST); */
+    /* echo "</pre>"; */
 
     for ($g = 0; $g < $grps; $g++) {
         $long_name = getOrNull($_POST, $g, 'long_name');
