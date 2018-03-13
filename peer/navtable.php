@@ -14,6 +14,7 @@ $tabInterestCount['lookupstudent'] = hasCap(CAP_LOOKUP_STUDENT) ? 1 : 0;
 $tabInterestCount['hunter'] = hasCap(CAP_JAAG) ? 1 : 0;
 $tabInterestCount['recruiter'] = hasCap(CAP_RECRUITER) ? 1 : 0;
 $tabInterestCount['system'] = hasCap(CAP_SYSTEM) ? 1 : 0;
+$tabInterestCount['tasktimer'] = hasCap(CAP_TASK_TIMER) ? 1 : 0;
 $tabInterestCount['menu_admin'] = hasCap(CAP_MENU_ADMIN) ? 1 : 0;
 $tabInterestCount['subversion'] = hasCap(CAP_SUBVERSION) ? 1 : 0;
 $tabInterestCount['student_admin'] = hasCap(CAP_STUDENT_ADMIN) ? 1 : 0;
@@ -1125,7 +1126,7 @@ $navtable = array(// index, defproject, citeria1,2, milestones
         ),
     ),
     array(
-        'interest' => 'system',
+        'interest' => 'tasktimer',
         'toplinktext' => 'Time and presence',
         'tooltip' => 'Time keeping and student presence',
         'menu_name' => 'personalpresence',
