@@ -32,7 +32,7 @@ if (isSet($class_id)) {
 
 $sqlhead = "select distinct snummer,"
         . "achternaam ,roepnaam, tussenvoegsel as tussenvoegsel, "
-        . "pcn,lang,gebdat as birth_date,t.tutor as slb,country as nation,rtrim(email1) as email1,rtrim(email2) as email2,\n"
+        . "pcn,lang,gebdat as birth_date,cohort,t.tutor as slb,country as nation,rtrim(email1) as email1,rtrim(email2) as email2,\n"
         . "studieplan_short as studieplan,sclass,hoofdgrp ,\n"
         . "straat,huisnr,plaats,stick,phone_gsm,phone_home\n"
         . " from \n";
