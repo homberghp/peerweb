@@ -59,18 +59,18 @@ $sqlhead = "select distinct '<a href=\"student_admin.php?snummer='||s.snummer||'
 
 $rainbow = new RainBow(STARTCOLOR, COLORINCREMENT_RED, COLORINCREMENT_GREEN, COLORINCREMENT_BLUE);
 
-$scripts = '<script type="text/javascript" src="js/jquery.js"></script>          
+$scripts = '<script type="text/javascript" src="js/jquery.js"></script>
     <script src="js/jquery.tablesorter.js"></script>
-    <script type="text/javascript">                                         
+    <script type="text/javascript">
       $(document).ready(function() {
       // do stuff when DOM is ready
-           $("#myTable").tablesorter({ }); 
+           $("#myTable").tablesorter({ });
       });
 
     </script>
     <link rel=\'stylesheet\' type=\'text/css\' href=\'' . SITEROOT . '/style/tablesorterstyle.css\'/>
 ';
-pagehead2('Get group tables'); //,$scripts);
+pagehead2('Get group tables',$scripts);
 $page_opening = "Group lists for project $afko $description <span style='font-size:8pt;'>prjm_id $prjm_id prj_id $prj_id milestone $milestone </span>";
 $nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
 $nav->setInterestMap($tabInterestCount);
@@ -82,8 +82,7 @@ $grpList = array();
 $resultSet = $dbConn->Execute($sqlhead . $sqltail);
 if ($resultSet === false) {
     $dbConn->log('failed wth' . $dbConn->ErrorMsg());
-}
-else
+} else {
     while (!$resultSet->EOF) {
         $email = $resultSet->fields["email1"];
         $alias = $resultSet->fields["alias"];
@@ -93,7 +92,18 @@ else
         $grpList[$grp][] = $email;
         $resultSet->moveNext();
     }
+}
 
+$scripts = '<script type="text/javascript" src="js/jquery.js"></script>
+    <script src="js/jquery.tablesorter.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+           $("#myTable").tablesorter({widgets: [\'zebra\']});
+      });
+
+    </script>
+    <link rel=\'stylesheet\' type=\'text/css\' href=\'' . SITEROOT . '/style/tablesorterstyle.css\'/>
+';
 $nav->show()
 ?>
 <div id='navmain' style='padding:1em;'>
@@ -102,12 +112,12 @@ $nav->show()
             <?= $prj_id_selector ?>
             <input type='submit' name='get' value='Get' />
             <?= $spreadSheetWidget ?>
-<?= $prjSel->getSelectionDetails() ?>
+            <?= $prjSel->getSelectionDetails() ?>
         </form>
     </fieldset>
     <a href='classtablecards.php?prjm_id=<?= $prjm_id ?>'>Project table cards</a>
     <div align='left'>
-<?= queryToTableChecked($dbConn, $sqlhead . $sqltail, true, 16, $rainbow, -1, '', ''); ?>
+        <?= queryToTableChecked($dbConn, $sqlhead . $sqltail, true, 16, $rainbow, -1, '', ''); ?>
     </div>
     <div align='left'>
         <table>
