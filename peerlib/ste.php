@@ -843,7 +843,7 @@ class SimpleTableEditor {
         $this->keyValues = $this->getKeyValues($_GET);
         /* pick up the _POST inputs such as the submit values */
         if (count($_POST) > 0) {
-                $_GET = array();// only one
+            $_GET = array(); // only one
             if (isSet($_POST['Clear'])) {
                 /*
                  * L E E G
