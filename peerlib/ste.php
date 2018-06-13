@@ -892,6 +892,9 @@ class SimpleTableEditor {
                      */
                     $this->doInsert();
                 } else if ($this->allowIUD && isSet($_POST['Update'])) {
+                    /*
+                     * U P D A T A
+                     */
                     $this->doUpdate();
                 } else if ($this->allowIUD && isSet($_POST['Delete'])) {
                     /*
