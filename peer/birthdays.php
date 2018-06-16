@@ -31,7 +31,7 @@ class BirthDaysToDay {
 	    $has_doc=isSet($has_doc)?'D':'';
 	    $has_assessment=isSet($has_assessment)?'A':'';
 	    $result .= "<tr>".
-		"<td title='$age, email $email2 $email1' style='font-weight:bold;'>$roepnaam $tussenvoegsel $achternaam</td>".
+		"<td style='font-weight:bold;'>$roepnaam $tussenvoegsel $achternaam</td>".
 		"<td >$sclass/$faculty_short</td>".
 		"</tr>\n";
 	    $resultSet->moveNext();

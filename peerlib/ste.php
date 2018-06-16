@@ -49,7 +49,7 @@ class SimpleTableEditor {
     /**
      * the constructor
      */
-    function __construct(&$dbConn, &$page, $allowIUD = true) {
+    function __construct( &$dbConn, &$page, $allowIUD = true ) {
         global $PHP_SELF;
         global $validator;
         $this->dbConn = $dbConn;
@@ -60,19 +60,19 @@ class SimpleTableEditor {
         // self redirect?
         $referer = $this->getRefererScript();
         //echo "referer={$referer}";
-        if (basename($PHP_SELF) == $referer) {// && isSet($_SESSION['searchQueryValues'])) {
+        if ( basename( $PHP_SELF ) == $referer ) {// && isSet($_SESSION['searchQueryValues'])) {
             //$this->searchQueryValues = $_SESSION['searchQueryValues'];
             //echo "<pre>ses[" . print_r($_SESSION['searchQueryValues'], true) . "]</pre>";
         } else {
-            unset($_SESSION['searchQueryValues']);
+            unset( $_SESSION[ 'searchQueryValues' ] );
         }
     }
 
     private function getRefererScript() {
-        $b = basename($_SERVER['HTTP_REFERER']);
-        $refererParts = preg_split('/\?/', $b);
-        if (count($refererParts)) {
-            return $referer = $refererParts[0];
+        $b = basename( $_SERVER[ 'HTTP_REFERER' ] );
+        $refererParts = preg_split( '/\?/', $b );
+        if ( count( $refererParts ) ) {
+            return $referer = $refererParts[ 0 ];
         } else {
             return '';
         }
@@ -81,8 +81,8 @@ class SimpleTableEditor {
     private $page;
     private $queryLog = '';
 
-    private function addLogQuery($l) {
-        if ($this->logQuery) {
+    private function addLogQuery( $l ) {
+        if ( $this->logQuery ) {
             $this->queryLog .= "<br/>\n" . $l;
         }
     }
@@ -91,7 +91,7 @@ class SimpleTableEditor {
         return $this->page;
     }
 
-    public function setPage($page) {
+    public function setPage( $page ) {
         $this->page = $page;
     }
 
@@ -125,7 +125,7 @@ class SimpleTableEditor {
      * Set the extra data join for list table generation.
      * @param type $lqe
      */
-    function setListQueryExtension($lqe) {
+    function setListQueryExtension( $lqe ) {
         $this->listQueryExtension = $lqe;
         return $this;
     }
@@ -138,8 +138,8 @@ class SimpleTableEditor {
      * @param type $s
      * @return this SimpleTableEditor
      */
-    public function setSubRel($s) {
-        if ($s !== '') {
+    public function setSubRel( $s ) {
+        if ( $s !== '' ) {
             $this->subRel = $s;
         }
         return $this;
@@ -150,8 +150,8 @@ class SimpleTableEditor {
      * @param array. Keys are left hand, values right hand column names $a
      * @return this SimpleTableEditor
      */
-    public function setSubRelJoinColumns($a) {
-        if (is_array($a)) {
+    public function setSubRelJoinColumns( $a ) {
+        if ( is_array( $a ) ) {
             $this->subRelJoinColumns = $a;
         }
         return $this;
@@ -160,9 +160,9 @@ class SimpleTableEditor {
     /**
      * @param $rel string: relation (table or view) name
      */
-    function setRelation($rel) {
-        $this->relation = strtolower($rel);
-        $this->searchQuery = new SearchQuery($this->dbConn, $this->relation);
+    function setRelation( $rel ) {
+        $this->relation = strtolower( $rel );
+        $this->searchQuery = new SearchQuery( $this->dbConn, $this->relation );
         return $this;
     }
 
@@ -176,7 +176,7 @@ class SimpleTableEditor {
 
     private $isTransactional = false;
 
-    public function setTransactional($t) {
+    public function setTransactional( $t ) {
         $this->isTransactional = $t;
         return $this;
     }
@@ -191,8 +191,8 @@ class SimpleTableEditor {
      * sets the supporting relation name
      * @param $rel string relation name
      */
-    function setSupportingRelation($rel) {
-        $this->supportingRelation = strtolower($rel);
+    function setSupportingRelation( $rel ) {
+        $this->supportingRelation = strtolower( $rel );
         return $this;
     }
 
@@ -207,7 +207,7 @@ class SimpleTableEditor {
      * @param $jl array of style left_column_name => right_column_name
      * which is used to left join the two tables
      */
-    function setSupportingJoinList($jl) {
+    function setSupportingJoinList( $jl ) {
         $this->supportingJoinList = $jl;
         return $this;
     }
@@ -223,8 +223,8 @@ class SimpleTableEditor {
      */
     private $menuName;
 
-    function setMenuName($mn) {
-        $this->menuName = strtolower($mn);
+    function setMenuName( $mn ) {
+        $this->menuName = strtolower( $mn );
         return $this;
     }
 
@@ -235,7 +235,7 @@ class SimpleTableEditor {
      */
     private $formTemplate;
 
-    function setFormTemplate($ft) {
+    function setFormTemplate( $ft ) {
         $this->formTemplate = $ft;
         return $this;
     }
@@ -246,13 +246,13 @@ class SimpleTableEditor {
      */
     private $listRowTemplate;
 
-    function setListRowTemplate($lrt) {
+    function setListRowTemplate( $lrt ) {
         $newList = array();
-        foreach ($lrt as $key => $value) {
-            if (is_numeric($key)) {
-                $newList[$value] = $value;
+        foreach ( $lrt as $key => $value ) {
+            if ( is_numeric( $key ) ) {
+                $newList[ $value ] = $value;
             } else {
-                $newList[$key] = $value;
+                $newList[ $key ] = $value;
             }
         }
         $this->listRowTemplate = $newList;
@@ -264,7 +264,7 @@ class SimpleTableEditor {
      */
     private $keyColumns;
 
-    function setKeyColumns($kc) {
+    function setKeyColumns( $kc ) {
         $this->keyColumns = $kc;
         return $this;
     }
@@ -274,7 +274,7 @@ class SimpleTableEditor {
      */
     private $nameExpression = '*';
 
-    public function setNameExpression($ne) {
+    public function setNameExpression( $ne ) {
         $this->nameExpression = $ne;
         return $this;
     }
@@ -284,16 +284,16 @@ class SimpleTableEditor {
      * @param $name string: the items name
      * @param $value database value (string or number or date etc)
      */
-    private function setValue($name, $value) {
-        if (isSet($this->menu)) {
-            $this->menu->setValue($name, $value);
+    private function setValue( $name, $value ) {
+        if ( isSet( $this->menu ) ) {
+            $this->menu->setValue( $name, $value );
         }
         return $this;
     }
 
     private $showQuery = false;
 
-    function setShowQuery($b) {
+    function setShowQuery( $b ) {
         $this->showQuery = $b;
         return $this;
     }
@@ -302,9 +302,9 @@ class SimpleTableEditor {
      * gets the value of a named menuitem
      * @param $name string: the items name
      */
-    function getValue($name) {
-        if (isSet($this->menu)) {
-            return $this->menu->getValue($name);
+    function getValue( $name ) {
+        if ( isSet( $this->menu ) ) {
+            return $this->menu->getValue( $name );
         }
         return NULL;
     }
@@ -314,7 +314,7 @@ class SimpleTableEditor {
      */
     private $orderList;
 
-    function setOrderList($ol) {
+    function setOrderList( $ol ) {
         $this->orderList = $ol;
         return $this;
     }
@@ -324,7 +324,7 @@ class SimpleTableEditor {
      */
     private $formAction;
 
-    function setFormAction($act) {
+    function setFormAction( $act ) {
         $this->formAction = $act;
         return $this;
     }
@@ -338,7 +338,7 @@ class SimpleTableEditor {
      * sets the buttonTemplate
      * @param buttonTemplate string filename of buttonTemplatefile.
      */
-    function setButtonTemplate($bt) {
+    function setButtonTemplate( $bt ) {
         $this->buttonTemplate = $bt;
         return $this;
     }
@@ -354,34 +354,34 @@ class SimpleTableEditor {
      * defaultButtons sets the default buttons
      */
     function setDefaultButtons() {
-        if ($this->allowIUD) {
-            $this->setButtonTemplate('templates/buttontemplate.html');
+        if ( $this->allowIUD ) {
+            $this->setButtonTemplate( 'templates/buttontemplate.html' );
             $butDefs = array(
-                array('name' => 'Clear', 'value' => 'Clear', 'accessKey' => 'C',
-                    'type' => 'submit'), //,'onclick'=>'clearForm(this.form);'),
-                array('name' => 'Search', 'value' => 'Search', 'accessKey' => 'S'
-                    , 'options' => 'novalidate'),
-                array('name' => 'Insert', 'value' => 'Add', 'accessKey' => 'I'),
-                array('name' => 'Update', 'value' => 'Update', 'accessKey' => 'U'),
-                array('name' => 'Delete', 'value' => 'Delete', 'accessKey' => 'D'),
-                array('name' => 'Reset', 'value' => 'Reset', 'accessKey' => 'R',
-                    'type' => 'reset')
+                array( 'name' => 'Clear', 'value' => 'Clear', 'accessKey' => 'C',
+                    'type' => 'submit' ), //,'onclick'=>'clearForm(this.form);'),
+                array( 'name' => 'Search', 'value' => 'Search', 'accessKey' => 'S'
+                    , 'options' => 'novalidate' ),
+                array( 'name' => 'Insert', 'value' => 'Add', 'accessKey' => 'I' ),
+                array( 'name' => 'Update', 'value' => 'Update', 'accessKey' => 'U' ),
+                array( 'name' => 'Delete', 'value' => 'Delete', 'accessKey' => 'D' ),
+                array( 'name' => 'Reset', 'value' => 'Reset', 'accessKey' => 'R',
+                    'type' => 'reset' )
             );
         } else {
-            $this->setButtonTemplate('templates/buttontemplate_search_only.html');
+            $this->setButtonTemplate( 'templates/buttontemplate_search_only.html' );
             $butDefs = array(
-                array('name' => 'Clear', 'value' => 'Clear', 'accessKey' => 'C',
-                    'type' => 'submit'), //,'onclick'=>'clearForm(this.form);'),
-                array('name' => 'Search', 'value' => 'Search', 'accessKey' => 'S'
-                    , 'options' => 'novalidate'),
-                array('name' => 'Reset', 'value' => 'Reset', 'accessKey' => 'R',
-                    'type' => 'reset')
+                array( 'name' => 'Clear', 'value' => 'Clear', 'accessKey' => 'C',
+                    'type' => 'submit' ), //,'onclick'=>'clearForm(this.form);'),
+                array( 'name' => 'Search', 'value' => 'Search', 'accessKey' => 'S'
+                    , 'options' => 'novalidate' ),
+                array( 'name' => 'Reset', 'value' => 'Reset', 'accessKey' => 'R',
+                    'type' => 'reset' )
             );
         }
 
         $buttonList = array();
-        for ($i = 0; $i < count($butDefs); $i++) {
-            $this->makeButton($butDefs[$i]);
+        for ( $i = 0; $i < count( $butDefs ); $i++ ) {
+            $this->makeButton( $butDefs[ $i ] );
         }
         $buttonDefs = null;
     }
@@ -392,16 +392,16 @@ class SimpleTableEditor {
      * created buttons are of type "submit", class "button" and add it to the buttonList
      * the button definition returned
      */
-    function makeButton($butDef) {
+    function makeButton( $butDef ) {
         $onclick = 'this.form.submit()';
-        if (isSet($butDef['onclick'])) {
-            $onclick = 'onclick=\'' . $butDef['onclick'] . '\'';
+        if ( isSet( $butDef[ 'onclick' ] ) ) {
+            $onclick = 'onclick=\'' . $butDef[ 'onclick' ] . '\'';
         }
-        $type = isSet($butDef['type']) ? $butDef['type'] : 'submit';
-        $options = isset($butDef['options']) ? $butDef['options'] : '';
-        $this->buttonList[$butDef['name']] = '<button type="' . $type . '" class="button" name="' . $butDef['name'] . '"' .
-                ' accessKey="' . $butDef['accessKey'] . '" ' . $onclick . ' ' . $options . ' style="width:70px;" >' . $butDef['value'] . '</button>';
-        return $this->buttonList[$butDef['name']];
+        $type = isSet( $butDef[ 'type' ] ) ? $butDef[ 'type' ] : 'submit';
+        $options = isset( $butDef[ 'options' ] ) ? $butDef[ 'options' ] : '';
+        $this->buttonList[ $butDef[ 'name' ] ] = '<button type="' . $type . '" class="button" name="' . $butDef[ 'name' ] . '"' .
+                ' accessKey="' . $butDef[ 'accessKey' ] . '" ' . $onclick . ' ' . $options . ' style="width:70px;" >' . $butDef[ 'value' ] . '</button>';
+        return $this->buttonList[ $butDef[ 'name' ] ];
     }
 
     /**
@@ -413,9 +413,9 @@ class SimpleTableEditor {
      * example <code>addButton(array('SplitWeek'=>'<input type="submit" class="button" name="Splitweek" value="Splits" style=....>'))
      * </code>;
      */
-    function addButton($buttons) {
-        while (list($key, $value) = each($buttons)) {
-            $this->buttonList[$key] = $value;
+    function addButton( $buttons ) {
+        foreach ( $buttons as $key => $value ) {
+            $this->buttonList[ $key ] = $value;
         }
     }
 
@@ -423,8 +423,8 @@ class SimpleTableEditor {
      * create the button table
      */
     function buttonTable() {
-        if (isSet($this->buttonList)) {
-            extract($this->buttonList, EXTR_PREFIX_ALL, 'button');
+        if ( isSet( $this->buttonList ) ) {
+            extract( $this->buttonList, EXTR_PREFIX_ALL, 'button' );
             include($this->buttonTemplate);
         }
     }
@@ -433,11 +433,11 @@ class SimpleTableEditor {
      * gets the keyValues from an assoc array (e.g. $_GET)
      * @param $arr the assoc to search in
      */
-    private function getKeyValues($arr) {
+    private function getKeyValues( $arr ) {
         $result = array();
-        foreach ($this->keyColumns as $kc) {
-            if (!empty($arr[$kc])) {
-                $result[$kc] = $arr[$kc];
+        foreach ( $this->keyColumns as $kc ) {
+            if ( !empty( $arr[ $kc ] ) ) {
+                $result[ $kc ] = $arr[ $kc ];
             }
         }
         return $result;
@@ -454,8 +454,8 @@ class SimpleTableEditor {
      */
     private $dbMessage;
 
-    function addDbMessage($m) {
-        if ($this->dbMessage) {
+    function addDbMessage( $m ) {
+        if ( $this->dbMessage ) {
             $this->dbMessage .= "<br/>$m";
         } else {
             $this->dbMessage = $m;
@@ -465,9 +465,9 @@ class SimpleTableEditor {
     /**
      * set the menu values form a database result record
      */
-    function setMenuValues($arr) {
-        if (isSet($this->menu)) {
-            $this->menu->setMenuValues($arr);
+    function setMenuValues( $arr ) {
+        if ( isSet( $this->menu ) ) {
+            $this->menu->setMenuValues( $arr );
         }
         return $this;
     }
@@ -476,8 +476,8 @@ class SimpleTableEditor {
      * prepare this record for Insertion into database.
      */
     function prepareForInsert() {
-        if (isSet($this->menu)) {
-            return $this->menu->prepareForInsert($this->dbMessage);
+        if ( isSet( $this->menu ) ) {
+            return $this->menu->prepareForInsert( $this->dbMessage );
         } else {
             $this->dbMessage .= "<br/>ste: Menu not defined";
             return false;
@@ -486,7 +486,7 @@ class SimpleTableEditor {
 
     protected $rawNames = null;
 
-    public function setRawNames($a) {
+    public function setRawNames( $a ) {
         $this->rawNames = $a;
         return $this;
     }
@@ -502,14 +502,14 @@ class SimpleTableEditor {
         $this->actionURL = $this->formAction;
         $urlGetOptions = '';
         $continuation = '?';
-        if (count($this->keyValues) > 0) {
+        if ( count( $this->keyValues ) > 0 ) {
             // prepare a $_GET set for the action url,
-            while (list($key, $val) = each($this->keyValues)) {
+            foreach ( $this->keyValues as $key => $val ) {
                 $urlGetOptions .= $continuation . $key . '=' . $val;
                 $continuation = '&amp;';
             }
         }
-        if ($urlGetOptions != '') {
+        if ( $urlGetOptions != '' ) {
             $this->actionURL .= $urlGetOptions;
         }
     }
@@ -524,9 +524,9 @@ class SimpleTableEditor {
         "<form id=\"editform\" method=\"post\" action=\"$this->actionURL\">\n" .
         "<table>\n\t<tr>\n\t\t<td valign=\"top\">";
 
-        $this->menu->setSubRel($this->subRel)
-                ->setSubRelJoinColumns($this->subRelJoinColumns);
-        $this->menu->setTemplateFileName($this->formTemplate);
+        $this->menu->setSubRel( $this->subRel )
+                ->setSubRelJoinColumns( $this->subRelJoinColumns );
+        $this->menu->setTemplateFileName( $this->formTemplate );
         $this->menu->generate();
         echo "</td>\n\t\t<td valign=\"top\">";
         $this->buttonTable();
@@ -540,7 +540,7 @@ class SimpleTableEditor {
 
     private $errorLog = '';
 
-    function addError($e) {
+    function addError( $e ) {
         $this->errorLog .= $e;
     }
 
@@ -549,15 +549,15 @@ class SimpleTableEditor {
      */
     function generateMessageBox() {
         $result = '';
-        if (($this->dbMessage != '' || $this->queryLog != '' || $this->errorLog != '')) {
+        if ( ($this->dbMessage != '' || $this->queryLog != '' || $this->errorLog != '' ) ) {
             $result = "<fieldset><legend>Database message</legend>\n";
-            if ($this->dbMessage != '') {
+            if ( $this->dbMessage != '' ) {
                 $result .= "<span style='font-weight:bold; color:#060;'>{$this->dbMessage}</span>\n";
             }
-            if ($this->queryLog != '') {
+            if ( $this->queryLog != '' ) {
                 $result .= "<span style='font-weight:bold; color:#008;'>{$this->queryLog}</span>\n";
             }
-            if ($this->errorLog != '') {
+            if ( $this->errorLog != '' ) {
                 $result .= "<span style='font-weight:bold; color:#800;'>{$this->errorLog}</span>\n";
             }
             $result .= "</fieldset>\n";
@@ -568,8 +568,8 @@ class SimpleTableEditor {
     function expandListRowTemplate() {
         $result = '';
         $con = ', ';
-        foreach ($this->listRowTemplate as $expr => $colName) {
-            if ($expr === $colName) {
+        foreach ( $this->listRowTemplate as $expr => $colName ) {
+            if ( $expr === $colName ) {
                 $result .= $con . "$colName";
             } else {
                 $result .= $con . "$expr as $colName";
@@ -580,27 +580,27 @@ class SimpleTableEditor {
 
     function getHtmlHeaderListCells() {
         $result = '';
-        foreach ($this->listRowTemplate as $expr => $colName) {
-            $colName = nicerName($colName);
+        foreach ( $this->listRowTemplate as $expr => $colName ) {
+            $colName = nicerName( $colName );
             $result .= "\t\t<th class = \"listhead\">{$colName}</th>\n";
         }
 
         return $result;
     }
 
-    function getHtmlListCells($fields) {
-        foreach ($this->listRowTemplate as $expr => $colName) {
-            $colNames = preg_split('/\./', $colName);
-            $lastCol = count($colNames) - 1;
-            $colData = $fields[strtolower($colNames[$lastCol])];
+    function getHtmlListCells( $fields ) {
+        foreach ( $this->listRowTemplate as $expr => $colName ) {
+            $colNames = preg_split( '/\./', $colName );
+            $lastCol = count( $colNames ) - 1;
+            $colData = $fields[ strtolower( $colNames[ $lastCol ] ) ];
             echo "\t<td class=\"listdata\">$colData</td>\n";
         }
     }
 
-    function printResulList($rs) {
+    function printResulList( $rs ) {
         echo "<table id='resultlist' class='tablesorter'>\n";
         $headRow = '';
-        if (isSet($this->listRowTemplate)) {
+        if ( isSet( $this->listRowTemplate ) ) {
             $headRow .= "<thead>\n\t<tr>\n\t\t<th>&nbsp;"
                     . "</th>\n\t\t<th class=\"listhead\" "
                     . "align=\"right\">#</th>\n"
@@ -610,27 +610,27 @@ class SimpleTableEditor {
         echo $headRow;
         echo "<tbody>\n";
         $counter = 1;
-        while (!$rs->EOF) {
+        while ( !$rs->EOF ) {
             $continuation = '?';
             $itsMe = '';
             $itsMeStyle = '';
-            if ($this->keyColumnsEqual($rs->fields)) {
+            if ( $this->keyColumnsEqual( $rs->fields ) ) {
                 $itsMe = '<img src="' . IMAGEROOT . '/right-arrow.gif" alt=">>"/>';
                 $itsMeStyle = 'style=\'background:#fff;font-weight:bold\'';
             }
             echo "<tr $itsMeStyle>\n\t<td>$itsMe</td>\n" .
             "\t<td class=\"listdata\" align=\"right\">$counter</td>\n" .
             "\t<td class=\"listlink\">\n" .
-            "\t\t<a href=\"" . htmlspecialchars($this->formAction);
+            "\t\t<a href=\"" . htmlspecialchars( $this->formAction );
             $urlTail = '';
-            for ($i = 0; $i < count($this->keyColumns); $i++) {
-                $urlTail .= $continuation . strtolower($this->keyColumns[$i]) . '=' . trim($rs->fields[strtolower($this->keyColumns[$i])]);
+            for ( $i = 0; $i < count( $this->keyColumns ); $i++ ) {
+                $urlTail .= $continuation . strtolower( $this->keyColumns[ $i ] ) . '=' . trim( $rs->fields[ strtolower( $this->keyColumns[ $i ] ) ] );
                 $continuation = '&amp;';
             }
             echo $urlTail . "\">\n\t\t\t";
-            echo trim($rs->fields['result_name']) . "\n\t\t</a>\n\t</td>\n";
-            if (isSet($this->listRowTemplate)) {
-                echo $this->getHtmlListCells($rs->fields);
+            echo trim( $rs->fields[ 'result_name' ] ) . "\n\t\t</a>\n\t</td>\n";
+            if ( isSet( $this->listRowTemplate ) ) {
+                echo $this->getHtmlListCells( $rs->fields );
             }
             echo "</tr>\n";
             $counter++;
@@ -645,18 +645,18 @@ class SimpleTableEditor {
      */
     function generateResultList() {
 
-        if (isset($_SESSION['searchQueryValues'])) {//$this->searchQueryValues != NULL) {
-            $this->page->addHeadText('<link rel="stylesheet" href="style/tablesorterstyle.css" type="text/css" media="print, projection, screen" />')
-                    ->addScriptResource('js/jquery-1.7.1.min.js')
-                    ->addScriptResource('js/jquery.tablesorter.min.js')
-                    ->addJqueryFragment("$('#resultlist').tablesorter({widthFixed: true, widgets: ['zebra']});");
-            $this->searchQuery->setSubmitValueSet($_SESSION['searchQueryValues']);
+        if ( isset( $_SESSION[ 'searchQueryValues' ] ) ) {//$this->searchQueryValues != NULL) {
+            $this->page->addHeadText( '<link rel="stylesheet" href="style/tablesorterstyle.css" type="text/css" media="print, projection, screen" />' )
+                    ->addScriptResource( 'js/jquery-1.7.1.min.js' )
+                    ->addScriptResource( 'js/jquery.tablesorter.min.js' )
+                    ->addJqueryFragment( "$('#resultlist').tablesorter({widthFixed: true, widgets: ['zebra']});" );
+            $this->searchQuery->setSubmitValueSet( $_SESSION[ 'searchQueryValues' ] );
             try {
                 $rs = $this->searchQuery->executeExtendedQuery();
-                $this->printResulList($rs);
+                $this->printResulList( $rs );
                 //$_SESSION['searchQueryValues'] = $this->searchQueryValues;
-            } catch (SQLExecuteException $se) {
-                $this->addError("cannot get list with {$se->getMessage()}<br/>");
+            } catch ( SQLExecuteException $se ) {
+                $this->addError( "cannot get list with {$se->getMessage()}<br/>" );
             }
         } /* if (!empty...) */
     }
@@ -668,23 +668,23 @@ class SimpleTableEditor {
      */
     function doUpdate() {
         /* test if all keycolumn values are set */
-        $uq = new UpdateQuery($this->dbConn, $this->relation);
-        $uq->setKeyColumns($this->keyColumns);
+        $uq = new UpdateQuery( $this->dbConn, $this->relation );
+        $uq->setKeyColumns( $this->keyColumns );
 
         /* refill menu from post data */
         /* done in processResponse    $this->menu->setMenuValues($_POST); */
-        $this->menu->prepareForUpdate($this->dbMessage);
+        $this->menu->prepareForUpdate( $this->dbMessage );
         $cnames = $this->menu->getColumnNames();
-        $arr = $this->menu->getColumnValues($cnames);
-        $uq->setSubmitValueSet($arr);
-        $uq->setUpdateSet($arr);
-        if ($uq->areKeyColumnsSet()) {
+        $arr = $this->menu->getColumnValues( $cnames );
+        $uq->setSubmitValueSet( $arr );
+        $uq->setUpdateSet( $arr );
+        if ( $uq->areKeyColumnsSet() ) {
             /* allow update */
             try {
                 $afrows = $uq->execute()->affected_rows();
-                $this->addDbMessage("{$afrows} row(s) updated");
-            } catch (SQLExecuteException $se) {
-                $this->addError("DB ERROR: Update failed with {$se->getMessage()}");
+                $this->addDbMessage( "{$afrows} row(s) updated" );
+            } catch ( SQLExecuteException $se ) {
+                $this->addError( "DB ERROR: Update failed with {$se->getMessage()}" );
             }
         }
     }
@@ -697,7 +697,7 @@ class SimpleTableEditor {
      */
     function getPostValusForInsert() {
         $cnames = $this->menu->getColumnNames();
-        $arr = $this->menu->getColumnValues($cnames);
+        $arr = $this->menu->getColumnValues( $cnames );
         return $arr;
     }
 
@@ -710,17 +710,17 @@ class SimpleTableEditor {
         /* refill menu from post data */
         /* $this->menu->setMenuValues($_POST); */
         /* now test the menu values */
-        if ($this->prepareForInsert()) {
+        if ( $this->prepareForInsert() ) {
             /* then get the data into the query */
-            $iq = new InsertQuery($this->dbConn, $this->relation);
-            $iq->setKeyColumns($this->keyColumns);
+            $iq = new InsertQuery( $this->dbConn, $this->relation );
+            $iq->setKeyColumns( $this->keyColumns );
             // The menu knows how to generate values from form or e.g. sequences.
-            $iq->setUpdateSet($this->getPostValusForInsert());
+            $iq->setUpdateSet( $this->getPostValusForInsert() );
             try {
                 $affectedRows = $iq->execute()->affected_rows();
-                $this->addDbMessage("  added or updated {$affectedRows} record" . ($affectedRows == 1 ? '' : 's'));
-            } catch (SQLExecuteException $se) {
-                $this->addError("failed with {$se->getMessage()}");
+                $this->addDbMessage( "  added or updated {$affectedRows} record" . ($affectedRows == 1 ? '' : 's') );
+            } catch ( SQLExecuteException $se ) {
+                $this->addError( "failed with {$se->getMessage()}" );
             }
         }
     }
@@ -734,7 +734,7 @@ class SimpleTableEditor {
      */
     private $deleteChecker;
 
-    function setDeleteChecker($dc) {
+    function setDeleteChecker( $dc ) {
         $this->deleteChecker = $dc;
         return $this;
     }
@@ -746,24 +746,24 @@ class SimpleTableEditor {
         /**
          * is there a checker and does it allow delete?
          */
-        if (isSet($this->deleteChecker)) {
-            if (!$this->deleteChecker->checkForDelete($this->menu->getMenuValues(), $this->dbMessage)) {
+        if ( isSet( $this->deleteChecker ) ) {
+            if ( !$this->deleteChecker->checkForDelete( $this->menu->getMenuValues(), $this->dbMessage ) ) {
                 return 0;
             }
         }
-        if (hasCap($this->menu->requiredCap)) {
-            $dq = new DeleteQuery($this->dbConn, $this->relation);
-            $dq->setKeyColumns($this->keyColumns);
+        if ( hasCap( $this->menu->requiredCap ) ) {
+            $dq = new DeleteQuery( $this->dbConn, $this->relation );
+            $dq->setKeyColumns( $this->keyColumns );
             try {
                 $res = $dq->execute();
                 $rowCount = $res->affected_rows();
-                if ($rowCount > 0) {
+                if ( $rowCount > 0 ) {
                     $this->dbMessage .= $rowCount . ' rows deleted';
                 } else {
-                    $this->addError('delete failed');
+                    $this->addError( 'delete failed' );
                 }
-            } catch (SQLExecuteException $sqe) {
-                $this->addError('delete failed with ' . $sqe->getMessage());
+            } catch ( SQLExecuteException $sqe ) {
+                $this->addError( 'delete failed with ' . $sqe->getMessage() );
             }
         }
     }
@@ -774,25 +774,25 @@ class SimpleTableEditor {
         global $_SESSION;
         //unset($_SESSION['searchQueryValues']);
         //$this->searchQuery->setSubmitValueSet($_POST);
-        $this->searchQuery->setSubmitValueSet($_POST);
-        if ($this->showQuery) {
-            $this->addDbMessage("<br/>list query=<pre>{$this->searchQuery}.\nparams=" . print_r($this->searchQuery->getPreparedValues(), true) . "</pre>");
+        $this->searchQuery->setSubmitValueSet( $_POST );
+        if ( $this->showQuery ) {
+            $this->addDbMessage( "<br/>list query=<pre>{$this->searchQuery}.\nparams=" . print_r( $this->searchQuery->getPreparedValues(), true ) . "</pre>" );
         }
         //print_r($this->searchQuery);
         $rs = $this->searchQuery->executeAllQuery2();
         //echo "<span style=' color:#f0f;font-size:120%' >  aha {$rs}</span>" ;
-        if ($rs !== false && !$rs->EOF) {
+        if ( $rs !== false && !$rs->EOF ) {
             /* if search succeeded, load the first hit */
             $rowCount = $rs->rowCount();
-            $this->addDbMessage("found {$rowCount} row" . ($rowCount == 1 ? '' : 's'));
-            $this->setMenuValues($rs->fields);
-            $this->keyValues = $this->getKeyValues($rs->fields);
+            $this->addDbMessage( "found {$rowCount} row" . ($rowCount == 1 ? '' : 's') );
+            $this->setMenuValues( $rs->fields );
+            $this->keyValues = $this->getKeyValues( $rs->fields );
             //$_SESSION['searchQueryValues'] = $this->searchQueryValues = $this->searchQuery->getSubmitValueSet();
-            $_SESSION['searchQueryValues'] = $this->searchQuery->getSubmitValueSet();
+            $_SESSION[ 'searchQueryValues' ] = $this->searchQuery->getSubmitValueSet();
             //echo  "<pre>".print_r($_SESSION['searchQueryValues'],true)."</pre>";
         } else {
             /* reload screen from _POST data */
-            $this->setMenuValues($_POST);
+            $this->setMenuValues( $_POST );
             $this->dbMessage .= "Nothing found<br/>";
         }
     }
@@ -808,52 +808,52 @@ class SimpleTableEditor {
         global $system_settings;
 //        $this->list_query = ''; // declare list query
         //$this->ste_query = ''; // declare main query
-        $this->menu = new ExtendedMenu($this->itemValidator, $this->page);
-        if (isSet($this->rawNames)) {
-            $this->menu->setRawNames($this->rawNames);
+        $this->menu = new ExtendedMenu( $this->itemValidator, $this->page );
+        if ( isSet( $this->rawNames ) ) {
+            $this->menu->setRawNames( $this->rawNames );
         }
-        $this->menu->setFieldPrefix('veld');
-        $this->menu->setItemDefQuery("select column_name,data_type,item_length," .
+        $this->menu->setFieldPrefix( 'veld' );
+        $this->menu->setItemDefQuery( "select column_name,data_type,item_length," .
                 "edit_type,query,capability,precision,placeholder,regex_name\n" .
-                "from menu_item_defs where menu_name='$this->menuName'");
+                "from menu_item_defs where menu_name='$this->menuName'" );
 
-        $this->menu->setDBConn($this->dbConn);
+        $this->menu->setDBConn( $this->dbConn );
         /*  let the menu learn about its content */
-        $this->menu->setMenuName($this->menuName);
-        $this->menu->setSubRel($this->subRel);
-        $this->menu->setSubRelJoinColumns($this->subRelJoinColumns);
+        $this->menu->setMenuName( $this->menuName );
+        $this->menu->setSubRel( $this->subRel );
+        $this->menu->setSubRelJoinColumns( $this->subRelJoinColumns );
         /* now menu knows its columns, process the inputs */
 //        if (!empty($_SESSION['list_query']) && $PHP_SELF == $_SESSION['ste_referer']) {
 //            $this->list_query = $_SESSION['list_query'];
 //        }
         // prepare query width defintions  from client-page.
-        $this->searchQuery = new SearchQuery($this->dbConn, $this->relation);
-        $this->searchQuery->setKeyColumns($this->keyColumns);
-        $this->searchQuery->setNameExpression($this->nameExpression);
-        if (isSet($this->listRowTemplate)) {
-            $this->searchQuery->setAuxColNames($this->listRowTemplate);
+        $this->searchQuery = new SearchQuery( $this->dbConn, $this->relation );
+        $this->searchQuery->setKeyColumns( $this->keyColumns );
+        $this->searchQuery->setNameExpression( $this->nameExpression );
+        if ( isSet( $this->listRowTemplate ) ) {
+            $this->searchQuery->setAuxColNames( $this->listRowTemplate );
         }
 
-        $this->searchQuery->setQueryExtension($this->listQueryExtension);
-        $this->searchQuery->setOrderList($this->orderList);
-        $this->searchQuery->setSubRel($this->subRel);
-        $this->searchQuery->setSubRelJoinColumns($this->subRelJoinColumns);
+        $this->searchQuery->setQueryExtension( $this->listQueryExtension );
+        $this->searchQuery->setOrderList( $this->orderList );
+        $this->searchQuery->setSubRel( $this->subRel );
+        $this->searchQuery->setSubRelJoinColumns( $this->subRelJoinColumns );
 
         /* pick up potential key values from $_GET */
-        $this->keyValues = $this->getKeyValues($_GET);
+        $this->keyValues = $this->getKeyValues( $_GET );
         /* pick up the _POST inputs such as the submit values */
-        if (count($_POST) > 0) {
+        if ( count( $_POST ) > 0 ) {
             $_GET = array(); // only one
-            if (isSet($_POST['Clear'])) {
+            if ( isSet( $_POST[ 'Clear' ] ) ) {
                 /*
                  * L E E G
                  */
                 /* throw away any old search result, i.e. the query */
                 /* by kicking it out of the $_GET array */
                 $_POST = array();
-                unset($_SESSION['searchQueryText']);
-                unset($_SESSION['searchQueryValues']);
-                unset($_SESSION['ste_referer']);
+                unset( $_SESSION[ 'searchQueryText' ] );
+                unset( $_SESSION[ 'searchQueryValues' ] );
+                unset( $_SESSION[ 'ste_referer' ] );
                 //$this->searchQueryTailText = null;
                 //$this->searchQueryValues = null;
 
@@ -862,43 +862,46 @@ class SimpleTableEditor {
             }
             /* load only  if request is not LEEG */
 
-            $this->searchQuery->setSubmitValueSet($_POST);
-            $this->setMenuValues($_POST);
-            if ($validator_clearance) {
+            $this->searchQuery->setSubmitValueSet( $_POST );
+            $this->setMenuValues( $_POST );
+            if ( $validator_clearance ) {
                 // save edit values to session.
-                if (isSet($system_settings['edit_to_session'])) {
-                    $save = explode(',', $system_settings['edit_to_session']);
-                    foreach ($save as $s) {
-                        list($k, $d) = split('=', $s);
+                if ( isSet( $system_settings[ 'edit_to_session' ] ) ) {
+                    $save = explode( ',', $system_settings[ 'edit_to_session' ] );
+                    foreach ( $save as $s ) {
+                        list($k, $d) = split( '=', $s );
                         $v = $d;
-                        if (isSet($_POST[$k]) && $_POST[$k] !== '') {
-                            $v = $_POST[$k];
+                        if ( isSet( $_POST[ $k ] ) && $_POST[ $k ] !== '' ) {
+                            $v = $_POST[ $k ];
                         }
-                        $_SESSION[$k] = $v;
+                        $_SESSION[ $k ] = $v;
                     }
                 }
 
-                if (isSet($_POST['Search'])) {
+                if ( isSet( $_POST[ 'Search' ] ) ) {
                     /*
                      * S E A R C H
                      */
 
                     /** build a query from the $_POST data */
-                    $this->searchQuery->setSubmitValueSet($_POST);
+                    $this->searchQuery->setSubmitValueSet( $_POST );
                     $this->doSearch();
-                } else if ($this->allowIUD && isSet($_POST['Insert'])) {
+                } else if ( $this->allowIUD && isSet( $_POST[ 'Insert' ] ) ) {
                     /*
                      * I N S E R T
                      */
                     $this->doInsert();
-                } else if ($this->allowIUD && isSet($_POST['Update'])) {
+                } else if ( $this->allowIUD && isSet( $_POST[ 'Update' ] ) ) {
+                    /*
+                     * U P D A T A
+                     */
                     $this->doUpdate();
-                } else if ($this->allowIUD && isSet($_POST['Delete'])) {
+                } else if ( $this->allowIUD && isSet( $_POST[ 'Delete' ] ) ) {
                     /*
                      * D E L E T E
                      */
                     $this->doDelete();
-                } else if (isSet($_POST['Reset'])) {
+                } else if ( isSet( $_POST[ 'Reset' ] ) ) {
                     /*
                      * reset is handled by the browser
                      */
@@ -908,29 +911,29 @@ class SimpleTableEditor {
             /*
              * use _GET to determine the key columns
              */
-            if (count($_GET) > 0) {
-                $this->searchQuery->setSubmitValueSet($_GET);
+            if ( count( $_GET ) > 0 ) {
+                $this->searchQuery->setSubmitValueSet( $_GET );
             } else {
-                $this->searchQuery->setSubmitValueSet($_SESSION['searchQueryValues']);
+                $this->searchQuery->setSubmitValueSet( $_SESSION[ 'searchQueryValues' ] );
             }
-            if ($this->searchQuery->areKeyColumnsSet()) {
+            if ( $this->searchQuery->areKeyColumnsSet() ) {
 
                 try {
 
                     $rs = $this->searchQuery->executeAllQuery2();
                     $rowCount = $rs->rowCount();
-                    $this->addDbMessage("found {$rowCount} row" . ($rowCount == 1) ? '' : 's');
-                    if ($rs !== false && !$rs->EOF) {
-                        $this->setMenuValues($rs->fields);
+                    $this->addDbMessage( "found {$rowCount} row" . ($rowCount == 1) ? '' : 's'  );
+                    if ( $rs !== false && !$rs->EOF ) {
+                        $this->setMenuValues( $rs->fields );
                         //$this->addDbMessage("<pre> filling menu " . print_r($rs->fields, true) . "</pre><br>");
-                        $this->keyValues = $this->getKeyValues($rs->fields);
+                        $this->keyValues = $this->getKeyValues( $rs->fields );
                     }
-                } catch (SQLExecuteException $se) {
-                    $this->addError("search failed with {$se->getMessage()}");
+                } catch ( SQLExecuteException $se ) {
+                    $this->addError( "search failed with {$se->getMessage()}" );
                 }
             }
-            if (isSet($_SESSION['searchQueryValues'])) {
-                $this->searchQuery->setSubmitValueSet($_SESSION['searchQueryValues']);
+            if ( isSet( $_SESSION[ 'searchQueryValues' ] ) ) {
+                $this->searchQuery->setSubmitValueSet( $_SESSION[ 'searchQueryValues' ] );
             }
         } /* end of else branch if (count($_POST)) */
     }
@@ -944,7 +947,7 @@ class SimpleTableEditor {
     function generateForm() {
         global $PHP_SELF;
         global $server_url;
-        $fdate = date('Y-m-d');
+        $fdate = date( 'Y-m-d' );
         $filename = $this->menuName . '-' . $fdate;
         $this->processResponse();
         /*
@@ -953,7 +956,7 @@ class SimpleTableEditor {
          * to the url.
          */
         $this->generateHTML();
-        $_SESSION['ste_referer'] = $PHP_SELF;
+        $_SESSION[ 'ste_referer' ] = $PHP_SELF;
         //        $_SESSION['searchQueryText'] = $this->searchQueryTailText;
     }
 
@@ -994,22 +997,22 @@ class SimpleTableEditor {
      * @param $arr assoc array: a db record.
      * Is used in generating the list to point at the current record.
      */
-    function keyColumnsEqual(&$arr) {
+    function keyColumnsEqual( &$arr ) {
         $result = true; // start optimistically
-        for ($i = 0; $result && $i < count($this->keyColumns); $i++) {
-            $result = $result && isSet($arr[$this->keyColumns[$i]]) && isSet($this->keyValues[$this->keyColumns[$i]]) && ($arr[$this->keyColumns[$i]] == $this->keyValues[$this->keyColumns[$i]]);
+        for ( $i = 0; $result && $i < count( $this->keyColumns ); $i++ ) {
+            $result = $result && isSet( $arr[ $this->keyColumns[ $i ] ] ) && isSet( $this->keyValues[ $this->keyColumns[ $i ] ] ) && ($arr[ $this->keyColumns[ $i ] ] == $this->keyValues[ $this->keyColumns[ $i ] ]);
         }
         return $result;
     }
 
-    function setTitle($t) {
+    function setTitle( $t ) {
         $this->title = $t;
         return $this;
     }
 
     private $topText = '';
 
-    function setTopText($t) {
+    function setTopText( $t ) {
         $this->topText = $t;
         return $this;
     }
@@ -1018,16 +1021,16 @@ class SimpleTableEditor {
      * Render the final result on a page.
      */
     function render() {
-        $this->page->addBodyComponent(new Component($this->topText))
-                ->addBodyComponent(new Component($this->generateFormString()));
+        $this->page->addBodyComponent( new Component( $this->topText ) )
+                ->addBodyComponent( new Component( $this->generateFormString() ) );
     }
 
     /**
      * Use page to show self.
      */
     function show() {
-        $nav = new Navigation(array(), $this->formAction, $this->page->getTitle());
-        $this->page->addBodyComponent($nav);
+        $nav = new Navigation( array(), $this->formAction, $this->page->getTitle() );
+        $this->page->addBodyComponent( $nav );
         $this->render();
         $this->page->show();
     }
