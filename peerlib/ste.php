@@ -843,13 +843,13 @@ class SimpleTableEditor {
         $this->keyValues = $this->getKeyValues( $_GET );
         /* pick up the _POST inputs such as the submit values */
         if ( count( $_POST ) > 0 ) {
+            $_GET = array(); // only one
             if ( isSet( $_POST[ 'Clear' ] ) ) {
                 /*
                  * L E E G
                  */
                 /* throw away any old search result, i.e. the query */
                 /* by kicking it out of the $_GET array */
-                $_GET = array();
                 $_POST = array();
                 unset( $_SESSION[ 'searchQueryText' ] );
                 unset( $_SESSION[ 'searchQueryValues' ] );
@@ -892,6 +892,9 @@ class SimpleTableEditor {
                      */
                     $this->doInsert();
                 } else if ( $this->allowIUD && isSet( $_POST[ 'Update' ] ) ) {
+                    /*
+                     * U P D A T A
+                     */
                     $this->doUpdate();
                 } else if ( $this->allowIUD && isSet( $_POST[ 'Delete' ] ) ) {
                     /*
