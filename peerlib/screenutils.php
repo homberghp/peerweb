@@ -150,7 +150,7 @@ class Menu {
         /* cache */
         $this->menuValues = $arr;
         //    reset($arr);
-        while (list($key, $val) = each($arr)) {
+        foreach ($arr as $key => $val ){
             $name = trim($key);
             // test if this 'name' is present
             if (isSet($this->menuItems[$name])) {
@@ -158,7 +158,6 @@ class Menu {
                 $this->menuItems[$name]->setValue($value);
             }
         }
-        reset($arr);
     }
 
     /**
@@ -240,10 +239,9 @@ class Menu {
         }
         $this->expandedMenuItems = array();
         reset($this->menuItems);
-        while (list($miName, $menuItem) = each($this->menuItems)) {
+        foreach ($this->menuItems as $miName => $menuItem ) {
             $this->expandedMenuItems[$miName] = $menuItem->expand();
         }
-        reset($this->menuItems);
     }
 
     /**
@@ -270,7 +268,7 @@ class Menu {
     function toString() {
         $result = 'Menu ' . $this->menuName . ' itemlist: ' . "\n\t";
         reset($this->menuItems);
-        while (list($key) = each($this->menuItems)) {
+        foreach ( $this->menuItems as $key){
             $result .=$this->menuItems[$key]->toString();
         }
         reset($this->menuItems);
