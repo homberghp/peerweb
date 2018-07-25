@@ -31,5 +31,5 @@ ${scriptdir}/mkclasscard.sh   -w ${workdir} -d ${destdir} -t ${FILETS} 1>&2 > /d
 ## join all subprocesses
 wait
 ## drop workdir
-rm -fr ${workdir}
+#rm -fr ${workdir}
 
