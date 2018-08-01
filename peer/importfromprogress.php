@@ -19,26 +19,28 @@ if ( isSet( $_FILES[ 'userfile' ][ 'name' ] ) && ( $_FILES[ 'userfile' ][ 'name'
     $tmp_file = $_FILES[ 'userfile' ][ 'tmp_name' ];
     $userfileName = $_FILES[ 'userfile' ][ 'name' ];
     $ext = pathinfo( $userfileName, PATHINFO_EXTENSION );
-    $temp_file_extension = "{$tmp_file}.{$ext}";
-
+    $temp_file_with_extension = "{$tmp_file}.{$ext}";
+    $email='p.vandenhombergh@fontys.nl';
     $workdir = "{$tmp_file}.d";
     $worksheetbase = basename( $tmp_file );
     $worksheet = "{$workdir}/sv05_aanmelders.xlsx";
     if ( !mkdir( $workdir, 0775, true ) ) {
         die( 'cannot create dir ' . $workdir . '<br/>' );
     }
-    if ( move_uploaded_file( $tmp_file, $temp_file_extension ) ) {
+    if ( move_uploaded_file( $tmp_file, $temp_file_with_extension ) ) {
         $out = [];
         $result = 0;
-        $uploadResult .= "upload was succesfull {$file_size}, {$temp_file_extension}, {$worksheet}";
-        $cmdString1 = "{$site_home}/scripts/spreadsheet2xlsx {$temp_file_extension} {$worksheet} ";
+        $uploadResult .= "upload was succesfull {$file_size}, {$temp_file_with_extension}, {$worksheet}";
+        //$cmdString1 = "{$site_home}/scripts/spreadsheet2xlsx {$temp_file_with_extension} {$worksheet} ";
+        $cmdString1 = "{$site_home}/scripts/importfromprogress.sh {$workdir} {$temp_file_with_extension} {$worksheet} {$email}";
         $cmd1 = exec( $cmdString1, $out, $result );
         if ( $result !== 0 ) {
             throw new Exception( "command failed " + $cmdString1 );
         }
-        $cmdString2 = "{$site_home}/scripts/jmergeAndTicket -w {$workdir}";
-        $cmd2 = exec( $cmdString2 );
-        $uploadResult .= "<pre>Commands \n\t{$cmdString1}  \nand \n\t{$cmdString2} executed</pre></fieldset>";
+//        $cmdString2 = "{$site_home}/scripts/jmergeAndTicket -w {$workdir}";
+//        $cmd2 = exec( $cmdString2 );
+//        $uploadResult .= "<pre>Commands \n\t{$cmdString1}  \nand \n\t{$cmdString2} executed</pre></fieldset>";
+        $uploadResult .= "<pre>Commands \n\t{$cmdString1}  \n\texecuted</pre></fieldset>";
         $uploadResult .= "<pre>results of this command will appear in the prospects table and in links on this page below.</pre></fieldset>";
     }
     $_SESSION[ 'userfile' ] = $_FILES[ 'userfile' ];

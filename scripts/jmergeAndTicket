@@ -6,7 +6,8 @@ me=$(basename $0)
 GETOPT=/usr/bin/getopt
 # sinsible defaults: pick everything up from wd.
 workdir=$(pwd)
-ARGS=$(${GETOPT} -o w:h --long workdir:,help -- "$@")
+email=p.vandenhombergh@fontys.nl
+ARGS=$(${GETOPT} -o w:e:h --long workdir:email:,help -- "$@")
 eval set -- "$ARGS"
 while [ $# -gt 0 ]
 do
@@ -17,6 +18,7 @@ usage $me [-h|--help] [-w|--workdir <workdir>]
 EOF
 	    exit 0;;
 	-w|--workdir) workdir=$2; shift;;
+	-e|--email) email=$2; shift;;
 	--) shift; break;;
 	-*) echo "$0: error - unrecognized option $1" 1>&2; exit 1;;
 	*)  break;;
@@ -34,7 +36,7 @@ ${scriptdir}/jmerge -w ${workdir} -c ${jmergedir} -p ${jmergedir}/sv05_import.pr
 rm -f ${destdir}/jmerge*.log ${destdir}/prospects*.xlsx
 cp ${workdir}/*.log ${destdir}
 cp ${workdir}/xlsx-out/prospects.xlsx ${destdir}/prospects-${FILETS}.xlsx
-cat ${destdir}/jmerge-${FILETS}.log
+cat ${destdir}/jmerge-${FILETS}.log | mail -s'student import log' ${email}
 
 # do rest in background
 ${scriptdir}/mkTicketsAndCleanup -w ${workdir} -d ${destdir} -t ${FILETS} 2>&1 > /dev/null &

@@ -24,17 +24,17 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
     $userfileName=$_FILES['userfile']['name'];
 //    print_r($_FILES);
     $ext = pathinfo($userfileName, PATHINFO_EXTENSION);
-    $temp_file_extension="{$tmp_file}.{$ext}";
+    $temp_file_with_extension="{$tmp_file}.{$ext}";
     $workdir = "{$tmp_file}.d";
     $worksheetbase = basename($tmp_file);
     $worksheet = "{$workdir}/sv09_ingeschrevenen.xlsx";
     if (!mkdir($workdir, 0775, true)) {
         die('cannot create dir ' . $workdir . '<br/>');
     }
-    if (move_uploaded_file($tmp_file, $temp_file_extension)) {
+    if (move_uploaded_file($tmp_file, $temp_file_with_extension)) {
         
-        $uploadResult .= "upload and integration was succesfull {$file_size}, {$temp_file_extension}, {$worksheet}";
-        $cmdString1 = "{$site_home}/scripts/spreadsheet2xlsx {$temp_file_extension} {$worksheet} ";
+        $uploadResult .= "upload and integration was succesfull {$file_size}, {$temp_file_with_extension}, {$worksheet}";
+        $cmdString1 = "{$site_home}/scripts/spreadsheet2xlsx {$temp_file_with_extension} {$worksheet} ";
         $cmd1 = exec($cmdString1);
         $cmdString2 = "{$site_home}/scripts/jmergeSync -w {$workdir} ";
         $cmd2 = exec($cmdString2);
