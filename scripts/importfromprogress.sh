@@ -13,7 +13,7 @@ email=$4
 echo " $#: workdir=${workdir}, filename=${filename}, worksheet=${worksheet}, usermail=${email}"
 
 echo "executing as batch: ${scriptdir}/spreadsheet2xlsxAndMerge ${workdir} ${filename} ${worksheet} ${email}"
-nohup ${scriptdir}/spreadsheet2xlsxAndMerge ${workdir} ${filename} ${worksheet} ${email} &
+( ${scriptdir}/spreadsheet2xlsxAndMerge ${workdir} ${filename} ${worksheet} ${email} & )
 exit 0
 
 
