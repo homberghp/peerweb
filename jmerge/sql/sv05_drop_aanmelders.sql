@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS sv05_aanmelders  (
     geboortedatum date,
     geboorteplaats text,
     geboorteland text,
-    email_prive text,
+    "e_mail_privé" text,
     e_mail_instelling text,
     land_nummer_mobiel integer,
     mobiel_nummer bigint,

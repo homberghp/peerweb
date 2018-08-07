@@ -19,6 +19,11 @@ update sv05_aanmelders set course_grp='SEBINL'||studiejaar where  opleiding='B I
 update sv05_aanmelders set course_grp='LEEN'||studiejaar where  opleiding='B Logistiek en Economie' and voorkeurstaal='Engels';
 update sv05_aanmelders set course_grp='LEDE'||studiejaar where  opleiding='B Logistiek en Economie' and voorkeurstaal='Duits';
 update sv05_aanmelders set course_grp='LENL'||studiejaar where  opleiding='B Logistiek en Economie' and voorkeurstaal='Nederlands';
+
+update sv05_aanmelders set course_grp='LMEN'||studiejaar where  opleiding='B Logistics Management' and voorkeurstaal='Engels';
+update sv05_aanmelders set course_grp='LMDE'||studiejaar where  opleiding='B Logistics Management' and voorkeurstaal='Duits';
+update sv05_aanmelders set course_grp='LMNL'||studiejaar where  opleiding='B Logistics Management' and voorkeurstaal='Nederlands';
+
 update sv05_aanmelders set course_grp='LTNL'||studiejaar where  opleiding='B Logistiek en Technische Vervoerskunde' and voorkeurstaal='Nederlands';
 update sv05_aanmelders set course_grp='LTDE'||studiejaar where  opleiding='B Logistiek en Technische Vervoerskunde' and voorkeurstaal='Duits';
 update sv05_aanmelders set course_grp='LTEN'||studiejaar where  opleiding='B Logistiek en Technische Vervoerskunde' and voorkeurstaal='Engels';
@@ -44,6 +49,8 @@ update sv05_aanmelders set course_grp='CEEN'||studiejaar where  opleiding='B Com
 update sv05_aanmelders set course_grp='IBMSDE'||studiejaar where  opleiding='B Internat Business and Managem Studies' and voorkeurstaal='Duits';
 update sv05_aanmelders set course_grp='IBMSNL'||studiejaar where  opleiding='B Internat Business and Managem Studies' and voorkeurstaal='Nederlands';
 update sv05_aanmelders set course_grp='IBMSEN'||studiejaar where  opleiding='B Internat Business and Managem Studies' and voorkeurstaal='Engels';
+
+update sv05_aanmelders set course_grp='ADENNL'||studiejaar where  opleiding='Ad Engineering' and voorkeurstaal='Nederlands';
 
 update sv05_aanmelders set land_nummer_vast=null where vast_nummer =null or land_nummer_vast=0;
 update sv05_aanmelders set land_nummer_mobiel=null where mobiel_nummer =null or land_nummer_mobiel =0;
