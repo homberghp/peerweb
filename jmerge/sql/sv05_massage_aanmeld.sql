@@ -1,6 +1,9 @@
 -- begin work;
 -- weg met afmelders
 delete from sv05_aanmelders where datum_annulering notnull;
+alter table sv05_aanmelders alter column draaidatum type date using ('1899-12-30'::date+floor(draaidatum)::int);
+alter table sv05_aanmelders rename column draaidatum  to peildatum;
+
 update sv05_aanmelders set fase='Bachelor' where fase <> 'Bachelor';
 update sv05_aanmelders set voorkeurstaal='Nederlands' where voorkeurstaal isnull;
 -- voeg codering toe

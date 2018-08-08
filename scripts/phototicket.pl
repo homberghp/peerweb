@@ -53,7 +53,7 @@ my $query =qq(select studentnummer as snummer,trim(achternaam) as achternaam,
 --  email_prive,
    postcode_en_plaats,
    volledig_adres,
-   land,aanmeldingstatus,aanmelddatum,peildatum,pcn_nummer,geslacht as sex,
+   land,aanmeldingstatus,aanmelddatum,pcn_nummer,geslacht as sex,
    geboortedatum,coalesce(geboorteplaats,'unknown'),
    geboorteland,leidende_nationaliteit
    from importer.sv05_aanmelders where instituutcode =$faculty -- where course_grp like 'SEBIEN%'
@@ -67,7 +67,7 @@ print qq(\\input{$preamble}
 );
 my $oldcourse='';
 while (my $row = $sth->fetchrow_arrayref) {
-  ($snummer,$achternaam,$roepnaam,$voorvoegsels,$course,$lang,$land_phone,$gsm,$email,$postcode_plaats,$volledig_adres,$land,$aanmeldingstatus,$aanmelddatum,$peildatum,$pcn,$sex,$gebdat,$gebplaats,$gebland,$nat) =  @$row;
+  ($snummer,$achternaam,$roepnaam,$voorvoegsels,$course,$lang,$land_phone,$gsm,$email,$postcode_plaats,$volledig_adres,$land,$aanmeldingstatus,$aanmelddatum,$pcn,$sex,$gebdat,$gebplaats,$gebland,$nat) =  @$row;
   $name = $roepnaam;
   if (defined $voorvoegsels) {
     $name .=' '.$voorvoegsels;
@@ -86,7 +86,6 @@ while (my $row = $sth->fetchrow_arrayref) {
 \\def\\Aanmeldingstatus{$aanmeldingstatus}
 \\SaveVerb{VolledigAdres}*$volledig_adres*
 \\def\\Aanmelddatum{$aanmelddatum}
-\\def\\Peildatum{$peildatum}
 \\def\\GeboorteDatum{$gebdat}
 \\def\\GeboortePlaats{$gebplaats}
 \\def\\GeboorteLand{$gebland}

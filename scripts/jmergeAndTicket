@@ -25,7 +25,7 @@ EOF
     esac
     shift
 done
-FILETS=$(date +%Y-%m-%d-%-H:%M:%S)
+FILETS=$(date +%Y-%m-%d-%-H%M%S)
 jmergedir=${site_home}/jmerge
 export workdir site_home FILETS destdir jmergedir scriptdir
 # echo "scriptdir=$scriptdir workdir=$workdir site_home=$site_home FILETS=$FILETS destdir=$destdir jmergedir=$jmergedir"
