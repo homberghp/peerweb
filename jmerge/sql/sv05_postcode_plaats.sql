@@ -5,7 +5,9 @@ alter table sv05_aanmelders add column if not exists huisnr char(4);
 alter table sv05_aanmelders add column if not exists straat text;
 update sv05_aanmelders set postcode=substr(postcode_en_plaats,1,7) where land in ('Nederland','Letland','Republiek Moldavië');
 update sv05_aanmelders set woonplaats= initcap(substr(postcode_en_plaats,9)) where land in ('Nederland','Letland','Republiek Moldavië');
-
+-- wrong format in german psotcode_en_plaats
+update  sv05_aanmelders set postcode_en_plaats= substr(postcode_en_plaats,1,4)||substr(postcode_en_plaats,6,1)||substr(postcode_en_plaats,7) where land='Bondsrepubliek Duitsland';
+--
 update sv05_aanmelders set postcode=substr(postcode_en_plaats,1,5) where land in ('Maleisië','Marokko','Spanje','Griekenland','Italië','Litouwen','Bondsrepubliek Duitsland');
 update sv05_aanmelders set woonplaats= initcap(substr(postcode_en_plaats,7)) where land in ('Maleisië','Marokko','Spanje','Griekenland','Italië','Litouwen','Bondsrepubliek Duitsland');
 
