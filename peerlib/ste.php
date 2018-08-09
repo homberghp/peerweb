@@ -913,7 +913,7 @@ class SimpleTableEditor {
              */
             if ( count( $_GET ) > 0 ) {
                 $this->searchQuery->setSubmitValueSet( $_GET );
-            } else {
+            } else if ($_SESSION[ 'searchQueryValues' ] !== null) {
                 $this->searchQuery->setSubmitValueSet( $_SESSION[ 'searchQueryValues' ] );
             }
             if ( $this->searchQuery->areKeyColumnsSet() ) {
