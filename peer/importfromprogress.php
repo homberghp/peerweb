@@ -32,7 +32,7 @@ if ( isSet( $_FILES[ 'userfile' ][ 'name' ] ) && ( $_FILES[ 'userfile' ][ 'name'
         $result = 0;
         $uploadResult .= "upload was succesfull {$file_size}, {$temp_file_with_extension}, {$worksheet}";
         //$cmdString1 = "{$site_home}/scripts/spreadsheet2xlsx {$temp_file_with_extension} {$worksheet} ";
-        $cmdString1 = "{$site_home}/scripts/importfromprogress.sh {$workdir} {$temp_file_with_extension} {$worksheet} {$email}";
+        $cmdString1 = "{$site_home}/scripts/importfromprogress.sh {$workdir} {$temp_file_with_extension} {$worksheet} {$email} \&";
         $cmd1 = exec( $cmdString1, $out, $result );
         if ( $result !== 0 ) {
             throw new Exception( "command failed " + $cmdString1 );

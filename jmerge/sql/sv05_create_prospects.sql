@@ -4,7 +4,7 @@ grant all on prospects to public;
 alter table prospects drop constraint if exists prospects_snummer_pk;
 
 alter table prospects add constraint prospects_snummer_pk primary key (snummer);
--- upsert, on update, update ass but slb and class_id
+-- upsert, on update, update all but slb and class_id
 insert into prospects select * from importer.sv05_as_student_email_v
 on conflict(snummer)
         do update set (achternaam, tussenvoegsel, voorletters, roepnaam, straat, huisnr, pcode, 

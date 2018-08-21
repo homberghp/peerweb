@@ -102,7 +102,7 @@ $nclassSelectorClass = new ClassSelectorClass($dbConn, $newclass_id);
 $pp['newClassSelector'] = $nclassSelectorClass->setSelectorName('newclass_id')->getSelector();
 
 $page = new PageContainer();
-$page_opening = "Move students between student_class.";
+$page_opening = "Move students between student classes";
 $page->setTitle($page_opening);
 $nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
 $nav->setInterestMap($tabInterestCount);

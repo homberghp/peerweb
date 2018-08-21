@@ -13,12 +13,20 @@ update sv05_aanmelders set lang ='NL' where voorkeurstaal='Nederlands';
 update sv05_aanmelders set lang ='DE' where voorkeurstaal='Duits';
 update sv05_aanmelders set lang ='EN' where voorkeurstaal='Engels';
 
+
 update sv05_aanmelders set course_grp='IPODE'||studiejaar where  opleiding='B Industrieel Produkt Ontwerpen' and voorkeurstaal='Duits';
 update sv05_aanmelders set course_grp='IPONL'||studiejaar where  opleiding='B Industrieel Produkt Ontwerpen' and voorkeurstaal='Nederlands';
 update sv05_aanmelders set course_grp='IPOEN'||studiejaar where  opleiding='B Industrieel Produkt Ontwerpen' and voorkeurstaal='Engels';
-update sv05_aanmelders set course_grp='SEBIEN'||studiejaar where  opleiding='B Informatica' and voorkeurstaal='Engels';
-update sv05_aanmelders set course_grp='SEBIDE'||studiejaar where  opleiding='B Informatica' and voorkeurstaal='Duits';
-update sv05_aanmelders set course_grp='SEBINL'||studiejaar where  opleiding='B Informatica' and voorkeurstaal='Nederlands';
+
+update sv05_aanmelders set course_grp='SEBIEN'||studiejaar where  variant_omschrijving='Software Engineering English';
+update sv05_aanmelders set course_grp='SEBIEN'||studiejaar where  variant_omschrijving='Business Informatics English';
+
+update sv05_aanmelders set course_grp='SEBIDE'||studiejaar where  variant_omschrijving='Software Engineering Deutsch';
+update sv05_aanmelders set course_grp='SEBIDE'||studiejaar where  variant_omschrijving='Wirtschaftsinformatik Deutsch';
+
+update sv05_aanmelders set course_grp='SEBINL'||studiejaar where variant_omschrijving='Business Informatics Nederlands';
+update sv05_aanmelders set course_grp='SEBINL'||studiejaar where variant_omschrijving='Software Engineering Nederlands';
+
 update sv05_aanmelders set course_grp='LEEN'||studiejaar where  opleiding='B Logistiek en Economie' and voorkeurstaal='Engels';
 update sv05_aanmelders set course_grp='LEDE'||studiejaar where  opleiding='B Logistiek en Economie' and voorkeurstaal='Duits';
 update sv05_aanmelders set course_grp='LENL'||studiejaar where  opleiding='B Logistiek en Economie' and voorkeurstaal='Nederlands';
