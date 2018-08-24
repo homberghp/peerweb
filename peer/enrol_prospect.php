@@ -14,7 +14,7 @@ require_once 'SpreadSheetWriter.php';
 require_once 'maillists.inc.php';
 $getAll = isSet($_POST['get']) ? 'checked' : '';
 $newclass_id = $oldclass_id = 1;
-$hoofdgrp = 'SEBINL2017';
+$hoofdgrp = 'SEBINL2018';
 extract($_SESSION);
 
 $pp = array();
@@ -72,7 +72,7 @@ $pp['mailalias'] = $prefix . '@fontysvenlo.org';
 $pp['oldClassSelector'] = $oldClassSelector; //oclassSelectorClass->setSelectorName('oldclass_id')->addConstraint('student_count <>0')->setAutoSubmit(true)->getSelector();
 
 $nclassSelectorClass = new ClassSelectorClass($dbConn, $newclass_id);
-$pp['newClassSelector'] = $nclassSelectorClass->setSelectorName('newclass_id')->getSelector();
+$pp['newClassSelector'] = $nclassSelectorClass->setSelectorName('newclass_id')->addConstraint('sort1=1')->getSelector();
 
 $page = new PageContainer();
 $page_opening = "Enrol Prospect Students from SV05 into Peerweb.";

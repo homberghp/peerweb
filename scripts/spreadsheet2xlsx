@@ -6,17 +6,18 @@ fi
 file=$1
 outfile=$2
 ftype=$(mimetype -b $file)
-(
-    cd $(dirname ${outfile})
-    unoconv -d spreadsheet -f xlsx  --stdout  ${file} >  ${outfile}
-)
-# case ${ftype} in
-#    application/vnd.ms-excel | application/x-ole-storage | application/vnd.oasis.opendocument.spreadsheet)
-# 	unoconv -d spreadsheet -f xlsx  -o ${outfile} ${file}
-# 	;;
-#    *)
-#        # silent	echo spreadsheet type for file $1 [${ftype}], no conversion needed or possible
-#        if [[ $file != $outfile ]]; then
-#        fi
-# 	;;
-# esac
+# (
+#     cd $(dirname ${outfile})
+#     unoconv -d spreadsheet -f xlsx  --stdout  ${file} >  ${outfile}
+# )
+case ${ftype} in
+   application/vnd.ms-excel | application/x-ole-storage | application/vnd.oasis.opendocument.spreadsheet)
+	unoconv -d spreadsheet -f xlsx  -o ${outfile} ${file}
+	;;
+   *)
+       # silently copy spreadsheet type for file $1 [${ftype}], no conversion needed or possible
+       if [[ $file != $outfile ]]; then
+	   cp $file $outfile
+       fi
+	;;
+esac

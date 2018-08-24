@@ -54,6 +54,7 @@ create view sv05_as_student_email_v as
        iso2.a3 as  geboorteland,
        voornamen,
        0 as class_id,
+       --e_mail_privé as email2
        e_mail_privé as email2
 from sv05_aanmelders a 
 join public.studieplan sp on(sp.studieplan = a.studielinkvariantcode)

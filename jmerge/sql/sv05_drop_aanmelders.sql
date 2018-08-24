@@ -24,10 +24,11 @@ SET default_with_oids = false;
 --
 -- Name: sv05_aanmelders; Type: TABLE; Schema: importer; Owner: importer
 --
-
+drop table sv05_aanmelders cascade;
 CREATE TABLE IF NOT EXISTS sv05_aanmelders  (
-    peildatum date,
-    aanmelddatum date,
+--    peildatum date,
+      draaidatum double precision,
+      aanmelddatum date,
     instroom text,
     datum_van date,
     studiejaar integer,
@@ -85,8 +86,9 @@ CREATE TABLE IF NOT EXISTS sv05_aanmelders  (
     lang character(2),
     postcode text,
     woonplaats text,
-    huisnr character(4),
-    straat text
+    -- huisnr character(4),
+    -- straat text
+    seri integer
 );
 
 

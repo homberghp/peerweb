@@ -59,17 +59,17 @@ $sqlhead = "select distinct '<a href=\"student_admin.php?snummer='||s.snummer||'
 
 $rainbow = new RainBow(STARTCOLOR, COLORINCREMENT_RED, COLORINCREMENT_GREEN, COLORINCREMENT_BLUE);
 
-$scripts = '<script type="text/javascript" src="js/jquery.js"></script>
-    <script src="js/jquery.tablesorter.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function() {
-      // do stuff when DOM is ready
-           $("#myTable").tablesorter({ });
-      });
+/* $scripts = '<script type="text/javascript" src="js/jquery.js"></script> */
+/*     <script src="js/jquery.tablesorter.js"></script> */
+/*     <script type="text/javascript"> */
+/*       $(document).ready(function() { */
+/*       // do stuff when DOM is ready */
+/*            $("#myTable").tablesorter({ }); */
+/*       }); */
 
-    </script>
-    <link rel=\'stylesheet\' type=\'text/css\' href=\'' . SITEROOT . '/style/tablesorterstyle.css\'/>
-';
+/*     </script> */
+/*     <link rel=\'stylesheet\' type=\'text/css\' href=\'' . SITEROOT . '/style/tablesorterstyle.css\'/> */
+/* '; */
 pagehead2('Get group tables',$scripts);
 $page_opening = "Group lists for project $afko $description <span style='font-size:8pt;'>prjm_id $prjm_id prj_id $prj_id milestone $milestone </span>";
 $nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);

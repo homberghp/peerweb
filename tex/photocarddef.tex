@@ -20,6 +20,7 @@
 \renewcommand\tableofcontents{\@starttoc{toc}}
 \makeatother
 \setlength{\unitlength}{1mm}
+\def\ticketdate{2018-08-23}
 \def\GeboorteLand{Nederlandse Antillen}
 \def\Nationaliteit{Nederlandse}
 \def\strutone{\rule[-3mm]{0pt}{10mm}}
@@ -38,15 +39,14 @@
     \textbf{#3/#4}
   \end{center}
   \vspace{-5mm}
-  {\begin{center}\mbox{\Large\bfseries{}#1}\end{center}
-  }
+  {\begin{center}\mbox{\Large\bfseries{}#1}\end{center}}
   \vspace{-2mm}
-  {\hfill{}\tiny{}Student details overleaf.}
+%  {\hfill{}\tiny{}Student details overleaf.}
   \begin{tabularx}{\linewidth}{|p{15mm}|X|}\hline
     Naam & #1\\\hline
     Opleiding & #2\\\hline
     \multicolumn{2}{|X|}{\begin{minipage}{.9\textwidth}Venlo,
-        2016-08-26
+        \ticketdate
         
         \vspace{15mm}
         {\hfill\tiny{}\color{gray}signature}
@@ -62,19 +62,21 @@
   \begin{center}
     \barcode{#3}\\
     \textbf{#3/#4}
-  \end{center}\vspace{-\baselineskip}\hfill{\tiny\bfseries{}boarding card}
-  \begin{tabularx}{\linewidth}{|p{26mm}|X|}\hline
-    Naam & #1\\\hline
-    Geb.~datum& \GeboorteDatum{} in \GeboortePlaats\\\hline
-    Geb.land/nat& \GeboorteLand/\Nationaliteit\\\hline
-    PCN&\UseVerb{PCN}\\\hline
-    telefoon/gsm & #5 / #6\\\hline
-    {\small{}email~privé} & \UseVerb{Email}  \\\hline
-    adres&\UseVerb{VolledigAdres} \\\hline
-    {\small{}postcode~plaats/land}&\PP / \Land \\\hline
-    {\small{}aanmeld~datum}&\Aanmelddatum\\\hline
-    {\small{}aanmelding~status}&\Aanmeldingstatus\ (peildatum \Peildatum)\\\hline
-  \end{tabularx}
+  \end{center}%
+  {\begin{center}\mbox{\Large\bfseries{}#1}\end{center}}
+  %\vspace{-\baselineskip}\hfill{\tiny\bfseries{}boarding card}
+   \begin{tabularx}{\linewidth}{|p{26mm}|X|}\hline
+     Naam & #1\\\hline
+  %   Geb.~datum& \GeboorteDatum{} in \GeboortePlaats\\\hline
+  %   Geb.land/nat& \GeboorteLand/\Nationaliteit\\\hline
+  %   PCN&\UseVerb{PCN}\\\hline
+  %   telefoon/gsm & #5 / #6\\\hline
+  %   {\small{}email~privé} & \UseVerb{Email}  \\\hline
+  %   adres&\UseVerb{VolledigAdres} \\\hline
+  %   {\small{}postcode~plaats/land}&\PP / \Land \\\hline
+  %   {\small{}aanmeld~datum}&\Aanmelddatum\\\hline
+     {\small{}aanmelding~status}&\Aanmeldingstatus\ (peildatum \Peildatum)\\\hline
+   \end{tabularx}
   {\normalsize\vfill\hfill\fbox{\bfseries\thecardcounter/\thepage}\hfill}
   \clearpage
 }
