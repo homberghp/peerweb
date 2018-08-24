@@ -94,7 +94,7 @@ $page->addJqueryFragment('$("#myTable").tablesorter({widgets: [\'zebra\'],header
         i++;
     });
 });  ');
-
+$pp['plist']="<a href='prospectpresenceform.php?hoofdgrp={$hoofdgrp}'>presencelist</a>";
 $filename = '/home/maillists/' . $prefix . '.maillist';
 $pp['filetime'] = 'never';
 if (file_exists($filename)) {
