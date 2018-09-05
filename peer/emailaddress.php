@@ -89,7 +89,7 @@ if (isSet($_POST['lpi_id']) && preg_match('/^LPI\d{9}$/ ', $_POST['lpi_id'])) {
         echo "cannot adapt email address with $sql, error " . $dbConn->ErrorMsg();
     }
 }
-if (isSet($_POST['github_id']) && preg_match('/^\w+$/ ', $_POST['github_id'])) {
+if (isSet($_POST['github_id']) && preg_match('/^(\w|-)+$/ ', $_POST['github_id'])) {
 
     $sql = "select snummer from github_id where snummer=$snummer";
     $resultSet = $dbConn->Execute($sql);
