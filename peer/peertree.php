@@ -48,14 +48,14 @@ require_once'treebuilder.php';
                                                       title='Make your own tablecard' 
                                                       style='margin: 4px 0 4px 0;' alt='Make your own tablecard' src='images/pietje.png'/></a>
       <!--Some 'commercials'-->
-      <a href='http://www.mozilla.org/products/firefox/' target='mainframe'>
+      <a href='https://www.mozilla.org/products/firefox/' target='mainframe'>
         <img src='<?= IMAGEROOT ?>/product-firefox.png' border='0'
              alt='best viewed with mozilla or mozilla-firefox'
              title='best viewed with mozilla firefox'/>
       </a>
     </div>
     <div align='center' class='<?= $tdClass ?>'>
-      <a href='http://www.cacert.org' title='free ssl ceritificates' 
+      <a href='https://www.cacert.org' title='free ssl ceritificates' 
          target='mainframe'><img align='bottom' src='images/small-ssl-security.png' border='0' alt='ca cert free certificate'/></a>
     </div>
         <hr/><div style='text-align:center' >
