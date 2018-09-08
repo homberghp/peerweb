@@ -29,4 +29,7 @@ update sv09_ingeschrevenen set land='Republiek Moldavië'  where land='Moldavië
 update sv09_ingeschrevenen set geboorteland='Somalia'  where geboorteland='Somalië';
 update sv09_ingeschrevenen set land='Somalia'  where land='Somalië';
 
+update sv09_ingeschrevenen set geboorteland='Wit Rusland'  where geboorteland='Belarus';
+update sv09_ingeschrevenen set land='Wit Rusland'  where land='Belarus';
+
 commit;
