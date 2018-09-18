@@ -91,7 +91,7 @@ $navtable = array(// index, defproject, citeria1,2, milestones
                 'linktext' => 'slb pupils',
                 'menu_name' => 'slblist',
                 'image' => 'public.png',
-                'interest' => 'adminstudent_class',
+                'interest' => 'all',
             ),
 //		     array( 'target'=> 'buit.php',
 //			    'tooltip' => 'Formulier jaag actie',
