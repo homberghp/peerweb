@@ -94,7 +94,7 @@ $slbList = "<select name='slb'>\n" . getOptionListGrouped($dbConn, $sql_slb, $sl
             $colcount = 0;
         }
         if ($rowcount == 0 && $colcount == 0) {
-            $tablehead = "<h2><a href='photolist.php?class_id={$class_id}'>SLB Pupil photos for {$slb_info} $cohort</a></h2>";
+            $tablehead = "<h2>SLB Pupil photos for {$slb_info} $cohort</h2>";
             echo "{$tablehead}\n"
             . "<table><colgroup>\n"
             . "<col width='140px'/>\n"
