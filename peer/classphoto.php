@@ -52,7 +52,7 @@ $sql = "SELECT distinct st.snummer as number," .
         " from student_email st \n" .
         "left join fontys_course fc on(st.opl=fc.course)\n" .
         "left join tutor_join_student td on (st.slb=td.snummer)\n" .
-        "where class_id='$class_id' and active " .
+        "where class_id='$class_id'  " .
         "order by achternaam,roepnaam";
 
 //$dbConn->log($sql);
