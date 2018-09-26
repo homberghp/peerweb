@@ -37,7 +37,7 @@ class MyRowFactory implements RowFactory {
                 //. "\t<td class='tabledata num'>$grp_name</td>\n"
                 . $grpnamecel
                 . "\t<td class='tabledata num'>$snummer<input type='hidden' name='participant[]' value='$snummer'/></td>\n"
-                . "\t<td>$name</td>\n"
+                . "\t<td><a href='student_admin.php?snummer={$snummer}' target='_blank'>{$name}</a></td>\n"
                 . "\t<td>$face</td>\n";
         $this->rowCounter++;
         return $result;
