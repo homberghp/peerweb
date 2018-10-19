@@ -48,7 +48,7 @@ require_once'treebuilder.php';
                                                       title='Make your own tablecard' 
                                                       style='margin: 4px 0 4px 0;' alt='Make your own tablecard' src='images/pietje.png'/></a>
       <!--Some 'commercials'-->
-      <a href='https://www.mozilla.org/products/firefox/' target='mainframe'>
+      <a href='https://www.mozilla.org' target='mainframe'>
         <img src='<?= IMAGEROOT ?>/product-firefox.png' border='0'
              alt='best viewed with mozilla or mozilla-firefox'
              title='best viewed with mozilla firefox'/>
