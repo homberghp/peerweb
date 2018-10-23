@@ -2,7 +2,7 @@
 scriptdir=$(dirname $0)
 me=$(basename $0)
 GETOPT=/usr/bin/getopt
-# sinsible defaults: pick everything up from wd.
+# sensible defaults: pick everything up from wd.
 workdir=$(pwd)
 confDirName=$(pwd)
 destdir=$(pwd)

@@ -8,11 +8,11 @@ use File::Basename;
 my $scriptPath=dirname(abs_path($0));
 my $cpath=realpath( $scriptPath);
 my $preamble = realpath($cpath.'/../tex/photocarddef.tex');
-my ($pwfile,$dbname,$username,$password,$key,$val,$faculty);
+my ($pwfile,$dbname,$username,$password,$key,$val,$faculty,$prjm_id);
 $pwfile=$cpath.'/../etc/jmerge.credentials';
 $faculty=47;
 if ($#ARGV >= 0) {
-    $faculty=$ARGV[0];
+    $prjm_id=$ARGV[0];
 }
 open(PWFILE, "<$pwfile" ) or die qq(cannot open credentials file $pwfile\n);
 while(<PWFILE>){
@@ -44,29 +44,28 @@ my ($snummer,$achternaam,$roepnaam,$voorvoegsels,$course,$lang,$land_phone,$gsm,
 my ($postcode_plaats,$volledig_adres,$land,$aanmeldingstatus,$aanmelddatum,$peildatum,$pcn,$sex,$gebdat,$gebplaats);
 my ($gebland,$nat);
 my ($name);
-my $query =qq(select studentnummer as snummer,
+my $query =qq(select snummer,
     trim(achternaam) as achternaam,
     trim(roepnaam) as roepnaam,
-    trim(voorvoegsels) as voorvoegsels,
-    trim(course_grp) as course_grp,
+    trim(tussenvoegsel) as voorvoegsels,
+    trim(hoofdgrp) as course_grp,
     lang,
-    coalesce('+'||land_nummer_vast||' '||vast_nummer,'-') as land_phone,
-    coalesce('+'||land_nummer_mobiel||' '||mobiel_nummer,'-') as gsm,
-    e_mail_privé as email_prive,
-    --email_prive,
-    postcode_en_plaats,
-    volledig_adres,
-    land,
-    peildatum,
-    aanmeldingstatus,
-    aanmelddatum,
-    pcn_nummer,
-    geslacht as sex,
-    geboortedatum,
-    coalesce(geboorteplaats,'unknown') as geboorteplaats,
+    coalesce(phone_home,'unkown') as land_phone,
+    coalesce(phone_gsm,'unkonwn') as gsm,
+    email2 as email_prive,
+    coalesce(pcode || ' '||plaats,'unkown')  as postcode_en_plaats,
+    coalesce(straat ||' '||huisnr,'unkown')  as volledig_adres,
+    coalesce(land,'unknown') as land,
+    now()::date as peildatum,
+    'ingeschreven' as aanmeldingstatus,
+    now()::date as aanmelddatum,
+    pcn as pcn_nummer,
+    sex,
+    gebdat as geboortedatum,
+    coalesce(geboorteplaats,'unknown'),
     geboorteland,
-    leidende_nationaliteit
-    from importer.sv05_aanmelders where instituutcode =$faculty -- where course_grp like 'SEBIEN%'
+    nationaliteit as leidende_nationaliteit
+    from student_email join prj_grp using (snummer) join prj_tutor using(prjtg_id) where prjm_id=$prjm_id
     order by course_grp,achternaam,roepnaam);
 my $dbh= DBI->connect("dbi:Pg:dbname=$dbname",$username,$password,{pg_utf8_strings =>1});
 
