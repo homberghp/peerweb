@@ -9,7 +9,26 @@ destdir=$(pwd)
 propfile=jMerge.properties
 FILETS=$(date)
 
-prjm_id=$1; shift
+ARGS=$(${GETOPT} -o hp:w: --long help,prjm_id:,workdir: -- "$@")
+eval set -- "$ARGS"
+while [ $# -gt 0 ]
+do
+    case "$1" in
+	-h|--help)
+	    cat <<EOF
+usage $me [-h|--help] [-d|--destdir <destdir>] [-c|--confDirname <confdir>] \
+[-c|--workdir <workdir>]
+EOF
+	    exit 0;;
+	-p|--prjm_id) prjm_id=$2; shift;;
+	-w|--workdir) workdir=$2; shift;;
+	--) shift; break;;
+	-*) echo "$0: error - unrecognized option $1" 1>&2; exit 1;;
+	*)  break;;
+    esac
+    shift
+done
+
 product=phototicketforproject
 latexcount=2
 merger=merger.pl
@@ -23,7 +42,7 @@ esac
 export product workdir latexcount merger FILETS prjm_id
 # echo $product $latexcount $workdir $merger
 # exit 0
-workdir=../tex/out
+workdir=${scriptdir}/../tex/out
 outdir=${workdir}
 mkdir -p ${outdir}
 ${scriptdir}/${product}.pl ${prjm_id} > ${outdir}/${product}-bus.tex

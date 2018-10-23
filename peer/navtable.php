@@ -628,6 +628,13 @@ $navtable = array(// index, defproject, citeria1,2, milestones
                 'image' => 'synchronize-26.png',
                 'interest' => 'sync',
             ),
+            array('target' => 'phototicketsforproject.php',
+                'tooltip' => 'create new photo tickets for student in a project',
+                'linktext' => 'photo ticket',
+                'menu_name' => 'new photroticket project based',
+                'image' => 'synchronize-26.png',
+                'interest' => 'sync',
+            ),
         ),
     ),
     array(
