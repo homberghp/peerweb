@@ -632,7 +632,7 @@ $navtable = array(// index, defproject, citeria1,2, milestones
                 'tooltip' => 'create new photo tickets for student in a project',
                 'linktext' => 'photo ticket',
                 'menu_name' => 'new photroticket project based',
-                'image' => 'synchronize-26.png',
+                'image' => 'add_user.png',
                 'interest' => 'sync',
             ),
         ),
