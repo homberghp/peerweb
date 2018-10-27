@@ -140,7 +140,7 @@ $navtable = array(// index, defproject, citeria1,2, milestones
             ),
             array('target' => 'addmilestone.php',
                 'tooltip' => 'Add another assessment milestone',
-                'linktext' => 'Add/change milestone(s)',
+               'linktext' => 'Add/change milestone(s)',
                 'menu_name' => 'addmilestone',
                 'image' => 'milestone1.png',
                 'interest' => 'tutor_owner',
@@ -777,27 +777,27 @@ $navtable = array(// index, defproject, citeria1,2, milestones
                 'image' => 'klipper.png',
                 'interest' => 'mkproject',
             ),
-            array('target' => 'meelopen.php',
-                'tooltip' => 'Meelopen student',
-                'linktext' => 'Meelopen student',
-                'menu_name' => 'meelopen',
-                'image' => 'shaking_hands_icn.png',
-                'interest' => 'recruiter',
-            ),
-            array('target' => 'meeloopdag.php',
-                'tooltip' => 'Plan meeloopdag',
-                'linktext' => 'Plan meeloopdag',
-                'menu_name' => 'meeloopdag',
-                'image' => 'plan_invite.png',
-                'interest' => 'recruiter',
-            ),
-            array('target' => 'potential.php',
-                'tooltip' => 'Potential student',
-                'linktext' => 'Potential student',
-                'menu_name' => 'potential',
-                'image' => 'kontact_contacts.png',
-                'interest' => 'recruiter',
-            ),
+            /* array('target' => 'meelopen.php', */
+            /*     'tooltip' => 'Meelopen student', */
+            /*     'linktext' => 'Meelopen student', */
+            /*     'menu_name' => 'meelopen', */
+            /*     'image' => 'shaking_hands_icn.png', */
+            /*     'interest' => 'recruiter', */
+            /* ), */
+            /* array('target' => 'meeloopdag.php', */
+            /*     'tooltip' => 'Plan meeloopdag', */
+            /*     'linktext' => 'Plan meeloopdag', */
+            /*     'menu_name' => 'meeloopdag', */
+            /*     'image' => 'plan_invite.png', */
+            /*     'interest' => 'recruiter', */
+            /* ), */
+            /* array('target' => 'potential.php', */
+            /*     'tooltip' => 'Potential student', */
+            /*     'linktext' => 'Potential student', */
+            /*     'menu_name' => 'potential', */
+            /*     'image' => 'kontact_contacts.png', */
+            /*     'interest' => 'recruiter', */
+            /* ), */
             array('target' => 'anyselect.php',
                 'tooltip' => 'Get database data with any select',
                 'linktext' => 'Any select',
@@ -817,6 +817,13 @@ $navtable = array(// index, defproject, citeria1,2, milestones
                 'linktext' => 'Tutor editor',
                 'menu_name' => 'tutoreditor',
                 'image' => 'tutor_icon.png',
+                'interest' => 'adminstudent_class',
+            ),
+            array('target' => 'studieplan.php',
+                'tooltip' => 'Edit studie plan',
+                'linktext' => 'Studieplan',
+                'menu_name' => 'studieplan',
+                'image' => 'wrench_driver.png',
                 'interest' => 'adminstudent_class',
             ),
             array('target' => 'rubberreports.php',
