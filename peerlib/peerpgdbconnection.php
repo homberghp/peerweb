@@ -56,14 +56,14 @@ class PeerPGDBConnection {
      * @param type $db_name
      * @return type
      */
-    function Connect($host, $user, $pass, $db_name) {
+    function Connect($host, $user, $pass, $db_name, $port=5433) {
 
         $this->db_name = $db_name;
         $hostString = "host={$host} ";
         if ($host == '' || $host == 'localhost') {
             $hostString = '';
         }
-        $result = $this->connection = pg_connect("{$hostString}user={$user} password={$pass} dbname={$db_name}");
+        $result = $this->connection = pg_connect("{$hostString}user={$user} password={$pass} dbname={$db_name} port={$port}");
         if ($result === false) {
             die("cannot establish connection\n" . pg_last_error());
         }
