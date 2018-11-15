@@ -8,16 +8,22 @@
 //require_once($adodb_path . "/adodb.inc.php");
 //require_once($adodb_path . '/adodb-pager.inc.php');
 
-class SQLPrepareException extends Exception{
-   public function __construct($message, $code = 0, Exception $previous = null) {
-        parent::__construct($message,$code,$previous);
+class SQLPrepareException extends Exception {
+
+    public function __construct($message, $code = 0, Exception $previous = null) {
+        parent::__construct($message, $code, $previous);
     }
+
 }
-class SQLExecuteException extends Exception{
-   public function __construct($message, $code = 0, Exception $previous = null) {
-        parent::__construct($message,$code,$previous);
+
+class SQLExecuteException extends Exception {
+
+    public function __construct($message, $code = 0, Exception $previous = null) {
+        parent::__construct($message, $code, $previous);
     }
+
 }
+
 class PeerPGDBConnection {
 
     /** a pd connection. */
@@ -56,14 +62,14 @@ class PeerPGDBConnection {
      * @param type $db_name
      * @return type
      */
-    function Connect($host, $user, $pass, $db_name) {
+    function Connect($host, $user, $pass, $db_name, $port = 5432) {
 
         $this->db_name = $db_name;
-        $hostString = "host={$host} ";
+        $hostString = "host={$host} "; // not trailing space
         if ($host == '' || $host == 'localhost') {
             $hostString = '';
-        }
-        $result = $this->connection = pg_connect("{$hostString}user={$user} password={$pass} dbname={$db_name}");
+        } 
+        $result = $this->connection = pg_connect("{$hostString}user={$user} password={$pass} dbname={$this->db_name} port={$port}");
         if ($result === false) {
             die("cannot establish connection\n" . pg_last_error());
         }
@@ -112,7 +118,7 @@ class PeerPGDBConnection {
             }
             return $result;
         }
-        
+
         $this->aRowCount = pg_affected_rows($result);
 
         if ($this->sqlAutoLog) {
@@ -570,11 +576,11 @@ class PreparedStatement {
      */
     public function execute($params = array()) {
         $resource = pg_execute($this->dbConn->unWrap(), $this->stmntName, $params);
-        if ($resource === FALSE){
+        if ($resource === FALSE) {
             throw new SQLExecuteException($this->dbConn->ErrorMsg());
         }
-        $affectedRows= pg_affected_rows($resource);
-        return new PeerResultSet($this->dbConn, $resource,$affectedRows);
+        $affectedRows = pg_affected_rows($resource);
+        return new PeerResultSet($this->dbConn, $resource, $affectedRows);
     }
 
     public function close() {
@@ -615,7 +621,7 @@ class PeerResultSet {
         }
         $this->dbConn = $con;
         $this->resource = $res;
-        $this->affected_rows =$affect_rows;
+        $this->affected_rows = $affect_rows;
         //$this->MoveFirst();
         $this->size = pg_num_rows($this->resource);
         if ($this->size <= 0) {

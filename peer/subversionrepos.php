@@ -186,7 +186,8 @@ foreach ($groups as $grp => $list) {
     //echo implode(' ',$list);
     if (isSet($list) && is_array($list)) {
         $grpStr = join(',', $list);
-        $all[] = join(',',$list);
+        //$all[] = join(',',$list);
+        $all=array_merge($all,$list);
     } else {
         $grpStr = $grp;
     }

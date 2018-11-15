@@ -16,12 +16,12 @@ class BirthDaysToDay {
 </thead>";
 
 	$sql = "select distinct roepnaam,tussenvoegsel,achternaam, rtrim(email1) as email1,\n".
-	    "rtrim(email2||' or') as email2, student_class.sclass as sclass,age(gebdat),\n".
+	    "rtrim(email2||' or') as email2, sc.sclass as sclass,age(gebdat),\n".
 	    "faculty_short from birthdays \n".
-	    " join student_class using(class_id)\n".
+	    " join student_class sc using(class_id)\n".
 	    "left join alt_email using(snummer)\n"
 	    ." where "
-	  ."student_class.sclass  not ilike 'UIT%' and student_class.sclass !~* E'^.+?(dump|uit)\\\\s*$'"
+	  ."sc.sclass  not ilike 'UIT%' and sc.class_id <>0 and sc.sclass !~* E'^.+?(dump|uit)\\\\s*$'"
 	  ."order by achternaam,roepnaam";
 	$resultSet= $dbConn->Execute($sql);
 	if ($resultSet=== false) {
