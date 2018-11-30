@@ -100,20 +100,6 @@ $navtable = array(// index, defproject, citeria1,2, milestones
                 'image' => 'kontact_contacts.png',
                 'interest' => 'all',
             ),
-//		     array( 'target'=> 'buit.php',
-//			    'tooltip' => 'Formulier jaag actie',
-//			    'linktext' => 'Jaag scherm',
-//			    'menu_name' =>'buit',
-//			    'image'=> 'bowandarrow.png',
-//			    'interest' =>'hunter',
-//			    ),
-//		     array( 'target'=> 'jaag_buit.php',
-//			    'tooltip' => 'Resultaat jaag actie',
-//			    'linktext' => 'Jaag resultaat',
-//			    'menu_name' =>'jaagbuit',
-//			    'image'=> 'Boogschutter_thumb.png',
-//			    'interest' =>'hunter',
-//			    ),
         ), // tutor home
     ),
     array(
@@ -749,20 +735,6 @@ $navtable = array(// index, defproject, citeria1,2, milestones
                 'image' => 'slb.png',
                 'interest' => 'adminstudent_class',
             ),
-//		     array( 'target'=> 'buit.php',
-//			    'tooltip' => 'Formulier jaag actie',
-//			    'linktext' => 'Jaag scherm',
-//			    'menu_name' =>'buit',
-//			    'image'=> 'bowandarrow.png',
-//			    'interest' =>'adminstudent_class',
-//			    ),
-//		     array( 'target'=> 'jaag_buit.php',
-//			    'tooltip' => 'Resultaat jaag actie',
-//			    'linktext' => 'Jaag resultaat',
-//			    'menu_name' =>'jaagbuit',
-//			    'image'=> 'Boogschutter_thumb.png',
-//			    'interest' =>'adminstudent_class',
-//			    ),
             array('target' => 'ads_data.php',
                 'tooltip' => 'Get student ads account data',
                 'linktext' => 'Get ADS Account data',
@@ -777,27 +749,6 @@ $navtable = array(// index, defproject, citeria1,2, milestones
                 'image' => 'klipper.png',
                 'interest' => 'mkproject',
             ),
-            /* array('target' => 'meelopen.php', */
-            /*     'tooltip' => 'Meelopen student', */
-            /*     'linktext' => 'Meelopen student', */
-            /*     'menu_name' => 'meelopen', */
-            /*     'image' => 'shaking_hands_icn.png', */
-            /*     'interest' => 'recruiter', */
-            /* ), */
-            /* array('target' => 'meeloopdag.php', */
-            /*     'tooltip' => 'Plan meeloopdag', */
-            /*     'linktext' => 'Plan meeloopdag', */
-            /*     'menu_name' => 'meeloopdag', */
-            /*     'image' => 'plan_invite.png', */
-            /*     'interest' => 'recruiter', */
-            /* ), */
-            /* array('target' => 'potential.php', */
-            /*     'tooltip' => 'Potential student', */
-            /*     'linktext' => 'Potential student', */
-            /*     'menu_name' => 'potential', */
-            /*     'image' => 'kontact_contacts.png', */
-            /*     'interest' => 'recruiter', */
-            /* ), */
             array('target' => 'anyselect.php',
                 'tooltip' => 'Get database data with any select',
                 'linktext' => 'Any select',
