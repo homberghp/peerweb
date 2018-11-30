@@ -79,7 +79,7 @@ if ($resultSet === false) {
         . "<img src='$photo' alt='fotos/$number.jpg' align='top' border='0'"
         . " style='width:128px;height:auto;box-shadow: 5px 5px 5px #004;border-radius:16px;'/>"
         . "\n<table width='100%'>\n"
-        . "\t<tr><th>$name</th></tr>\n\t<tr><th>$number</th></tr>\n"
+        . "\t<tr><th>$name</th></tr>"
         . "\t</table></th>\n";
         $colcount++;
         if ($colcount >= MAXCOL) {
