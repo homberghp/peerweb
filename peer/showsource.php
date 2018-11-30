@@ -13,7 +13,7 @@
 <?php
 require_once("peerutils.php");
 require_once("utils.php");
-//requireCap(CAP_SYSTEM);
+requireCap(CAP_SYSTEM);
 //require_once("nav6.php");
 /* if ($am_user_blocked == 'J') {
  include("blocked_tail.inc");

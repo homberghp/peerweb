@@ -7,7 +7,7 @@ require_once 'prjMilestoneSelector2.php';
 require_once 'SpreadSheetWriter.php';
 
 
-//requireCap(CAP_TUTOR);
+requireCap(CAP_TUTOR);
 // get group tables for a project
 $afko = 'PRJ00';
 $prj_id = 1;

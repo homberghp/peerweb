@@ -1,6 +1,11 @@
 <?php
 
 require_once 'TemplateWith.php';
+if (is_file($site_dir . '/CLOSED')) {
+    require_once 'templates/loginclosed.html';
+    exit;
+}
+
 
 /**
  * prepended by all
@@ -87,23 +92,7 @@ if (isSet($_SESSION['userCap'])) {
     if ($userCap == 0 && isSet($_SESSION['peer_id']))
         $_SESSION['snummer'] = $_SESSION['peer_id'];
 }
-if (is_file($site_dir . '/CLOSED')) {
-    $underconstructionicon = IMAGEROOT . '/underconstruction.gif';
-    $templatefile = 'templates/loginclosed.html';
-    $result = '';
-    if (isSet($_REQUEST['baccessrequest'])) {
-        $result = makenewlogincode($_REQUEST['newlogincode'], $_REQUEST['secret']);
-    }
-    $ktipicon = IMAGEROOT . '/ktip.png';
-    $pdficon = IMAGEROOT . '/pdf.png';
-    $template_text = file_get_contents($templatefile, true);
-    if ($template_text === false) {
-        $form1Form->addText("<strong>cannot read template file $templatefile</strong>");
-    } else {
-        $form1Form->addText(templateWith($template_text, get_defined_vars()));
-    }
-    exit;
-}
+
 if (!isSet($_SESSION['auth_user'])) { // make login screen
     //    pagehead('Peerweb login');
     $action_uri = $_SERVER['REQUEST_URI'];
