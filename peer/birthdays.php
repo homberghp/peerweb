@@ -37,7 +37,8 @@ class BirthDaysToDay {
 	    $resultSet->moveNext();
 	}
 	$result .= "</table>\n</div>\n";
-	return $result;
+	return "<div></div>";//$result;
+    
       }
 }
 ?>
