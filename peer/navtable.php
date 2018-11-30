@@ -1105,8 +1105,7 @@ $navtable = array(// index, defproject, citeria1,2, milestones
         'image' => 'group_presence.png',
         'subitems' =>
         array(// time and presence
-            array(
-                'target' => 'personal_presence.php',
+            array('target' => 'personal_presence.php',
                 'tooltip' => 'presence at computer in the fontys network',
                 'top_image' => 'player_time.png',
                 'linktext' => 'Presence',
@@ -1114,8 +1113,7 @@ $navtable = array(// index, defproject, citeria1,2, milestones
                 'image' => 'edu_languages.png',
                 'interest' => 'project_count',
             ),
-            array(
-                'target' => 'group_presence.php',
+            array('target' => 'group_presence.php',
                 'tooltip' => 'group presence at computers in the fontys network',
                 'linktext' => 'Group Presence',
                 'menu_name' => 'grouppresence',

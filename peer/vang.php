@@ -1,6 +1,6 @@
 <?php
   //  phpinfo();
-require_once('peerutils.php');
+requireCap(CAP_SYSTEM);
 if (isSet($_REQUEST['id']) &&
     isSet($_REQUEST['boxes'])) {
   $id=$_REQUEST['id'];
