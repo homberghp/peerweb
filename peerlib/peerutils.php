@@ -92,6 +92,7 @@ function getUserDataInto($dbConn, $unix_id, &$arr) {
     }
 #  var_dump($arr);
 }
+
 /**
  * test the capability the user has.
  * @param $cap required capability
@@ -119,8 +120,13 @@ function hasCap($cap) {
  */
 function requireCap($cap) {
     global $root_url;
+
     if (!hasCap($cap)) {
-        header("location: $root_url/home.php");
+        $redirect = "location: $root_url/home.php";
+        if (hasCap(CAP_TUTOR)) {
+            $redirect = "location: $root_url/tutorhome.php";
+        }
+        header($redirect);
         die('');
     }
 }
