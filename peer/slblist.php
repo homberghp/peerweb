@@ -1,5 +1,5 @@
 <?php
-requireCap(CAP_TUTOR);
+requireCap(CAP_SYSTEM);
 require_once('validators.php');
 include_once('navigation2.php');
 
