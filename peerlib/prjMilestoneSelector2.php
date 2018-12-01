@@ -101,7 +101,8 @@ class PrjMilestoneSelector2 {
                 . " end as css_class\n"
                 . " from project p join tutor t on(owner_id=userid) join prj_milestone pm using(prj_id) join fontys_course fc on (p.course = fc.course)\n"
                 . (($this->extraJoin !== '') ? ("\njoin " . $this->extraJoin . "\n") : '')
-                . (($this->whereClause !== '') ? ("\nwhere " . $this->whereClause . "\n") : '')
+                    .' where p.valid_until > now() '
+                . (($this->whereClause !== '') ? ("\nand " . $this->whereClause . "\n") : '')
                 . ' order by ' . $this->orderBy;
         //      echo "<pre style='padding:2em'>{$sql}</pre>";
         return $sql;
