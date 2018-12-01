@@ -1,5 +1,5 @@
 <?php
-require_once 'peerutils.php';
+requireCap(CAP_SYSTEM);
 require_once 'validators.php';
 
 # $Id: dataRetriever.php 1723 2014-01-03 08:34:59Z hom $

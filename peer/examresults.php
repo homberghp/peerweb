@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_SYSTEM);
 require_once 'component.php';
 require_once 'navigation2.php';
 require_once 'selector.php';

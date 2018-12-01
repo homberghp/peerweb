@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_RECRUITER);
 
 /**
  * The simple table editor for the tutor
@@ -20,4 +21,4 @@ $ste->setFormAction($PHP_SELF)
         ->setNameExpression("rtrim(achternaam||', '||roepnaam||coalesce(', '||tussenvoegsel,''))")
         ->setFormTemplate('templates/meelopen.html')
         ->show();
-?>
+

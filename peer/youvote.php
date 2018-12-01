@@ -1,3 +1,6 @@
+<?php
+requireCap(CAP_SYSTEM);
+?>
 <html>
     <head>
         <title>You vote</title>

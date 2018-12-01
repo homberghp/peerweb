@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_SYSTEM);
 
 /**
  * The simple table editor for the tutor
@@ -17,4 +18,3 @@ $ste->setFormAction($PHP_SELF)
         ->setOrderList(array('sort_order'))
         ->setFormTemplate('templates/class_cluster.html')
         ->show();
-?>

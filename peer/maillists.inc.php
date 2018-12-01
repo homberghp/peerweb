@@ -1,5 +1,5 @@
 <?php
-
+requireCap(CAP_TUTOR);
 /**
  * fill a mail list with the apropriate name. 
  * a cronjob will pick up this list into the email aliases every two minutes.

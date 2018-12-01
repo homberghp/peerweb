@@ -1,9 +1,9 @@
 <?php
+requireCap(CAP_TUTOR);
 include_once('peerutils.php');
 require_once('validators.php');
 include_once('navigation2.php');
 require_once 'prjMilestoneSelector2.php';
-requireCap(CAP_TUTOR);
 $prj_id=1;
 $milestone=1;
 $prjm_id = 0;

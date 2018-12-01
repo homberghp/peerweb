@@ -1,4 +1,6 @@
 <?php
+requireCap(CAP_SYSTEM);
+
 /**
  * The simple table editor for the tutor
  * @author Pieter van den Hombergh
@@ -17,4 +19,3 @@ $ste->setFormAction($PHP_SELF)
         ->setOrderList(array('bfkey'))
         ->setFormTemplate('templates/bigface_settings.html')
         ->show();
-?>

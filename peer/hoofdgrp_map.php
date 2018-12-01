@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_SYSTEM);
 
 /**
  * The simple table editor for the tutor
@@ -18,4 +19,3 @@ $ste->setTitle( $title )
         ->setOrderList( array( 'opleiding' ) )
         ->setFormTemplate( 'templates/hoofdgrp_map.html' )
         ->show();
-?>

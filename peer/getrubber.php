@@ -1,6 +1,8 @@
 <?php
   // passthrough file
   //
+requireCap(CAP_SYSTEM);
+
 require_once('rubberstuff.php');
 function _header($s) {
   echo $s;

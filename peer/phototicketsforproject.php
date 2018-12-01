@@ -1,5 +1,5 @@
 <?php
-include_once('peerutils.php');
+requireCap(CAP_TUTOR);
 require_once('validators.php');
 include_once('navigation2.php');
 include 'simplequerytable.php';
@@ -7,7 +7,6 @@ require_once 'prjMilestoneSelector2.php';
 require_once 'SpreadSheetWriter.php';
 
 
-requireCap(CAP_TUTOR);
 // get group tables for a project
 $afko = 'PRJ00';
 $prj_id = 1;

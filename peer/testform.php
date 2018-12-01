@@ -1,5 +1,7 @@
 <?php
   //session_start();
+requireCap(CAP_SYSTEM);
+
 echo $_SESSION['prj_id']."<br>";
 if (isSet($_SESSION['judge'])) {
   $snummer=$_SESSION['judge'];	

@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_RECRUITER);
 
 /**
  * The simple table editor for the tutor
@@ -9,7 +10,6 @@ include_once("peerutils.php");
 include_once('navigation2.php');
 include_once("utils.php");
 include_once("ste.php");
-requireCap(CAP_RECRUITER);
 
 $page = new PageContainer("Peerweb planned_school_visit" . $PHP_SELF . " on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page);

@@ -1,4 +1,6 @@
 <?php
+requireCap(CAP_SYSTEM);
+
 $debug=0;
 include_once('peerutils.php');
 require_once('validators.php');

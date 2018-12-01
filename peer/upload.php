@@ -1,6 +1,5 @@
 <?php
 
-include_once('peerutils.php');
 include_once('tutorhelper.php');
 require_once('validators.php');
 require_once('simplequerytable.php');

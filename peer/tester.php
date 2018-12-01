@@ -1,6 +1,6 @@
 <?php
 
-require_once 'peerutils.php';
+requireCap(CAP_SYSTEM);
 require_once 'queryToXlsx.php';
 require_once 'SpreadSheetWriter.php';
 require_once 'pgrowparser.php';

@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_SYSTEM);
 
 /**
  * The simple table editor for the table menu. Menu is one of the tables that support
@@ -19,10 +20,4 @@ $ste->setFormAction($PHP_SELF)
         ->setNameExpression("rtrim(input_name,' ')||', '||rtrim(regex_name,' ')")
         ->setOrderList(array('input_name'))
         ->setFormTemplate('templates/validator_map.html')
-        ->show()
-?>
-
-
-
-
-
+        ->show();

@@ -1,7 +1,7 @@
 <?php
 
-include_once('peerutils.php');
 requireCap(CAP_TUTOR);
+include_once('peerutils.php');
 include_once 'component.php';
 include_once('navigation2.php');
 

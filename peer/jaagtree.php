@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_SYSTEM);
 
 //Define where you have placed the phptreeview folder.
 

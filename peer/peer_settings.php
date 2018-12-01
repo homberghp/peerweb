@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_SYSTEM);
 
 /**
  * The simple table editor for the tutor
@@ -17,4 +18,3 @@ $ste->setFormAction($PHP_SELF)->setRelation('peer_settings')->setMenuName('peer_
         ->setOrderList(array('key'))
         ->setFormTemplate('templates/peer_settings.html')
         ->show();
-?>

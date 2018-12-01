@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_SYSTEM);
 
 echo "<fieldset><legend>Presence in the current course period of $roepnaam $tussenvoegsel $achternaam, <span style='font-size:6pt;'>($snummer)</span></legend>";
 ?>

@@ -1,4 +1,6 @@
 <?php
+requireCap(CAP_SYSTEM);
+
 //session_start();
 include_once("peerutils.php");
 include_once("utils.php");

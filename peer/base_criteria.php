@@ -8,8 +8,8 @@
  * @author Pieter van den Hombergh
  * $Id: base_criteria.php 1724 2014-01-03 09:06:02Z hom $
  */
-include_once("ste.php");
 requireCap(CAP_TUTOR);
+include_once("ste.php");
 $page = new PageContainer("Base peerweb grading criteria on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page);
 $ste->setFormAction($PHP_SELF)

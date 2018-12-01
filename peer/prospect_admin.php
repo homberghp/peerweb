@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_RECRUITER);
 
 /**
  * The simple table editor for the table menu. Menu is one of the tables that support

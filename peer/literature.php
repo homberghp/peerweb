@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_SYSTEM);
 
 /**
  * The simple table editor for the table menu. Menu is one of the tables that support
@@ -8,7 +9,6 @@
  * @author Pieter van den Hombergh
  * $Id: literature.php 1723 2014-01-03 08:34:59Z hom $
  */
-include_once("peerutils.php");
 include_once('navigation2.php');
 include_once("utils.php");
 include_once("ste.php");
@@ -30,7 +30,6 @@ $page->addBodyComponent($nav);
 $ste->render();
 $page->addBodyComponent(new Component('<!-- db_name=$db_name $Id: literature.php 1723 2014-01-03 08:34:59Z hom $ -->'));
 $page->show();
-?>
 
 
 

@@ -1,6 +1,5 @@
 <?php
 /* $Id: ipeer.php 1825 2014-12-27 14:57:05Z hom $ */
-include_once('peerutils.php');
 require_once 'groupassessmenttable.php';
 include_once('tutorhelper.php');
 include_once 'navigation2.php';

@@ -1,5 +1,5 @@
 <?php
-include_once('peerutils.php');
+requireCap(CAP_SYSTEM);
 require_once('component.php');
 
 $page = new PageContainer();

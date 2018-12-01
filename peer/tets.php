@@ -1,9 +1,10 @@
 <?php
+requireCap(CAP_SYSTEM);
+
 $include_path = ini_get('include_path');
 $include_path = '/home/hom/peerweb/peerlib:' . $include_path . ':/usr/share/php/PHPExcel/Classes';
 $include_path = ini_set('include_path', $include_path);
 
-require_once 'peerutils.php';
 phpinfo();
 exit(0);
 //echo pg_escape_string("Hello world nice isn't it");

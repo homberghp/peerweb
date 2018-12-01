@@ -1,6 +1,6 @@
 <?php
   // session_start();
-include_once('peerutils.php');
+requireCap(CAP_SYSTEM);
 if (isSet($_POST['peer_id']) && isSet($_POST['peer_pw'])) {
     $peer_id=$_POST['peer_id'];
     $peer_pw=$_POST['peer_pw'];

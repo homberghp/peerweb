@@ -1,5 +1,6 @@
 <?php
 
+requireCap(CAP_RECRUITER);
 /**
  * The simple table editor for the table menu. Menu is one of the tables that support
  * the simple table editor.
@@ -9,7 +10,6 @@
  * $Id: potential.php 1723 2014-01-03 08:34:59Z hom $
  */
 include_once("peerutils.php");
-requireCap(CAP_TUTOR);
 include_once("ste.php");
 
 $page = new PageContainer($navTitle = "Register a potential student on DB " . $db_name);

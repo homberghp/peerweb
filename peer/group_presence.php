@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_SYSTEM);
 include_once 'peerutils.php';
 include_once 'tutorhelper.php';
 include_once 'navigation2.php';

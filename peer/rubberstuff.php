@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_SYSTEM);
   // settings for rubberreports etc.
 $rubberSystemDirs = 
   array('scripts' => 'scripts',
@@ -16,4 +17,3 @@ $csv_icon      = "<img src='".IMAGEROOT."/csv_file.png'  border='0' alt='csv' st
 $zip_icon      = "<img src='".IMAGEROOT."/zip-file-2.png'  border='0' alt='zip' style='vertical-align:middle;'/>";
 $run_icon      =  "<img src='".IMAGEROOT."/run-copy-icon.png'  border='0' alt='run' style='vertical-align:middle;'/>";
 $trash_icon    =  "<img src='".IMAGEROOT."/trash-can.png'  border='0' alt='delete' style='vertical-align:middle;'/>";
-?>

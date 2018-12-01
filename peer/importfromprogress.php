@@ -1,12 +1,10 @@
 <?php
-
-require_once 'peerutils.php';
+requireCap( CAP_ENROL );
 require_once'validators.php';
 require_once 'navigation2.php';
 require_once 'prjMilestoneSelector2.php';
 require_once 'simplequerytable.php';
 require_once 'TemplateWith.php';
-requireCap( CAP_ENROL );
 extract( $_SESSION );
 
 $uploadResult = '';

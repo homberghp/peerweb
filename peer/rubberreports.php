@@ -1,5 +1,5 @@
 <?php
-include_once('peerutils.php');
+requireCap(CAP_SYSTEM);
 require_once('validators.php');
 require_once('rubberstuff.php');
 include_once('navigation2.php');
@@ -7,7 +7,6 @@ include_once('navigation2.php');
 $tutor_navtable=array();
 $activeRubberProject='';
 extract($_SESSION);
-requireCap(CAP_MKCLASSES);
 $css='<style type=\'text/css\'><!--
   .flink {text-align:right}
   th.flink > a {text-decoration:none;color:#008;}

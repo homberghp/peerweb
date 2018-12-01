@@ -1,4 +1,6 @@
 <?php
+requireCap(CAP_SYSTEM);
+
 $sql ="select distinct afko||':'||description as name, prj_id as value,afko\n"
     ." from all_prj_tutor join prj_grp using(prjtg_id) where snummer=$snummer and prj_grp_open=true order by afko";
 $prjList = "<select name='presence_prj_id' onchange='submit()'>\n". 

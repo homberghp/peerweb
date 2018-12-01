@@ -1,10 +1,9 @@
 <?php
-require_once('peerutils.php');
+requireCap(CAP_TUTOR);
 require_once('validators.php');
 include_once('navigation2.php');
 require_once 'studentpicker.php';
 require_once'prjMilestoneSelector2.php';
-requireCap(CAP_TUTOR);
 $prjm_id=$prj_id = $milestone=1;
 $newauditor=0;
 unset($_SESSION['newauditor']);

@@ -1,7 +1,6 @@
 <?php
-require_once 'peerutils.php';
-include_once('navigation2.php');
 requireCap(CAP_EDIT_RIGHTS);
+include_once('navigation2.php');
 require_once 'bitset.php';
 require_once 'studentpicker.php';
 $newsnummer=$peer_id;

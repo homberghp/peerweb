@@ -1,8 +1,8 @@
 <?php
+requireCap(CAP_SYSTEM);
 include_once('peerutils.php');
 include_once('navigation2.php');
 require_once('component.php');
-requireCap(CAP_TUTOR);
 $scount=100;
 $sql="select count(*) as scount from student";
 $resultSet=$dbConn->Execute($sql);

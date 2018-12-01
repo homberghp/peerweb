@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_SYSTEM);
 
 /**
  * The simple table editor for the tutor
@@ -18,4 +19,3 @@ $ste->setTitle( "Map nationalities" )
         ->setOrderList( array( 'nation_omschr' ) )
         ->setFormTemplate( 'templates/nat_mapper.html' )
         ->show();
-?>

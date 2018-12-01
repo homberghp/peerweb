@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_TUTOR);
 
 /**
  * The simple table editor for the table menu. Menu is one of the tables that support
@@ -8,8 +9,6 @@
  * @author Pieter van den Hombergh
  * $Id: defstudent_class.php 1723 2014-01-03 08:34:59Z hom $
  */
-require_once("peerutils.php");
-requireCap(CAP_TUTOR);
 include_once("ste.php");
 $page = new PageContainer("Class adminstration page  on DB " . $db_name);
 //$dbConn->setSqlAutoLog(true);

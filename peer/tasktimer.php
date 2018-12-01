@@ -2,6 +2,7 @@
   /**
    * mini task_timer
    */
+requireCap(CAP_SYSTEM);
 require_once 'component.php';
 $peer_id=$_SESSION['peer_id'];
 require_once 'tasktimer.php';

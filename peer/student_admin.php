@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_LOOKUP_STUDENT);
 
 /**
  * The simple table editor for the table menu. Menu is one of the tables that support
@@ -9,7 +10,6 @@
  * $Id: student_admin.php 1769 2014-08-01 10:04:30Z hom $
  */
 include_once("ste.php");
-requireCap(CAP_LOOKUP_STUDENT);
 $page = new PageContainer("Student adminstration page");
 $ste = new SimpleTableEditor($dbConn, $page, hasCap(CAP_ALTER_STUDENT));
 $ste->setFormAction($PHP_SELF)

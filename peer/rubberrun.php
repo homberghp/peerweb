@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_SYSTEM);
 require_once 'rubberstuff.php';
 $target = $_REQUEST['project'];
 $processor = "$rubberbase/scripts/run";

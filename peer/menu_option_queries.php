@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_SYSTEM);
 
 /**
  * @package peerweb
@@ -21,5 +22,4 @@ $ste->setFormAction($PHP_SELF)
         ->setListRowTemplate(array('column_name','query'))
         ->setFormTemplate('templates/menu_option_queries.html')
         ->show();
-?>
 

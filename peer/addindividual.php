@@ -1,5 +1,5 @@
 <?php
-require_once('peerutils.php');
+requireCap(CAP_SYSTEM);
 require_once('validators.php');
 include_once('navigation2.php');
 require_once 'studentpicker.php';

@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_SYSTEM);
 
 /**
  * The simple table editor for the table menu. Menu is one of the tables that support
@@ -20,7 +21,6 @@ $ste->setTitle('Regex Editor')
         ->setOrderList(array('regex_name'))
         ->setFormTemplate('templates/validator_regex.html')
         ->show();
-?>
 
 
 

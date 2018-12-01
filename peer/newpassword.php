@@ -25,4 +25,3 @@ if ( !$resultSet->EOF )  {
   fclose($handle);
   echo exec('/usr/bin/pdfxlatex '."$site_dir/$filename");
  }
-?> 

@@ -1,6 +1,6 @@
 <?php
 
-include_once 'peerutils.php';
+requireCap(CAP_SYSTEM);
 require_once 'querytotable.php';
 include_once 'navigation2.php';
 include_once 'project_selector.php';
@@ -84,9 +84,10 @@ if ( isSet( $_POST['baddmil'] ) ) {
     $assessment_due = $_POST['assessment_due'][$i];
     $weight = $_POST['weight'][$i];
     $milestone_name = $_POST['milestone_name'][$i];
+    $milestone_name = $_POST['milestone_name'][$i];
     $mil = $i + 1;
     $sql .="update prj_milestone set assessment_due='$assessment_due',"
-            . " weight=$weight, milestone_name='$milestone_name'"
+            . " weight=$weight, milestone_name='$milestone_name',has_assessment='$has_assessment',public='$isPublic' "
             . " where prj_id=$prj_id and milestone=$mil;\n";
   }
   $sql .="commit";
@@ -138,7 +139,7 @@ $form2->addText( "<p>After you determined the number of milestones, select the d
 $form2Form = new HtmlContainer( "<form method='post' name='duedates' action='$PHP_SELF'>" );
 
 $sql = "select milestone as number, prjm_id, assessment_due,weight, milestone_name,\n" .
-        "  case when prj_milestone_open=true then  'open' else 'closed' end as open \n" .
+        "  case when prj_milestone_open=true then  'open' else 'closed' end as open, has_assessment, public \n" .
         " from prj_milestone where prj_id=$prj_id order by milestone";
 $inputColumns = array( '1' => array( 'type' => 'N', 'size' => '12' ) );
 ob_start(); // collect table data
@@ -147,6 +148,8 @@ $inputColumns = array( //'0' => array( 'type' => 'T', 'size' => '4'),
     '2' => array( 'type' => 'D', 'size' => '10' ),
     '3' => array( 'type' => 'N', 'size' => '1' ),
     '4' => array( 'type' => 'T', 'size' => '20' ),
+    '6' => array( 'type' => 'B', size => '2'),
+    '7' => array( 'type' => 'B', size => '2'),
         //'2' => array( 'type' => 'B', 'size' => '1', 'colname' => 'open' ),
 );
 $datePickers = array( );

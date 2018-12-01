@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_SYSTEM);
 /**
  * The simple table editor for the table menu. Menu is one of the tables that support
  * the simple table editor.
@@ -7,6 +8,7 @@
  * @author Pieter van den Hombergh
  * $Id: curriculum_module.php 1723 2014-01-03 08:34:59Z hom $
  */
+
 require_once("ste.php");
 $page = new PageContainer("Course (curriculum) module ".$PHP_SELF." on DB ".$db_name);
 $ste = new SimpleTableEditor($dbConn,$page);

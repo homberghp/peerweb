@@ -1,6 +1,6 @@
 <?php
 
-include_once 'peerutils.php';
+requireCap(CAP_SYSTEM);
 require_once 'component.php';
 require_once 'rteSafe.php';
 require_once 'TemplateWith.php';
