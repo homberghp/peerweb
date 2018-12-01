@@ -1,10 +1,6 @@
 <?php
 
 require_once 'TemplateWith.php';
-if (is_file($site_dir . '/CLOSED')) {
-    require_once 'templates/loginclosed.html';
-    exit;
-}
 
 
 /**

@@ -1,5 +1,5 @@
 <?php
-
+requireCap(CAP_SYSTEM);
 /* $Id: activeprojects.php 1761 2014-05-24 13:17:31Z hom $ */
 include_once('peerutils.php');
 include_once('makeinput.php');

@@ -1,5 +1,5 @@
 <?php
-
+requireCap(CAP_SYSTEM);
 function nepmail( $to, $sub, $body, $head ) {
   global $dbConn;
   $dbConn->log( "To: $to\n\nsubject:$to\n\n$body\n" );

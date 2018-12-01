@@ -1,6 +1,7 @@
 <?php
 /* $Id: rolesetter.php 1825 2014-12-27 14:57:05Z hom $ */
-include_once 'peerutils.php';
+requireCap(CAP_SYSTEM);
+
 include_once 'tutorhelper.php';
 include_once 'navigation2.php';
 require_once 'studentPrjMilestoneSelector.php';

@@ -3,9 +3,17 @@
 //
 // do not change anything below this line
 //
+
+
 require_once "{$etc_dir}/settings.php";
 $rubberbase = "{$site_home}/rubberreports";
 $site_dir = $site_home . '/peer'; // the dir on the server
+// IF CLOSED file exists, exit after showing sign
+if (is_file($site_dir . '/CLOSED')) {
+    require_once 'templates/loginclosed.html';
+    exit;
+}
+
 $include_path = ini_get('include_path');
 $include_path = $site_home . '/peerlib:' . $include_path . ':/usr/share/php/PHPExcel/Classes';
 $include_path = ini_set('include_path', $include_path);
