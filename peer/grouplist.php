@@ -13,7 +13,7 @@ $prj_id = 1;
 $milestone = 1;
 $prjm_id = 0;
 extract($_SESSION);
-$scripts='';
+$scripts = '';
 $prjSel = new PrjMilestoneSelector2($dbConn, $peer_id, $prjm_id);
 extract($prjSel->getSelectedData());
 $_SESSION['prj_id'] = $prj_id;
@@ -25,11 +25,27 @@ $title = "Student and groups in project $afko milestone $milestone";
 $sqlhead = "select s.snummer as snummer,";
 
 // <a href='../student_admin.php?snummer=snummer'>snummer</a>
-$sqltail = "achternaam||rtrim(coalesce(', '||tussenvoegsel,'')) as achternaam ,roepnaam, pcn,gebdat as birth_date,cohort,\n"
-        . "role,slb.tutor as slb,rtrim(email1) as email1,rtrim(email2) as email2,c.sclass as klas,afko,milestone,"
-        . "sp.studieplan_short as studplan,\n"
-        . "gi.github_id,stick.stick,\n"
-        . "apt.grp_num,ga.alias,apt.grp_name,apt.tutor,'' as grade\n"
+$grpColumn = 16;
+$sqltail = "achternaam||rtrim(coalesce(', '||tussenvoegsel,'')) as achternaam "
+        . ",roepnaam"
+        . ", pcn"
+        //. ",gebdat as birth_date"
+        . ",cohort\n"
+        . ",role"
+        . ",slb.tutor as slb"
+        . ",rtrim(email1) as email1"
+        //. ",rtrim(email2) as email2"
+        . ",c.sclass as klas"
+        . ",afko"
+        . ",milestone"
+        . ",sp.studieplan_short as studplan\n"
+        . ",gi.github_id"
+        . ",stick.stick\n"
+        . ",apt.grp_num"
+        . ",ga.alias"
+        . ",apt.grp_name"
+        . ",apt.tutor"
+        . ",'' as grade\n"
         . "from prj_grp pg join student s using (snummer)\n"
         . " join all_prj_tutor apt on(pg.prjtg_id=apt.prjtg_id)\n"
         . "left join studieplan sp using(studieplan)\n"
@@ -48,7 +64,7 @@ $spreadSheetWriter->setFilename($filename)
         ->setLinkUrl($server_url . $PHP_SELF . '?prjm_id=' . $prjm_id)
         ->setTitle($title)
         ->setAutoZebra(false)
-        ->setColorChangerColumn(16);
+        ->setColorChangerColumn($grpColumn);
 
 $spreadSheetWriter->processRequest();
 
@@ -69,7 +85,7 @@ $rainbow = new RainBow(STARTCOLOR, COLORINCREMENT_RED, COLORINCREMENT_GREEN, COL
 /*     </script> */
 /*     <link rel=\'stylesheet\' type=\'text/css\' href=\'' . SITEROOT . '/style/tablesorterstyle.css\'/> */
 /* '; */
-pagehead2('Get group tables',$scripts);
+pagehead2('Get group tables', $scripts);
 $page_opening = "Group lists for project $afko $description <span style='font-size:8pt;'>prjm_id $prjm_id prj_id $prj_id milestone $milestone </span>";
 $nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
 $nav->setInterestMap($tabInterestCount);
@@ -116,7 +132,7 @@ $nav->show()
     </fieldset>
     <a href='classtablecards.php?prjm_id=<?= $prjm_id ?>'>Project table cards</a>
     <div align='left'>
-        <?= queryToTableChecked($dbConn, $sqlhead . $sqltail, true, 16, $rainbow, -1, '', ''); ?>
+        <?= queryToTableChecked($dbConn, $sqlhead . $sqltail, true, $grpColumn, $rainbow, -1, '', ''); ?>
     </div>
     <div align='left'>
         <table>

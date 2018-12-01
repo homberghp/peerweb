@@ -31,9 +31,18 @@ if (isSet($class_id)) {
 
 $sqlhead = "select distinct snummer,"
         . "achternaam ,roepnaam, tussenvoegsel as tussenvoegsel, "
-        . "pcn,lang,gebdat as birth_date,cohort,t.tutor as slb,country as nation,rtrim(email1) as email1,rtrim(email2) as email2,\n"
-        . "studieplan_short as studieplan,sclass,hoofdgrp ,\n"
-        . "straat,huisnr,plaats,stick,phone_gsm,phone_home\n"
+        . "pcn,"
+        . "lang"
+        //. ",gebdat as birth_date"
+        . ",cohort"
+        . ",t.tutor as slb"
+        //. "country as nation,"
+        . ",rtrim(email1) as email1"
+        //. "rtrim(email2) as email2,\n"
+        . ",studieplan_short as studieplan"
+        . ",sclass"
+        //. "hoofdgrp ,\n"
+        //. "straat,huisnr,plaats,stick,phone_gsm,phone_home\n"
         . " from \n";
 $sqltail = " join student_class using(class_id) left join tutor t on (s.slb=t.userid)\n"
     . " left join studieplan using(studieplan)\n"
@@ -58,10 +67,21 @@ $spreadSheetWidget = $spreadSheetWriter->getWidget();
 $sqlhead = "select distinct '<a href=''student_admin.php?snummer='||snummer||''' target=''_blank''>'||snummer||'</a>' as snummer," .
         "'<img src='''||photo||''' style=''height:24px;width:auto;''/>' as foto,\n"
         . "achternaam ,roepnaam, tussenvoegsel as tussenvoegsel," .
-        "pcn,lang,cohort,t.tutor as slb,country as nation,gebdat as birth_date,rtrim(email1) as email1,rtrim(email2) as email2,\n" .
-        "studieplan_short as studieplan,sclass,hoofdgrp,\n" .
-        "straat,huisnr,plaats,stick,phone_gsm,phone_home\n" .
-        " from \n";
+        "pcn,"
+        . "lang,"
+        . "cohort,"
+        . "t.tutor as slb,"
+        //. "country as nation,"
+        //. "gebdat as birth_date,"
+        . "rtrim(email1) as email1,"
+        //. "rtrim(email2) as email2,\n" 
+        ."studieplan_short as studieplan,"
+        . "sclass,"
+        . "hoofdgrp,\n" 
+        //. "straat,huisnr,plaats,"
+        . "stick"
+        // . "phone_gsm,phone_home\n" .
+        ." from \n";
 $sql2 = $sqlhead . ' student_email s natural join portrait ' . $sqltail;
 
 $scripts = '<script type="text/javascript" src="js/jquery.js"></script>

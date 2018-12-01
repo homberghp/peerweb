@@ -107,7 +107,8 @@ if (isSet($_POST['github_id']) && preg_match('/^(\w|-)+$/ ', $_POST['github_id']
         echo "cannot adapt github id with $sql, error " . $dbConn->ErrorMsg();
     }
 }
-if (isSet($_POST['bsubmit_student_data'])) {
+
+if (false && isSet($_POST['bsubmit_student_data'])) {
     $snummer_student_data = validate($_POST['snummer_student_data'], 'snummer', $snummer);
     $sql = "select * from student where snummer=$snummer_student_data";
     $resultSet = $dbConn->Execute($sql);

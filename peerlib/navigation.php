@@ -11,7 +11,7 @@ class Navigation {
     var $helpIcon='help.png';
     var $navcolspacer='navcolspacer.png';
     var $logoutlink='../logout.php';
-    function Navigation( $navtable,$page,$pageOpening ) {
+    function __construct( $navtable,$page,$pageOpening ) {
 	global $root_url;
 	$this->navtable = $navtable;
 	$this->pageOpening= $pageOpening;
