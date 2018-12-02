@@ -383,7 +383,7 @@ function getQueryToTableChecked($dbConn, $query, $numerate, $watchColumn, $rb, $
                 case 'real';
                 case 'N':
                     $tdclass .= ' num';
-                    $sums[$i] += $val;
+                    //$sums[$i] += $val;
                     break;
                 default:
                     break;

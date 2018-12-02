@@ -1,6 +1,7 @@
 <?php
-require_once 'component.php';
+requirteCap(CAP_SYSTEM);
 require_once('peerutils.php');
+require_once 'component.php';
 include_once('tutorhelper.php');
 require_once'navigation.php';
 

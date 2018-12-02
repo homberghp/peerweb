@@ -1,5 +1,5 @@
 <?php
-requireCap(CAP_SYSTEM);
+requireCap(CAP_TUTOR_OWNER);
 include_once('navigation2.php');
 require_once 'prjMilestoneSelector2.php';
 requireCap(CAP_TUTOR);

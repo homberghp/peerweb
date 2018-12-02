@@ -1,5 +1,5 @@
 <?php
-requireCap(CAP_SYSTEM);
+requireCap(CAP_ALTER_STUDENT_CLASS);
 include_once 'component.php';
 include_once('navigation2.php');
 require_once 'querytotable.php';

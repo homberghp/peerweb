@@ -28,7 +28,7 @@ $sqlhead = "select s.snummer as snummer,";
 $grpColumn = 16;
 $sqltail = "achternaam||rtrim(coalesce(', '||tussenvoegsel,'')) as achternaam "
         . ",roepnaam"
-        . ", pcn"
+        //. ", pcn"
         //. ",gebdat as birth_date"
         . ",cohort\n"
         . ",role"
@@ -44,7 +44,7 @@ $sqltail = "achternaam||rtrim(coalesce(', '||tussenvoegsel,'')) as achternaam "
         . ",apt.grp_num"
         . ",ga.alias"
         . ",apt.grp_name"
-        . ",apt.tutor"
+        . ",apt.tutor as grp_tutor"
         . ",'' as grade\n"
         . "from prj_grp pg join student s using (snummer)\n"
         . " join all_prj_tutor apt on(pg.prjtg_id=apt.prjtg_id)\n"
@@ -73,7 +73,7 @@ $sqlhead = "select distinct '<a href=\"student_admin.php?snummer='||s.snummer||'
 
 
 $rainbow = new RainBow(STARTCOLOR, COLORINCREMENT_RED, COLORINCREMENT_GREEN, COLORINCREMENT_BLUE);
-
+$scripts='';
 /* $scripts = '<script type="text/javascript" src="js/jquery.js"></script> */
 /*     <script src="js/jquery.tablesorter.js"></script> */
 /*     <script type="text/javascript"> */

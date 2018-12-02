@@ -76,7 +76,8 @@ $pp['selectionDetails'] = $prjSel->getSelectionDetails();
 
 $page = new PageContainer();
 $page->setTitle( 'All group tables' );
-$page_opening = "Group peer assessment results for all groups of project $afko $description <span style='font-size:8pt;'>prjm_id $prjm_id prj_id $prj_id milestone $milestone </span>";
+$page_opening = "Group peer assessment results for all groups of project $afko $description "
+        . "<span style='font-size:8pt;'>prjm_id $prjm_id prj_id $prj_id milestone $milestone </span>";
 $nav = new Navigation( $tutor_navtable, basename( $PHP_SELF ), $page_opening );
 $nav->setInterestMap( $tabInterestCount );
 

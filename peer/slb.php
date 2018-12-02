@@ -1,6 +1,6 @@
 <?php
 
-requireCap(CAP_TUTOR);
+requireCap(CAP_ASSIGN_SLB);
 include_once('peerutils.php');
 include_once 'component.php';
 include_once('navigation2.php');

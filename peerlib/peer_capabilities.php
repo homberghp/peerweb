@@ -31,6 +31,7 @@ define("CAP_GIT", 1 << 18);
 define("CAP_SELECT_ALL", 1 << 19);
 define("CAP_ENROL", 1 << 20);
 define("CAP_SYNC_PROGRESS", 1 << 21);
+define("CAP_ASSIGN_SLB", 1 << 22);
 define("CAP_TASK_TIMER", 1 << 28);
 define("CAP_EXPERIMENTAL", 1 << 29);
 define("CAP_BIGFACE", 1 << 30);

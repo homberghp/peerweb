@@ -1,6 +1,6 @@
 <?php
 
-requireCap(CAP_SYSTEM);
+requireCap(CAP_TUTOR);
 require_once 'validators.php';
 include_once 'navigation2.php';
 include_once 'simplequerytable.php';
@@ -9,7 +9,6 @@ require_once 'presencetable.php';
 require_once 'CheckTable.class.php';
 require_once 'maillists.inc.php';
 require_once 'TemplateWith.php';
-requireScribeCap( $peer_id );
 
 // get group tables for a project
 $prj_id = 0;
