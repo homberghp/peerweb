@@ -25,12 +25,16 @@ define('IMAGEROOT', $root_url . '/images');
 define('PHOTOROOT', $root_url . '/fotos');
 define('TREEVIEW_SOURCE', './');
 switch ($bgstyle) {
+    case 'osirix':
+        $body_background = 'background:#def url(images/osirix.png)';
+        $body_class = 'osirix';
+        break;
     case 'test':
-        $body_background = 'background:#cfc url(style/images/test.png)';
+        $body_background = 'background:#cfc url(images/test.png)';
         $body_class = 'test';
         break;
     case 'local':
-        $body_background = 'background:#fc8 url(style/images/local.png)';
+        $body_background = 'background:#fc8 url(images/local.png)';
         $body_class = 'local';
         break;
     case 'peer':
