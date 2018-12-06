@@ -1,6 +1,6 @@
 <?php
 
-requireCap(CAP_SYSTEM);
+requireCap(CAP_TUTO);
 require_once 'querytotable.php';
 include_once 'navigation2.php';
 include_once 'project_selector.php';
