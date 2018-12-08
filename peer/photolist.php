@@ -88,8 +88,8 @@ while (!$resultSet->EOF) {
             . "\\begin{minipage}{35mm}"
             . "\\center\\includegraphics[height=40mm]{"
             . $fotodir . $photo . "}"
-            . "\n\\vfill\\sf{}\\textbf{" . $name
-            . "}\\\\$snummer ($slb)}"
+            . "\n\\vfill\\sf{}\\textbf{{$name}}"
+            //. "\\\\{$snummer} ({$slb})}"
             . "\\end{minipage}\n";
     //);
     $cont = ' & ';
