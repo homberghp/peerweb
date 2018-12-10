@@ -79,7 +79,7 @@ function documentFoldersPreExecuted( $resultSet, $urlTail = '' ) {
     if ( $openTree )
       $folder_name .='_open';
     $folder_name .= '.png';
-    if ( $openTree || $_SESSION['openallfolders'] ) {
+    if ( $openTree || isSet($_SESSION['openallfolders']) ) {
       $link = $PHP_SELF . '?closetree=' . $opener . (($urlTail == '') ? '' : '&amp;' . $urlTail);
       $openerlink = "<a href='$link' style='text-decoration:none;'>" .
               "-<img src='" . IMAGEROOT . "/$folder_name' alt='open folder' border='0' align='middle'/></a>";
@@ -100,7 +100,7 @@ function documentFoldersPreExecuted( $resultSet, $urlTail = '' ) {
       "group $grp_num \"$alias: $long_name\"" .
       " ({$prj_id} Grp {$authorgrp} M{$milestone} {$year}) " .
       "$member $doc_count document" . (($doc_count > 1) ? 's' : '') . "</th></tr>\n";
-      if ( $openTree || $_SESSION['openallfolders'] ) {
+      if ( $openTree || isSet($_SESSION['openallfolders']) ) {
         echo "\t<tr  style='background:$startColor'><th align='right'>Nr</th><th>Remark?</th>"
         . "<th >RT</th><th>Doc Type</td><th>Title/direct link</th><th>Vs</th>"
         . "<th>file size</th><th>Uploaded by</th><th title='late=red'>Upload date/time</th></tr></thead>\n";
@@ -109,7 +109,7 @@ function documentFoldersPreExecuted( $resultSet, $urlTail = '' ) {
       }
       $rowcounter = 1;
     }
-    if ( $openTree || $_SESSION['openallfolders'] ) {
+    if ( $openTree || isSet($_SESSION['openallfolders']) ) {
       $fileimage = 'mimetypes' . '/' . str_replace( '/', '-', $mime_type ) . '.png';
       $tdStyle = "style='padding:3pt;' valign='top'";
       $dueStyle = (($viewergrp == $authorgrp) || ($today > $due)) ? "style='color:#080; ;padding:3pt;' valign='top'" : "style='color:#800; ;padding:3pt;' valign='top'";

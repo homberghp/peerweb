@@ -56,6 +56,10 @@ if ( $assessment_count != 0 ) {
 } else {
     $pp['prjList'] = "<h1>Sorry, you are not enlisted for any assessment</h1>";
 }
+$pp['afko']=$afko;
+$pp['description']=$description;
+$pp['grp_num']=$grp_num;
+$pp['alias']=$grp_alias;
 $page_opening = "Participant $roepnaam $tussenvoegsel $achternaam ($snummer)";
 $page = new PageContainer();
 $page->setTitle( 'Individual result' );
@@ -83,7 +87,7 @@ while ( !$resultSet->EOF ) {
     $lazyjudges.='<tr><td>' . $resultSet->fields['naam'] . '</td></tr>';
     $resultSet->moveNext();
 }
-$sql = "select '('||snummer||')' as snummer,roepnaam||' '||coalesce(tussenvoegsel,'')||' '||achternaam as name,\n" .
+$sql = "select roepnaam||' '||coalesce(tussenvoegsel,'')||' '||achternaam as name,\n" .
         " student_class.sclass as class\n" .
         " from student join prj_grp using(snummer) \n" .
         "join student_class using (class_id)\n" .
@@ -94,7 +98,7 @@ $resultSet = $dbConn->Execute( $sql );
 if ( $resultSet === false ) {
     die( 'Error getting judge fellows ' . $dbConn->ErrorMsg() . ' with ' . $sql );
 }
-$pp['fellowTable'] = getQueryToTableChecked( $dbConn, $sql, true, 2,
+$pp['fellowTable'] = getQueryToTableChecked( $dbConn, $sql, true, 1,
         new RainBow( 0x46B4B4, 64, 32, 0 ), 7, '', 0 );
 $pp['formOrNop']='';
 if ( $lazyCount > 0 ) {

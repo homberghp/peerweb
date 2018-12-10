@@ -1,4 +1,6 @@
 <?php
+requireCap(CAP_SYSTEM);
+
 /**
  * The simple table editor for the table menu. Menu is one of the tables that support
  * the simple table editor.
@@ -7,7 +9,6 @@
  * @author Pieter van den Hombergh
  * $Id: regextester.php 1723 2014-01-03 08:34:59Z hom $
  */
-include_once("peerutils.php");
 include_once('navigation2.php');
 $regex='/.*/';
 $string='This matches';

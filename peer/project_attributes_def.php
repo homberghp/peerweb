@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_TUTOR);
 
 /**
  * The simple table editor for the tutor

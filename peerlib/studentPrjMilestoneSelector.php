@@ -70,6 +70,7 @@ class StudentMilestoneSelector {
                 "left join project_roles pr using(prj_id,rolenum)\n" .
                 " where snummer=" . $this->judge .
                 ' ' . $this->extraConstraint .
+                ' and p.valid_until > now() '. // and pm.has_assessment '.
                 ' order by ' . $this->orderBy;
         //echo "<pre>".$sql."</pre>";
         return $sql;

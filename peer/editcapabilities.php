@@ -1,7 +1,6 @@
 <?php
-require_once 'peerutils.php';
-include_once('navigation2.php');
 requireCap(CAP_EDIT_RIGHTS);
+include_once('navigation2.php');
 require_once 'bitset.php';
 require_once 'studentpicker.php';
 $newsnummer=$peer_id;
@@ -31,7 +30,7 @@ $cap_names = array('CAP_TUTOR', //0
 		   'CAP_SELECT_ALL',//19
 		   'CAP_ENROL',//20
 		   'CAP_SYN_PROGRESS',//21
-		   'CAP22',//22
+		   'CAP_ASSIGN_SLB',//22
 		   'CAP23',//23
 		   'CAP24',//24
 		   'CAP25',//25

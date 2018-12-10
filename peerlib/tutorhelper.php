@@ -118,7 +118,6 @@ function tutorHelper($dbConn, $isTutor) {
         else
             tutorHelper1($dbConn, $isTutor);
     } else {
-        
     }
 }
 

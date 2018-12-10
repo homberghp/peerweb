@@ -1,5 +1,5 @@
 <?php
-
+requireCap(CAP_SYSTEM);
 /**
  * The simple table editor for the tutor
  * @author Pieter van den Hombergh

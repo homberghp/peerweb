@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_TUTOR);
 /* $Id: project_tasks.php 1723 2014-01-03 08:34:59Z hom $ */
 include_once('peerutils.php');
 include_once('tutorhelper.php');

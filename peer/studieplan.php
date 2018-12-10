@@ -1,5 +1,5 @@
 <?php
-
+requireCap(CAP_SYSTEM);
 /**
  * The simple table editor for studieplan
  * @author Pieter van den Hombergh

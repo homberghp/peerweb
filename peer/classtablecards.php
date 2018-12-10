@@ -1,6 +1,5 @@
 <?php
-
-include_once 'peerutils.php';
+requireCap(CAP_SYSTEM);
 require_once 'validators.php';
 require_once 'component.php';
 include_once 'threelinetablecard.php';

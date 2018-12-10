@@ -1,8 +1,8 @@
 <?php
+requireCap(CAP_TUTOR);
 include_once('peerutils.php');
 include_once('navigation2.php');
 require_once('component.php');
-requireCap(CAP_TUTOR);
 $page = new PageContainer();
 $page->setTitle('Peer assessment for tutors');
 $page->addHeadComponent( new Component("<style type='text/css'>

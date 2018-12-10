@@ -1,5 +1,5 @@
 <?php
-
+requireCap(CAP_TUTOR);
 /* $Id: groupemail.php 1845 2015-03-19 11:56:26Z hom $ */
 include_once('peerutils.php');
 include_once 'navigation2.php';

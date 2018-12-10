@@ -1,5 +1,4 @@
 <?php
-include_once('peerutils.php');
 requireCap(CAP_TUTOR);
 require_once('validators.php');
 include_once('navigation2.php');
@@ -25,7 +24,7 @@ $style = file_get_contents('js/balloonscript.html');
 
 pagehead2('class photos', $style);
 
-$classSelectorClass = new ClassSelectorClass($dbConn,$class_id);
+$classSelectorClass = new ClassSelectorClass($dbConn, $class_id);
 $oldClassSelector = $classSelectorClass->setAutoSubmit(true)->addConstraint('sort1 < 10 and student_count <>0')->getSelector();
 
 
@@ -65,7 +64,7 @@ if ($resultSet === false) {
 <div id='navmain' style='padding:1em;'>
     <div class='nav'>
         <form method="get" name="class" action="<?= $PHP_SELF; ?>">
-<?= $oldClassSelector ?>
+            <?= $oldClassSelector ?>
             <input type='submit' name='b' value ='Get fotos'/>
         </form>
     </div>
@@ -92,18 +91,20 @@ if ($resultSet === false) {
         } else {
             $photo = 'fotos/anonymous.jpg';
         }
-    $leftpix=0;//100+$colcount*140;
-    $toppix=0;//$rowcount*160;
-      $tooltip="onmouseover=".'"balloon.showTooltip(event,\'<div><b>'."<span style=\'font-size:120%\'>$name</span><br/>snummer:$number<br/>pcn:&nbsp;$pcn<br/>$birthday<br/>".
-	"$straat&nbsp;$huisnr<br/>$pcode&nbsp;$plaats<br/>$nationaliteit<br/>SLB: $slb<br/>class:$sclass<br/>Cohort:$cohort".'</b></div>\')"';
-        echo "<th class='classmate' valign='top' halign='center'>" .
-        "<a href='student_admin.php?snummer=$number' target='mainframe' " .
-        $tooltip .
-        ">\n\t<img class='pasfoto' src='$image' alt='$image' border='0' style='width:128px;height:auto; height=auto;box-shadow: 5px 5px 5px #004;border-radius:16px;'/></a>\n" .
-        "\t\t<table width='100%'>\n" .
-        "\t\t\t<tr><th>$name</th></tr>\n\t<tr><th>$number($slb_ab) </th></tr>\n" .
-        "\t\t</table>" .
-        "\n</th>\n";
+        $leftpix = 0; //100+$colcount*140;
+        $toppix = 0; //$rowcount*160;
+        $tooltip = "onmouseover=" . '"balloon.showTooltip(event,\'<div><b>' . "<span style=\'font-size:120%\'>$name</span><br/>snummer:$number<br/>pcn:&nbsp;$pcn<br/>$birthday<br/>" .
+                "$straat&nbsp;$huisnr<br/>$pcode&nbsp;$plaats<br/>$nationaliteit<br/>SLB: $slb<br/>class:$sclass<br/>Cohort:$cohort" . '</b></div>\')"';
+        echo "<th class='classmate' valign='top' halign='center'>"
+        . "<a href='student_admin.php?snummer=$number' target='mainframe' {$tooltip}>\n"
+        . "\t<img class='pasfoto' src='{$image}' alt='{$image}' border='0' "
+        . "style='width:128px;height:auto; height=auto;box-shadow: 5px 5px 5px #004;border-radius:16px;'/>"
+        . "</a>\n" .
+        "\t\t<table width='100%'>\n"
+        . "\t\t\t<tr><th>$name</th></tr>\n"
+        //. "\t<tr><th>$number($slb_ab) </th></tr>\n"
+        . "\t\t</table>"
+        . "\n</th>\n";
 
         $colcount++;
         if ($colcount >= MAXCOL) {

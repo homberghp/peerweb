@@ -1,8 +1,7 @@
 <?php
-include_once('peerutils.php');
+requireCap(CAP_TUTOR);
 require_once('validators.php');
 include_once('navigation2.php');
-requireCap(CAP_TUTOR);
 include 'simplequerytable.php';
 require_once 'ClassSelectorClass.php';
 require_once 'SpreadSheetWriter.php';
@@ -11,7 +10,7 @@ $class_id = 1;
 
 $fileExtension = 'xls';
 if (isSet($_REQUEST['class_id'])) {
-    $_SESSION['class_id'] = $class_id = validate($_REQUEST['class_id'],'integer',1);
+    $_SESSION['class_id'] = $class_id = validate($_REQUEST['class_id'], 'integer', 1);
 }
 extract($_SESSION);
 
@@ -32,15 +31,24 @@ if (isSet($class_id)) {
 
 $sqlhead = "select distinct snummer,"
         . "achternaam ,roepnaam, tussenvoegsel as tussenvoegsel, "
-        . "pcn,lang,gebdat as birth_date,cohort,t.tutor as slb,country as nation,rtrim(email1) as email1,rtrim(email2) as email2,\n"
-        . "studieplan_short as studieplan,sclass,hoofdgrp ,\n"
-        . "straat,huisnr,plaats,stick,phone_gsm,phone_home\n"
+        . "pcn,"
+        . "lang"
+        //. ",gebdat as birth_date"
+        . ",cohort"
+        . ",t.tutor as slb"
+        //. "country as nation,"
+        . ",rtrim(email1) as email1"
+        //. "rtrim(email2) as email2,\n"
+        . ",studieplan_short as studieplan"
+        . ",sclass"
+        //. "hoofdgrp ,\n"
+        //. "straat,huisnr,plaats,stick,phone_gsm,phone_home\n"
         . " from \n";
 $sqltail = " join student_class using(class_id) left join tutor t on (s.slb=t.userid)\n"
-    . " left join studieplan using(studieplan)\n"
-    . " left join iso3166 on(nationaliteit=a2)\n"
-    . " left join sebi_stick using(snummer)\n"
-    . "where class_id={$class_id} order by achternaam,roepnaam";
+        . " left join studieplan using(studieplan)\n"
+        . " left join iso3166 on(nationaliteit=a2)\n"
+        . " left join sebi_stick using(snummer)\n"
+        . "where class_id={$class_id} order by achternaam,roepnaam";
 
 
 $fdate = date('Y-m-d');
@@ -56,13 +64,24 @@ $spreadSheetWriter->setTitle("Class list  $faculty_short $sclass $fdate")
 $spreadSheetWriter->processRequest();
 $spreadSheetWidget = $spreadSheetWriter->getWidget();
 
-$sqlhead = "select distinct '<a href=''student_admin.php?snummer='||snummer||''' target=''_blank''>'||snummer||'</a>' as snummer," .
-        "'<img src='''||photo||''' style=''height:24px;width:auto;''/>' as foto,\n"
+$sqlhead = "select distinct '<a href=''student_admin.php?snummer='||snummer||''' target=''_blank''>'||snummer||'</a>' as snummer,"
+        //. "'<img src='''||photo||''' style=''height:24px;width:auto;''/>' as foto,\n"
         . "achternaam ,roepnaam, tussenvoegsel as tussenvoegsel," .
-        "pcn,lang,cohort,t.tutor as slb,country as nation,gebdat as birth_date,rtrim(email1) as email1,rtrim(email2) as email2,\n" .
-        "studieplan_short as studieplan,sclass,hoofdgrp,\n" .
-        "straat,huisnr,plaats,stick,phone_gsm,phone_home\n" .
-        " from \n";
+        "pcn,"
+        . "lang,"
+        . "cohort,"
+        . "t.tutor as slb,"
+        //. "country as nation,"
+        //. "gebdat as birth_date,"
+        . "rtrim(email1) as email1,"
+        //. "rtrim(email2) as email2,\n" 
+        . "studieplan_short as studieplan,"
+        . "sclass,"
+        //. "hoofdgrp,\n"
+        //. "straat,huisnr,plaats,"
+        . "stick"
+        // . "phone_gsm,phone_home\n" .
+        . " from \n";
 $sql2 = $sqlhead . ' student_email s natural join portrait ' . $sqltail;
 
 $scripts = '<script type="text/javascript" src="js/jquery.js"></script>

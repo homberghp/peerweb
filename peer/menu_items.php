@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_SYSTEM);
 
 /**
  * The simple table editor for the table menu. Menu is one of the tables that support
@@ -22,7 +23,6 @@ $ste->setFormAction($PHP_SELF)
         ->setOrderList(array('menu_name', 'column_name'))
         ->setFormTemplate('templates/menu_item.html')
         ->show();
-?>
 
 
 

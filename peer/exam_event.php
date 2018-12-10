@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_SYSTEM);
 
 /**
  * The simple table editor for the exam_event
@@ -20,4 +21,3 @@ $ste->setTitle( $title )
         ->setListRowTemplate( array(  'exam_date', 'examiner' ) )
         ->setFormTemplate( 'templates/exam_event.php' )
         ->show();
-?>

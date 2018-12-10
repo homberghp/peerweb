@@ -1,12 +1,10 @@
 <?php
-
-require_once('peerutils.php');
+requireCap( CAP_TUTOR );
 require_once('validators.php');
 require_once('querytotable.php');
 include_once('navigation2.php');
 require_once 'prjMilestoneSelector2.php';
 require_once 'project_selector.php';
-requireCap( CAP_TUTOR );
 
 $prj_id = 1;
 $prjtg_id = 1;

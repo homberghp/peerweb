@@ -1,5 +1,5 @@
 <?php
-
+requireCap(CAP_SYSTEM);
 require_once('peerutils.php');
 require_once('validators.php');
 require_once('simplequerytable.php');

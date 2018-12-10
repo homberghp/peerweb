@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_RECRUITER);
 
 /**
  * The simple table editor for the tutor
@@ -6,7 +7,6 @@
  * $Id: tutor.php 1103 2012-02-23 19:22:48Z hom $
  */
 require_once("ste.php");
-requireCap(CAP_RECRUITER);
 $page = new PageContainer("Peerweb verbaende on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page);
 $ste->setFormAction($PHP_SELF)

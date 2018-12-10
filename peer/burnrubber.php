@@ -1,4 +1,6 @@
 <?php
+requireCap(CAP_SYSTEM);
+
 require_once 'rubberstuff.php';
 $filename = $_REQUEST['rubberproduct'];
 $filename = "$rubberbase/".preg_replace('/^(\.\/)+/','',$filename).'*';
@@ -7,4 +9,3 @@ $filename = "$rubberbase/".preg_replace('/^(\.\/)+/','',$filename).'*';
 if (isset($_SERVER['HTTP_REFERER'])) {
   header('Location: '.$_SERVER['HTTP_REFERER']);
  }
-?>

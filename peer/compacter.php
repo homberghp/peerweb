@@ -1,5 +1,5 @@
 <?php
-require_once('peerutils.php');
+requireCap(CAP_SYSTEM);
 if (isSet($_REQUEST['compact'])) {
     // try to join adjecent records with same snummer,project and task attributes
     // must be done in one transaction
@@ -51,4 +51,3 @@ if (isSet($_REQUEST['compact'])) {
     }
  } // end compact
 header("Location: timebook.php");
-?>

@@ -1,7 +1,6 @@
 <?php
-include_once('peerutils.php');
+requireCap(CAP_SYSTEM);
 require_once('validators.php');
-requireCap(CAP_TUTOR);
 include_once('navigation2.php');
 include 'simplequerytable.php';
 require_once 'SpreadSheetWriter.php';

@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_MKCLASSES);
 
 /**
  * create class selectiojn cards based on current class assignments.
@@ -10,7 +11,6 @@ require_once('prjMilestoneSelector2.php');
 require_once('classMultiSelector.php');
 require_once 'TemplateWith.php';
 
-requireCap(CAP_MKCLASSES);
 unset($_SESSION['class_ids']);
 $class_ids = array();
 extract($_SESSION);

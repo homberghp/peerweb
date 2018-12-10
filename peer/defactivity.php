@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_TUTOR);
 
 /**
  * The simple table editor for the table menu. Menu is one of the tables that support
@@ -20,7 +21,7 @@ $ste->setFormAction($PHP_SELF)
         ->setMenuName('activity')
         ->setKeyColumns(array('act_id'))
         //->setShowQuery(true)
-        ->setNameExpression("rtrim(short)||'*'||part||': '||rtrim(ac_.description)")
+    ->setNameExpression("rtrim(short)||'*'||part||': '||rtrim(ac_.description)")
         ->setOrderList(array('datum desc', 'start_time', 'short'))
         ->setListRowTemplate(array('project', 'prj_id','project_description' ,'ac_.prjm_id','datum', 'start_time', 'act_id','act_type', 'part'))
         //->setListRowTemplate(array('datum', 'start_time', 'act_id','act_type', 'part'))

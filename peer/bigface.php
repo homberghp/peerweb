@@ -1,4 +1,6 @@
 <?php
+requireCap(CAP_SYSTEM);
+
 $maxcol = 6;
 $maxrow = 3;
 $pagesep = '';

@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_SYSTEM);
 
 /**
  * The simple table editor for the table menu. Menu is one of the tables that support
@@ -9,7 +10,6 @@
  * $Id: enumeraties.php 1723 2014-01-03 08:34:59Z hom $
  */
 require_once("ste.php");
-requireCap(CAP_SYSTEM);
 $page = new PageContainer("Set enumerations in menus " . $PHP_SELF . " on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page, hasCap(CAP_SYSTEM));
 $ste->setFormAction($PHP_SELF)

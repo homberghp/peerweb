@@ -92,6 +92,7 @@ function getUserDataInto($dbConn, $unix_id, &$arr) {
     }
 #  var_dump($arr);
 }
+
 /**
  * test the capability the user has.
  * @param $cap required capability
@@ -119,8 +120,13 @@ function hasCap($cap) {
  */
 function requireCap($cap) {
     global $root_url;
+
     if (!hasCap($cap)) {
-        header("location: $root_url/home.php");
+        $redirect = "location: $root_url/home.php";
+        if (hasCap(CAP_TUTOR)) {
+            $redirect = "location: $root_url/tutorhome.php";
+        }
+        header($redirect);
         die('');
     }
 }
@@ -377,7 +383,7 @@ function getQueryToTableChecked($dbConn, $query, $numerate, $watchColumn, $rb, $
                 case 'real';
                 case 'N':
                     $tdclass .= ' num';
-                    $sums[$i] += $val;
+                    //$sums[$i] += $val;
                     break;
                 default:
                     break;
@@ -691,8 +697,8 @@ function pagefoot() {
  * authenticate user. side effect : userCap is set to users capabilities
  * @param $uid userid to test
  * @param $pw password to test
- * @return 0 if succes, error code > 0 if failure
- * post: $_SESION contains crypted password, tutor_code and capabilities
+ * @return 0 if success, error code > 0 if failure
+ * post: $_SESSION contains crypted password, tutor_code and capabilities
  */
 function authenticate($uid, $pw) {
     global $dbConn;

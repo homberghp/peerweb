@@ -1,12 +1,10 @@
 <?php
-
-include_once('peerutils.php');
+requireCap(CAP_TUTOR);
 include_once('navigation2.php');
 include_once 'openBarChart2.php';
 require_once 'prjMilestoneSelector2.php';
 require_once 'mailFunctions.php';
 //$dbConn->setSqlAutoLog( $db_name <> 'peer' );
-requireCap(CAP_TUTOR);
 $prjm_id = 0;
 $prj_id = 1;
 $milestone = 1;

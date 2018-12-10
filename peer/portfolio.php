@@ -1,6 +1,4 @@
 <?php
-//session_start();
-include_once('peerutils.php');
 include_once('tutorhelper.php');
 require_once('documentfolders.php');
 include_once'navigation2.php';

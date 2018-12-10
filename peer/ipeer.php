@@ -1,6 +1,5 @@
 <?php
 /* $Id: ipeer.php 1825 2014-12-27 14:57:05Z hom $ */
-include_once('peerutils.php');
 require_once 'groupassessmenttable.php';
 include_once('tutorhelper.php');
 include_once 'navigation2.php';
@@ -108,7 +107,7 @@ if ( $isTutor && isSet( $_REQUEST[ 'reopen' ] ) ) {
 // test of voting is still open for this group
 $prjtg_id = (isSet( $prjtg_id )) ? $prjtg_id : 0;
 $grp_open = grpOpen2( $dbConn, $judge, $prjtg_id );
-$dbConn->log( "group open test $grp_open <br/>" );
+//$dbConn->log( "group open test $grp_open <br/>" );
 if ( $grp_open && isSet( $_POST[ 'peerdata' ] ) ) {
     if ( $_POST[ 'peerdata' ] == 'grade' && isSet( $_POST[ 'grade' ] ) ) {
         $continuation = '';

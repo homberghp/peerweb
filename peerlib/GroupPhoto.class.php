@@ -83,8 +83,8 @@ class GroupPhoto {
                     . "<img src='$image' alt='$image' border='0' "
                     . "style='width:".$this->pictWidth."px; height=auto;box-shadow:3px 3px 3px #008"
                     .";border-radius:".($this->pictWidth/8)."px'/>"
-                    . "\n\t\t<div>\n"
-                    . "\t\t\t<b>$name</b><br/>$snummer"
+                    . "\n\t\t<div style='margin:5px'>\n"
+                    . "\t\t\t<b>$name</b><br/>"
                     . "\n\t\t</div>\n\t</th>\n";
             $colcount++;
             if ($colcount >= $this->MAXCOL) {

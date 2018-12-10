@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_TUTOR);
 require_once 'ste.php';
 require_once 'GroupPhoto.class.php';
 require_once 'prjMilestoneSelector2.php';

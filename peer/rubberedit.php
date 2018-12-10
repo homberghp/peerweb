@@ -1,11 +1,9 @@
 <?php
-
-include_once('peerutils.php');
+requireCap(CAP_SYSTEM);
 require_once('validators.php');
 require_once('rubberstuff.php');
 include_once('navigation2.php');
 require_once('conffileeditor2.php');
-requireCap( CAP_TUTOR );
 // anticipate a save initiated by user.
 $saveResult = ConfFileEditor::save();
 $page_opening = "Rubber editor file ";

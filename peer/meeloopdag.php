@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_RECRUITER);
 
 require_once 'component.php';
 require_once 'navigation2.php';

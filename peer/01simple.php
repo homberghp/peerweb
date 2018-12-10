@@ -1,4 +1,6 @@
 <?php
+requireCap(CAP_SYSTEM);
+
 /**
  * PHPExcel
  *

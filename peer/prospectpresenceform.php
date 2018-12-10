@@ -1,6 +1,5 @@
 <?php
-
-include_once('peerutils.php');
+requireCap(CAP_TUTOR);
 require_once('validators.php');
 require_once('component.php');
 ini_set( 'error_reporting', E_ALL );

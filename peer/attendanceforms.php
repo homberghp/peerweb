@@ -1,6 +1,6 @@
 <?php
 
-include_once('peerutils.php');
+requireCap(CAP_TUTOR);
 require_once('validators.php');
 require_once('component.php');
 $debug = false;
@@ -31,13 +31,13 @@ fwrite($fp, "\\documentclass[11pt]{article}\n" .
         "\\newcommand\\tabletail{\\end{longtable}}\n" .
         "\\renewcommand\\arraystretch{3}\n" .
         "\\newcommand\\tablehead[1]{\n" .
-        "\\begin{longtable}{|l|p{35mm}||p{25mm}|p{85mm}|}%\n" .
+        "\\begin{longtable}{|l|p{35mm}|p{85mm}|}%\n" .
         "  \\caption{Presence list for class/group #1}\\\\\\hline%\n" .
-        "  \\rowcolor[gray]{0.8}\\textbf{class}&\\textbf{name}&\\textbf{Student number}&\\textbf{signature}\\\\\\hline%\n" .
+        "  \\rowcolor[gray]{0.8}\\textbf{class}&\\textbf{name}&\\textbf{signature/reason~for~absence}\\\\\\hline%\n" .
         " \\endhead%\n" .
-        "  \\hline \\multicolumn{4}{r}{\\emph{List for class #1 continued on next page}} \n" .
+        "  \\hline \\multicolumn{3}{r}{\\emph{List for class #1 continued on next page}} \n" .
         " \\endfoot%\n" .
-        "  \\hline \\multicolumn{4}{c}{\\textbf{End of report}}%\n" .
+        "  \\hline \\multicolumn{3}{c}{\\textbf{End of report}}%\n" .
         " \\endlastfoot%\n" .
         "}\n" .
         " \n" .
@@ -72,7 +72,7 @@ while (!$resultSet->EOF) {
     if ($sgroup != $oldSgroup) {
         fwrite($fp, "\\tabletail\n\\tablehead{" . $sgroup . '/' . $tutor . "}\n");
     }
-    fwrite($fp, "$sgroup& $name& $check& $reason\\\\\\hline\n");
+    fwrite($fp, "$sgroup& $name&  $reason\\\\\\hline\n");
     $oldSgroup = $sgroup;
     $resultSet->movenext();
 }

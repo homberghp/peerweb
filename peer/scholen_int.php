@@ -1,4 +1,5 @@
 <?php
+requireCap(CAP_RECRUITER);
 
 /**
  * The simple table editor for the tutor
@@ -6,7 +7,6 @@
  * $Id: scholen_int.php 1723 2014-01-03 08:34:59Z hom $
  */
 include_once("ste.php");
-requireCap(CAP_RECRUITER);
 
 $page = new PageContainer("Peerweb scholen internationaal" . $PHP_SELF . " on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page);

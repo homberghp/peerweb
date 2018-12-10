@@ -1,6 +1,6 @@
 <?php
+requireCap(CAP_SYNC_PROGRESS);
 
-require_once 'peerutils.php';
 require_once'validators.php';
 require_once 'navigation2.php';
 require_once 'prjMilestoneSelector2.php';
@@ -8,7 +8,6 @@ require_once 'simplequerytable.php';
 require_once 'TemplateWith.php';
 
 
-requireCap(CAP_SYNC_PROGRESS);
 $prjm_id = 0;
 $prj_id = 1;
 $milestone = 1;

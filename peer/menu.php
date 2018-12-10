@@ -1,5 +1,5 @@
 <?php
-
+requireCap(CAP_SYSTEM);
 /**
  * The simple table editor for the table menu. Menu is one of the tables that support
  * the simple table editor.
@@ -46,4 +46,3 @@ $ste->render();
 $page->addBodyComponent(new Component('<!-- db_name=$db_name $Id: menu.php 1723 2014-01-03 08:34:59Z hom $ -->'));
 $page->addBodyComponent(new Component('<a href="tets.php">tets</a>' . $PHP_SELF));
 $page->show();
-?>

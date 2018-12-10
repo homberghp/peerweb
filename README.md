@@ -8,7 +8,7 @@ find various programming style, some old, some new and some that
 should not be followed in real projects. 
 Nonetheless it contains some functionality that appears to be useful.
 
-My maintenance strategy is completely open source style: If my batch
+My maintenance strategy is completely open source style: If my back
 needs scratching, I'll scratch, otherwise I leave things as is.
 
 The project uses php and **PostgreSQL** as database.

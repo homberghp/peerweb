@@ -1,6 +1,6 @@
 <?php
 
-include_once('peerutils.php');
+requireCap(CAP_TUTOR);
 require_once('validators.php');
 require_once('component.php');
 $debug = false;
@@ -88,8 +88,8 @@ while (!$resultSet->EOF) {
             . "\\begin{minipage}{35mm}"
             . "\\center\\includegraphics[height=40mm]{"
             . $fotodir . $photo . "}"
-            . "\n\\vfill\\sf{}\\textbf{" . $name
-            . "}\\\\$snummer ($slb)}"
+            . "\n\\vfill\\sf{}\\textbf{{$name}}"
+            //. "\\\\{$snummer} ({$slb})}"
             . "\\end{minipage}\n";
     //);
     $cont = ' & ';

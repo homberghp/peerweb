@@ -1,4 +1,6 @@
 <?php
+requireCap(CAP_SYSTEM);
+
 /**
  * To help the dba an programmers this page shows the (syntax highlighted) sources of the
  * application.
@@ -13,7 +15,7 @@
 <?php
 require_once("peerutils.php");
 require_once("utils.php");
-//requireCap(CAP_SYSTEM);
+requireCap(CAP_SYSTEM);
 //require_once("nav6.php");
 /* if ($am_user_blocked == 'J') {
  include("blocked_tail.inc");
@@ -71,7 +73,7 @@ if ($dir = @opendir("./")) {
 <?php
 if ($filename != '') {?><br/>
 <h3> source of <?=$filename?></h3>
-    <div style="background-color:#FFFFFF; text-width=400px;">
+    <div style="background-color:#FFFFFF; text-width:400px;">
       <?php show_source($filename);?>
     </div>
 <?php

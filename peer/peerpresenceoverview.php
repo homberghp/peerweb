@@ -1,5 +1,5 @@
 <?php
-include_once('peerutils.php');
+requireCap(CAP_TUTOR);
 include_once('tutorhelper.php');
 include_once('navigation2.php');
 include_once 'navigation2.php';
@@ -31,5 +31,3 @@ $page->addHtmlFragment('templates/peerpresenceoverview.html',$pp);
 //$page->addBodyComponent(new Component($text));
 $page->addBodyComponent(new Component('<!-- db_name='.$db_name.'-->'));
 $page->show();
-
-?>
