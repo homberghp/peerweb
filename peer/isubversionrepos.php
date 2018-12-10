@@ -1,7 +1,7 @@
 <?php
 
+requireCap(CAP_SUBVERSION);
 require_once('validators.php');
-include_once('tutorhelper.php');
 include_once('navigation2.php');
 require_once('conffileeditor2.php');
 if ( $db_name == 'peer2' ) {
@@ -12,7 +12,6 @@ if ( $db_name == 'peer2' ) {
 $reposroot = '/home/svnp';
 
 //function readDFile( $File ) {
-//  $content = '';
 //  if ( $fp2 = fopen( $File, 'r' ) ) {
 //    while ( !feof( $fp2 ) ) {
 //      $dline = trim( fgets( $fp2 ) );

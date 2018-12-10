@@ -25,7 +25,7 @@ $title = "Student and groups in project $afko milestone $milestone";
 $sqlhead = "select s.snummer as snummer,";
 
 // <a href='../student_admin.php?snummer=snummer'>snummer</a>
-$grpColumn = 16;
+$grpColumn = 13;
 $sqltail = "achternaam||rtrim(coalesce(', '||tussenvoegsel,'')) as achternaam "
         . ",roepnaam"
         //. ", pcn"

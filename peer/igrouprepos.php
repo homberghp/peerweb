@@ -1,5 +1,6 @@
 <?php
 /* $Id: igrouprepos.php 1761 2014-05-24 13:17:31Z hom $ */
+requireCap(CAP_SUBVERSION);
 include_once('simplequerytable.php');
 include_once('makeinput.php');
 include_once('tutorhelper.php');
@@ -8,7 +9,6 @@ $judge=$snummer;
 $sql="select * from student where snummer=$judge";
 $resultSet=$dbConn->Execute($sql);
 if ($resultSet === false) {
-    print "error fetching judge data with $sql : ".$dbConn->ErrorMsg()."<br/>\n";
  }
 if (!$resultSet->EOF) extract($resultSet->fields,EXTR_PREFIX_ALL,'judge');
 

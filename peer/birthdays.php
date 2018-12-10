@@ -1,13 +1,18 @@
 <?php
 
-  /** 
-   * prints a birtday calander for today
-   */
+requireCap(CAP_TUTOR);
+
+/**
+ * prints a birtday calander for today
+ */
 class BirthDaysToDay {
-    public function __construct(){}
+
+    public function __construct() {
+        
+    }
 
     public function __toString() {
-	
+
 //	global $dbConn;
 //	$result= "<div class='birthday' onclick='new Effect.Puff(this);'>
 //<h3 style='color:white' align='center'><i>And a happy birthday to</i></h3>
@@ -38,8 +43,9 @@ class BirthDaysToDay {
 //	    $resultSet->moveNext();
 //	}
 //	$result .= "</table>\n</div>\n";
-	return "<div></div>";//$result;
-    
-      }
+        return "<div></div>"; //$result;
+    }
+
 }
+
 ?>

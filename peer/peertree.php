@@ -1,6 +1,6 @@
 <?php
 //Define where you have placed the phptreeview folder.
-
+requireCap(CAP_DEFAULT);
 define( 'PEERICONS', IMAGEROOT . '/' );
 define( 'PEERSITE', $root_url . '/' );
 

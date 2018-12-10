@@ -1,8 +1,8 @@
 <?php
 /* $Id: mypeerresults.php 1761 2014-05-24 13:17:31Z hom $ */
+requireCap(CAP_DEFAULT);
 include_once('simplequerytable.php');
 include_once('makeinput.php');
-include_once('tutorhelper.php');
 include_once 'navigation2.php';
 $judge=$snummer;
 $sql="select * from student where snummer=$judge";
@@ -26,7 +26,6 @@ $page->addBodyComponent($nav);
 ob_start();
 
 ?>
-<table width='100%'><tr><td valign='top'>
 <div style='padding:1em'>
 <h2>This page informs you about your peer assessment results of all assessments</h2>
 <p>All assessment results for <b><?=$student_data?></b></p>

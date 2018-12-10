@@ -1,5 +1,6 @@
 <?php
 /* $Id: mypeergroups.php 1761 2014-05-24 13:17:31Z hom $ */
+requireCap(CAP_DEFAULT);
 include_once('simplequerytable.php');
 include_once('makeinput.php');
 include_once('tutorhelper.php');
