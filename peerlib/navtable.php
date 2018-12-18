@@ -1,5 +1,4 @@
 <?php
-
 $tabInterestCount = array();
 $tabInterestCount['all'] = 1;
 $tabInterestCount['tutor'] = hasCap(CAP_TUTOR) ? 1 : 0;

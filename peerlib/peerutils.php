@@ -697,8 +697,8 @@ function pagefoot() {
  * authenticate user. side effect : userCap is set to users capabilities
  * @param $uid userid to test
  * @param $pw password to test
- * @return 0 if succes, error code > 0 if failure
- * post: $_SESION contains crypted password, tutor_code and capabilities
+ * @return 0 if success, error code > 0 if failure
+ * post: $_SESSION contains crypted password, tutor_code and capabilities
  */
 function authenticate($uid, $pw) {
     global $dbConn;

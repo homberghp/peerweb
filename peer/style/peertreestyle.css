@@ -158,34 +158,42 @@
     }
 
     fieldset {border: 1px solid black; 
-              border-top-left-radius: 12px;
+/*              border-top-left-radius: 12px;
               border-top-right-radius: 0px;
               border-bottom-left-radius: 12px;
-              border-bottom-right-radius: 12px;
-              -webkit-border-radius:12px; box-shadow:rgba(0,00,80,0.5) 10px 10px 5px;
-              -webkit-box-shadow:#777 10px 10px 5px; background: rgba(80,80,0,0.2);}
+              border-bottom-right-radius: 12px;*/
+              box-shadow:rgba(0,00,80,0.5) 5px 5px 5px;
+              /*-webkit-border-radius:12px;*/ 
+              -webkit-box-shadow:#777 5px 5px 5px; 
+              /*background: rgba(80,80,0,0.2);*/
+    }
     legend { border-top: 1px solid black;
              border-left: 1px solid black;
              border-right: 1px solid black;
              padding: 0 8px 0 8px;
              margin: 2px 2px 2px 2px;
-             border-top-left-radius: 5px;
+             font-size: 120%;
+             font-weight: bold;
+/*             border-top-left-radius: 5px;
              border-top-right-radius: 5px;
              border-bottom-left-radius: 2px;
-             border-bottom-right-radius: 2px;
-             background: rgba(80,80,80,0.2);
-             box-shadow: rgba(0,0,80,0.5) 5px -5px 8px;
-             text-shadow: 1px 1px 1px #FFF;
+             border-bottom-right-radius: 2px;*/
+             /*background: rgba(80,80,80,0.2);*/
+/*             box-shadow: rgba(0,0,80,0.5) 5px -5px 8px;
+             text-shadow: 1px 1px 1px #FFF;*/
     }
     fieldset fieldset {
         border: 1px solid black;
-        border-radius:8px;
+        /*border-radius:8px;*/
         text-shadow:none;
         box-shadow:none;
         /*background: none;*/
     }
     legend.button,fieldset.outer fieldset legend { 
-        font-size:110%; font-weight:bold; border: 0px;box-shadow:none;
+        font-size:110%; 
+        font-weight:bold; 
+        border: 0px;
+        box-shadow:none;
         background: none;
     }
     th.detail,td.legend {background:rgba(128,128,128,0.5);}

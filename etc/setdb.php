@@ -9,4 +9,4 @@
 $etc_dir = realpath(dirname(__FILE__).'/../etc');
 $site_home = realpath(dirname(__FILE__).'/../');
 $site_userdir = realpath(dirname(__FILE__).'/../../');
-require_once 'configure.php';
+require_once $etc_dir.'/configure.php';

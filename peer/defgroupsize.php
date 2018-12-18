@@ -42,7 +42,6 @@ $spreadSheetWidget = $spreadSheetWriter->getWidget();
 pagehead('Select group count and tutors');
 $grp_count = 5;
 $tutor_id = $peer_id;
-//include 'prjm_idRequest.php';
 // determine the number of groups currently present 
 // to advise about the number of tutur-grp pairs
 $isTutorOwner = checkTutorOwnerMilestone($dbConn, $prjm_id, $peer_id);
