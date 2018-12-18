@@ -14,6 +14,7 @@ $milestone = 1;
 $prjm_id = 0;
 extract($_SESSION);
 $scripts = '';
+$grpColumn = 14;
 $prjSel = new PrjMilestoneSelector2($dbConn, $peer_id, $prjm_id);
 extract($prjSel->getSelectedData());
 $_SESSION['prj_id'] = $prj_id;
@@ -25,7 +26,6 @@ $title = "Student and groups in project $afko milestone $milestone";
 $sqlhead = "select s.snummer as snummer,";
 
 // <a href='../student_admin.php?snummer=snummer'>snummer</a>
-$grpColumn = 16;
 $sqltail = "achternaam||rtrim(coalesce(', '||tussenvoegsel,'')) as achternaam "
         . ",roepnaam"
         //. ", pcn"
