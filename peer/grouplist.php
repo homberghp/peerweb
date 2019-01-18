@@ -28,7 +28,7 @@ $sqlhead = "select s.snummer as snummer,";
 // <a href='../student_admin.php?snummer=snummer'>snummer</a>
 $sqltail = "achternaam||rtrim(coalesce(', '||tussenvoegsel,'')) as achternaam "
         . ",roepnaam"
-        //. ", pcn"
+        . ", pcn"
         //. ",gebdat as birth_date"
         . ",cohort\n"
         . ",role"
