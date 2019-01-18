@@ -29,21 +29,23 @@ if (isSet($class_id)) {
 
 
 
-$sqlhead = "select distinct snummer,"
-        . "achternaam ,roepnaam, tussenvoegsel as tussenvoegsel, "
-        . "pcn,"
-        . "lang"
+$sqlhead1 = "select distinct snummer"
+        . ",achternaam ,roepnaam, tussenvoegsel as tussenvoegsel "
+        . ",pcn"
+        . ",lang"
         //. ",gebdat as birth_date"
         . ",cohort"
         . ",t.tutor as slb"
-        //. "country as nation,"
-        . ",rtrim(email1) as email1"
-        //. "rtrim(email2) as email2,\n"
+        //. ",country as nation,"
+        . " ,rtrim(email1) as email1"
+        //. ",rtrim(email2) as email2,\n"
         . ",studieplan_short as studieplan"
         . ",sclass"
         //. "hoofdgrp ,\n"
         //. "straat,huisnr,plaats,stick,phone_gsm,phone_home\n"
         . " from \n";
+echo "<pre>{$sqlhead1}</pre>";
+
 $sqltail = " join student_class using(class_id) left join tutor t on (s.slb=t.userid)\n"
         . " left join studieplan using(studieplan)\n"
         . " left join iso3166 on(nationaliteit=a2)\n"
@@ -54,7 +56,7 @@ $sqltail = " join student_class using(class_id) left join tutor t on (s.slb=t.us
 $fdate = date('Y-m-d');
 $filename = 'class_list_' . $faculty_short . '_' . $sclass . '-' . $fdate;
 
-$spreadSheetWriter = new SpreadSheetWriter($dbConn, $sqlhead . ' student s left join alt_email aem using(snummer) ' . $sqltail);
+$spreadSheetWriter = new SpreadSheetWriter($dbConn, $sqlhead1 . ' student s left join alt_email aem using(snummer) ' . $sqltail);
 
 $spreadSheetWriter->setTitle("Class list  $faculty_short $sclass $fdate")
         ->setLinkUrl($server_url . $PHP_SELF . '?class_id=' . $class_id)
@@ -64,7 +66,7 @@ $spreadSheetWriter->setTitle("Class list  $faculty_short $sclass $fdate")
 $spreadSheetWriter->processRequest();
 $spreadSheetWidget = $spreadSheetWriter->getWidget();
 
-$sqlhead = "select distinct '<a href=''student_admin.php?snummer='||snummer||''' target=''_blank''>'||snummer||'</a>' as snummer,"
+$sqlhead2 = "select distinct '<a href=''student_admin.php?snummer='||snummer||''' target=''_blank''>'||snummer||'</a>' as snummer,"
         //. "'<img src='''||photo||''' style=''height:24px;width:auto;''/>' as foto,\n"
         . "achternaam ,roepnaam, tussenvoegsel as tussenvoegsel," .
         "pcn,"
@@ -82,8 +84,8 @@ $sqlhead = "select distinct '<a href=''student_admin.php?snummer='||snummer||'''
         . "stick"
         // . "phone_gsm,phone_home\n" .
         . " from \n";
-$sql2 = $sqlhead . ' student_email s natural join portrait ' . $sqltail;
-
+$sql2 = $sqlhead2 . ' student_email s natural join portrait ' . $sqltail;
+echo "<pre>{$sqlhead2}</pre>";
 $scripts = '<script type="text/javascript" src="js/jquery.js"></script>
     <script src="js/jquery.tablesorter.js"></script>
     <script type="text/javascript">                                         

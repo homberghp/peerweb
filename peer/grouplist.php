@@ -14,7 +14,7 @@ $milestone = 1;
 $prjm_id = 0;
 extract($_SESSION);
 $scripts = '';
-$grpColumn = 14;
+$grpColumn = 13;
 $prjSel = new PrjMilestoneSelector2($dbConn, $peer_id, $prjm_id);
 extract($prjSel->getSelectedData());
 $_SESSION['prj_id'] = $prj_id;
