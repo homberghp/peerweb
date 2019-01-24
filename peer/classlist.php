@@ -44,7 +44,7 @@ $sqlhead1 = "select distinct snummer"
         //. "hoofdgrp ,\n"
         //. "straat,huisnr,plaats,stick,phone_gsm,phone_home\n"
         . " from \n";
-echo "<pre>{$sqlhead1}</pre>";
+//echo "<pre>{$sqlhead1}</pre>";
 
 $sqltail = " join student_class using(class_id) left join tutor t on (s.slb=t.userid)\n"
         . " left join studieplan using(studieplan)\n"
@@ -85,7 +85,7 @@ $sqlhead2 = "select distinct '<a href=''student_admin.php?snummer='||snummer||''
         // . "phone_gsm,phone_home\n" .
         . " from \n";
 $sql2 = $sqlhead2 . ' student_email s natural join portrait ' . $sqltail;
-echo "<pre>{$sqlhead2}</pre>";
+//echo "<pre>{$sqlhead2}</pre>";
 $scripts = '<script type="text/javascript" src="js/jquery.js"></script>
     <script src="js/jquery.tablesorter.js"></script>
     <script type="text/javascript">                                         
