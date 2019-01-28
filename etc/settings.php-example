@@ -1,0 +1,10 @@
+<?php
+$db_name = 'peer2'; // test version of db
+$server_url = 'https://www.fontysvenlo.org'; // the default installation
+$svnserver_url = 'https://www.fontysvenlo.org';
+define('ADMIN_EMAILADDRESS', 'p.vandenhombergh@fontys.nl'); // your own?
+// the url of this instance is the ${server_url}/${root_url}
+$root_url = '/peertest'; // as seen from the browser for this instance 
+$bgstyle = 'local'; // possible values: peer (default), test and local.
+// where uploaded files land and are served from.
+$upload_path_prefix = '/home/f/fontysvenlo.org/peerweb/upload';
