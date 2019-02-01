@@ -1,5 +1,5 @@
 # peerweb
-peerweb is a student project management tool used at fontys sebi venlo.
+peerweb is a (student) project management tool used at fontys sebi venlo.
 
 peerweb is a project that has grown over time and does not meet any
 serious software engineering standard, development process wise.
