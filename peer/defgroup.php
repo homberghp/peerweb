@@ -162,6 +162,7 @@ $prj_id = isSet($_SESSION['prj_id']) ? $_SESSION['prj_id'] : -1;
 extract(getTutorOwnerData($dbConn, $prj_id), EXTR_PREFIX_ALL, 'ot');
 $_SESSION['prj_id'] = $prj_id = $ot_prj_id;
 $isTutorOwner = ($ot_tutor == $tutor_code);
+echo "{$ot_tutor} {$tutor_code}";
 if ($isTutorOwner) {
     $submit_button = '<button name=\'bsubmit\' value=\'submit\'>Submit</button>';
 } else {

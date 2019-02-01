@@ -270,13 +270,13 @@ $navtable = array(// index, defproject, citeria1,2, milestones
                 'image' => 'html2.png',
                 'interest' => 'tutor_owner',
             ),
-            array('target' => 'limelist.php',
-                'tooltip' => 'Lime survey token table.',
-                'linktext' => 'Limesurvey tokens',
-                'menu_name' => 'limelist',
-                'image' => 'limesurvey.png',
-                'interest' => 'tutor_owner',
-            ),
+            /* array('target' => 'limelist.php', */
+            /*     'tooltip' => 'Lime survey token table.', */
+            /*     'linktext' => 'Limesurvey tokens', */
+            /*     'menu_name' => 'limelist', */
+            /*     'image' => 'limesurvey.png', */
+            /*     'interest' => 'tutor_owner', */
+            /* ), */
             array('target' => 'groupemail.php',
                 'tooltip' => 'Send mail to students groups',
                 'top_image' => 'mail_generic.png',

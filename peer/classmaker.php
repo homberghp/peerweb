@@ -129,7 +129,7 @@ $sql = "SELECT '<input type=''checkbox''  name=''studenten[]'' value='''||st.snu
         . "'<a href=''student_admin.php?snummer='||snummer||'''>'||st.snummer||'</a>' as snummer,"
         . "'<img src='''||photo||''' style=''height:24px;width:auto;''/>' as foto,\n"
         . "achternaam||', '||roepnaam||coalesce(' '||tussenvoegsel,'') as naam,pcn,"
-        . "email1 as email,t.tutor as slb,hoofdgrp,cohort,course_short sprogr,studieplan_short as splan,lang,sex,gebdat,"
+        . "email1 as email,t.tutor as slb,hoofdgrp,cohort,course_short sprogr,studieplan_short as splan,lang,sex as gender,gebdat,"
         . " land,plaats,pcode\n"
         . " from student st "
         . "left join student_class cl using(class_id)\n"

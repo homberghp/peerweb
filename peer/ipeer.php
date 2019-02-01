@@ -5,6 +5,7 @@ require_once 'groupassessmenttable.php';
 include_once 'navigation2.php';
 require_once 'GroupPhoto.class.php';
 require_once 'studentPrjMilestoneSelector.php';
+require_once('tutorhelper.php');
 
 $prj_id = 1;
 $milestone = 1;

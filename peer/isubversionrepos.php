@@ -4,6 +4,8 @@ requireCap(CAP_SUBVERSION);
 require_once('validators.php');
 include_once('navigation2.php');
 require_once('conffileeditor2.php');
+require_once('tutorhelper.php');
+
 if ( $db_name == 'peer2' ) {
   $reposroot = '/home/svnpt';
 } else {
