@@ -20,17 +20,17 @@
   h2 { font-size:12pt; }
   h3,h4 { font-size:10pt; }
   h3 { font-weight:bold; }
-  body{ margin:	0; padding:0; background:url(/peertest/images/navcolbackselected_test.png)#ccc; background-repeat:  repeat-y;z-index:0;}
+  body{ margin:	0; padding:0; background:url(../images/navcolbackselected_test.png)#ccc; background-repeat:  repeat-y;z-index:0;}
   table.tabledata { border-collapse:collapse; }
   td.navcol,th.navcol {padding-left:20px; }	
   .thl { text-align:left;}
   .thl.num, .thr { text-align:right;}
   div.intro,div.navopening { margin: 0; width: 100%; border: 0px solid black; 
-    height:auto; padding: 3px; background: #4d95ba url(/peertest/images/navopening.png) repeat-x; color:white; z-index:1;}
+    height:auto; padding: 3px; background: #4d95ba url(../images/navopening.png) repeat-x; color:white; z-index:1;}
   div#tutorhelper {width:100%;}
   .tutorhelper table {width:100%;}
   div#navtop { margin:0; padding:1em; width:100%; color:white;
-      background:#F88 url(/peertest/images/navcolbackselected_test.png);background-repeat: repeat-x;}
+      background:#F88 url(../images/navcolbackselected_test.png);background-repeat: repeat-x;}
   div.navtop { border: 0px solid blue;
     padding: 8px 6px 3px 20px; margin:0; width:auto; display:inline;
   } 
@@ -40,7 +40,7 @@
   .navcol { margin: 3px 0 3px 0 ;border-width:0; border-collapse:collapse; width:auto; 
     padding: 2px 2px 2px 16px; border-right: 1px solid #ccc;}
   .navcol.selected { margin: 3px -3px 3px 0;
-    background:url(/peertest/images/navcolbackselected_test.png) #ccc; border-top: 1px solid #ccc; border-bottom:3px solid #888; border-right:0px;}
+    background:url(../images/navcolbackselected_test.png) #ccc; border-top: 1px solid #ccc; border-bottom:3px solid #888; border-right:0px;}
   th div { 
     display: none;
     font-size: 0.8em;
@@ -74,25 +74,25 @@
 
   div#navtop{ margin:0; width:auto; height:auto; border: 0px solid green; padding:0;}
   div#navrow { margin:0 0 -3px 0; padding:6px; width:auto; color:white;
-      background:#F88 url(/peertest/images/navcolbackselected_test.png); background-repeat: repeat-y;}
-  .navtop.leftoff{ background: #f2f2df url(/peertest/images/tabs-left-off.gif); z-index:0;} 
-  .navtop.lefton { background: #4d95ba url(/peertest/images/tabs-left-on.gif); z-index:2; } 
-  .navtop.midonoff { background: #f2f2df url(/peertest/images/tabs-middle-off-onleft.gif); } 
-  .navtop.midon { background: #4d95ba url(/peertest/images/tabs-middle-on.gif); } 
-  .navtop.midoff { background: #f2f2df url(/peertest/images/tabs-middle-off.gif); } 
-  .navtop.righton { background: white url(/peertest/images/tabs-right-on.gif) no-repeat; padding-left:6px; } 
-  .navtop.rightoff { background: white url(/peertest/images/tabs-right-off.gif) no-repeat; padding-left:6px;} 
+      background:#F88 url(../images/navcolbackselected_test.png); background-repeat: repeat-y;}
+  .navtop.leftoff{ background: #f2f2df url(../images/tabs-left-off.gif); z-index:0;} 
+  .navtop.lefton { background: #4d95ba url(../images/tabs-left-on.gif); z-index:2; } 
+  .navtop.midonoff { background: #f2f2df url(../images/tabs-middle-off-onleft.gif); } 
+  .navtop.midon { background: #4d95ba url(../images/tabs-middle-on.gif); } 
+  .navtop.midoff { background: #f2f2df url(../images/tabs-middle-off.gif); } 
+  .navtop.righton { background: white url(../images/tabs-right-on.gif) no-repeat; padding-left:6px; } 
+  .navtop.rightoff { background: white url(../images/tabs-right-off.gif) no-repeat; padding-left:6px;} 
   div#navmid {margin:0; padding:0; width: auto; border-width:3px; border-color:red; z-index:5;background: 
-    url(/peertest/images/navcolback.png)#88F; background-repeat: repeat-y;}
+    url(../images/navcolback.png)#88F; background-repeat: repeat-y;}
   .navcol, h1 {padding-left:20px;}
   div#navcol { position:absolute; left:0; width: 15%; margin: 0 auto 0 0;  height:auto;
-    background: url(/peertest/images/navcolback.png)#88F; background-repeat: repeat-y; z-index:5;}
+    background: url(../images/navcolback.png)#88F; background-repeat: repeat-y; z-index:5;}
   div#navmain {position:absolute; left:15%; margin:0; width:auto; height:auto; padding:0; z-index:10;}
   h1.normal {padding: 0.2em;background:#034a7b; color:white; }
- .theadleft { padding-left: 20px; text-align: left; background: #f2f2df url(/peertest/images/tableheaderleft.png); }
+ .theadleft { padding-left: 20px; text-align: left; background: #f2f2df url(../images/tableheaderleft.png); }
   /* use right part, end should not show on normal displays */
-  .theadmid { padding-right: 20px; margin-right:-2px; text-align:left; background: #f2f2df url(/peertest/images/tableheaderright.png); }
-  .theadright { padding-right: 20px; text-align: right; background: #f2f2df url(/peertest/images/tableheaderright.png); 
+  .theadmid { padding-right: 20px; margin-right:-2px; text-align:left; background: #f2f2df url(../images/tableheaderright.png); }
+  .theadright { padding-right: 20px; text-align: right; background: #f2f2df url(../images/tableheaderright.png); 
     background-position:right;  }
   .naviconleft{ border:0; margin:0; padding-left: 0 6px 0 6px ; }
   p {text-align: justify;}
