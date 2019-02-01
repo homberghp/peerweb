@@ -14,7 +14,7 @@ $sql = "select act_id,rtrim(afko) as afko,short,datum,act_type_descr,to_char(sta
         . "part from activity natural join activity_type join all_prj_tutor using(prjm_id) where act_id=$act_id";
 $resultSet = $dbConn->Execute($sql);
 extract($resultSet->fields);
-$texdir = $site_home . '/tex';
+$texdir = $site_home . '/tex/attendancelist_out';
 $basename = sanitizeFilename('attendancelist_' . trim(preg_replace('/\s+/', '_', $afko.'_'.$short)) . '_' . $datum . '_' . $time);
 $filename = $basename . '.tex';
 $pdfname = $basename . '.pdf';

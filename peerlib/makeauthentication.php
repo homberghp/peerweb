@@ -52,7 +52,7 @@ function mkpasswordmail( $email,$logincode,$roepnaam,$tussenvoegsel,$achternaam,
   global $root_url;
   if ($db_name == 'peer2') $email=ADMIN_EMAILADDRESS;
   $texdir = $site_home.'/tex/';
-  $texoutdir= $texdir.'out/';
+  $texoutdir= $texdir.'makeauthentication_out/';
   @`mkdir -p $texoutdir`;
   $basename = 's'.$logincode;
   $pdffilename =$basename.'.pdf';
@@ -66,13 +66,6 @@ function mkpasswordmail( $email,$logincode,$roepnaam,$tussenvoegsel,$achternaam,
   fwrite($handle,$notestring);
   fwrite($handle,"\\input{../notesend}\n");
   fclose($handle);
-  $handle=fopen($texdir.'maillog', "a");
-  $result = @`(cd $texoutdir; /usr/bin/pdflatex $filename)`;
-  $makemailcmd="(echo 'authentication data in attachement for $root_url using database $db_name.' "
-  ."| /usr/bin/mutt -s 'peerweb authentication' -a $pdfname -- $email)";
-  fwrite($handle,$makemailcmd."\n");
-  fclose($handle);
-  //  $result = @`$makemailcmd`;
   mail_attachment($pdffilename,$texoutdir,$email,'peerweb@fontysvenlo.org','Peerweb service','peerweb@fontysvenlo.org'
                   ,'peerweb authentication',"authentication data in attachement for $root_url using database $db_name.");
   $cpassword = password_hash($password,PASSWORD_BCRYPT);
