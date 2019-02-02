@@ -17,8 +17,10 @@ $milestone = 1;
 $class_ids = array();
 $prjSel = new PrjMilestoneSelector2($dbConn, $peer_id, $prjm_id);
 $prjSel->setWhere('valid_until > now()::date')
-        ->setExtraInfo("<span style='color:#800'>"
-                . "<p>Note that you can only select <a href='alterproject.php'>project</a>s which have a <b>valid until</b> date in the future.</p></span><br/>");
+        ->setExtraInfo("<strong>"
+                . "<p>Note that you can only select "
+                . "<a href='alterproject.php'>project</a>s "
+                . "which have a <b>valid until</b> date that is in the future.</p></strong><br/>");
 
 extract($prjSel->getSelectedData());
 $_SESSION['prj_id'] = $prj_id;
@@ -161,9 +163,8 @@ if (isSet($_POST['bsubmit'])) {
 $prj_id = isSet($_SESSION['prj_id']) ? $_SESSION['prj_id'] : -1;
 extract(getTutorOwnerData($dbConn, $prj_id), EXTR_PREFIX_ALL, 'ot');
 $_SESSION['prj_id'] = $prj_id = $ot_prj_id;
-$isTutorOwner = ($ot_tutor == $tutor_code);
-echo "{$ot_tutor} {$tutor_code}";
-if ($isTutorOwner) {
+
+if ($ot_userid === $peer_id) {
     $submit_button = '<button name=\'bsubmit\' value=\'submit\'>Submit</button>';
 } else {
     $submit_button = '';
