@@ -493,11 +493,6 @@ ob_start();
                 <?php } ?>
             </div>
         </td>
-        <td valign='top'>
-            <?php
-            include('righthandcolumn.php');
-            ?>
-        </td>
     </tr></table>	
 <!-- db_name=<?= $db_name ?> -->
 <!-- $Id: home.php 1761 2014-05-24 13:17:31Z hom $-->

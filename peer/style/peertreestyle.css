@@ -144,7 +144,7 @@
                   background-position:right;  }
     .naviconleft{ border:0; margin:0; padding: 0 6px 0 6px ; }
     p {text-align: justify;}
-    p:first-letter {font-size:140%; font-weight:bold; font-family: script serif;color:#800; } 
+    p:first-letter { } 
     fieldset { margin:1em 1em 1em 2em; }
     *.joinable { background:red; }
     div.notice { float: left; padding:0.5em; margin:0.5em;font-size:12pt;
@@ -240,7 +240,8 @@
         -webkit-animation:target .45s ease-in-out ;
     } 
     div.remarks dd dd { background: white; color:#008; font-style: italic;}
-    dd dt:first-letter {font-size:140%; font-weight:bold; font-family: script serif;color:#800; }
+    dd dt:first-letter {}
+    /*font-size:140%; font-weight:bold; font-family: script serif;color:#800; }*/
     div.remarks dl {margin-top: 0pt;}
     div.remarks dl dt { font-size:110%; font-weight: bold;}
     div.remarks dl dd dt { font-size:100%; color:black;}

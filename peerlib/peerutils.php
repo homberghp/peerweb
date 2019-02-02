@@ -741,8 +741,8 @@ function authenticate($uid, $pw) {
     }
     // apply capabilities
     $_SESSION['userCap'] = $capabilities;
-    if (isSet($tutor))
-        $_SESSION['tutor_code'] = $tutor;
+//    if (isSet($tutor))
+//        $_SESSION['tutor_code'] = $tutor;
     //  if ($db_name!='peer') $dbConn->log( "usercap=".$_SESSION['userCap']."\n");
     $_SESSION['password'] = $cpasswd;
     return 0;
