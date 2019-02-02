@@ -50,15 +50,16 @@ function mkpasswordmail( $email,$logincode,$roepnaam,$tussenvoegsel,$achternaam,
   global $db_name;
   global $site_home;
   global $root_url;
+  global $debug;
   if ($db_name == 'peer2') $email=ADMIN_EMAILADDRESS;
   $texdir = $site_home.'/tex/';
   $texoutdir= $texdir.'makeauthentication_out/';
   @`mkdir -p $texoutdir`;
   $basename = 's'.$logincode;
   $pdffilename =$basename.'.pdf';
-  $basename = $texoutdir.$basename;
-  $filename = $basename.'.tex';
-  $pdfname  =  $basename.'.pdf';
+//  $basename = $texoutdir.$basename;
+  $filename = $texoutdir.$basename.'.tex';
+  $pdffilename  =  $basename.'.pdf';
   $handle  =  fopen("$filename", "w");
   $notestring = "\\SaveVerb{pass}*{$password}*\n" . '\\briefje{'.$achternaam.','.$roepnaam.' '.
       $tussenvoegsel.'}{'.$logincode."}\n";
@@ -66,8 +67,14 @@ function mkpasswordmail( $email,$logincode,$roepnaam,$tussenvoegsel,$achternaam,
   fwrite($handle,$notestring);
   fwrite($handle,"\\input{../notesend}\n");
   fclose($handle);
+  $result = @`(cd $texoutdir; /usr/bin/pdflatex -interaction=batchmode $filename;/usr/bin/pdflatex -interaction=batchmode $filename)`;
+
   mail_attachment($pdffilename,$texoutdir,$email,'peerweb@fontysvenlo.org','Peerweb service','peerweb@fontysvenlo.org'
                   ,'peerweb authentication',"authentication data in attachement for $root_url using database $db_name.");
+  // cleanup files
+  if (! $debug) {
+      $result = @`(cd $texoutdir; rm $basename.*)`;
+  }
   $cpassword = password_hash($password,PASSWORD_BCRYPT);
   $sql ="begin work;\n".
       "update passwd set password ='{$cpassword}' where userid='$logincode';\n".
