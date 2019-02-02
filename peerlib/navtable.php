@@ -27,7 +27,7 @@ $tabInterestCount['sync'] = hasCap(CAP_SYNC_PROGRESS) ? 1 : 0;
 $tabInterestCount['set_slb'] = hasCap(CAP_ASSIGN_SLB) ? 1 : 0;
 $tabInterestCount['experimental'] = hasCap(CAP_EXPERIMENTAL) ? 1 : 0;
 $tabInterestCount['none'] = 0;
-$sql = "select opl from student where snummer=$peer_id";
+$sql = "select opl from student_email where snummer=$peer_id";
 $resultSet = $dbConn->Execute($sql);
 if ($resultSet === false) {
     die('Error: ' . $dbConn->ErrorMsg() . ' with ' . $sql);

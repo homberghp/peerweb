@@ -67,7 +67,7 @@ if ( ($isTutorOwner || $isGroupTutor ) && isSet( $_REQUEST['baccept'] ) && $news
     $sql = "begin work;"
             . " insert into prj_grp (snummer,prj_grp_open,prjtg_id) \n"
             . "  select snummer,false,prjtg_id\n"
-            . " from (select snummer from student where snummer=$newsnummer and snummer not in \n"
+            . " from (select snummer from student_email where snummer=$newsnummer and snummer not in \n"
             . " (select snummer from prj_grp join prj_tutor using(prjtg_id) \n"
             . "   where prjm_id=$prjm_id )) st \n"
             . "  cross join (select prjtg_id from prj_tutor pt where pt.prjm_id=$prjm_id and \n"
@@ -98,7 +98,7 @@ if ( ($isTutorOwner || $isGroupTutor ) && isSet( $_REQUEST['bdelete'] ) && $news
 
 $studentPicker->setPresentQuery( "select snummer from prj_grp join prj_tutor using(prjtg_id) where prjm_id=$prjm_id" );
 $sql = "select distinct snummer,achternaam,roepnaam,tussenvoegsel,pt.grp_num, alias as group,sclass \n" .
-        " from prj_grp pg join prj_tutor pt using(prjtg_id) join student using(snummer) \n" .
+        " from prj_grp pg join prj_tutor pt using(prjtg_id) join student_email using(snummer) \n" .
         "join student_class using(class_id)\n" .
         " left join grp_alias using(prjtg_id)" .
         " where pt.prjm_id=$prjm_id \n" .

@@ -24,7 +24,7 @@ $filename = 'examlist_' . $afko . '-' . date( 'Ymd' );
 $sql = "select distinct snummer as id,achternaam as surname,roepnaam||coalesce(' '||tussenvoegsel,'') as name,trim(sclass) as sclass,voorletters\n"
         . " ,'EN' as lang,prjm_id,trim(coalesce(alias,'g'||grp_num)) as alias, md5(prjm_id::text||prj_grp.snummer::text || now()) AS token, \n"
         . " cohort,email1,course_short as education, case when prjm_id=422 then 1 else 0 end as lo"
-        . "  from student s join prj_grp using(snummer) \n"
+        . "  from student_email s join prj_grp using(snummer) \n"
         . " join all_prj_tutor using(prjtg_id)\n"
         . " join student_class using(class_id) left join fontys_course fc on(s.opl=fc.course)"
         . " where prjm_id in (422,$prjm_id) order by lo,surname,name";

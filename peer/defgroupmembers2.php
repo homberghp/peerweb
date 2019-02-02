@@ -114,7 +114,7 @@ $studentListQuery = "SELECT apt.grp_num||': '||achternaam||', '||roepnaam||' '||
         "||(case when apt.prj_tutor_open=true then 'open' else 'closed' end) as namegrp,\n" .
         " apt.grp_num,nationaliteit\n" .
         " from (select prjtg_id,prjm_id,grp_num,prj_tutor_open,tutor_id,grp_name from prj_tutor where prjm_id=$prjm_id) apt\n".
-        "  join prj_grp pg using(prjtg_id) join student st using (snummer)\n" .
+        "  join prj_grp pg using(prjtg_id) join student_email st using (snummer)\n" .
         " join student_class cl using(class_id) \n" .
         " join tutor t on(userid=tutor_id)".
         " left join grp_alias using(prjtg_id)". 
@@ -138,7 +138,7 @@ $sql = "select grp_num||' '||coalesce(grp_name,'g'||grp_num)||': '||achternaam||
         "||tutor.tutor||';'||tutor.userid||')' as name,\n" .
         " grp_num as value" .
         " from prj_tutor join tutor on(tutor.userid=prj_tutor.tutor_id)\n" .
-        " join student on (userid=snummer)\n" .
+        " join student_email on (userid=snummer)\n" .
         " join faculty on (faculty.faculty_id=tutor.faculty_id)\n" .
         " natural left join grp_alias \n " .
         " where prjm_id=$prjm_id order by grp_num";

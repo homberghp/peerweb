@@ -159,7 +159,7 @@ $roleTable = "<table class='tabledata' border='1' summary='current roles'>"
         . "<th {$tdattrib }>Current Role</th><th {$tdattrib}>Cap</th><th {$tdattrib}>New Role</th></tr>";
 $sqltut = "select s.snummer,achternaam,roepnaam,tussenvoegsel,\n" .
         "pr.rolenum,role,pr.capabilities as capabilities \n" .
-        "from prj_grp pg join student s using(snummer) \n" .
+        "from prj_grp pg join student_email s using(snummer) \n" .
         " join prj_tutor pt on(pg.prjtg_id=pt.prjtg_id)\n" .
         " join prj_milestone pm on(pm.prjm_id=pt.prjm_id)\n" .
         " left join student_role sr on(sr.prjm_id=pt.prjm_id and sr.snummer=pg.snummer)\n" .

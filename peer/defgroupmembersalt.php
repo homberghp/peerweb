@@ -122,7 +122,7 @@ $sql = "SELECT '<input type=''checkbox''  name=''studenten[]'' value='''||st.snu
         //. ",plaats,straat||coalesce(' '||huisnr,'') as adres
         //,pcode
         //,land\n"
-        . " from student st "
+        . " from student_email st "
         . "join student_class cl using(class_id)\n"
         . "join prj_grp pg using (snummer)\n"
         . "left join fontys_course fc on(st.opl=fc.course)\n"

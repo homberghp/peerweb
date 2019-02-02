@@ -99,7 +99,7 @@ class FormMailer {
     public function mailWithData($query, $params = []) {
         $recipients = '';
         $sql = "select roepnaam||' '||coalesce(tussenvoegsel||' ','')||achternaam "
-                . " as sendername, email1 as sendermail from student where snummer=$this->senderid";
+                . " as sendername, email1 as sendermail from student_email where snummer=$this->senderid";
 //        echo "<pre>[{$query}]</pre><br/>";
 //        echo "<pre> params=".print_r($params, true)."</pre>";
 //        echo "<br/>";

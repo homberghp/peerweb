@@ -50,7 +50,7 @@ $prj_id_selector=$prjSel->getSelector();
 
 $templatefile='templates/defcontacts1.html';
 $template_text= file_get_contents($templatefile, true);
-$sql ="select * from project join tutor on(owner_id=userid) join student on(userid=snummer)\n".
+$sql ="select * from project join tutor on(owner_id=userid) join student_email on(userid=snummer)\n".
     "where prj_id=$prj_id";
 //$dbConn->log($sql);
 $resultSet= $dbConn->doSilent($sql);
@@ -78,10 +78,10 @@ $sql="select pt.grp_num,pt.prjtg_id,alias,\n".
     "cs.achternaam as cs_achternaam,cs.tussenvoegsel as cs_tussenvoegsel,cs.roepnaam as cs_roepnaam,cs.snummer as contact,\n".
     "rtrim(cs.email1) as cs_email1,pt.grp_num,\n".
     "ts.achternaam||', '||ts.roepnaam||coalesce(' '||ts.tussenvoegsel,'') as tutor_naam, tut.tutor\n".
-    "  from prj_tutor pt join tutor tut on(pt.tutor_id=tut.userid) join student ts on(userid=snummer)\n".
+    "  from prj_tutor pt join tutor tut on(pt.tutor_id=tut.userid) join student_email ts on(userid=snummer)\n".
     " left join grp_alias ga using(prjtg_id)\n".
     " left join prj_contact pc using(prjtg_id)\n".
-    " left join student cs on (pc.snummer=cs.snummer)\n".
+    " left join student_email cs on (pc.snummer=cs.snummer)\n".
     " where prjm_id=$prjm_id order by pt.grp_num";
 //$dbConn->log($sql);
 $resultSet= $dbConn->Execute($sql);
@@ -94,7 +94,7 @@ if ($resultSet === false) {
 	while (!$resultSet->EOF) {
 	    extract($resultSet->fields);
 	    $sql = "select rtrim(achternaam)||', '||rtrim(roepnaam)||coalesce(' '||tussenvoegsel,'') as name,".
-		"prjtg_id||':'||snummer as value from prj_grp join prj_tutor using(prjtg_id) join student using(snummer)\n".
+		"prjtg_id||':'||snummer as value from prj_grp join prj_tutor using(prjtg_id) join student_email using(snummer)\n".
 		" where prjtg_id=$prjtg_id\n".
 		"order by achternaam, roepnaam";
 	    $tdStyle= $rowStyle[ $rowNr % 2 ];

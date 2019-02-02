@@ -29,7 +29,7 @@ $_SESSION['milestone'] = $milestone;
 
 if (isSet($_SESSION['prjm_id'])) {
     $sql = "select distinct class_id,cl.sclass as sclass \n" .
-            "from prj_grp join student using (snummer) join prj_tutor using(prjtg_id)\n" .
+            "from prj_grp join student_email using (snummer) join prj_tutor using(prjtg_id)\n" .
             "  join student_class cl using(class_id)\n" .
             "where prjm_id=$prjm_id\n" .
             " order by sclass,class_id asc";
@@ -80,7 +80,7 @@ if (isSet($_POST['bsubmit'])) {
         $sql = "begin work;\n"
                 . "delete from prj_grp where prjtg_id in (select prjtg_id from prj_tutor where prjm_id=$prjm_id) \n"
                 . " and (snummer not in\n"
-                . "(select snummer from student where class_id in ($sstudent_classet))) and\n"
+                . "(select snummer from student_email where class_id in ($sstudent_classet))) and\n"
                 . "(snummer not in (select snummer from fixed_student2 where prjm_id=$prjm_id ));\n"
                 . "commit";
         //		echo "<br/>sql=$sql<br/>";
@@ -102,7 +102,7 @@ if (isSet($_POST['bsubmit'])) {
     }
 
     // get current set and then compute intersection
-    $sql = "select distinct class_id from student \n" .
+    $sql = "select distinct class_id from student_email \n" .
             "where snummer in (select snummer from prj_grp join prj_tutor using(prjtg_id) where " .
             "prjm_id=$prjm_id)";
     //    echo "<br/>sql=$sql<br/>";
@@ -141,7 +141,7 @@ if (isSet($_POST['bsubmit'])) {
             $sql .= "insert into prj_grp (snummer, prjtg_id)\n"
                     . "select snummer, pt.prjtg_id \n"
                     . "from ( select max(prjtg_id) as prjtg_id from prj_tutor where prjm_id=$prjm_id)  pt cross join \n"
-                    . " ( select snummer from student where class_id in ($toAdd))  sc where \n"
+                    . " ( select snummer from student_email where class_id in ($toAdd))  sc where \n"
                     . " sc.snummer not in (select snummer from prj_grp pg join prj_tutor using(prjtg_id) where prjm_id=$prjm_id)\n";
 
             $dbConn->log("sql=$sql");

@@ -71,7 +71,7 @@ foreach($gradeColumns as $grade) {
 $sql = "select snummer,achternaam,roepnaam,tussenvoegsel, afko, year, \n"
         . "milestone,grp_num,\"alias\",tutor,\"role\",$grades,sw.final_grade \n"
         . "from prj_grp join all_prj_tutor using(prjtg_id)\n"
-        . " join student using(snummer) \n"
+        . " join student_email using(snummer) \n"
         . " left join milestone_grade using(prjm_id,snummer)\n"
         . " left join student_role using (prjm_id,snummer)\n"
         . " left join project_roles using (prj_id,rolenum)\n"

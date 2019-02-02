@@ -233,7 +233,7 @@ if ($resultSet === false) {
             "snummer as participant,ap.presence,ar.reason as comment,apt.grp_num\n" .
             ",coalesce(alias,'g'||apt.grp_num) as grp_name, 'g'||apt.grp_num as grp_id" .
             " from prj_grp pg join all_prj_tutor apt using(prjtg_id) join grp_size using(prjtg_id)\n" .
-            " natural join student st " .
+            " natural join student_email st " .
             " natural join portrait \n" .
             "left join (select snummer,presence from activity_participant \n" .
             "            where act_id=$act_id) ap using(snummer)\n" .

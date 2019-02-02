@@ -57,7 +57,7 @@ $sql = "select s.snummer,achternaam,roepnaam,tussenvoegsel,gebdat,grp_num,coales
         . " from  \n"
         . " prj_grp \n "
         . " join all_prj_tutor using(prjtg_id) \n"
-        . " join student s using(snummer)\n "
+        . " join student_email s using(snummer)\n "
         . "left join ($sql2) ags using(prjtg_id,snummer)\n"
         . " left join milestone_grade mg using(snummer,prjm_id) left join transaction using(trans_id)\n"
         . " where prjm_id=$prjm_id order by grp_num,achternaam";

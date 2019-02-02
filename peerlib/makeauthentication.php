@@ -20,7 +20,7 @@ function makenewlogincode($logincode,$secret) {
     return $result;
   }
   $sql="select rtrim(roepnaam) as roepnaam, rtrim(tussenvoegsel) as tussenvoegsel,\n".
-      "rtrim(achternaam) as achternaam,rtrim(email1) as email,peer_password('Bab.11Ba@b') as password from student where snummer='$logincode' and gebdat='$secret'";
+      "rtrim(achternaam) as achternaam,rtrim(email1) as email,peer_password('Bab.11Ba@b') as password from student_email where snummer='$logincode' and gebdat='$secret'";
   $resultSet= $dbConn->execute($sql);
   if ($resultSet === false) {
     //   echo "Cannot execute select statement <pre>\"".$sql."\"</pre>, cause=".$dbConn->ErrorMsg()."\n";

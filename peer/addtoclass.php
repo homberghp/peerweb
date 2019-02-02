@@ -50,7 +50,7 @@ if (hasCap(CAP_ALTER_STUDENT_CLASS) && $newsnummer != 0) {
     $sql = "begin work;\n"
             . "with move_prospect as (delete from prospects where snummer={$newsnummer} returning *)\n"
             . "insert into student_email select * from move_prospect;\n"
-            . "update student set class_id={$class_id} where snummer={$newsnummer};";
+            . "update student_email set class_id={$class_id} where snummer={$newsnummer};";
     $resultSet = $dbConn->Execute($sql);
     if ($resultSet === 0) {
         $dbConn->log($dbConn->ErrorMsg());
@@ -73,7 +73,7 @@ $scripts = '<script type="text/javascript" src="js/jquery.js"></script>
 $myClassSelector = new ClassSelectorClass($dbConn, $class_id);
 $classSelectorWidget = $myClassSelector->setAutoSubmit(true)->setSelectorName('newclass_id')->getSelector();
 $sql = "select snummer,achternaam,roepnaam,tussenvoegsel,hoofdgrp,lang \n"
-        . " from student  \n"
+        . " from student_email  \n"
         . "join student_class using(class_id)\n"
         . " where class_id={$class_id} "
         . "  order by hoofdgrp,achternaam,roepnaam";

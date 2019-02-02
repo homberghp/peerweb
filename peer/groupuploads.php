@@ -109,7 +109,7 @@ if ($resultSet === false) {
             . "join uploaddocumenttypes ut using(prj_id,doctype)\n"
             . "join project_deliverables pd on(pd.prjm_id=u.prjm_id and u.doctype=pd.doctype)\n"
             . "left join doctype_upload_group_count dugc on(dugc.prjtg_id=u.prjtg_id and dugc.doctype=u.doctype)\n"
-            . "join student s on(s.snummer=u.snummer)\n"
+            . "join student_email s on(s.snummer=u.snummer)\n"
             . "join student_class using (class_id)\n"
             . "left join document_critique_count on (upload_id=doc_id)\n"
             . "left join (select distinct prjtg_id,grp_num \n"

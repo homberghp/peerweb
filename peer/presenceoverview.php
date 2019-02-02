@@ -75,7 +75,7 @@ $selection_details = $prjSel->getSelectionDetails();
 $sql = "select snummer,roepnaam||coalesce(' '||tussenvoegsel||' ',' ')||achternaam as name,"
         . "datum||'#'||al.act_id||': '||short||' '||description as checktitle,\n"
         . "present as check, note as title,agroup as grp,act_id,photo \n"
-        . " from act_presence_list2 al join student st using(snummer) \n"
+        . " from act_presence_list2 al join student_email st using(snummer) \n"
         . " join portrait tp using (snummer) \n"
         . " left join absence_reason ar using (act_id,snummer)\n"
         . " where prjm_id=$prjm_id order by achternaam,roepnaam,al.act_id\n";

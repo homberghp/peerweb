@@ -16,7 +16,7 @@ if (isSet($_REQUEST['slb'])) {
 extract($_SESSION);
 $slb_info = "";
 $slb_sql = "select roepnaam||coalesce(' '||tussenvoegsel||' ',' ')||achternaam||' ('||tutor||':'||userid||')' as slb_info\n"
-        . " from tutor join student on (student.snummer=tutor.userid) where userid=$slb";
+        . " from tutor join student_email  s on (s.snummer=tutor.userid) where userid=$slb";
 $resultSet = $dbConn->Execute($slb_sql);
 //echo "<pre>{$slb_sql}</pre>";
 if (!$resultSet->EOF) {
@@ -60,7 +60,7 @@ $sql = "SELECT distinct st.snummer as number," .
 //$dbConn->log($sql);
 $resultSet = $dbConn->Execute($sql);
 if ($resultSet === false) {
-    die("<br>Cannot get student data with \"" . $sql . '", cause ' . $dbConn->ErrorMsg() . "<br>");
+    die("<br>Cannot get student_email data with \"" . $sql . '", cause ' . $dbConn->ErrorMsg() . "<br>");
 }
 $sql_slb = "select mine,namegrp,name,userid as value from tutor_selector($peer_id) \n"
         . "order by mine,namegrp,name";

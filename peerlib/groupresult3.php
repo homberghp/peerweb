@@ -63,7 +63,7 @@ function getGroupResultQuery( $prjtg_id, $productgrade ) {
             . " join prj_grp pg using(prjtg_id,snummer)\n"
             . " join all_prj_tutor apt using(prjtg_id)\n"
             . " left join last_assessment_commit lac using(prjtg_id,snummer)\n"
-            . " join student s on(ags.snummer=s.snummer)"
+            . " join student_email s on(ags.snummer=s.snummer)"
             . " left join student_role sr on(sr.snummer=s.snummer and apt.prjm_id=sr.prjm_id)\n"
             . " left join project_roles pr on(pr.prj_id=apt.prj_id and pr.rolenum=sr.rolenum)\n "
             . " left join milestone_grade mg on (apt.prjm_id=mg.prjm_id and s.snummer=mg.snummer)\n"

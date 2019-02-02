@@ -50,7 +50,7 @@ $sql = "select sum(filesize) as zip_filesize from uploads where prjm_id=$prjm_id
 $resultSet = $dbConn->Execute($sql);
 if ($resultSet === false) {
     echo('Error: ' . $dbConn->ErrorMsg() . ' with ' . $sql);
-} else {
+} else if (!$resultSet->EOF){
     extract($resultSet->fields);
     $zip_filesize = number_format($zip_filesize, 0, ',', '.');
 }
@@ -85,7 +85,7 @@ if ($resultSet === false) {
             . "join uploaddocumenttypes ut using(prj_id,doctype)\n"
             . "join project_deliverables pd using(prjm_id,doctype)\n"
             . "join upload_group_count using(prjtg_id)\n"
-            . "join student using(snummer) \n"
+            . "join student_email using(snummer) \n"
             . "join student_class using (class_id)\n"
             . "left join document_critique_count on (upload_id=doc_id)\n"
             . "left join (select prjtg_id,grp_num  from prj_tutor where prjtg_id=$prjtg_id and tutor_id='$peer_id') tutor_grp\n"

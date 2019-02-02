@@ -109,7 +109,7 @@ if (!isSet($_SESSION['auth_user'])) { // make login screen
     exit;
 } // else continue with includer
 // get login user data prefixed with login_
-$sql = "select * from student s left join tutor t on(s.snummer=t.userid) where snummer=$peer_id";
+$sql = "select * from student_email s left join tutor t on(s.snummer=t.userid) where snummer=$peer_id";
 $resultSet = $dbConn->Execute($sql);
 $LOGINDATA = array();
 if ($resultSet !== false && !$resultSet->EOF) {

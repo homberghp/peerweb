@@ -117,8 +117,9 @@ if ($resultSet === false) {
         . '"balloon.showTooltip(event,\'<div><b>'
         . "<span style=\'font-size:120% \'>$roepnaam $tussenvoegsel $achternaam</span><br/>"
         . "snummer:$number<br/>pcn:&nbsp;$pcn<br/>$birthday<br/>"
-        . "$straat&nbsp;$huisnr<br/>$pcode&nbsp;$plaats<br/>"
-        . "$nationaliteit<br/>SLB: $slb<br/>"
+//        . "$straat&nbsp;$huisnr<br/>$pcode&nbsp;$plaats<br/>"
+//        . "$nationaliteit<br/>
+          .      "SLB: {$slb}<br/>"
         . "class:$sclass<br/>"
         . "Cohort:$cohort" . '</b></div>\')"'
         . ">\n"

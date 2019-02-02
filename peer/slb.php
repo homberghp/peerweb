@@ -23,7 +23,7 @@ if (isSet($_POST['newclass_id'])) {
 }
 if (isSet($_POST['update']) && isSet($_POST['studenten'])) {
     $memberset = '\'' . implode("','", $_POST['studenten']) . '\'';
-    $sql = "update student set class_id='$newclass_id' " .
+    $sql = "update student_email set class_id='$newclass_id' " .
             "where snummer in ($memberset)";
     $resultSet = $dbConn->Execute($sql);
     if ($resultSet === false) {
@@ -38,7 +38,7 @@ if (isSet($_POST['slb']) && preg_match('/^\d+$/', $_POST['slb'])) {
 
 if (isSet($_POST['setslb']) && isSet($slb) && isSet($_POST['studenten'])) {
     $memberset = '\'' . implode("','", $_POST['studenten']) . '\'';
-    $sql = "update student set slb=$slb " .
+    $sql = "update student_email set slb=$slb " .
             "where snummer in ($memberset)";
     $resultSet = $dbConn->Execute($sql);
     if ($resultSet === false) {
@@ -49,7 +49,7 @@ $class_sql = "select distinct student_class.sclass||'#'||class_id||' (#'||coales
         . "class_id as value, \n"
         . "  trim(faculty_short)||'.'||trim(coalesce(cluster_name,'')) as namegrp, \n"
         . " faculty_short,\n"
-        . " case when class_cluster=(select class_cluster from student join student_class using(class_id) where snummer=$peer_id) then 0 else 1 end as myclass "
+        . " case when class_cluster=(select class_cluster from student_email join student_class using(class_id) where snummer=$peer_id) then 0 else 1 end as myclass "
         . " from student_class "
         . " natural left join class_cluster\n"
         . " left join faculty  using(faculty_id) \n"
@@ -91,7 +91,7 @@ $sql = "SELECT '<input type=''checkbox''  name=''studenten[]'' value='''||st.snu
         . " hoofdgrp,"
         . " cohort,course_short sprogr,studieplan_short as splan,lang,sex as gender,gebdat"
         //. ", land,plaats,pcode\n"
-        . " from student st \n"
+        . " from student_email st \n"
         . "join student_class cl using(class_id)\n"
         . "natural left join studieplan \n"
         . "left join fontys_course fc on(st.opl=fc.course)\n"

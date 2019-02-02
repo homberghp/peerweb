@@ -120,9 +120,9 @@ if (hasCap(CAP_SYSTEM)) {
             " userid as value,\n" .
             " faculty_short||team as namegrp," .
             "case when opl=mopl then 0 else 1 end as mine\n" .
-            " from tutor t  join student s on (userid=snummer)\n" .
+            " from tutor t  join student_email s on (userid=snummer)\n" .
             " join faculty f on(t.faculty_id=f.faculty_id)\n" .
-            " cross join (select opl  as mopl from student where snummer={$peer_id}) m\n" .
+            " cross join (select opl  as mopl from student_email where snummer={$peer_id}) m\n" .
             "where teaches " .
             " order by mine,namegrp desc,achternaam,roepnaam";
 //    echo "<pre>{$tutor_sql}</pre>";

@@ -47,7 +47,7 @@ $sqltail = " join student_class using(class_id) left join tutor t on (s.slb=t.us
 $fdate = date('Y-m-d');
 $filename = "hoofdgrp_{$hoofdgrp}-{$fdate}";
 
-$spreadSheetWriter = new SpreadSheetWriter($dbConn, $sqlhead . ' student s ' . $sqltail);
+$spreadSheetWriter = new SpreadSheetWriter($dbConn, $sqlhead . ' student_email s ' . $sqltail);
 
 $spreadSheetWriter->setTitle("Hoofdgrp list  $hoofdgrp $fdate")
         ->setLinkUrl($server_url . $PHP_SELF . '?oldclass_id=' . $oldclass_id)
@@ -61,11 +61,11 @@ $pp['spreadSheetWidget'] = $spreadSheetWriter->getWidget();
 if (isSet($_POST['update']) && isSet($_POST['studenten'])) {
     $memberset = implode(",", $_POST['studenten']);
     $sql = "begin work;\n"
-            . "update student set class_id=$newclass_id where snummer in ($memberset);\n"
+            . "update student_email set class_id=$newclass_id where snummer in ($memberset);\n"
             . "commit;";
     $resultSet = $dbConn->Execute($sql);
     if ($resultSet === false) {
-        die("<br>Cannot update student with " . $sql . " reason " . $dbConn->ErrorMsg() . "<br>");
+        die("<br>Cannot update student_email with " . $sql . " reason " . $dbConn->ErrorMsg() . "<br>");
     }
     createGenericMaillistByClassid($dbConn,  $oldclass_id);
     createGenericMaillistByClassid($dbConn, $newclass_id);
@@ -79,7 +79,7 @@ if (isSet($_POST['newhoofdgrp'])) {
 if (isSet($_POST['sethoofdgrp']) && isSet($newhoofdgrp) && isSet($_POST['studenten'])) {
     $memberset = '\'' . implode("','", $_POST['studenten']) . '\'';
 
-    $sql = "update student set hoofdgrp=substr('$newhoofdgrp',1,10) " .
+    $sql = "update student_email set hoofdgrp=substr('$newhoofdgrp',1,10) " .
             "where snummer in ($memberset)";
     $resultSet = $dbConn->Execute($sql);
     if ($resultSet === false) {
@@ -132,7 +132,7 @@ $sql = "SELECT '<input type=''checkbox''  name=''studenten[]'' value='''||st.snu
         . ",course_short sprogr,studieplan_short as splan,lang,sex as gender"
         . ",gebdat"
         //. ", land,plaats,pcode\n"
-        . " from student st "
+        . " from student_email st "
         . "left join student_class cl using(class_id)\n"
         . "natural left join studieplan \n"
         . "left join fontys_course fc on(st.opl=fc.course)\n"

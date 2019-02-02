@@ -28,7 +28,7 @@ if (!$isTutor) {
     }
     // assume tutor, get tutor data
     //    phpinfo(INFO_VARIABLES);
-    $sql = "select * from tutor join student on (userid=snummer) where tutor='$tutor_code'";
+    $sql = "select * from tutor join student_email on (userid=snummer) where tutor='$tutor_code'";
     $resultSet = $dbConn->Execute($sql);
     if ($resultSet === false) {
         echo('cannot get tutor data:' . $dbConn->ErrorMsg() . ' with ' . $sql);
@@ -98,10 +98,10 @@ if ($isTutor) {
 } // if ($isTutor)
 
 $page_opening = '';
-$sql = "select * from student where snummer=$snummer";
+$sql = "select * from student_email where snummer=$snummer";
 $resultSet = $dbConn->Execute($sql);
 if ($resultSet === false) {
-    echo "cannot get student data with <pre>$sql</pre>\n Error <pre>" . $dbConn->ErrorMsg() . "</pre>";
+    echo "cannot get student_email data with <pre>$sql</pre>\n Error <pre>" . $dbConn->ErrorMsg() . "</pre>";
 } else if (!$resultSet->EOF) {
     extract($resultSet->fields);
 }
@@ -180,7 +180,7 @@ function tutorHelperLayout($midForm, $rightForm) {
             $snummer = $_SESSION['snummer'];
             $sql = "select achternaam||', '||roepnaam||coalesce(' '||tussenvoegsel,'') as name,\n"
                     . "snummer as value, c.class_id as namegrp\n"
-                    . "from student s "
+                    . "from student_email s "
                     . " left join student_class c using(class_id) \n"
                     . " join faculty f on(f.faculty_id=s.faculty_id)\n"
                     . "where c.class_id='$class_id' order by name";
@@ -231,7 +231,7 @@ function tutorHelperLayout($midForm, $rightForm) {
             }
             $sql = "select s.achternaam||', '||s.roepnaam||coalesce(' '||s.tussenvoegsel,'')||coalesce(' : '||pr.short,'')  as name,\n" .
                     "s.snummer as value, 'g'||pt.grp_num||coalesce(': '||ga.alias,'')||' / '||t.tutor as namegrp\n" .
-                    "from student s natural join prj_grp pg \n" .
+                    "from student_email s natural join prj_grp pg \n" .
                     " join prj_tutor pt using(prjtg_id)\n" .
                     " join tutor t on(userid=tutor_id)\n" .
                     "join prj_milestone using(prjm_id)\n " .
@@ -264,7 +264,7 @@ function tutorHelperLayout($midForm, $rightForm) {
         else
             $snummer = 0;
         $sql = "select rtrim(roepnaam)||' '||rtrim(coalesce(tussenvoegsel,''))||' '||achternaam as name, class_id as class\n" .
-                "from student where snummer=$snummer";
+                "from student_email where snummer=$snummer";
         $resultSet = $dbConn->Execute($sql);
         if ($resultSet === false) {
             die('cannot get student,class data:' . $dbConn->ErrorMsg() . ' with ' . $sql);

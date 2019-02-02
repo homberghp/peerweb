@@ -21,20 +21,16 @@ $isTutor = true; //hasCap( CAP_TUTOR );
 // get data stored in session or added to session by helpers
 
 /* get name, lang etc */
-$sql = "SELECT roepnaam, tussenvoegsel,achternaam,lang,rtrim(email1) as email1,rtrim(email2) as email2,\n" .
+$sql = "SELECT roepnaam, tussenvoegsel,achternaam,lang,rtrim(email1) as email1,\n" .
         "coalesce(signature,'sent by the peerweb service on behalf of '||roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam)\n" .
         "  as signature\n" .
-        "FROM student left join alt_email using(snummer) left join email_signature using(snummer) WHERE snummer=$peer_id";
+        "FROM student_email left join alt_email using(snummer) left join email_signature using(snummer) WHERE snummer=$peer_id";
 $resultSet = $dbConn->Execute($sql);
 if ($resultSet === false) {
     die('Error: ' . $dbConn->ErrorMsg() . ' with ' . $sql);
 }
 extract($resultSet->fields);
 $lang = strtolower($lang);
-if (isSet($resultSet->fields['email2'])) {
-    $email2 = $resultSet->fields['email2'];
-} else
-    $email2 = '';
 
 $mailto = array();
 $formsubject = 'ref: project {$afko}, {$description}';
@@ -70,7 +66,7 @@ if (isSet($_POST['mailto'])) {
 with pro as (select * from all_prj_tutor where prjm_id=\$1),
   rec as (select snummer as recipient,prjtg_id from prj_grp join pro using(prjtg_id)
   union select tutor_id as recipient,prjtg_id from pro)
-select distinct snummer, email1 as email, email2,
+select distinct snummer, email1 as email, 
        roepnaam ||' '||coalesce(tussenvoegsel||' ','')||achternaam as name,roepnaam as firstname,
        trim(afko)as afko,trim(description)as description,milestone,assessment_due as due,milestone_name
   from rec  join pro using(prjtg_id) join student_email on(recipient=snummer) where snummer in ({$paramtext})
@@ -82,7 +78,7 @@ SQL;
 $prjSel->setJoin('milestone_grp using (prj_id,milestone)');
 $prjList = $prjSel->getSelector();
 
-$sql = "select * from student\n" .
+$sql = "select * from student_email\n" .
         "where snummer=$peer_id";
 $resultSet = $dbConn->Execute($sql);
 if ($resultSet === false) {
@@ -154,7 +150,7 @@ function classTable($dbConn, $prjm_id) {
     $result = "\n<table border='1' style='border-collapse: collapse;'>\n"
             . "\t<tr style='background:rgba(240,240,240,0.4)'><th>num</th><th>select</th><th>Class</th></tr>";
 
-    $sql = "select distinct class_id,trim(sclass) as sclass from student join prj_grp using(snummer) join student_class using(class_id)"
+    $sql = "select distinct class_id,trim(sclass) as sclass from student_email join prj_grp using(snummer) join student_class using(class_id)"
             . " join prj_tutor using(prjtg_id) where prjm_id={$prjm_id} order by sclass";
     //simpletable($dbConn, $sql,"<table border='1' caption='roles in project'>");
     $resultSet = $dbConn->Execute($sql);
@@ -197,7 +193,7 @@ function emailTable($dbConn, $prjm_id, $isTutor, $mailto) {
             . "achternaam||coalesce(', '||tussenvoegsel,'') as achternaam,roepnaam,\n"
             . "trim(sclass) as sclass, tutor, 'role'||sr.rolenum as checkclass, 0 as lo\n"
             . "from\n"
-            . "student join prj_grp pg using(snummer)\n"
+            . "student_email join prj_grp pg using(snummer)\n"
             . "join student_class using (class_id)\n"
             . " join prj_tutor pt on(pg.prjtg_id=pt.prjtg_id)\n"
             . " join tutor t on(userid=tutor_id)\n"
@@ -211,7 +207,7 @@ function emailTable($dbConn, $prjm_id, $isTutor, $mailto) {
             . "select apt.afko,grp_num,'tutor' as grp_name,\n"
             . "apt.tutor_id as mail, 'TUTOR' as role, apt.tutor_id as snummer,ts.achternaam||coalesce(', '||ts.tussenvoegsel,'') as achternaam,ts.roepnaam,\n"
             . "'TUTOR' as sclass, tutor, 'role'||'999' as checkclass,1 as lo \n"
-            . "from all_prj_tutor apt join student  ts on(apt.tutor_id=ts.snummer) left join grp_alias gat using(prjtg_id) \n"
+            . "from all_prj_tutor apt join student_email  ts on(apt.tutor_id=ts.snummer) left join grp_alias gat using(prjtg_id) \n"
             . "where apt.prjm_id =$prjm_id $grpSelect and apt.prj_id>1\n";
     $sql .= $sql2 . " order by grp_num,lo,achternaam,roepnaam";
     //    echo $sql;

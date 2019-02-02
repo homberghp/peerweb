@@ -45,7 +45,7 @@ $sqlsender = "select rtrim(email1) as sender,roepnaam||"
         . "coalesce(signature,"
         . "'sent by the peerweb service on behalf of '||roepnaam"
         . "||coalesce(' '||tussenvoegsel,'')||' '||achternaam)\n"
-        . "  as signature from student left join email_signature using(snummer)"
+        . "  as signature from student_email left join email_signature using(snummer)"
         . " where snummer='$peer_id'";
 $rs = $dbConn->Execute($sqlsender);
 if (!$rs->EOF) {
@@ -73,11 +73,11 @@ if (isSet($_POST['formsubject'])) {
 $substitutions='{$email1}, {$email2}, {$roepnaam}, {$name},{$afko}, {$description}, {$milestone}, {$assessment_due}, {$prjm_id}, and {$milestone_name}' ;
 if (isSet($_POST['invite'])) {
 
-    $mailerQuery = "select email1 as email, email2,\n"
+    $mailerQuery = "select email1 as email, \n"
             . " roepnaam ||' '||coalesce(tussenvoegsel||' ','')||achternaam as name,roepnaam as firstname,\n"
             . " prjm_id,trim(afko) as afko,trim(description) as description,milestone,assessment_due as due,milestone_name \n"
             . "  from prj_grp join all_prj_tutor using(prjtg_id) \n"
-            . " join student using(snummer) \n"
+            . " join student_email using(snummer) \n"
             . " left join alt_email using(snummer) where prjm_id =\$1 and prj_grp_open=true";
     //formMailer($dbConn, $sql, $mailsubject, $mailbody, $sender, $sender_name);
     $formMailer= new FormMailer($dbConn,$mailsubject,$mailbody,$peer_id);

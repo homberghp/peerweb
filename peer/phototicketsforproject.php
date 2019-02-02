@@ -44,7 +44,7 @@ $sqltail = "achternaam||rtrim(coalesce(', '||tussenvoegsel,'')) as achternaam ,r
         . ",apt.grp_name"
         . ",apt.tutor"
         . ",'' as grade\n"
-        . "from prj_grp pg join student s using (snummer)\n"
+        . "from prj_grp pg join student_email s using (snummer)\n"
         . " join all_prj_tutor apt on(pg.prjtg_id=apt.prjtg_id)\n"
         . "left join studieplan sp using(studieplan)\n"
         . "left join student_class c using (class_id)\n"

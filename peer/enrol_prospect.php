@@ -38,7 +38,7 @@ if (isSet($_POST['update']) && isSet($_POST['studenten'])) {
     $sql = "begin work;\n"
             . "update prospects set class_id={$newclass_id } where snummer in ({$memberset}) and pcn notnull and email1 notnull;\n"
             . "with enrol as (delete from prospects p "
-            . "where snummer in ($memberset) and pcn notnull and email1 notnull and not exists(select 1 from student where snummer=p.snummer)  returning * )"
+            . "where snummer in ($memberset) and pcn notnull and email1 notnull and not exists(select 1 from student_email where snummer=p.snummer)  returning * )"
             . "insert into student_email select * from enrol;\n"
             . "commit;";
     $resultSet = $dbConn->Execute($sql);
@@ -58,7 +58,7 @@ if (isSet($_POST['newhoofdgrp'])) {
 if (isSet($_POST['sethoofdgrp']) && isSet($newhoofdgrp) && isSet($_POST['studenten'])) {
     $memberset = '\'' . implode("','", $_POST['studenten']) . '\'';
 
-    $sql = "update student set hoofdgrp=substr('$newhoofdgrp',1,10) " .
+    $sql = "update student_email set hoofdgrp=substr('$newhoofdgrp',1,10) " .
             "where snummer in ($memberset)";
     $resultSet = $dbConn->Execute($sql);
     if ($resultSet === false) {
@@ -111,7 +111,7 @@ $sql = "SELECT '<input type=''checkbox''  name=''studenten[]'' value='''||st.snu
         . "left join fontys_course fc on(st.opl=fc.course)\n"
         . " natural join prospect_portrait\n"
         . "where hoofdgrp='{$hoofdgrp}' "
-        . " and not exists (select 1 from student where snummer=st.snummer)"
+        . " and not exists (select 1 from student_email where snummer=st.snummer)"
         . "order by hoofdgrp,opl,sclass asc,achternaam,roepnaam";
 $tableFormatter = new SimpleTableFormatter($dbConn, $sql, $page);
 $pp['cardsLink'] = "<a href='classtablecards.php?rel=prospects&hoofdgrp={$hoofdgrp}'>table cards for prospects</a>";

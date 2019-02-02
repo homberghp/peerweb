@@ -17,7 +17,7 @@ function createMaillists($dbConn, $prjm_id) {
         $maillist_filename = '/home/maillists/' . $mailalias . '.maillist';
         $sql = "select distinct rtrim(email1) email,achternaam\n" .
                 " from project_grp_stakeholders join prj_tutor using(prjtg_id) "
-                . "join student using(snummer) where prjm_id=$prjm_id\n" .
+                . "join student_email using(snummer) where prjm_id=$prjm_id\n" .
                 " order by achternaam\n";
         $resultSet = $dbConn->Execute($sql);
         if ($resultSet === false) {

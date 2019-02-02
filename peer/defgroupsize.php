@@ -22,7 +22,7 @@ $sqlhead = "select distinct prj_id,milestone,afko,year,grp_num,tutor,rtrim(alias
         . " from all_prj_tutor_y apt \n"
         . " left join (select sr.*,s.achternaam,s.roepnaam,s.tussenvoegsel,s.email1 from student_role \n"
         . " join (select snummer,prjtg_id from prj_grp join all_prj_tutor using(prjtg_id)\n"
-        . " where prjm_id=$prjm_id) sr using(snummer) join student s using(snummer) where prjm_id=$prjm_id and rolenum=1) gm using (prjtg_id)\n"
+        . " where prjm_id=$prjm_id) sr using(snummer) join student_email s using(snummer) where prjm_id=$prjm_id and rolenum=1) gm using (prjtg_id)\n"
         . " where (now()::date < valid_until) and (apt.prjm_id = $prjm_id)\n"
         . " order by grp_num ";
 $spreadSheetWriter = new SpreadSheetWriter($dbConn
@@ -196,13 +196,13 @@ while (!$resultSet->EOF) {
                         "||' ('||tutor||')'||t.userid as name,\n" .
                         " t.userid as value,\n" .
                         " f.faculty_short||'-'||team   as namegrp" .
-                        " from tutor t join student s on (userid=snummer)\n" .
+                        " from tutor t join student_email s on (userid=snummer)\n" .
                         " join faculty f on (t.faculty_id=f.faculty_id)\n" .
                         " order by namegrp,achternaam,roepnaam", $tutor_id) .
                 "\t\t</select>\n";
     } else {
         $sql = "select achternaam||', '||roepnaam||' '||coalesce(tussenvoegsel,'')||' ('||tutor||')' as name\n" .
-                " from tutor join student on (userid=snummer)\n" .
+                " from tutor join student_email on (userid=snummer)\n" .
                 "where tutor='$tutor'";
         $resultSet2 = $dbConn->doOrDie($sql);
         $tutorList = $resultSet2->fields['name'];

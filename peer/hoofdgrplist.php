@@ -43,7 +43,7 @@ $sqltail = " join student_class using(class_id) left join tutor t on (s.slb=t.us
         . " left join faculty f on(f.faculty_id=s.faculty_id)\n"
         . "where hoofdgrp='$hoofdgrp' order by achternaam,roepnaam\n";
 
-$spreadSheetWriter = new SpreadSheetWriter($dbConn, $sqlhead . ' student s ' . $sqltail);
+$spreadSheetWriter = new SpreadSheetWriter($dbConn, $sqlhead . ' student_email s ' . $sqltail);
 
 $filename = 'hoofdgrp_list_' . $faculty_short . '_' . $hoofdgrp . '-' . date('Y-m-d');
 
@@ -77,7 +77,7 @@ $scripts = '<script type="text/javascript" src="js/jquery.js"></script>
 ';
 
 $cardsLink=
-      "<a href='classtablecards.php?rel=student&hoofdgrp={$hoofdgrp}'>table cards for students with  hoofdgrp</a>";
+      "<a href='classtablecards.php?rel=student_email&hoofdgrp={$hoofdgrp}'>table cards for students with  hoofdgrp</a>";
 
 pagehead2('list students by a hoofgrp', $scripts);
 $page_opening = "Hoofdgrp  list $faculty_short:$hoofdgrp ";

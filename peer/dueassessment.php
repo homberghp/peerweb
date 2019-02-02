@@ -17,7 +17,7 @@ $_SESSION['milestone'] = $milestone;
 
 $tutor = $_SESSION['tutor_code'];
 //$tutor_id = $_SESSION['tutor_id'];
-$sql = "select email1 as email from tutor join student on(userid=snummer) where tutor='$tutor'";
+$sql = "select email1 as email from tutor join student_email on(userid=snummer) where tutor='$tutor'";
 $resultSet = $dbConn->Execute($sql);
 if ($resultSet === false) {
     die("<br>Cannot read tutor email address " . $sql . " reason " . $dbConn->ErrorMsg() . "<br>");
@@ -29,7 +29,7 @@ $templatefile = "templates/duemailbodytemplate.html";
 $sqlsender = "select rtrim(email1) as sender,roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam as sender_name," .
         "coalesce(signature," .
         "'sent by the peerweb service on behalf of '||roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam)\n" .
-        "  as signature from student left join email_signature using(snummer) where snummer='$peer_id'";
+        "  as signature from student_email left join email_signature using(snummer) where snummer='$peer_id'";
 $rs = $dbConn->Execute($sqlsender);
 if (!$rs->EOF) {
     extract($rs->fields);
@@ -57,7 +57,7 @@ select distinct email1 as email, tutor_email,s.roepnaam as firstname,
     s.roepnaam ||' '||coalesce(s.tussenvoegsel,'')||' '||s.achternaam as name,
     trim(afko) as afko, trim(description) as description,milestone,assessment_due as due,milestone_name 
     from prj_grp pg 
-    join student s on (s.snummer=pg.snummer)
+    join student_email s on (s.snummer=pg.snummer)
     join prj_tutor pt on(pt.prjtg_id=pg.prjtg_id)
     join tutor t on(userid=tutor_id)
     join prj_milestone pm on(pt.prjm_id=pm.prjm_id)
@@ -104,7 +104,7 @@ $sqllate = "( select distinct snummer from prj_grp \n"
 $sqltail = " \n"
         . " join milestone_open_past_due mopd on(jnr.prjtg_id=mopd.prjtg_id)"
         . " join prj_grp_open pgo on(pgo.prjtg_id=jnr.prjtg_id)\n"
-        . " join student s on (jnr.snummer=s.snummer) \n"
+        . " join student_email s on (jnr.snummer=s.snummer) \n"
         . " join prj_tutor pt on(jnr.prjtg_id=pt.prjtg_id)\n"
         . " join tutor t on(userid=tutor_id)\n"
         . " join prj_milestone pm on(pt.prjm_id=pm.prjm_id)\n"
@@ -127,7 +127,7 @@ $sql = $sqlhead . " from  \n"
         . "join tutor t on (userid=tutor_id)\n"
         . "join prj_milestone pm using(prjm_id)\n"
         . "join project p using(prj_id)\n"
-        . "join student s using(snummer)\n"
+        . "join student_email s using(snummer)\n"
         . "where prjm_id=$prjm_id"
         . " and snummer in" . $sqllate . "\n"
         . " order by afko,grp_num,achternaam,roepnaam";

@@ -108,7 +108,7 @@ class PeerPGDBConnection {
                     "$statement\"\r\n" .
                     "cause =\"" . $this->ErrorMsg() . "\r\n" .
                     "occured at \r\n" .
-                    stacktracestring(1);
+                    stacktracestring(3);
             $this->logError($logmsg);
             if ($this->sqlAutoLog) {
                 $this->log($logmsg);

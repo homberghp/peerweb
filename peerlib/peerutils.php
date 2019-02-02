@@ -135,15 +135,15 @@ function requireCap($cap) {
  * Test the user capability and bail out if not sufficient
  * @param $cap required capability
  */
-function requireStudentCap($snummer, $cap, $prj_id, $milestone, $grp_num) {
+function requirestudentCap($snummer, $cap, $prj_id, $milestone, $grp_num) {
     global $root_url;
-    if (!hasStudentCap($snummer, $cap, $prj_id, $milestone, $grp_num)) {
+    if (!hasstudentCap($snummer, $cap, $prj_id, $milestone, $grp_num)) {
         header("location: $root_url/home.php");
         die('');
     }
 }
 
-function hasStudentCap($snummer, $cap, $prjm_id, $grp_num = 0) {
+function hasstudentCap($snummer, $cap, $prjm_id, $grp_num = 0) {
     global $dbConn;
     $sql = "select pr.capabilities from student_role\n " .
             "join prj_milestone using(prjm_id) \n" .
@@ -166,7 +166,7 @@ function hasStudentCap($snummer, $cap, $prjm_id, $grp_num = 0) {
     return ((!$resultSet->EOF) && (($cap & $resultSet->fields['capabilities']) != 0));
 }
 
-function hasStudentCap2($snummer, $cap, $prjm_id, $grp_num = 0) {
+function hasstudentCap2($snummer, $cap, $prjm_id, $grp_num = 0) {
     global $dbConn;
     // $sql = "select pr.capabilities from student_role join project_roles pr using(prjm_id,rolenum)" .
     //         " join prj_grp using(snummer) join prj_tutor using(prjtg_id) join prj_milestone using(prjm_id)\n" .
@@ -1079,7 +1079,7 @@ function dopeermail($to, $sub, $msg, $head, $altto = ADMIN_EMAILADDRESS) {
  * if prj_id < 0 then the max prject in the set is taken
  */
 function getTutorOwnerData($dbConn, $prj_id) {
-    $sql = "select * from project join tutor on(owner_id=userid) join student on(userid=snummer)\n";
+    $sql = "select * from project join tutor on(owner_id=userid) join student_email on(userid=snummer)\n";
     if ($prj_id >= 0) {
         $sql .= " where prj_id=$prj_id";
     } else {
@@ -1106,7 +1106,7 @@ function getTutorOwnerData($dbConn, $prj_id) {
  * if prj_id < 0 then the max prject in the set is taken
  */
 function getTutorOwnerData2($dbConn, $prjm_id) {
-    $sql = "select * from prj_milestone pm natural join project p join tutor t on(p.owner_id=t.userid) join student s on(t.userid=s.snummer)\n";
+    $sql = "select * from prj_milestone pm natural join project p join tutor t on(p.owner_id=t.userid) join student_email s on(t.userid=s.snummer)\n";
     if ($prjm_id >= 0) {
         $sql .= " where prjm_id=$prjm_id";
     } else {
@@ -1205,11 +1205,9 @@ function sanitizeFilename($fn) {
 function getEmailAddress($dbConn, $recipient, $istutor) {
     $result = '';
     if ($istutor) {
-        $sql = "select email1,email2 from tutor join student on(userid=snummer)\n"
-                . " left join alt_email using(snummer) where tutor='$recipient'";
+        $sql = "select email1 from tutor join student_email on(userid=snummer)";
     } else {
-        $sql = "select email1,email2 from student left join alt_email \n"
-                . "using(snummer) where student.snummer=$recipient";
+        $sql = "select email1 from student_email where snummer=$recipient";
     }
     $resultSet = $dbConn->Execute($sql);
     if ($resultSet === false) {
@@ -1232,7 +1230,7 @@ function getEmailAddresses($dbConn, $recipients) {
     $result = '';
     $con = '';
     $recps = '\'' . implode("','", $recipients) . '\'';
-    $sql = "select distinct roepnaam||' '||coalesce(tussenvoegsel||' ','')||achternaam||' <'||trim(email1)||'>' as email from student where snummer in ($recps)";
+    $sql = "select distinct roepnaam||' '||coalesce(tussenvoegsel||' ','')||achternaam||' <'||trim(email1)||'>' as email from student_email where snummer in ($recps)";
     $resultSet = $dbConn->Execute($sql);
     if ($resultSet === false) {
         echo ("getEmailAddresses: cannot get data for $sql : " . $dbConn->ErrorMsg() . "\n");

@@ -63,7 +63,7 @@ class StudentPicker {
 
     function findStudentNumber() {
         $result = 0;
-        $sql = "select snummer from student where " . $this->buildWhereClause() . " order by achternaam,roepnaam";
+        $sql = "select snummer from student_email where " . $this->buildWhereClause() . " order by achternaam,roepnaam";
         $rs = $this->dbConn->Execute($sql);
         if ($rs !== false && !$rs->EOF) {
             $result = $rs->fields['snummer'];
@@ -104,7 +104,7 @@ class StudentPicker {
             $sql = "select distinct roepnaam,tussenvoegsel,voorletters,achternaam,email1,hoofdgrp,cl.sclass as sclass,"
                     . "course_description,"
                     . "foo.snummer as foo_snummer\n"
-                    . "from student \n"
+                    . "from student_email \n"
                     . "join student_class cl using(class_id) left join fontys_course on(opl=course)\n"
                     . "left join ($this->presentQuery) as foo using(snummer)\n"
                     . " where snummer=$this->newsnummer order by sclass";
@@ -161,7 +161,7 @@ class StudentPicker {
         if ($this->searchString != '') {
             $searchsql = "select '<a href=''$PHP_SELF?newsnummer='||snummer||'''>'||snummer||'</a>' as snummer,\n"
                     . " achternaam,roepnaam,tussenvoegsel,voorletters,email1,cl.sclass as sclass"
-                    . " from student "
+                    . " from student_email "
                     . " join student_class cl using(class_id)\n"
                     . " where " . $this->buildWhereClause() . " order by achternaam,roepnaam";
             #        $this->dbConn->log($searchsql);
