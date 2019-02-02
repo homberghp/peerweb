@@ -3,8 +3,9 @@ peer/output/
 peer/mfotos/
 tex/out/
 tex/tablecard_out/
-tex/tablecards_*
-tex/maillog
+tex/attendancelist_out
+tex/makeauthentication_out
+tex/tablecard_out
 log
 *~
 peer/BUILD
