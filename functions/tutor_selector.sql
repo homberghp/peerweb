@@ -24,6 +24,6 @@ select s.opl,s.faculty_id,
        from student where snummer=vuserid) me
 ;
 end
-$tutor_selector$ language 'plpgsql';
+$tutor_selector$ language 'plpgsql' security definer;
 
 commit;
