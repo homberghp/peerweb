@@ -84,7 +84,7 @@ $navtable = array(// index, defproject, citeria1,2, milestones
                 'linktext' => 'alt: Hoofdgrp ',
                 'menu_name' => 'hoofdgrplist',
                 'image' => 'public.png',
-                'interest' => 'adminstudent_class',
+                'interest' => 'system',
             ),
             array('target' => 'slblist.php',
                 'tooltip' => 'List by slb',
