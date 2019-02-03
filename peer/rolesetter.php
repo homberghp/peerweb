@@ -52,7 +52,7 @@ if ( $may_change && isSet( $_REQUEST['submit_roles'] ) ) {
   //    $dbConn->log($sql);
   $affected_rows = $dbConn->executeQueryList( $queries );
 }
-$sql = "select snummer,roepnaam,tussenvoegsel,achternaam,email1,email2 \n" .
+$sql = "select snummer,roepnaam,tussenvoegsel,achternaam,email1 \n" .
         "from student left join alt_email using(snummer) where snummer=$snummer";
 $resultSet = $dbConn->Execute( $sql );
 if ( $resultSet === false ) {

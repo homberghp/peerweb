@@ -23,7 +23,7 @@ $_SESSION['grp_num'] = $grp_num;
 // get data stored in session or added to session by helpers
 $milestone = 1;
 /* get name, lang etc */
-$sql = "SELECT roepnaam, tussenvoegsel,achternaam,lang,rtrim(email1) as email1,rtrim(email2) as email2,\n"
+$sql = "SELECT roepnaam, tussenvoegsel,achternaam,lang,rtrim(email1) as email1,\n"
         . "coalesce(signature,'sent by the peerweb service on behalf of '||roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam)\n"
         . "  as signature\n"
         . "FROM student left join alt_email using(snummer) left join email_signature using(snummer) WHERE snummer=$peer_id";
@@ -33,11 +33,6 @@ if ($resultSet === false) {
 }
 extract($resultSet->fields);
 $lang = strtolower($lang);
-if (isSet($resultSet->fields['email2'])) {
-    $email2 = $resultSet->fields['email2'];
-}
-else
-    $email2 = '';
 
 $mailto = array();
 $pp['formsubject'] = 'Hello world';
@@ -57,7 +52,7 @@ if (isSet($_POST['mail'])) {
     $toAddress = '';
     $mailset = '\'' . implode("','", $mail) . '\'';
     $replyto = getEmailAddress($dbConn, $_SESSION['peer_id'], false);
-    $sql = "select distinct rtrim(email1,' ') as email1 ,rtrim(email2,' ') as email2,\n"
+    $sql = "select distinct rtrim(email1,' ') as email1 ,\n"
             . " s.roepnaam ||coalesce(' '||s.tussenvoegsel,'')||' '||s.achternaam as recipient,\n"
             . " td.tutor,td.tutor_email,grp_num \n"
             . "from \n"
@@ -87,10 +82,6 @@ if (isSet($_POST['mail'])) {
                 array_push($tutors, $tutor);
             $oldTutor = $tutor;
         }
-        if (isSet($email2)) {
-            $triggerList .= $trigCon . $email2;
-            $trigCon = ', ';
-        }
         $toAddress .= $tocon . $recipient . ' <' . "$email1" . '>';
         $tocon = ', ';
         $resultSet->movenext();
@@ -114,8 +105,6 @@ if (isSet($_POST['mail'])) {
         $ccAddress .= $cccon . getEmailAddress($dbConn, $tutor, true);
         $cccon = ', ';
     }
-    if (isSet($email2))
-        $email1 .= ', ' . $email2;
     $subject = $pp['formsubject'];
     $bodyprefix = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -127,12 +116,6 @@ if (isSet($_POST['mail'])) {
 ';
     $message = $bodyprefix . $pp['mailbody'] . "\n</body>\n</html>\n";
     domail($toAddress, $subject, $message, $headers);
-    if ($triggerList != '') {
-        $subject = 'You have mail at your fontys email address';
-        domail($triggerList, $subject, "See the subject.\n" .
-                "One way to read your mail there is to visit " .
-                "http://webmail.fontys.nl\n---\nKind Regards,\n Peerweb services", 'From: peerweb@fontysvenlo.org'); //$headers
-    }
 }
 $prjList = $prjSel->getWidget();
 $sql = "select s.*,pt.* from student s join prj_grp using(snummer)\n" .

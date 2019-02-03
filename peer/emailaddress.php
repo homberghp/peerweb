@@ -14,7 +14,7 @@ function checkEmail($adr) {
 }
 
 //$snummer=$peer_id; // this page is always personal
-$sql = "select snummer,roepnaam,tussenvoegsel,achternaam,email1,email2 \n" .
+$sql = "select snummer,roepnaam,tussenvoegsel,achternaam,email1 \n" .
         "from student left join alt_email using(snummer) where snummer=$snummer";
 $resultSet = $dbConn->Execute($sql);
 if ($resultSet === false) {
@@ -38,39 +38,6 @@ $page->addBodyComponent(new Component(ob_get_clean()));
 $page->addBodyComponent($nav);
 //ob_start();
 //echo "<pre>";print_r($_POST);echo "</pre>";
-if (isSet($_POST['email2']) || isSet($_POST['email3'])) {
-    $email2 = trim($_POST['email2']);
-    $email3 = trim($_POST['email3']);
-    if ($email2 == '' && $email3 == '') {
-        $sql = "delete from alt_email where snummer=$snummer";
-        $resultSet = $dbConn->Execute($sql);
-        if ($resultSet === false) {
-            echo "cannot adapt email address with $sql, error " . $dbConn->ErrorMsg();
-        }
-    } else if (checkEmail($email2) || checkEmail($email3)) {
-
-        if ($email2)
-            $email2_is = '\'' . $email2 . '\'';
-        else
-            $email2_is = 'null';
-        if ($email3)
-            $email3_is = '\'' . $email3 . '\'';
-        else
-            $email3_is = 'null';
-
-        $sql = "select email2,email3 from alt_email where snummer=$snummer";
-        $resultSet = $dbConn->Execute($sql);
-        if ($resultSet->EOF) {
-            $sql = "insert into alt_email (snummer,email2,email3) values($snummer,$email2_is,$email3_is)";
-        } else {
-            $sql = "update alt_email set email2=$email2_is,email3=$email3_is where snummer=$snummer";
-        }
-        $resultSet = $dbConn->Execute($sql);
-        if ($resultSet === false) {
-            echo "cannot adapt email address with $sql, error " . $dbConn->ErrorMsg();
-        }
-    }
-}
 if (isSet($_POST['lpi_id']) && preg_match('/^LPI\d{9}$/ ', $_POST['lpi_id'])) {
 
     $sql = "select snummer from lpi_id where snummer=$snummer";
@@ -290,8 +257,6 @@ ob_start();
             <table summary='email address'>
                 <tr><th colspan='2'>Email addresses:</th></tr>
                 <tr><th  align='right'>Fontys email address </th><td><?= $email1 ?></td><td>&nbsp;</td></tr>
-                <tr><th  align='right'>Second email address </th><td><input type='text' size='64' name='email2' value='<?= $email2 ?>'/></td></tr>
-                <tr><th  align='right'>Third email address </th><td><input type='text' size='64' name='email3' value='<?= $email3 ?>'/></td></tr>
                 <tr><th  align='right'>Linux Prof Inst. id LPI_ID</th><td><?= $lpi_id_field ?>(Used for Linux Professional Institute certificates LPI-101 etc.)</td></tr>
                 <tr><th align='right'>Github ID</th><td><?= $github_id_field ?>(Used for sem 7 ESD course.)</td></tr>
     <tr><th align='right'>Sebi Stick Number</th><td><b><?= $sebi_stick ?></b>&nbsp;(You Exam preparation and exercise stick.)</td></tr>

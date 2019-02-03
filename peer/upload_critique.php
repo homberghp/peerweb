@@ -44,7 +44,7 @@ if (isSet($_POST['bsubmit'])) {
         echo 'Error: ' . $dbConn->ErrorMsg() . ' with <br/><pre>' . $sql . '</pre>';
     } else {
         // mail that a critique was added to uploader/author
-        $sql = "select roepnaam,tussenvoegsel,achternaam,email1,email2 from student\n" .
+        $sql = "select roepnaam,tussenvoegsel,achternaam,email1 from student\n" .
                 " left join alt_email using(snummer)\n" .
                 "join uploads using(snummer) where upload_id=$doc_id";
         $resultSet = $dbConn->execute($sql);

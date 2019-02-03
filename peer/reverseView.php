@@ -181,7 +181,7 @@ if ($grp_open && isSet($_POST['peerdata'])) {
 	    //	    $dbConn->log("email $body");
 	  }
 	  // and mail other members
-	  $sql ="select roepnaam,tussenvoegsel,achternaam,email1,email2 from student left join alt_email using(snummer)\n".
+	  $sql ="select roepnaam,tussenvoegsel,achternaam,email1 from student left join alt_email using(snummer)\n".
 	    " join prj_grp using (snummer) where prj_id=$prj_id and milestone=$milestone and grp_num='$grp_num'";
 	  $resultSet=$dbConn->Execute($sql);
 	  if ($resultSet === false) {
@@ -195,9 +195,6 @@ if ($grp_open && isSet($_POST['peerdata'])) {
 	      $sroepnaam .= $continue .trim($roepnaam);
 	      $to .= $continue . trim($email1);
 	      $continue =', ';
-	      if (isSet($email2)) {
-		$to .= $continue . trim($email2);
-	      }
 	      $resultSet->moveNext();
 	    }
 	    $subject="The assessment is complete for project $afko group $grp_num milestone $milestone";

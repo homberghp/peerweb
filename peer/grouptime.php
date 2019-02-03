@@ -291,8 +291,8 @@ $yearMonthList = "<select name='year_month' onchange='submit()'>\n" .
         echo "<h2 class='normal'>Workers in this project $prj_id, $afko, $description, milestone  $milestone, group $grp_num</h2>\n";
 
         $sql = "select snummer as student_number,roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam as name,\n" .
-                "'<a href=\'mailto:'||email1||'\'>'||email1||'</a>' as fontys_email,\n" .
-                "'<a href=\'mailto:'||email2||'\'>'||email2||'</a>' as alt_email from student join prj_grp using(snummer) left join alt_email using(snummer)\n" .
+                "'<a href=\'mailto:'||email1||'\'>'||email1||'</a>' as fontys_email\n" .
+                " from student join prj_grp using(snummer) left join alt_email using(snummer)\n" .
                 " where prj_id=$prj_id and milestone=$milestone and grp_num='$grp_num' order by achternaam";
         simpletable($dbConn, $sql, "<table border='1' style='cell-padding:.5em;border-collapse:collapse;'>\n");
         ?>

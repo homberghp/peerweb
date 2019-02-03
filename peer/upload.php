@@ -33,9 +33,9 @@ if (!isset($_SESSION['userfile'])) {
     $_SESSION['userfile'] = '';
 }
 $sql = "select rtrim(afko) as uafko,year as myear,roepnaam as uroepnaam,\n" .
-        " rtrim(email1) as uemail1, rtrim(email2) as uemail2, tussenvoegsel as utussenvoegsel,\n" .
+        " rtrim(email1) as uemail1, tussenvoegsel as utussenvoegsel,\n" .
         "achternaam as uachternaam,grp_num as ugrp,description as udescription,prjm_id,prjtg_id \n" .
-        "from prj_grp join all_prj_tutor using(prjtg_id) join student using(snummer) left join alt_email using(snummer)\n" .
+        "from prj_grp join all_prj_tutor using(prjtg_id) join student_email using(snummer) left join alt_email using(snummer)\n" .
         "where prjm_id=$prjm_id and snummer=$snummer";
 $resultSet = $dbConn->Execute($sql);
 //echo $sql;
@@ -110,7 +110,7 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
             . "You should have received access data to the webserver through your fontys email address.\n"
             . "In case these data are missing, go to the page https://www.fontysvenlo.org/login.php "
             . "and request authorisation data on the lower halve of the page\n"
-            . "stating your name and student number.\n\n"
+            . "stating your name and student_email number.\n\n"
             . "Kind regards, the peer web service";
     if ($version_acceptable && ($file_size < $filesizelimit) & ($file_size > 0)) {
 
@@ -157,7 +157,7 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
             if (isSet($_POST['coauthor'])) {
                 $coauthors = implode(",", $_POST['coauthor']);
                 $sql .= "insert into document_author (upload_id,snummer)\n"
-                        . " select $upload_id,snummer from student \n"
+                        . " select $upload_id,snummer from student_email \n"
                         . "where snummer in ($coauthors) and ($upload_id,snummer) "
                         ."not in (select upload_id,snummer from document_author);\n";
             }
@@ -170,8 +170,8 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
             // mail stakeholders: tutor and group members
             $sql = "select distinct rtrim(s.email1,' ') as email1 ,\n"
                     . " tm.email1 as tutor_email from \n"
-                    . " student s join prj_grp pg1 using(snummer) join all_prj_tutor apt using(prjtg_id)\n"
-                    . "join student tm on(apt.tutor_id=tm.snummer)\n"
+                    . " student_email s join prj_grp pg1 using(snummer) join all_prj_tutor apt using(prjtg_id)\n"
+                    . "join student_email tm on(apt.tutor_id=tm.snummer)\n"
                     . "where prjtg_id=$prjtg_id ";
             // unless only student is to be warned/  confirmed.
             if ($groupmail != 't') {
@@ -269,7 +269,7 @@ $page->addBodyComponent(new Component(ob_get_clean()));
 $page->addBodyComponent($nav);
 $ob_start = ob_start();
 
-$sql = "SELECT roepnaam, tussenvoegsel,achternaam,lang FROM student WHERE snummer=$snummer";
+$sql = "SELECT roepnaam, tussenvoegsel,achternaam,lang FROM student_email WHERE snummer=$snummer";
 $resultSet = $dbConn->Execute($sql);
 if ($resultSet === false) {
     die('Error: ' . $dbConn->ErrorMsg() . ' with ' . $sql);
@@ -325,7 +325,7 @@ $pp['pd_count'] = $resultSet->fields['pd_count'];
 $pp['coauthor_table'] = "";
 if ($prj_id > 1) { // no coauthors for personal project with id==1
     $sql = "select snummer as co, achternaam, roepnaam,coalesce(tussenvoegsel,'')\n" .
-            " from student natural join prj_grp \n" .
+            " from student_email natural join prj_grp \n" .
             " where prjtg_id=$prjtg_id order by achternaam, roepnaam";
     //echo $sql;
     $resultSet = $dbConn->execute($sql);
@@ -334,7 +334,7 @@ if ($prj_id > 1) { // no coauthors for personal project with id==1
         $pp['coauthor_table'] = "";
         if ($prj_id > 1) { // no coauthors for personal project with id==1
             $sql = "select snummer as co, achternaam, roepnaam,coalesce(tussenvoegsel,'')\n" .
-                    " from student natural join prj_grp \n" .
+                    " from student_email natural join prj_grp \n" .
                     " where prjtg_id=$prjtg_id order by achternaam, roepnaam";
             //echo $sql;
             $resultSet = $dbConn->execute($sql);

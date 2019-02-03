@@ -1200,7 +1200,7 @@ function sanitizeFilename($fn) {
  * @param $dbConn: database connection
  * @param $recipient: entity to find email address for
  * @param $isTutor: distincts between students and tutors, in different tables
- * @return emails address(es), comma separated if found or empty string and message to output
+ * @return emails address.
  */
 function getEmailAddress($dbConn, $recipient, $istutor) {
     $result = '';
@@ -1215,8 +1215,6 @@ function getEmailAddress($dbConn, $recipient, $istutor) {
     } else if (!$resultSet->EOF) {
         extract($resultSet->fields);
         $result = trim($email1);
-        if (isSet($email2))
-            $result .= ', ' . trim($email2);
     }
     return $result;
 }

@@ -6,7 +6,7 @@ require_once 'TemplateWith.php';
 /**
  * Send an html formatted email from a form.
  * @param $dbConn connection
- * @param $sql query. Must produce email1 and name, optional email2.
+ * @param $sql query. Must produce email1 and name
  * @param $fsubject subject
  * @param $body mail body
  * @param $sender sender email address

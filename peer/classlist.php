@@ -38,7 +38,6 @@ $sqlhead1 = "select distinct snummer"
         . ",t.tutor as slb"
         //. ",country as nation,"
         . " ,rtrim(email1) as email1"
-        //. ",rtrim(email2) as email2,\n"
         . ",studieplan_short as studieplan"
         . ",sclass"
         //. "hoofdgrp ,\n"
@@ -56,7 +55,7 @@ $sqltail = " join student_class using(class_id) left join tutor t on (s.slb=t.us
 $fdate = date('Y-m-d');
 $filename = 'class_list_' . $faculty_short . '_' . $sclass . '-' . $fdate;
 
-$spreadSheetWriter = new SpreadSheetWriter($dbConn, $sqlhead1 . ' student s left join alt_email aem using(snummer) ' . $sqltail);
+$spreadSheetWriter = new SpreadSheetWriter($dbConn, $sqlhead1 . ' student_email s left join alt_email aem using(snummer) ' . $sqltail);
 
 $spreadSheetWriter->setTitle("Class list  $faculty_short $sclass $fdate")
         ->setLinkUrl($server_url . $PHP_SELF . '?class_id=' . $class_id)
@@ -76,7 +75,6 @@ $sqlhead2 = "select distinct '<a href=''student_admin.php?snummer='||snummer||''
         //. "country as nation,"
         //. "gebdat as birth_date,"
         . "rtrim(email1) as email1,"
-        //. "rtrim(email2) as email2,\n" 
         . "studieplan_short as studieplan,"
         . "sclass,"
         //. "hoofdgrp,\n"

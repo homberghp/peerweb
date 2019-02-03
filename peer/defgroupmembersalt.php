@@ -116,7 +116,6 @@ $sql = "SELECT '<input type=''checkbox''  name=''studenten[]'' value='''||st.snu
         . ",tutor as slb"
         //. ",gebdat"
         . ",email1"
-        //. "email2,"
         //. ",hoofdgrp "
         . ",studieplan_short as studieplan  "
         //. ",plaats,straat||coalesce(' '||huisnr,'') as adres

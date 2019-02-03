@@ -200,7 +200,7 @@ SQL;
             }
             $q =
 <<<'SQL'
-select roepnaam,tussenvoegsel,achternaam,email1,email2,prjm_id 
+select roepnaam,tussenvoegsel,achternaam,email1,prjm_id 
 from student
 left join alt_email using(snummer)
 join prj_grp using (snummer)
@@ -220,9 +220,6 @@ SQL;
                     $sroepnaam .= $continue . trim( $roepnaam );
                     $to .= $continue . trim( $email1 );
                     $continue = ', ';
-//                    if (isSet($email2)) {
-//                        $to .= $continue . trim($email2);
-//                    }
                     $resultSet->moveNext();
                 }
                 $subject = "The assessment is complete for project $afko group $grp_num milestone $milestone";

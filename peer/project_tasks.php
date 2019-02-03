@@ -7,7 +7,7 @@ include_once 'navigation2.php';
 $task_prj_id_milestone = '1:1';
 extract( $_SESSION );
 $snummer = $peer_id; // this page is always personal
-$sql = "select snummer,roepnaam,tussenvoegsel,achternaam,email1,email2 \n" .
+$sql = "select snummer,roepnaam,tussenvoegsel,achternaam,email1 \n" .
         "from student left join alt_email using(snummer) where snummer=$snummer";
 $resultSet = $dbConn->Execute( $sql );
 if ( $resultSet === false ) {
@@ -52,17 +52,13 @@ if ( isSet( $_REQUEST['update_task_description'] ) ) {
     echo('cannot update task_description: ' . $dbConn->ErrorMsg() . ' with ' . "<pre>$sql</pre>");
   }
 }
-$sql = "SELECT roepnaam, tussenvoegsel,achternaam,lang,email1,email2 FROM student left join alt_email using(snummer) WHERE snummer=$snummer";
+$sql = "SELECT roepnaam, tussenvoegsel,achternaam,lang,email1 FROM student left join alt_email using(snummer) WHERE snummer=$snummer";
 $resultSet = $dbConn->Execute( $sql );
 if ( $resultSet === false ) {
   die( 'Error: ' . $dbConn->ErrorMsg() . ' with ' . $sql );
 }
 $lang = strtolower( $resultSet->fields['lang'] );
 $email1 = $resultSet->fields['email1'];
-if ( isSet( $resultSet->fields['email2'] ) ) {
-  $email2 = $resultSet->fields['email2'];
-} else
-  $email2 = '';
 extract( $resultSet->fields, EXTR_PREFIX_ALL, 'stud' );
 $page_opening = "The project tasks of $roepnaam $tussenvoegsel $achternaam ($snummer)";
 $page = new PageContainer();

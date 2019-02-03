@@ -21,7 +21,7 @@ $ste->setFormAction($PHP_SELF)
         ->setNameExpression("pr_.snummer||' '||rtrim(achternaam,' ')||', '||rtrim(roepnaam,' ')||coalesce(' '||trim(tussenvoegsel),'')")
         ->setOrderList(array('achternaam', 'roepnaam'))
         ->setFormTemplate('templates/prospect_admin.html')
-        ->setListRowTemplate(array('pr_.snummer', 'email1', 'email2', 'pcn', 'hoofdgrp','country', 'lang', 'gebdat', 'slb', 'studieplan', 'phone_gsm'))
+        ->setListRowTemplate(array('pr_.snummer', 'email1', 'pcn', 'hoofdgrp','country', 'lang', 'gebdat', 'slb', 'studieplan', 'phone_gsm'))
         ->setListQueryExtension(' left join iso3166 on(geboorteland=a3)')
 
         ->show();

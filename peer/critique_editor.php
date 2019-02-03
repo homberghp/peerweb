@@ -13,7 +13,7 @@ $doc_id = 1;
 
 if (isSet($_REQUEST['doc_id'])) {
     $doc_id = validate($_REQUEST['doc_id'], 'integer', 1);
-    $sql = "select title,roepnaam||' '||coalesce(tussenvoegsel||' ','')||achternaam as author from student\n" .
+    $sql = "select title,roepnaam||' '||coalesce(tussenvoegsel||' ','')||achternaam as author from student_email\n" .
             " join uploads using (snummer) where upload_id=$doc_id";
     //    $dbConn->log($sql);
     $resultSet = $dbConn->Execute($sql);
@@ -33,7 +33,7 @@ if (isSet($_REQUEST['critique_id'])) {
         $sql = "select distinct $peer_id as critiquer, roepnaam,tussenvoegsel,achternaam,\n" .
                 "date_trunc('seconds',now()) as critique_time,\n" .
                 "date_trunc('seconds',now()) as edit_time\n" .
-                "from student where snummer=$peer_id";
+                "from student_email where snummer=$peer_id";
         $resultSet = $dbConn->Execute($sql);
         if (!$resultSet->EOF) {
             extract($resultSet->fields);
@@ -54,7 +54,7 @@ if (isSet($_REQUEST['critique_id'])) {
                 "date_trunc('seconds',ts) as critique_time,critique_text,\n" .
                 "date_trunc('seconds',edit_time) as edit_time,\n" .
                 "prj.afko,prj.year,coalesce(ps.grp_num,0) as critiquer_grp\n" .
-                "from document_critique dcr join student st on (dcr.critiquer=st.snummer)\n" .
+                "from document_critique dcr join student_email st on (dcr.critiquer=st.snummer)\n" .
                 "join uploads u on(dcr.doc_id=u.upload_id)\n" .
                 "left join ( select * from project_grp_stakeholders join "
                 . " all_prj_tutor using(prjtg_id) where snummer=$peer_id) ps on(ps.prjtg_id=u.prjtg_id )\n" .
@@ -80,7 +80,7 @@ if (isSet($_REQUEST['delete_critique'])) {
     $doc_id = validate($_REQUEST['doc_id'], 'integer', 1);
     if ($critique_id == '-1') {
         $sql = "SELECT roepnaam as jroepnaam, tussenvoegsel as jtussenvoegsel," .
-                "achternaam as jachternaam,email1 as jemail1, lang as jlang FROM student WHERE snummer=$peer_id";
+                "achternaam as jachternaam,email1 as jemail1, lang as jlang FROM student_email WHERE snummer=$peer_id";
         $resultSet = $dbConn->Execute($sql);
         if ($resultSet === false) {
             die('Error: ' . $dbConn->ErrorMsg() . ' with ' . $sql);
@@ -96,7 +96,7 @@ if (isSet($_REQUEST['delete_critique'])) {
         $resultSet = $dbConn->doSilent($sql);
         $dbConn->transactionEnd();
         // mail that a critique was added to uploader/author
-        $sql = "select roepnaam,tussenvoegsel,achternaam,email1,email2 from student\n" .
+        $sql = "select roepnaam,tussenvoegsel,achternaam,email1 from student_email\n" .
                 " left join alt_email using(snummer)\n" .
                 "join uploads using(snummer) where upload_id=$doc_id";
         $resultSet = $dbConn->execute($sql);

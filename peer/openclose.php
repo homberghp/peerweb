@@ -70,7 +70,7 @@ if (isSet($_POST['formsubject'])) {
     $formsubject = $SESSION['formsubject'];
 }
 
-$substitutions='{$email1}, {$email2}, {$roepnaam}, {$name},{$afko}, {$description}, {$milestone}, {$assessment_due}, {$prjm_id}, and {$milestone_name}' ;
+$substitutions='{$email1}, {$roepnaam}, {$name},{$afko}, {$description}, {$milestone}, {$assessment_due}, {$prjm_id}, and {$milestone_name}' ;
 if (isSet($_POST['invite'])) {
 
     $mailerQuery = "select email1 as email, \n"
