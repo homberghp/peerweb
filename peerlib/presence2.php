@@ -1,5 +1,4 @@
 <?php
-requireCap(CAP_SYSTEM);
 
 $sql ="select distinct afko||':'||description as name, prj_id as value,afko\n"
     ." from all_prj_tutor join prj_grp using(prjtg_id) where snummer=$snummer and prj_grp_open=true order by afko";
@@ -21,7 +20,7 @@ Project <?=$prjList?> day <?=$pdayList?> hour <?=$hourList?><input type='submit'
 $sql = "select snummer,sclass ,achternaam,roepnaam,tussenvoegsel,course_week_no,\n".
     "shortname,day,hourcode,date_trunc('seconds',since) as since,from_ip,\n".
     "case when from_ip << '145.85/16' then 'P' else 'Q' end as location_ok".
-    " from participant_present_list join student using(snummer)\n".
+    " from participant_present_list join student_email using(snummer)\n".
     " join student_class using(class_id)\n".
     " join weekdays using(day) where prj_id=$presence_prj_id and day=$presence_day and hourcode=$hourcode\n".
     " order by sclass,achternaam,roepnaam,snummer,course_week_no";

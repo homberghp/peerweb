@@ -53,7 +53,7 @@ $page->addBodyComponent(new Component(ob_get_clean()));
 $page->addBodyComponent($nav);
 ob_start();
 
-require_once 'presence2.php';
+require_once '../peerlib/presence2.php';
 $page->addBodyComponent( new Component(ob_get_clean()));
 $page->show();
 ?>

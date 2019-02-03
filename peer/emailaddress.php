@@ -15,7 +15,7 @@ function checkEmail($adr) {
 
 //$snummer=$peer_id; // this page is always personal
 $sql = "select snummer,roepnaam,tussenvoegsel,achternaam,email1 \n" .
-        "from student left join alt_email using(snummer) where snummer=$snummer";
+        "from student_email left join alt_email using(snummer) where snummer=$snummer";
 $resultSet = $dbConn->Execute($sql);
 if ($resultSet === false) {
     die('Error: ' . $dbConn->ErrorMsg() . ' with ' . $sql);
@@ -77,7 +77,7 @@ if (isSet($_POST['github_id']) && preg_match('/^(\w|-)+$/ ', $_POST['github_id']
 
 if (false && isSet($_POST['bsubmit_student_data'])) {
     $snummer_student_data = validate($_POST['snummer_student_data'], 'snummer', $snummer);
-    $sql = "select * from student where snummer=$snummer_student_data";
+    $sql = "select * from student_email where snummer=$snummer_student_data";
     $resultSet = $dbConn->Execute($sql);
     if ($resultSet === false) {
         echo "cannot fetch student date with $sql, error " . $dbConn->ErrorMsg();
@@ -94,7 +94,7 @@ if (false && isSet($_POST['bsubmit_student_data'])) {
         $phone_postaddress = 'null';
     else
         $phone_postaddress = '\'' . $phone_postaddress . '\'';
-    $sqlhead = "update student set phone_home='{$phone_home}', phone_gsm=${phone_gsm},\n" .
+    $sqlhead = "update student_email set phone_home='{$phone_home}', phone_gsm=${phone_gsm},\n" .
             "phone_postaddress=${phone_postaddress}\n";
     $sqltail = "where snummer={$snummer_student_data};";
     if (isSet($_POST['straat'])) {
@@ -152,7 +152,7 @@ if (false && isSet($_POST['bsubmit_student_data'])) {
     $sql2 = ";\n";
     if (isSet($_POST['student_class_id'])) {
         $student_class_id = trim($_POST['student_class_id']);
-        $sql2 .= "update student set class_id='$student_class_id' where snummer=$snummer_student_data\n";
+        $sql2 .= "update _email set class_id='$student_class_id' where snummer=$snummer_student_data\n";
     }
 
     $sql = $sqlhead . $sqltail . $sql2 . ";\ncommit";
@@ -176,7 +176,7 @@ $sql = "select s.snummer,rtrim(s.achternaam) as achternaam,\n"
     . " left join github_id gi on(gi.snummer=s.snummer) "
     . " left join sebi_stick stick  on (s.snummer=stick.snummer) "
     . " left join additional_course_descr acd on(s.snummer=acd.snummer) "
-    . "left join lpi_id lid on(s.snummer=lid.snummer) left join student slb on(slb.snummer=s.slb) where s.snummer=$snummer";
+    . "left join lpi_id lid on(s.snummer=lid.snummer) left join student_email slb on(slb.snummer=s.slb) where s.snummer=$snummer";
 $resultSet = $dbConn->Execute($sql);
 if ($resultSet === false) {
     echo "cannot read email address with<pre>$sql</pre>, error " . $dbConn->ErrorMsg();
@@ -237,7 +237,7 @@ if (hasCap(CAP_ALTER_STUDENT)) {
     $hoofdgrp = "<select name='hoofdgrp'>" .
             getOptionListGrouped($dbConn, "select distinct rtrim(hoofdgrp) as name,\n" .
                     "rtrim(hoofdgrp) as value,f.faculty_short as namegrp\n" .
-                    " from student s left join \n" .
+                    " from student_email s left join \n" .
                     "student_class c on (hoofdgrp=sclass) " .
                     "join faculty f on(c.faculty_id=f.faculty_id) \n" .
                     "order by namegrp,name,value ", $hoofdgrp) .
