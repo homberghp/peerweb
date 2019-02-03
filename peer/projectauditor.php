@@ -1,7 +1,7 @@
 <?php
-requireCap(CAP_TUTOR);
+requireCap(CAP_SYSTEM);
 require_once('validators.php');
-include_once('navigation2.php');
+require_once('navigation2.php');
 require_once 'studentpicker.php';
 require_once'prjMilestoneSelector2.php';
 $prjm_id=$prj_id = $milestone=1;
@@ -51,21 +51,21 @@ $_SESSION['searchname']=$searchname;
 
 // test if this owner can update this project
 $isTutorOwner = checkTutorOwner($dbConn,$prj_id,$tutor_code);
-if ( ($isTutorOwner || $isGroupTutor )  && isSet($_REQUEST['bsetgid']) && $newauditor != 0 ) {
-  $gids = join(',', $_REQUEST['gid']); 
-    $sql= 
-       "begin work;"
-      ." insert into project_auditor (snummer,prjm_id,gid) \n"
-      ."  select $newauditor,prjm_id,grp_num as gid from \n"
-      ."(select $newauditor as snummer ,prjm_id,0 as grp_num from prj_tutor where prjm_id=$prjm_id \n"
-      ."    union select  $newauditor as snummer,prjm_id,grp_num from prj_tutor where prjm_id=$prjm_id) pt \n"
-      ." where grp_num in ($gids) "
-      ."    and ($newauditor,prjm_id,grp_num) not in (select snummer,prjm_id,gid from project_auditor);\n"
-      ."commit";
-    $dbConn->Execute($sql);
-    //    $dbConn->log($sql);
-    //    $dbConn->log($dbConn->ErrorMsg());
- }
+//if ( ($isTutorOwner || $isGroupTutor )  && isSet($_REQUEST['bsetgid']) && $newauditor != 0 ) {
+//  $gids = join(',', $_REQUEST['gid']); 
+//    $sql= 
+//       "begin work;"
+//      ." insert into project_auditor (snummer,prjm_id,gid) \n"
+//      ."  select $newauditor,prjm_id,grp_num as gid from \n"
+//      ."(select $newauditor as snummer ,prjm_id,0 as grp_num from prj_tutor where prjm_id=$prjm_id \n"
+//      ."    union select  $newauditor as snummer,prjm_id,grp_num from prj_tutor where prjm_id=$prjm_id) pt \n"
+//      ." where grp_num in ($gids) "
+//      ."    and ($newauditor,prjm_id,grp_num) not in (select snummer,prjm_id,gid from project_auditor);\n"
+//      ."commit";
+//    $dbConn->Execute($sql);
+//    //    $dbConn->log($sql);
+//    //    $dbConn->log($dbConn->ErrorMsg());
+// }
 //
 pagehead('Add project auditor.');
 $page_opening="Add project auditor to a project. prj_id $prj_id milestone $milestone prjm_id $prjm_id";
@@ -75,7 +75,7 @@ $nav->setInterestMap($tabInterestCount);
 ?>
 <?=$nav->show()?>
 <div id='navmain' style='padding:1em;'>
-<p>Add a project auditor to a project /group.</p>
+<p>Add a project auditor to a project /group. <span>Broken</span></p>
 <p>Project auditors have the privilege to access the groups resources such as svn and trac. Use case: extra 
     readers of project artifacts without having to add (empty) project groups with these readers as tutor.
 </p>
@@ -83,7 +83,7 @@ $nav->setInterestMap($tabInterestCount);
 <?php
 $studentPicker->setPresentQuery("select snummer from project_auditor where prjm_id=$prjm_id");
 $studentPicker->show();
-$sql = "select snummer,achternaam,roepnaam,tussenvoegsel from student where snummer=$newauditor";
+$sql = "select snummer,achternaam,roepnaam,tussenvoegsel from student_email where snummer=$newauditor";
 $resultSet = $dbConn->Execute($sql);
 extract($resultSet->fields,EXTR_PREFIX_ALL,'auditor');
 if ($newauditor !=0 ) {
@@ -115,7 +115,7 @@ if ( $resultSet === false ) {
 <?php
    }
 $sql ="select afko,year,milestone, prjm_id,gid,snummer,achternaam,roepnaam,tussenvoegsel \n".
-    " from project_auditor natural join student natural join prj_milestone natural join project\n".
+    " from project_auditor natural join student_email natural join prj_milestone natural join project\n".
   " where prjm_id=$prjm_id\n".
   " order by year desc,afko,gid,achternaam,roepnaam\n";
 //$dbConn->log($sql);

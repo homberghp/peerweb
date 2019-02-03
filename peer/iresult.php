@@ -2,8 +2,8 @@
 /* $Id: iresult.php 1825 2014-12-27 14:57:05Z hom $ */
 //session_start();
 requireCap(CAP_DEFAULT);
-include_once('tutorhelper.php');
-include_once 'navigation2.php';
+require_once('tutorhelper.php');
+require_once 'navigation2.php';
 require_once 'studentPrjMilestoneSelector.php';
 $groupgrade = 7;
 // some defaults to prevent script faults
@@ -32,7 +32,7 @@ if ( isSet( $_REQUEST['groupgrade'] ) ) {
     }
 }
 $sql = "SELECT roepnaam, tussenvoegsel,achternaam,coalesce(lang,'EN') as lang \n"
-        . "FROM student WHERE snummer=$snummer";
+        . "FROM student_email WHERE snummer=$snummer";
 $resultSet = $dbConn->Execute( $sql );
 if ( $resultSet === false ) {
     die( 'Error: ' . $dbConn->ErrorMsg() . ' with ' . $sql );
@@ -74,7 +74,7 @@ $page->addBodyComponent( $nav );
 $lazyCount = 0;
 $lazyjudges = '';
 $sqlx = "select distinct roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam as naam,achternaam,prjtg_id\n" .
-        "from student join judge_notready using(snummer)\n" .
+        "from student_email join judge_notready using(snummer)\n" .
         "join prj_tutor using(prjtg_id)\n" .
         "where prjtg_id=$prjtg_id order by achternaam,naam";
 $resultSet = $dbConn->Execute( $sqlx );
@@ -89,7 +89,7 @@ while ( !$resultSet->EOF ) {
 }
 $sql = "select roepnaam||' '||coalesce(tussenvoegsel,'')||' '||achternaam as name,\n" .
         " student_class.sclass as class\n" .
-        " from student join prj_grp using(snummer) \n" .
+        " from student_email join prj_grp using(snummer) \n" .
         "join student_class using (class_id)\n" .
         "join all_prj_tutor using(prjtg_id)\n" .
         "where prjtg_id=$prjtg_id \n" .

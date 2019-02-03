@@ -8,7 +8,7 @@ require_once 'TemplateWith.php';
  * if not logged in, append query string to $PHP_SELF, to present the parameters to the same page again
  */
 session_start();
-//include_once('peerutils.php');
+//require_once('peerutils.php');
 require_once('makeauthentication.php');
 require_once 'persistentsessiondata.php';
 $loginError = 0;

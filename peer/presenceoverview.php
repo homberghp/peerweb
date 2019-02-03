@@ -2,7 +2,7 @@
 
 requireCap(CAP_TUTOR);
 require_once('validators.php');
-include_once('navigation2.php');
+require_once('navigation2.php');
 require_once 'prjMilestoneSelector2.php';
 require_once 'presencetable.php';
 require_once 'CheckTable.class.php';

@@ -1,9 +1,9 @@
 <?php
 
-include_once('tutorhelper.php');
+require_once('tutorhelper.php');
 require_once('validators.php');
 require_once('simplequerytable.php');
-include_once'navigation2.php';
+require_once'navigation2.php';
 require_once 'studentPrjMilestoneSelector.php';
 require_once 'TemplateWith.php'; 
 $doctype = 0;

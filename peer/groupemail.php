@@ -1,8 +1,8 @@
 <?php
 requireCap(CAP_TUTOR);
 /* $Id: groupemail.php 1845 2015-03-19 11:56:26Z hom $ */
-include_once('peerutils.php');
-include_once 'navigation2.php';
+require_once('peerutils.php');
+require_once 'navigation2.php';
 require_once 'prjMilestoneSelector2.php';
 include 'simplequerytable.php';
 require_once 'mailFunctions.php';

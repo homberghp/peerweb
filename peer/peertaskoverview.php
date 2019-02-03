@@ -1,8 +1,8 @@
 <?php
 requireCap(CAP_SYSTEM);
-include_once('tutorhelper.php');
-include_once('navigation2.php');
-include_once 'navigation2.php';
+require_once('tutorhelper.php');
+require_once('navigation2.php');
+require_once 'navigation2.php';
 require_once 'personalTaskList.php';
 require_once 'TemplateWith.php';
 // get group tables for a project

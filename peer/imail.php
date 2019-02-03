@@ -1,9 +1,9 @@
 <?php
 
 requireCap(CAP_SYSTEM);
-include_once('tutorhelper.php');
-include_once 'navigation2.php';
-include_once 'SimpleTableFormatter.php';
+require_once('tutorhelper.php');
+require_once 'navigation2.php';
+require_once 'SimpleTableFormatter.php';
 require_once 'studentPrjMilestoneSelector.php';
 $judge = 1;
 $prjm_id = 0;

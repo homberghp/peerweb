@@ -2,7 +2,7 @@
 requireCap(CAP_SYSTEM);
 require_once('validators.php');
 
-include_once('navigation2.php');
+require_once('navigation2.php');
 require_once('conffileeditor.inc.php');
 extract( $_SESSION );
 if ( isSet( $_REQUEST['Edit'] ) ) {
@@ -19,7 +19,7 @@ if ( isSet( $_POST['bsumbit'] ) && isSet( $_POST['description'] ) ) {
   $dbConn->log( "saved $description" );
 }
 $pp = array( );
-$sql = "select repospath,description,id as fileNr from personal_repos where owner=$snummer and id=$fileNr\n";
+$sql = "select repospath,coalesce(description,'') as description,id as fileNr from personal_repos where owner=$snummer and id=$fileNr\n";
 $resultSet = $dbConn->Execute( $sql );
 if ( !$resultSet->EOF ) {
   $pp = array_merge( $pp, $resultSet->fields );

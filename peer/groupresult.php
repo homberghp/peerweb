@@ -1,10 +1,10 @@
 <?php
 requireCap(CAP_TUTOR);
-include_once('peerutils.php');
+require_once('peerutils.php');
 require_once('validators.php');
-include_once('navigation2.php');
-include_once('groupresult3.php');
-include_once 'openBarChart2.php';
+require_once('navigation2.php');
+require_once('groupresult3.php');
+require_once 'openBarChart2.php';
 require_once 'prjMilestoneSelector2.php';
 require_once 'GroupPhoto.class.php';
 require_once 'pgrowparser.php';

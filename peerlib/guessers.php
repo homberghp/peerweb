@@ -18,13 +18,13 @@ function processQuery($dbConn, $sql) {
  * guess one item, having other info
  */
 function guessStudent($dbConn) {
-    $sql = "select snummer from student where snummer not in (select userid from tutor) limit 1";
+    $sql = "select snummer from student_email where snummer not in (select userid from tutor) limit 1";
     $resultSet = processQuery($dbConn, $sql);
     return $resultSet->fields['snummer'];
 }
 
 function guessStudentForTutor($dbConn, $peer_id) {
-    $sql = "select snummer from student where snummer in\n" .
+    $sql = "select snummer from student_email where snummer in\n" .
             " (select distinct snummer from prj_grp join prj_tutor using(prjtg_id)\n" .
             " where tutor_id=$peer_id) limit 1";
     $resultSet = processQuery($dbConn, $sql);
@@ -35,7 +35,7 @@ function guessStudentForTutor($dbConn, $peer_id) {
 }
 
 function guessClassFromStudent($dbConn, $snummer) {
-    $sql = "select class_id from student \n" .
+    $sql = "select class_id from student_email \n" .
             "join student_class using (class_id)\n" .
             "where snummer=$snummer order by sclass limit 1 ";
     $resultSet = processQuery($dbConn, $sql);
@@ -43,14 +43,14 @@ function guessClassFromStudent($dbConn, $snummer) {
 }
 
 function guessStudentFromClass($dbConn, $class_id) {
-    $sql = "select snummer,achternaam from student \n" .
+    $sql = "select snummer,achternaam from student_email \n" .
             "where class_id='$class_id' order by achternaam limit 1 ";
     $resultSet = processQuery($dbConn, $sql);
     return $resultSet->fields['snummer'];
 }
 
 //function guessStudentFromProject($dbConn, $prjm_id ) {
-//    $sql = "select snummer,achternaam from student join prj_grp using(snummer)\n".
+//    $sql = "select snummer,achternaam from student_email join prj_grp using(snummer)\n".
 //            "join prj_tutor using(prjtg_id) join prj_milestone using(prjm_id)\n".
 //	"where prj_id=$prj_id and milestone=$milestone order by prj_id desc,milestone desc, achternaam limit 1 ";
 //    $resultSet = processQuery($dbConn,$sql);
@@ -68,7 +68,7 @@ function guessProjectFromStudent($dbConn, $snummer, $prjm_id) {
     if (!isSet($prjm_id) || $prjm_id === false || $prjm_id == '') {
         $prjm_id = $milestone = 1;
     }
-    $sql = "select prj_id||':'||milestone  as prj_id_milestone from student join prj_grp using(snummer)\n" .
+    $sql = "select prj_id||':'||milestone  as prj_id_milestone from student_email join prj_grp using(snummer)\n" .
             "join prj_tutor using(prjtg_id) join prj_milestone using(prjm_id)\n" .
             "where snummer=$snummer and prjm_id=$prjm_id \n" .
             " order by prj_id desc, milestone desc limit 1 ";
@@ -76,7 +76,7 @@ function guessProjectFromStudent($dbConn, $snummer, $prjm_id) {
     if (!$resultSet->EOF) {
         return $resultSet->fields['prj_id_milestone'];
     } else {
-        $sql = "select prj_id||':'||milestone||':'||prjtg_id  as prj_id_milestone from student join prj_grp using(snummer)\n" .
+        $sql = "select prj_id||':'||milestone||':'||prjtg_id  as prj_id_milestone from student_email join prj_grp using(snummer)\n" .
                 "join prj_tutor using(prjtg_id) join prj_milestone using(prjm_id)\n" .
                 "where snummer=$snummer order by prj_id desc, milestone desc limit 1 ";
         $resultSet = processQuery($dbConn, $sql);
@@ -103,7 +103,7 @@ function guessClass($dbConn) {
 }
 
 function isInProjectMilestone($dbConn, $prj_id, $milestone, $snummer) {
-    $sql = "select count(*) as counter from student join prj_grp using(snummer)\n" .
+    $sql = "select count(*) as counter from student_email join prj_grp using(snummer)\n" .
             "join prj_tutor using(prjtg_id) join prj_milestone using(prjm_id)" .
             " where prj_id=$prj_id and milestone=$milestone and snummer=$snummer";
     $resultSet = processQuery($dbConn, $sql);
@@ -111,7 +111,7 @@ function isInProjectMilestone($dbConn, $prj_id, $milestone, $snummer) {
 }
 
 function isInClass($dbConn, $class_id, $snummer) {
-    $sql = "select count(*) as counter from student where class_id='$class_id' and snummer=$snummer ";
+    $sql = "select count(*) as counter from student_email where class_id='$class_id' and snummer=$snummer ";
     $resultSet = processQuery($dbConn, $sql);
     return ( $resultSet->fields['counter'] != 0 );
 }

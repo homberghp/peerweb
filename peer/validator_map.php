@@ -9,7 +9,7 @@ requireCap(CAP_SYSTEM);
  * @author Pieter van den Hombergh
  * $Id: validator_map.php 1570 2013-08-09 19:51:30Z hom $
  */
-include_once("ste.php");
+require_once("ste.php");
 
 $page = new PageContainer("Validator Regex Editor on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page);

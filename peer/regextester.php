@@ -9,7 +9,7 @@ requireCap(CAP_SYSTEM);
  * @author Pieter van den Hombergh
  * $Id: regextester.php 1723 2014-01-03 08:34:59Z hom $
  */
-include_once('navigation2.php');
+require_once('navigation2.php');
 $regex='/.*/';
 $string='This matches';
 $regex_name='untitled';

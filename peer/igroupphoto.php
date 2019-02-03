@@ -2,8 +2,8 @@
 requireCap(CAP_SYSTEM);
 
 require_once('validators.php');
-include_once('tutorhelper.php');
-include_once('navigation2.php');
+require_once('tutorhelper.php');
+require_once('navigation2.php');
 require_once 'GroupPhoto.class.php';
 require_once 'studentPrjMilestoneSelector.php';
 $prj_id=1;

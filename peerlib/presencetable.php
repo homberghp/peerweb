@@ -1,5 +1,4 @@
 <?php
-requireCap(CAP_TUTOR);
 function checkTable($dbConn,$query,$rowTriggerColumn,$headColumn,$checkcolumn,$notecolumn,$tabledef="<table summary='simple table' border='1' style='border-collapse:collapse'>") {
   $result ='';
   $head="<tr>\n";

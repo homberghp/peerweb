@@ -1,7 +1,7 @@
 <?php
 requireCap(CAP_TUTOR);
 require_once('validators.php');
-include_once('navigation2.php');
+require_once('navigation2.php');
 require_once 'studentpicker.php';
 require_once'prjMilestoneSelector2.php';
 requireCap( CAP_TUTOR );
@@ -113,7 +113,7 @@ $nav = new Navigation( $tutor_navtable, basename( $PHP_SELF ), $page_opening );
 $nav->setInterestMap( $tabInterestCount );
 $nav->show();
 $prjSelectWidget = $prjSel->getWidget();
-include_once'templates/addindividual.html';
+require_once'templates/addindividual.html';
 ?>
 <!-- db_name=<?= $db_name ?> -->
 <!-- $Id: addindividual.php 1725 2014-01-16 08:39:59Z hom $ -->

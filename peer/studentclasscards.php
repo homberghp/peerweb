@@ -5,8 +5,8 @@ requireCap(CAP_MKCLASSES);
  * create class selectiojn cards based on current class assignments.
  * For WTB/IPO, marc dessi. 
  */
-include_once('peerutils.php');
-include_once('navigation2.php');
+require_once('peerutils.php');
+require_once('navigation2.php');
 require_once('prjMilestoneSelector2.php');
 require_once('classMultiSelector.php');
 require_once 'TemplateWith.php';

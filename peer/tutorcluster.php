@@ -1,7 +1,7 @@
 <?php
 requireCap(CAP_EDIT_RIGHTS);
 require_once 'peerutils.php';
-include_once('navigation2.php');
+require_once('navigation2.php');
 require_once 'bitset.php';
 require_once 'studentpicker.php';
 $newuserid = $peer_id;
@@ -59,7 +59,7 @@ $nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
 
 echo $nav->show();
 
-include_once 'templates/tutorcluster.xhtml';
+require_once 'templates/tutorcluster.xhtml';
 ?>
 </body>
 </html>

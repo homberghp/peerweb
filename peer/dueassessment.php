@@ -1,7 +1,7 @@
 <?php
 
 requireCap(CAP_TUTOR);
-include_once('navigation2.php');
+require_once('navigation2.php');
 require_once 'prjMilestoneSelector2.php';
 require_once 'mailFunctions.php';
 $prj_id = 1;

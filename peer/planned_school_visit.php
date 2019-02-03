@@ -6,10 +6,10 @@ requireCap(CAP_RECRUITER);
  * @author Pieter van den Hombergh
  * $Id: planned_school_visit.php 1723 2014-01-03 08:34:59Z hom $
  */
-include_once("peerutils.php");
-include_once('navigation2.php');
-include_once("utils.php");
-include_once("ste.php");
+require_once("peerutils.php");
+require_once('navigation2.php');
+require_once("utils.php");
+require_once("ste.php");
 
 $page = new PageContainer("Peerweb planned_school_visit" . $PHP_SELF . " on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page);

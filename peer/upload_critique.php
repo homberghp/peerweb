@@ -1,7 +1,7 @@
 <?php
 
-include_once('peerutils.php');
-include_once('tutorhelper.php');
+require_once('peerutils.php');
+require_once('tutorhelper.php');
 require_once('validators.php');
 require_once 'component.php';
 require_once 'document_access.php';

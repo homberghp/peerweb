@@ -1,13 +1,13 @@
 <?php
 
 requireCap(CAP_TUTOR);
-include_once('navigation2.php');
+require_once('navigation2.php');
 require_once 'prjMilestoneSelector2.php';
 require_once 'maillists.inc.php';
 require_once 'TemplateWith.php';
 
 if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE')) {
-    include_once 'templates/getrealbrowser.html';
+    require_once 'templates/getrealbrowser.html';
     exit(0);
 }
 $maillist_dir = '/home/maillists';

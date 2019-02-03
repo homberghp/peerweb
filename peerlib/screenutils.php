@@ -256,6 +256,7 @@ class Menu {
             extract($this->rawNames, EXTR_PREFIX_ALL, 'raw');
         }
         extract($this->expandedMenuItems, EXTR_PREFIX_ALL, $this->fieldPrefix);
+        echo $this->getSubRelData();
         extract($this->getSubRelData(), EXTR_PREFIX_ALL, 'supp');
 
         include($this->templateFileName);

@@ -1,10 +1,10 @@
 <?php
 
 requireCap(CAP_TUTOR_OWNER);
-include_once('navigation2.php');
+require_once('navigation2.php');
 require_once 'prjMilestoneSelector2.php';
 require_once 'TemplateWith.php';
-//include_once 'project_selector.php';
+//require_once 'project_selector.php';
 requireCap(CAP_TUTOR);
 extract($_SESSION);
 $critcount = 4;

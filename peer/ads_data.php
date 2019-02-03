@@ -1,7 +1,7 @@
 <?php
 requireCap(CAP_SYSTEM);
 require_once('validators.php');
-include_once('navigation2.php');
+require_once('navigation2.php');
 include 'simplequerytable.php';
 require_once 'prjMilestoneSelector2.php';
 requireCap(CAP_TUTOR);
@@ -28,7 +28,7 @@ if (isSet($_REQUEST['csvout'])) {
 
 
 $sql = "select snummer,achternaam,roepnaam,tussenvoegsel,lower(course_short) as opleiding,\n"
-        . "cohort,email1 as email,pcn,hoofdgrp,lower(lang) as language from student \n"
+        . "cohort,email1 as email,pcn,hoofdgrp,lower(lang) as language from student_email \n"
         . "join fontys_course on(course=opl) where snummer in \n" .
         "(select snummer from prj_grp join prj_tutor using(prjtg_id) where prjm_id=$prjm_id)\n";
 //$dbConn->log($sql);

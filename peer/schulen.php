@@ -6,7 +6,7 @@ requireCap(CAP_RECRUITER);
  * @author Pieter van den Hombergh
  * $Id: schulen.php 1723 2014-01-03 08:34:59Z hom $
  */
-include_once("ste.php");
+require_once("ste.php");
 $page = new PageContainer("Peerweb schulen in NRW on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn,$page);
 $ste->setFormAction($PHP_SELF)

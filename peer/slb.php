@@ -1,9 +1,9 @@
 <?php
 
 requireCap(CAP_ASSIGN_SLB);
-include_once('peerutils.php');
-include_once 'component.php';
-include_once('navigation2.php');
+require_once('peerutils.php');
+require_once 'component.php';
+require_once('navigation2.php');
 
 //require_once 'simplequerytable.php';
 require_once 'querytotable.php';

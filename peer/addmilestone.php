@@ -2,8 +2,8 @@
 
 requireCap(CAP_TUTOR_OWNER);
 require_once 'querytotable.php';
-include_once 'navigation2.php';
-include_once 'project_selector.php';
+require_once 'navigation2.php';
+require_once 'project_selector.php';
 require_once 'TemplateWith.php';
 
 requireCap(CAP_TUTOR);

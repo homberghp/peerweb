@@ -1,7 +1,7 @@
 <?php
 
 requireCap(CAP_SYSTEM);
-include_once('navigation2.php');
+require_once('navigation2.php');
 require_once 'prjMilestoneSelector2.php';
 require_once 'TemplateWith.php';
 

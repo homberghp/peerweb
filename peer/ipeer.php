@@ -2,7 +2,7 @@
 /* $Id: ipeer.php 1825 2014-12-27 14:57:05Z hom $ */
 requireCap(CAP_DEFAULT);
 require_once 'groupassessmenttable.php';
-include_once 'navigation2.php';
+require_once 'navigation2.php';
 require_once 'GroupPhoto.class.php';
 require_once 'studentPrjMilestoneSelector.php';
 require_once('tutorhelper.php');
@@ -28,7 +28,7 @@ $replyText = '';
 $script = $lang = 'nl';
 //echo "$user<br/>\n";
 
-$sql = "select * from student where snummer=$judge";
+$sql = "select * from student_email where snummer=$judge";
 $resultSet = $dbConn->Execute( $sql );
 if ( $resultSet === false ) {
     print "error fetching judge data with $sql : " . $dbConn->ErrorMsg() . "<br/>\n";

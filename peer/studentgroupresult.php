@@ -3,8 +3,8 @@ requireCap(CAP_SYSTEM);
 
 /* $Id: studentgroupresult.php 1825 2014-12-27 14:57:05Z hom $ */
 
-include_once('tutorhelper.php');
-include_once 'navigation2.php';
+require_once('tutorhelper.php');
+require_once 'navigation2.php';
 require_once 'groupresult3.php';
 require_once 'studentPrjMilestoneSelector.php';
 $prjm_id = 0;

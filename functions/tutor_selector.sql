@@ -1,11 +1,12 @@
 begin work;
-drop table if exists tutor_selector cascade;
-create table tutor_selector(
-       opl bigint,faculty_id smallint,
-       mine smallint,
-       namegrp text,name text, tutor varchar(5),userid integer
-);
-comment on table tutor_selector is 'result type for tutor_selector(userid)';
+-- drop table if exists tutor_selector cascade;
+-- create table tutor_selector(
+--        opl bigint,faculty_id smallint,
+--        mine smallint,
+--        namegrp text,name text, tutor varchar(5),userid integer
+-- );
+-- comment on table tutor_selector is 'result type for tutor_selector(userid)';
+
 create or replace function tutor_selector(vuserid integer) returns  setof tutor_selector  as
 $tutor_selector$
 begin return query

@@ -1,8 +1,8 @@
 <?php
 requireCap(CAP_TUTOR);
-include_once('tutorhelper.php');
-include_once('navigation2.php');
-include_once 'navigation2.php';
+require_once('tutorhelper.php');
+require_once('navigation2.php');
+require_once 'navigation2.php';
 require_once 'presencetable.php'; 
 // get group tables for a project
 $prj_id=0;

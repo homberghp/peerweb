@@ -6,7 +6,7 @@ requireCap(CAP_SYSTEM);
  * @author Pieter van den Hombergh
  * $Id: class_cluster.php 1723 2014-01-03 08:34:59Z hom $
  */
-include_once("ste.php");
+require_once("ste.php");
 $page = new PageContainer("Peerweb class clusters " . $PHP_SELF . " on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page);
 $ste->setFormAction($PHP_SELF)

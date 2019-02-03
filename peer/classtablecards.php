@@ -2,7 +2,7 @@
 requireCap(CAP_TUTOR);
 require_once 'validators.php';
 require_once 'component.php';
-include_once 'threelinetablecard.php';
+require_once 'threelinetablecard.php';
 
 if (isSet($_REQUEST['class_id'])) {
     $basename = 'classtablecards';

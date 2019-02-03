@@ -1,6 +1,6 @@
 <?php
 requireCap(CAP_SYSTEM);
-include_once('navigation2.php');
+require_once('navigation2.php');
 require_once 'simplequerytable.php';
 require_once 'querytotable.php';
 require_once 'validators.php';

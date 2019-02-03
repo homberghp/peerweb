@@ -2,7 +2,7 @@
 requireCap(CAP_SYSTEM);
 require_once('validators.php');
 require_once('rubberstuff.php');
-include_once('navigation2.php');
+require_once('navigation2.php');
 
 $tutor_navtable=array();
 $activeRubberProject='';

@@ -1,7 +1,7 @@
 <?php
 requireCap(CAP_SYSTEM);
-include_once 'tutorhelper.php';
-include_once 'navigation2.php';
+require_once 'tutorhelper.php';
+require_once 'navigation2.php';
 $snummer=$_SESSION['snummer'];
 $personal_presence='Y';
 extract($_SESSION);
@@ -53,7 +53,7 @@ tutorHelper($dbConn,$isTutor);
 $page->addBodyComponent(new Component(ob_get_clean()));
 $page->addBodyComponent($nav);
 ob_start();
-include_once 'presence1.php';
+require_once 'presence1.php';
 $page->addBodyComponent( new Component(ob_get_clean()));
 $page->show();
 ?>

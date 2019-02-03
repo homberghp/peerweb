@@ -9,9 +9,9 @@ requireCap(CAP_TUTOR);
  * @author Pieter van den Hombergh
  * $Id: deftask.php 1723 2014-01-03 08:34:59Z hom $
  */
-include_once('navigation2.php');
-include_once("utils.php");
-include_once("ste.php");
+require_once('navigation2.php');
+require_once("utils.php");
+require_once("ste.php");
 $pdj_id = 1;
 $milestone = 1;
 extract($_SESSION);

@@ -1,7 +1,7 @@
 <?php
 requireCap(CAP_DEFAULT);
 require_once 'component.php';
-include_once('tutorhelper.php');
+require_once('tutorhelper.php');
 require_once'navigation.php';
 
 $pp=array();

@@ -2,7 +2,7 @@
 
 requireCap(CAP_SUBVERSION);
 require_once('validators.php');
-include_once('navigation2.php');
+require_once('navigation2.php');
 require_once('conffileeditor2.php');
 require_once('tutorhelper.php');
 
@@ -29,7 +29,7 @@ define( 'MAXCOL', '5' );
 extract( $_SESSION );
 
 if ( isSet( $snummer ) ) {
-  $sql = "SELECT roepnaam, tussenvoegsel,achternaam,lang FROM student WHERE snummer=$snummer";
+  $sql = "SELECT roepnaam, tussenvoegsel,achternaam,lang FROM student_email WHERE snummer=$snummer";
   $resultSet = $dbConn->Execute( $sql );
   if ( $resultSet === false ) {
     die( 'Error: ' . $dbConn->ErrorMsg() . ' with ' . $sql );

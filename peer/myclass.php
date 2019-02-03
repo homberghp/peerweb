@@ -1,9 +1,9 @@
 <?php
 requireCap(CAP_SYSTEM);
 
-include_once('tutorhelper.php');
+require_once('tutorhelper.php');
 require_once('validators.php');
-include_once('navigation2.php');
+require_once('navigation2.php');
 define('MAXROW', '3');
 define('MAXCOL', '5');
 $class_id = 1;

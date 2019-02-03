@@ -1,10 +1,10 @@
 <?php
 requireCap(CAP_SYSTEM);
 /* $Id: activeprojects.php 1761 2014-05-24 13:17:31Z hom $ */
-include_once('peerutils.php');
-include_once('makeinput.php');
-include_once('tutorhelper.php');
-include_once 'navigation2.php';
+require_once('peerutils.php');
+require_once('makeinput.php');
+require_once('tutorhelper.php');
+require_once 'navigation2.php';
 require_once 'SimpleTableFormatter.php';
 
 $page_opening = "Active projects and websites";

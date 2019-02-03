@@ -1,11 +1,12 @@
 <?php
 /* $Id: mypeerresults.php 1761 2014-05-24 13:17:31Z hom $ */
 requireCap(CAP_DEFAULT);
-include_once('simplequerytable.php');
-include_once('makeinput.php');
-include_once 'navigation2.php';
-$judge=$snummer;
-$sql="select * from student where snummer=$judge";
+require_once('tutorhelper.php');
+require_once('simplequerytable.php');
+require_once('makeinput.php');
+require_once 'navigation2.php';
+$judge=$judge;
+$sql="select * from student_email where snummer=$judge";
 $resultSet=$dbConn->Execute($sql);
 if ($resultSet === false) {
     print "error fetching judge data with $sql : ".$dbConn->ErrorMsg()."<br/>\n";

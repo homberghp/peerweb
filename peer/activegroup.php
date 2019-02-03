@@ -1,11 +1,11 @@
 <?php
 requireCap(CAP_SYSTEM);
 /* $Id: activegroup.php 1825 2014-12-27 14:57:05Z hom $ */
-include_once('peerutils.php');
-include_once('simplequerytable.php');
-include_once('makeinput.php');
-include_once('tutorhelper.php');
-include_once 'navigation2.php';
+require_once('peerutils.php');
+require_once('simplequerytable.php');
+require_once('makeinput.php');
+require_once('tutorhelper.php');
+require_once 'navigation2.php';
 require_once 'studentPrjMilestoneSelector.php';
 $prj_id = 1;
 $milestone = 1;

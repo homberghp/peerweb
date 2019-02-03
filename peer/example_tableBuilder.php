@@ -1,7 +1,7 @@
 <?php
 requireCap(CAP_SYSTEM);
 require_once('validators.php');
-include_once('navigation2.php');
+require_once('navigation2.php');
 require_once 'TableBuilder.class.php';
 
 class MyRowFactory implements RowFactory {

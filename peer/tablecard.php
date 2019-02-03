@@ -2,7 +2,7 @@
 requireCap(CAP_SYSTEM);
 
 $debug=0;
-include_once('peerutils.php');
+require_once('peerutils.php');
 require_once('validators.php');
 require_once('component.php');
 require_once 'TemplateWith.php';

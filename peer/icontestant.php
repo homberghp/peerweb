@@ -1,8 +1,8 @@
 <?php
 requireCap(CAP_TUTOR);
 /* $Id: icontestant.php 1825 2014-12-27 14:57:05Z hom $ */
-include_once('tutorhelper.php');
-include_once 'navigation2.php';
+require_once('tutorhelper.php');
+require_once 'navigation2.php';
 require_once 'GroupPhoto.class.php';
 require_once 'studentPrjMilestoneSelector.php';
 require_once 'contestant_table.php';
@@ -29,7 +29,7 @@ $script =
         $lang = 'nl';
 //echo "$user<br/>\n";
 
-$sql = "select * from student where snummer=$contestant";
+$sql = "select * from student_email where snummer=$contestant";
 $resultSet = $dbConn->Execute($sql);
 if ($resultSet === false) {
     print "error fetching contestant data with $sql : " . $dbConn->ErrorMsg() . "<br/>\n";
@@ -77,7 +77,7 @@ ob_start();
   <?php
 
 if (!$prjSel->isEmptySelector()) {
-  include_once 'templates/icontestant.html';
+  require_once 'templates/icontestant.html';
 }
 ?>
 </div><?php

@@ -2,7 +2,7 @@
 
 requireCap(CAP_TUTOR);
 require_once('navigation2.php');
-include_once 'project_selector.php';
+require_once 'project_selector.php';
 require_once 'TemplateWith.php';
 
 requireCap( CAP_TUTOR );

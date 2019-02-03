@@ -2,12 +2,12 @@
 requireCap(CAP_SYSTEM);
 
 //session_start();
-include_once("peerutils.php");
-include_once("utils.php");
-//include_once("nav62.php");
+require_once("peerutils.php");
+require_once("utils.php");
+//require_once("nav62.php");
 //requireCap(CAP_SYSTEM);
-include_once("searchquery2.php");
-include_once("ste.php");
+require_once("searchquery2.php");
+require_once("ste.php");
 //ini_set('error_reporting',2047);
 //$style_color=0xC0E0FF;
 ?>
@@ -21,7 +21,7 @@ include_once("ste.php");
 <script type="text/javascript" language="JavaScript" src="js/helpers.js"></script>
 <?php
  //if ($am_user_blocked == 'J') {
- // include_once("blocked_tail.inc");
+ // require_once("blocked_tail.inc");
  // exit;
  //}
 global $PHP_SELF;

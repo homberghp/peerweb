@@ -9,9 +9,9 @@ requireCap(CAP_SYSTEM);
  * @author Pieter van den Hombergh
  * $Id: literature.php 1723 2014-01-03 08:34:59Z hom $
  */
-include_once('navigation2.php');
-include_once("utils.php");
-include_once("ste.php");
+require_once('navigation2.php');
+require_once("utils.php");
+require_once("ste.php");
 $navTitle = "Course literature" . $PHP_SELF . " on DB " . $db_name;
 $page = new PageContainer();
 $page->setTitle('Literature');

@@ -8,10 +8,10 @@ requireCap(CAP_SYSTEM);
  * @author Pieter van den Hombergh
  * $Id: menu.php 1723 2014-01-03 08:34:59Z hom $
  */
-include_once("peerutils.php");
-include_once('navigation2.php');
-include_once("utils.php");
-include_once("ste.php");
+require_once("peerutils.php");
+require_once('navigation2.php');
+require_once("utils.php");
+require_once("ste.php");
 $navTitle = "Peerweb testscript " . $PHP_SELF . " on DB " . $db_name;
 $page = new PageContainer();
 $page->setTitle('Menu');

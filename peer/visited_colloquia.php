@@ -2,12 +2,12 @@
 requireCap(CAP_SYSTEM);
 
 /* $Id: visited_colloquia.php 1761 2014-05-24 13:17:31Z hom $ */
-include_once('simplequerytable.php');
-include_once('makeinput.php');
-include_once('tutorhelper.php');
-include_once 'navigation2.php';
+require_once('simplequerytable.php');
+require_once('makeinput.php');
+require_once('tutorhelper.php');
+require_once 'navigation2.php';
 $judge=$snummer;
-$sql="select * from student where snummer=$judge";
+$sql="select * from student_email where snummer=$judge";
 $resultSet=$dbConn->Execute($sql);
 if ($resultSet === false) {
     print "error fetching judge data with $sql : ".$dbConn->ErrorMsg()."<br/>\n";

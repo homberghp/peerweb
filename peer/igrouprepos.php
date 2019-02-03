@@ -1,12 +1,12 @@
 <?php
 /* $Id: igrouprepos.php 1761 2014-05-24 13:17:31Z hom $ */
 requireCap(CAP_SUBVERSION);
-include_once('simplequerytable.php');
-include_once('makeinput.php');
-include_once('tutorhelper.php');
-include_once 'navigation2.php';
+require_once('simplequerytable.php');
+require_once('makeinput.php');
+require_once('tutorhelper.php');
+require_once 'navigation2.php';
 $judge=$snummer;
-$sql="select * from student where snummer=$judge";
+$sql="select * from student_email where snummer=$judge";
 $resultSet=$dbConn->Execute($sql);
 if ($resultSet === false) {
  }

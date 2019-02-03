@@ -1,7 +1,7 @@
 <?php
 requireCap(CAP_ALTER_STUDENT_CLASS);
-include_once 'component.php';
-include_once('navigation2.php');
+require_once 'component.php';
+require_once('navigation2.php');
 require_once 'querytotable.php';
 require_once 'validators.php';
 //require_once 'classSelector.php';

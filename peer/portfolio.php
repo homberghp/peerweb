@@ -1,7 +1,7 @@
 <?php
-include_once('tutorhelper.php');
+require_once('tutorhelper.php');
 require_once('documentfolders.php');
-include_once'navigation2.php';
+require_once'navigation2.php';
 $prjm_id = 0;
 extract($_SESSION);
 
@@ -30,7 +30,7 @@ ob_start();
             "filesize from uploads u \n" .
             "join prj_grp using(prjtg_id,snummer)\n" .
             "join all_prj_tutor apt using(prjtg_id,prjm_id)\n" .
-            "join student using(snummer)\n" .
+            "join student_email using(snummer)\n" .
             "join student_class using (class_id)\n" .
             "join uploaddocumenttypes ut using(prj_id,doctype)\n" .
             "join project_deliverables pd using(prjm_id,doctype)\n" .
@@ -60,7 +60,7 @@ ob_start();
                 "u.snummer, roepnaam,tussenvoegsel,achternaam,sclass as sclass,doc_count,critique_count as crits,u.rights[0:2],\n" .
                 "filesize from uploads u \n" .
                 "join all_prj_tutor apt using(prjtg_id,prjm_id)\n" .
-                "join student s on(u.snummer=s.snummer)\n" .
+                "join student_email s on(u.snummer=s.snummer)\n" .
                 "join student_class using (class_id)\n" .
                 "join uploaddocumenttypes ut using(prj_id,doctype)\n" .
                 "join project_deliverables pd using(prjm_id,doctype)\n" .

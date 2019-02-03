@@ -1,11 +1,11 @@
 <?php
 
 //session_start();
-include_once('peerutils.php');
-include_once('tutorhelper.php');
-include_once('simplequerytable.php');
-include_once('documentfolders.php');
-include_once'navigation2.php';
+require_once('peerutils.php');
+require_once('tutorhelper.php');
+require_once('simplequerytable.php');
+require_once('documentfolders.php');
+require_once'navigation2.php';
 require_once 'studentPrjMilestoneSelector.php';
 
 $prj_id = 1;
@@ -68,7 +68,7 @@ $prjList = "<form name='prjmil' action='$PHP_SELF' method='get'>\n" .
 
 $pp = array( );
 $pp['prjList'] = $prjList;
-$sql = "SELECT roepnaam, tussenvoegsel,achternaam,lang,prjtg_id FROM student \n"
+$sql = "SELECT roepnaam, tussenvoegsel,achternaam,lang,prjtg_id FROM student_email \n"
         . "join prj_grp using(snummer) join prj_tutor pt using(prjtg_id) \n"
         . "WHERE snummer=$snummer and pt.prjm_id=$prjm_id";
 $resultSet = $dbConn->Execute( $sql );

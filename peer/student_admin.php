@@ -9,7 +9,7 @@ requireCap(CAP_LOOKUP_STUDENT);
  * @author Pieter van den Hombergh
  * $Id: student_admin.php 1769 2014-08-01 10:04:30Z hom $
  */
-include_once("ste.php");
+require_once("ste.php");
 $page = new PageContainer("Student adminstration page");
 $ste = new SimpleTableEditor($dbConn, $page, hasCap(CAP_ALTER_STUDENT));
 $ste->setFormAction($PHP_SELF)
