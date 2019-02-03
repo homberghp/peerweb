@@ -93,8 +93,13 @@ if ($resultSet === false) {
         }
         $leftpix = 0; //100+$colcount*140;
         $toppix = 0; //$rowcount*160;
-        $tooltip = "onmouseover=" . '"balloon.showTooltip(event,\'<div><b>' . "<span style=\'font-size:120%\'>$name</span><br/>snummer:$number<br/>pcn:&nbsp;$pcn<br/>$birthday<br/>" .
-                "$straat&nbsp;$huisnr<br/>$pcode&nbsp;$plaats<br/>$nationaliteit<br/>SLB: $slb<br/>class:$sclass<br/>Cohort:$cohort" . '</b></div>\')"';
+        $tooltip = "onmouseover="
+                . '"balloon.showTooltip(event,\'<div><b>'
+                . "<span style=\'font-size:120%\'>$name</span>"
+                . "<br/>snummer:{$number}<br/>pcn:&nbsp;{$pcn}<br/>{$birthday}<br/>"
+//                . "$straat&nbsp;$huisnr<br/>"
+//                . "$pcode&nbsp;$plaats<br/>$nationaliteit<br/>"
+                . "SLB: $slb<br/>class:$sclass<br/>Cohort:$cohort" . '</b></div>\')"';
         echo "<th class='classmate' valign='top' halign='center'>"
         . "<a href='student_admin.php?snummer=$number' target='mainframe' {$tooltip}>\n"
         . "\t<img class='pasfoto' src='{$image}' alt='{$image}' border='0' "
