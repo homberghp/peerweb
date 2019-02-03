@@ -97,7 +97,7 @@ function presenceTable($dbConn, $prjm_id,$constraint=''){
     "p.afko||p.year as activity,".
     "agroup as grp, \n".
   " datum||'#'||al.act_id||': '||short||' '||al.description as title, present,note \n".
-    " from act_presence_list2 al join student st using(snummer) \n".
+    " from act_presence_list2 al join student_email st using(snummer) \n".
     "natural join activity join prj_milestone using(prjm_id) join project p using (prj_id)".
   " left join absence_reason ar using (act_id,snummer)\n".
   " where prjm_id=$prjm_id ";
