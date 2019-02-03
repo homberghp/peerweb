@@ -28,5 +28,5 @@ update student set  active=false where class_id not in (select class_id from stu
 -- take out of view all non FHTnL users
 update student set active=false where faculty_id <> 47;
 
---commit;
-rollback;
+commit;
+--rollback;
