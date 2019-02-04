@@ -29,6 +29,10 @@ switch ($bgstyle) {
         $body_background = 'background:#def url(images/osirix.png)';
         $body_class = 'osirix';
         break;
+    case 'staging':
+        $body_background = 'background:#def url(images/staging.png)';
+        $body_class = 'test';
+        break;
     case 'test':
         $body_background = 'background:#cfc url(images/test.png)';
         $body_class = 'test';
