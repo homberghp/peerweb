@@ -29,7 +29,7 @@ $sql = "select distinct prj_id,milestone,afko,year,grp_num,tutor,rtrim(alias) as
         "'<a href='''||youtube_link||''' target=''_blank''>'||youtube_link||'</a>' as youtube_link \n" .
         "from prj_grp pg join all_prj_tutor_y apt join grp_alias using (prjtg_id) using(prjtg_id)\n" .
         " join student_role sr on  (sr.prjm_id=apt.prjm_id and pg.snummer=sr.snummer and rolenum=1)\n" .
-        " join student s on(pg.snummer=s.snummer)\n" .
+        " join student_email s on(pg.snummer=s.snummer)\n" .
         "where website notnull\n" .
         " and now()::date < valid_until\n" .
         " order by year desc,afko,milestone desc,grp_num";

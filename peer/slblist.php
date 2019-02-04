@@ -45,7 +45,7 @@ $sqltail = " join student_class using(class_id) left join tutor t on (s.slb=t.us
         ." left join faculty f on(f.faculty_id=s.faculty_id)\n" 
         ."where slb='$slb' and snummer not in (select userid from tutor) order by cohort desc,sclass,achternaam,roepnaam\n";
 
-$spreadSheetWriter = new SpreadSheetWriter($dbConn, $sqlhead . ' student s ' . $sqltail);
+$spreadSheetWriter = new SpreadSheetWriter($dbConn, $sqlhead . ' student_email s ' . $sqltail);
 
 $filename = 'slb_list_' . $faculty_short . '_' . $tutorCode . '-' . date('Y-m-d');
 
@@ -83,7 +83,7 @@ $sql_slb = "select mine,namegrp,name,userid as value from tutor_selector($peer_i
 $slbList = "<select name='slb'>\n" . getOptionListGrouped($dbConn, $sql_slb, $slb) . "\n</select>";
 
 pagehead2('list students by a slb', $scripts);
-$page_opening = "student list for slb ";
+$page_opening = "Student list for slb ";
 $nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 ?>

@@ -24,7 +24,7 @@ $sqlt = "select s.snummer,achternaam,roepnaam,tussenvoegsel,gebdat,grp_num,grade
         . " from ($sql2) ags \n"
         . " join prj_grp using(prjtg_id,snummer)"
         . " join all_prj_tutor using(prjtg_id) \n"
-        . " join student s using(snummer) order by grp_num,achternaam";
+        . " join student_email s using(snummer) order by grp_num,achternaam";
 //echo "<pre>$sqlt</pre>\n";
 global $ADODB_FETCH_MODE;
 $ADODB_FETCH_MODE = ADODB_FETCH_NUM;

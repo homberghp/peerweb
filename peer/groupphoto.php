@@ -84,7 +84,7 @@ $sql = "select distinct st.snummer as number,st.roepnaam||' '||coalesce(st.tusse
         " where pt.prjtg_id=$prjtg_id order by achternaam,roepnaam";
 $resultSet = $dbConn->Execute($sql);
 if ($resultSet === false) {
-    die("<br>Cannot get student data with <pre>\"" . $sql . '", cause <pre>' . $dbConn->ErrorMsg() . "\n</pre><br>");
+    die("<br>Cannot get student_email data with <pre>\"" . $sql . '", cause <pre>' . $dbConn->ErrorMsg() . "\n</pre><br>");
 }
 ?>
 <?= $nav->show() ?>

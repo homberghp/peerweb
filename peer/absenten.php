@@ -25,9 +25,11 @@ $pp['subject_nl'] = 'Uitnodiging voor een absentdag bij Fontys Hogescholen in Ve
 $pp['mailbody_de'] = file_get_contents( 'templates/absent_mailbody_de.html', true );
 $pp['mailbody_nl'] = file_get_contents( 'templates/absent_mailbody_nl.html', true );
 
-$sql = "select 0 as sorter,m.*,s.roepnaam||coalesce(' '||s.tussenvoegsel||' ',' ')||s.achternaam as mail_author from absentmail m join student s on (owner=snummer) where owner=$peer_id \n"
+$sql = "select 0 as sorter,m.*,s.roepnaam||coalesce(' '||s.tussenvoegsel||' ',' ')||s.achternaam as mail_author\n"
+        . " from absentmail m join student_email s on (owner=snummer) where owner=$peer_id \n"
         . "union\n"
-        . "select 1 as sorter,m.*,s.roepnaam||coalesce(' '||s.tussenvoegsel||' ',' ')||s.achternaam as mail_author from absentmail m join student s on (owner=snummer) \n"
+        . "select 1 as sorter,m.*,s.roepnaam||coalesce(' '||s.tussenvoegsel||' ',' ')||s.achternaam as mail_author\n"
+        . "from absentmail m join student_email s on (owner=snummer) \n"
         . "order by sorter,absent_datum desc limit 1";
 $resultSet = $dbConn->Execute( $sql );
 if ( $resultSet !== false && !$resultSet->EOF ) {
@@ -36,7 +38,7 @@ if ( $resultSet !== false && !$resultSet->EOF ) {
 $sqlsender = "select rtrim(email1) as sender,roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam as sender_name," .
         "coalesce(signature," .
         "'sent by the peerweb service on behalf of '||roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam)\n" .
-        "  as signature from student left join email_signature using(snummer) where snummer='$peer_id'";
+        "  as signature from student_email left join email_signature using(snummer) where snummer='$peer_id'";
 $rs = $dbConn->Execute( $sqlsender );
 if ( !$rs->EOF ) {
   extract( $rs->fields );

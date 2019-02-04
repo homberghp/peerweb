@@ -8,7 +8,7 @@ $task_prj_id_milestone = '1:1';
 extract( $_SESSION );
 $snummer = $peer_id; // this page is always personal
 $sql = "select snummer,roepnaam,tussenvoegsel,achternaam,email1 \n" .
-        "from student left join alt_email using(snummer) where snummer=$snummer";
+        "from student_email left join alt_email using(snummer) where snummer=$snummer";
 $resultSet = $dbConn->Execute( $sql );
 if ( $resultSet === false ) {
   die( 'Error: ' . $dbConn->ErrorMsg() . ' with ' . $sql );
@@ -52,7 +52,7 @@ if ( isSet( $_REQUEST['update_task_description'] ) ) {
     echo('cannot update task_description: ' . $dbConn->ErrorMsg() . ' with ' . "<pre>$sql</pre>");
   }
 }
-$sql = "SELECT roepnaam, tussenvoegsel,achternaam,lang,email1 FROM student left join alt_email using(snummer) WHERE snummer=$snummer";
+$sql = "SELECT roepnaam, tussenvoegsel,achternaam,lang,email1 FROM student_email left join alt_email using(snummer) WHERE snummer=$snummer";
 $resultSet = $dbConn->Execute( $sql );
 if ( $resultSet === false ) {
   die( 'Error: ' . $dbConn->ErrorMsg() . ' with ' . $sql );

@@ -172,7 +172,7 @@ SQL;
             // and mail tutor
             $q = <<<'SQL'
 select  email1 as email,roepnaam,achternaam,tussenvoegsel,afko,description,grp_num
-from tutor t join student s on(t.userid=s.snummer) join prj_tutor pt on(pt.tutor_id=t.userid)
+from tutor t join student_email s on(t.userid=s.snummer) join prj_tutor pt on(pt.tutor_id=t.userid)
 join prj_milestone using(prjm_id)
 join project using(prj_id)
 where prjtg_id=$1
@@ -201,7 +201,7 @@ SQL;
             $q =
 <<<'SQL'
 select roepnaam,tussenvoegsel,achternaam,email1,prjm_id 
-from student
+from student_email
 left join alt_email using(snummer)
 join prj_grp using (snummer)
 join prj_tutor using(prjtg_id)
@@ -210,7 +210,7 @@ where prjtg_id=$1
 SQL;
             $resultSet = $dbConn->Prepare($q)->execute($prjtg_id);
             if ( $resultSet === false ) {
-                print 'error getting student email data for closing prj_grp with $sql ' . $dbConn->ErrorMsg() . '<BR>';
+                print 'error getting student_email email data for closing prj_grp with $sql ' . $dbConn->ErrorMsg() . '<BR>';
             } else {
                 $sroepnaam = '';
                 $to = '';

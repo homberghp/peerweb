@@ -50,7 +50,7 @@ if (count($gradeSet)) {
 
     $cands = implode(',', array_keys($gradeSet));
     $sql = "select snummer, achternaam,roepnaam,coalesce(', '||tussenvoegsel,'') as tussenvoegsel "
-            . "from student where snummer in ({$cands}) order by achternaam,roepnaam";
+            . "from student_email where snummer in ({$cands}) order by achternaam,roepnaam";
     $resultSet = $dbConn->Execute($sql);
 
     if ($resultSet === FALSE) {

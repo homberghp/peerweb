@@ -59,7 +59,7 @@ function getGroupResultTable( $dbConn, $prjtg_id,$overall_criterium,$productGrad
 	"to_char(commit_time,'YYYY-MM-DD&nbsp;HH24:MI')as commit_time,".
 	"prj_id,grp_num,criterium,milestone,round(grade,2) as grade, round(grp_avg,2) as grp_avg, \n".
 	"case when grp_avg<>0 then round(grade/grp_avg,2) else 1 end as multiplier,achternaam,prj_grp.prj_grp_open as open,role \n".
-	"from student join stdresult using(snummer) join grp_average using(prj_id,criterium,milestone,grp_num) \n".
+	"from student_email join stdresult using(snummer) join grp_average using(prj_id,criterium,milestone,grp_num) \n".
 	"join prj_grp using(snummer,prj_id,milestone,grp_num)\n".
 	"left join last_assessment_commit using(snummer,prj_id,milestone)".
 	"left join student_role using (snummer,prj_id,milestone)\n".
@@ -73,7 +73,7 @@ function getGroupResultTable( $dbConn, $prjtg_id,$overall_criterium,$productGrad
 	"round($productGrade,2) as grp_avg, \n".
 	"case when grp_avg<>0 then round(grade/grp_avg,2) else 1 end as multiplier,\n".
 	"achternaam,prj_grp.prj_grp_open as open,role \n".
-	"from student join stdresult_overall using(snummer) join \n".
+	"from student_email join stdresult_overall using(snummer) join \n".
 	"grp_overall_average using (prj_id,milestone,grp_num) ".
 	"join prj_grp using(snummer,prj_id,milestone,grp_num)\n".
 	"left join student_role using (snummer,prj_id,milestone)\n".

@@ -2,7 +2,7 @@
 include 'navigation2.php';
 $sender_name='';
 $sql="select email1 as replyto,roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam as sender_name,signature".
-"  from student left join email_signature using(snummer) where snummer='$peer_id'";
+"  from student_email left join email_signature using(snummer) where snummer='$peer_id'";
 $rs=$dbConn->Execute($sql);
 if (!$rs->EOF) {
   $replyto=$rs->fields['replyto'];

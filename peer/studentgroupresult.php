@@ -28,7 +28,7 @@ $pp[ 'prjList' ] = $prjList = $prjSel->getWidget();
 
 
 $page = new PageContainer();
-// now test if student is allowed
+// now test if Student is allowed
 
 if ( !$studentMayRead ) {
     $page_opening = 'You cannot view the results for this project and group';
@@ -54,7 +54,7 @@ $page->addBodyComponent( new Component( $tutor_Helper ) );
 $page->addBodyComponent( $nav );
 $criteria = getCriteria( $prjm_id );
 $sql = "select distinct roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam as naam,achternaam,prjtg_id\n" .
-        "from student join judge_notready using(snummer)\n" .
+        "from student_email join judge_notready using(snummer)\n" .
         // "join prj_tutor using(prjtg_id)\n" .
         "where prjtg_id=$prjtg_id order by achternaam,naam";
 $resultSet = $dbConn->Execute( $sql );

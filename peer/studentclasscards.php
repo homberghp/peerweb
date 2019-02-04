@@ -65,7 +65,7 @@ $classmultiselector = classMultiSelector($dbConn, $sql, $submit_button, $class_i
 //$classmultiselector = $tablist.$curriculum;
 $class_names = array();
 if (strlen($class_set) > 0) {
-    $sqlCount = "select count(*) as membercount from student where class_id in ({$class_set})";
+    $sqlCount = "select count(*) as membercount from student_email where class_id in ({$class_set})";
     $rsc = $dbConn->Execute($sqlCount);
     $membercount = $rsc->fields['membercount'];
     $sql = "select sclass from student_class where class_id in({$class_set}) order by sort1,sort2,sclass";

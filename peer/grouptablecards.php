@@ -32,7 +32,7 @@ if (isSet($_POST['prjtg_id'])) {
             " left join student_role using(prjm_id,snummer) \n" .
             " left join project_roles pr using(prj_id,rolenum)\n" .
             " left join grp_alias using(prjtg_id)\n" .
-            " join student st using(snummer)\n" .
+            " join student_email st using(snummer)\n" .
             "left join fontys_course fc on(st.opl=fc.course)\n" .
             " join faculty on(st.faculty_id=faculty.faculty_id)\n " .
             " where  prjtg_id=$prjtg_id \n " .

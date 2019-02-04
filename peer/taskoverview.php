@@ -43,7 +43,7 @@ $sql="select st.snummer,roepnaam||coalesce(' '||tussenvoegsel||' ',' ')||achtern
   ." pt.name as task_name,\n"
   ." coalesce(grade::text,mark) as check, ptc.comment as title,photo,grp_num \n"
   ." from prj_grp join all_prj_tutor apt using(prjtg_id)\n"
-  ." natural join student st \n"
+  ." natural join student_email st \n"
   ." join portrait tp using (snummer) \n"
   ." join project_task pt using(prj_id)\n"
   ." left join project_task_completed_latest ptc using(snummer,task_id)\n"

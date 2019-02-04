@@ -2,7 +2,7 @@
     <form method='post' name='project' action='<?= $PHP_SELF; ?>'>
         <?= $selWidget ?>
     </form>
-    <fieldset><legend>Select student or via role</legend>
+    <fieldset><legend>Select Student or via role</legend>
         <form name='mailer' method='post' action='<?= $PHP_SELF ?>'>
             <table><tr>
                     <td>

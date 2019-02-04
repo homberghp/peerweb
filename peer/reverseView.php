@@ -27,7 +27,7 @@ $script=
 $lang='nl';
 //echo "$user<br/>\n";
 
-$sql="select * from student where snummer=$judge";
+$sql="select * from student_email where snummer=$judge";
 $resultSet=$dbConn->Execute($sql);
 if ($resultSet === false) {
     print "error fetching judge data with $sql : ".$dbConn->ErrorMsg()."<br/>\n";
@@ -155,7 +155,7 @@ if ($grp_open && isSet($_POST['peerdata'])) {
 	  }
 	  // and mail tutor
 	  $sql="select  email1 as email,roepnaam,achternaam,tussenvoegsel,afko,description,grp_num \n".
-	    "from tutor join student on(userid=snummer) join prj_tutor using(tutor) \n".
+	    "from tutor join student_email on(userid=snummer) join prj_tutor using(tutor) \n".
 	    "join project using(prj_id) \n".
 	    "where prjtg_id=$prjtg_id";
 	  $resultSet=$dbConn->Execute($sql);
@@ -181,11 +181,11 @@ if ($grp_open && isSet($_POST['peerdata'])) {
 	    //	    $dbConn->log("email $body");
 	  }
 	  // and mail other members
-	  $sql ="select roepnaam,tussenvoegsel,achternaam,email1 from student left join alt_email using(snummer)\n".
+	  $sql ="select roepnaam,tussenvoegsel,achternaam,email1 from student_email left join alt_email using(snummer)\n".
 	    " join prj_grp using (snummer) where prj_id=$prj_id and milestone=$milestone and grp_num='$grp_num'";
 	  $resultSet=$dbConn->Execute($sql);
 	  if ($resultSet === false) {
-	    print 'error getting student email data for closing prj_grp with $sql '.$dbConn->ErrorMsg().'<BR>';
+	    print 'error getting student_email email data for closing prj_grp with $sql '.$dbConn->ErrorMsg().'<BR>';
 	  } else {
 	    $sroepnaam ='';
 	    $to ='';

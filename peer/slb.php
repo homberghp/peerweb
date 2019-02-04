@@ -27,7 +27,7 @@ if (isSet($_POST['update']) && isSet($_POST['studenten'])) {
             "where snummer in ($memberset)";
     $resultSet = $dbConn->Execute($sql);
     if ($resultSet === false) {
-        die("<br>Cannot update student with " . $sql . " reason " . $dbConn->ErrorMsg() . "<br>");
+        die("<br>Cannot update student_email with " . $sql . " reason " . $dbConn->ErrorMsg() . "<br>");
     }
 }
 
@@ -42,7 +42,7 @@ if (isSet($_POST['setslb']) && isSet($slb) && isSet($_POST['studenten'])) {
             "where snummer in ($memberset)";
     $resultSet = $dbConn->Execute($sql);
     if ($resultSet === false) {
-        die("<br>Cannot update student  with " . $sql . " reason " . $dbConn->ErrorMsg() . "<br>");
+        die("<br>Cannot update student_email  with " . $sql . " reason " . $dbConn->ErrorMsg() . "<br>");
     }
 }
 $class_sql = "select distinct student_class.sclass||'#'||class_id||' (#'||coalesce(student_count,0)||')'  as name,\n"

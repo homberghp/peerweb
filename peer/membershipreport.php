@@ -5,7 +5,7 @@ require_once('component.php');
 $snummer=$peer_id;
 extract($_SESSION);
 $judge=$snummer;
-$sql="select roepnaam, tussenvoegsel,achternaam,snummer from student where snummer=$judge";
+$sql="select roepnaam, tussenvoegsel,achternaam,snummer from student_email where snummer=$judge";
 $resultSet=$dbConn->Execute($sql);
 extract($resultSet->fields);
 $texdir = $site_home.'/tex/out';
@@ -25,7 +25,7 @@ fwrite($fp,"\\documentclass{article}\n".
        "\\maketitle".
        "\\begin{longtable}{lllrrll}\n".
        "  \\caption{Group memberships of $roepnaam $tussenvoegsel $achternaam\\\\\n".
-       "    student number $snummer}\\\\\n".
+       "    student_email number $snummer}\\\\\n".
        "  \\textbf{year}& \\textbf{afko} & \\textbf{description} & \\textbf{milestone} & \\textbf{group number}".
        "  &$group alias$&\\textbf{Group description}\\\\\\hline\n".
        "  \\endfirsthead\n".

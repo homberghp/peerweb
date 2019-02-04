@@ -41,7 +41,7 @@ $sql = "SELECT snummer as number,roepnaam||' '||coalesce(tussenvoegsel||' ','')|
         "achternaam,roepnaam,tussenvoegsel,cl.sclass,cohort,opl as opl_code,pcn,lang,sex,gebdat," .
         "straat,huisnr,pcode,plaats,nationaliteit," .
         "hoofdgrp, snummer as participant, course_description as opleiding,gebdat as birthday" .
-        " from student st " .
+        " from student_email st " .
         //		  "join current_student_class sc using (snummer) \n".
         "join student_class cl using(class_id)\n" .
         "left join fontys_course fc on(st.opl=fc.course)\n" .
@@ -50,7 +50,7 @@ $sql = "SELECT snummer as number,roepnaam||' '||coalesce(tussenvoegsel||' ','')|
 
 $resultSet = $dbConn->Execute($sql);
 if ($resultSet === false) {
-    die("<br>Cannot get student data with \"" . $sql . '", cause ' . $dbConn->ErrorMsg() . "<br>");
+    die("<br>Cannot get student_email data with \"" . $sql . '", cause ' . $dbConn->ErrorMsg() . "<br>");
 }
 ?>
 <?= tutorHelper($dbConn, $isTutor); ?>

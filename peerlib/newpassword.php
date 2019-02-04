@@ -3,7 +3,7 @@ requireCap(CAP_DEFAULT);
 $username=$auth_user;
 $snummer=2037775;
 $sql= "select roepnaam,tussenvoegsel,achternaam,email1\n".
-  "from student where snummer=$snummer";
+  "from student_student where snummer=$snummer";
 // outputs the username that owns the running php/httpd process
 // (on a system with the "whoami" executable in the path)
 $resultSet= $dbConn->execute($sql);

@@ -26,7 +26,7 @@ $milestone = 1;
 $sql = "SELECT roepnaam, tussenvoegsel,achternaam,lang,rtrim(email1) as email1,\n"
         . "coalesce(signature,'sent by the peerweb service on behalf of '||roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam)\n"
         . "  as signature\n"
-        . "FROM student left join alt_email using(snummer) left join email_signature using(snummer) WHERE snummer=$peer_id";
+        . "FROM student_email left join alt_email using(snummer) left join email_signature using(snummer) WHERE snummer=$peer_id";
 $resultSet = $dbConn->Execute($sql);
 if ($resultSet === false) {
     die('Error: ' . $dbConn->ErrorMsg() . ' with ' . $sql);
@@ -56,13 +56,13 @@ if (isSet($_POST['mail'])) {
             . " s.roepnaam ||coalesce(' '||s.tussenvoegsel,'')||' '||s.achternaam as recipient,\n"
             . " td.tutor,td.tutor_email,grp_num \n"
             . "from \n"
-            . "  student s join prj_grp pg using(snummer) join all_prj_tutor apt using (prjtg_id) \n"
+            . "  student_email s join prj_grp pg using(snummer) join all_prj_tutor apt using (prjtg_id) \n"
             . "  join tutor_data td using(tutor_id)\n"
             . "  left join alt_email ae on (ae.snummer=s.snummer)\n"
             . "where s.snummer in ({$mailset}) and prjm_id={$prjm_id} order by tutor,grp_num";
     $resultSet = $dbConn->Execute($sql);
     if ($resultSet === false) {
-        die("<br>Cannot read project,student data with <pre>" . $sql . "</pre><br/>\n reason " . $dbConn->ErrorMsg() . "<br>");
+        die("<br>Cannot read project,student_email data with <pre>" . $sql . "</pre><br/>\n reason " . $dbConn->ErrorMsg() . "<br>");
     }
     // tutors get a CC.
     //$dbConn->log($sql);
@@ -89,7 +89,7 @@ if (isSet($_POST['mail'])) {
     $sqlsender = "select rtrim(email1) as sender,roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam as sender_name," .
             "coalesce(signature," .
             "'sent by the peerweb service on behalf of '||roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam)\n" .
-            "  as signature from student left join email_signature using(snummer) where snummer='$peer_id'";
+            "  as signature from student_email left join email_signature using(snummer) where snummer='$peer_id'";
     $rs = $dbConn->Execute($sqlsender);
     if (!$rs->EOF) {
         extract($rs->fields);
@@ -118,11 +118,11 @@ if (isSet($_POST['mail'])) {
     domail($toAddress, $subject, $message, $headers);
 }
 $prjList = $prjSel->getWidget();
-$sql = "select s.*,pt.* from student s join prj_grp using(snummer)\n" .
+$sql = "select s.*,pt.* from student_email s join prj_grp using(snummer)\n" .
         "join all_prj_tutor pt using(prjtg_id) where prjm_id=$prjm_id and snummer=$snummer";
 $resultSet = $dbConn->Execute($sql);
 if ($resultSet === false) {
-    print "error fetching student data with <pre>$sql </pre>: " . $dbConn->ErrorMsg() . "<br/>\n";
+    print "error fetching student_email data with <pre>$sql </pre>: " . $dbConn->ErrorMsg() . "<br/>\n";
 }
 if (!$resultSet->EOF) {
     $pp = array_merge($pp, $resultSet->fields);
@@ -165,7 +165,7 @@ $sql = "select afko,apt.grp_num||coalesce(': '||alias,'') as grp_num,\n"
         . "achternaam||coalesce(', '||tussenvoegsel,'') as achternaam,roepnaam,\n"
         . "sclass as class, tutor "
         . "from\n"
-        . "student s join prj_grp pg using(snummer)\n"
+        . "student_email s join prj_grp pg using(snummer)\n"
         . "join student_class using (class_id)\n"
         . " join all_prj_tutor apt on(pg.prjtg_id=apt.prjtg_id)\n"
         . " left join student_role sr on(sr.prjm_id=apt.prjm_id and sr.snummer=s.snummer) "

@@ -24,7 +24,7 @@ if (isSet($_REQUEST['doc_id'])) {
 $pp['doc_id'] = $_SESSION['doc_id'];
 
 $_SESSION['referer'] = $PHP_SELF;
-$sql = "SELECT roepnaam as jroepnaam, tussenvoegsel as jtussenvoegsel,achternaam as jachternaam,email1 as jemail1, lang as jlang FROM student WHERE snummer=$peer_id";
+$sql = "SELECT roepnaam as jroepnaam, tussenvoegsel as jtussenvoegsel,achternaam as jachternaam,email1 as jemail1, lang as jlang FROM student_email WHERE snummer=$peer_id";
 $resultSet = $dbConn->Execute($sql);
 if ($resultSet === false) {
     die('Error: ' . $dbConn->ErrorMsg() . ' with ' . $sql);
@@ -44,7 +44,7 @@ if (isSet($_POST['bsubmit'])) {
         echo 'Error: ' . $dbConn->ErrorMsg() . ' with <br/><pre>' . $sql . '</pre>';
     } else {
         // mail that a critique was added to uploader/author
-        $sql = "select roepnaam,tussenvoegsel,achternaam,email1 from student\n" .
+        $sql = "select roepnaam,tussenvoegsel,achternaam,email1 from student_email\n" .
                 " left join alt_email using(snummer)\n" .
                 "join uploads using(snummer) where upload_id=$doc_id";
         $resultSet = $dbConn->execute($sql);
@@ -115,7 +115,7 @@ if (!isSet($_REQUEST['doc_id'])) {
 //            . "coalesce(apts.alias,'g'||apts.grp_num) as sgrp_name,\n"
             . "vers, pd.doctype,udt.description as documenttype,apt.long_name,ups.rights[0:2] as rights,\n"
             . "getDocAuthors($doc_id) as coauthors,filesize \n"
-            . "from (uploads ups join student std using(snummer) \n"
+            . "from (uploads ups join student_email std using(snummer) \n"
             . "join all_prj_tutor apt using(prjtg_id)) \n"
             . "join (all_prj_tutor join prj_grp using (prjtg_id)) apts on (apts.snummer=ups.snummer and apts.prjm_id =ups.prjm_id)\n"
             . "join uploaddocumenttypes udt on (apt.prj_id=udt.prj_id and ups.doctype=udt.doctype) \n"
@@ -196,7 +196,7 @@ if (!isSet($_REQUEST['doc_id'])) {
                 "from document_critique dcr\n" .
                 "left join (select count(id) as history_count, critique_id \n" .
                 "           from critique_history group by critique_id) ch using(critique_id)\n" .
-                "join student st on (dcr.critiquer=st.snummer)\n" .
+                "join student_email st on (dcr.critiquer=st.snummer)\n" .
                 "join uploads u on(dcr.doc_id=u.upload_id)\n" .
                 "join all_prj_tutor prj using(prjm_id,prjtg_id) where doc_id=$doc_id and deleted=false \n" .
                 "order by critique_id $sortorder";

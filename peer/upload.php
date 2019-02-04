@@ -101,7 +101,7 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
 
     $formsubject = "Project \$uafko upload by \$uroepnaam \$utussenvoegsel \$uachternaam (\$snummer)";
     $mailbody = "Dear stakeholder,\n\n"
-            . "{$uroepnaam} {$utussenvoegsel}{$uachternaam} (student number $snummer) just "
+            . "{$uroepnaam} {$utussenvoegsel}{$uachternaam} (Student number $snummer) just "
             . "uploaded the document titled "
             . "'\$title' version \$vers."
             . "for the modules \$uafko, \$udescription.\n"

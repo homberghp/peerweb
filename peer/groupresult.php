@@ -199,7 +199,7 @@ $sqlt = "select s.snummer as contestant, "
         . "ags.grade as peerg,\n"
         . "ags.multiplier[array_upper(ags.multiplier,1)] as grp_multiplier, "
         . "coalesce(round(mg.grade,2),round({$productgrade}*ags.multiplier[array_upper(ags.multiplier,1)],2)) as tutorg \n"
-        . " from student s join assessment_grade_set($prjtg_id,$productgrade) ags using (snummer)"
+        . " from student_email s join assessment_grade_set($prjtg_id,$productgrade) ags using (snummer)"
         . " join all_prj_tutor using(prjtg_id) "
         . " left join milestone_grade mg using(prjm_id,snummer) order by achternaam,roepnaam,snummer";
 

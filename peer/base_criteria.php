@@ -19,7 +19,7 @@ $ste->setFormAction($PHP_SELF)
         ->setNameExpression("nl_short")
         ->setOrderList(array('criterium_id'))
         ->setFormTemplate('templates/base_criteria.html')
-//        ->setSubRel('student')
+//        ->setSubRel('student_email')
 //        ->setSubRelJoinColumns(array('author' => 'snummer'))
         ->setListRowTemplate(array('criterium_id', 'author','nl_short',  'nl', 'de_short', 'de', 'en_short', 'en'))
         ->show();

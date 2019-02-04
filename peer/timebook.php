@@ -12,7 +12,7 @@ if ( isSet( $_SESSION['task_timer'] ) )
   $new_task_timer = $task_timer;
 $snummer = $peer_id; // this page is always personal
 $sql = "select snummer,roepnaam,tussenvoegsel,achternaam,email1 \n" .
-        "from student left join alt_email using(snummer) where snummer=$snummer";
+        "from student_email left join alt_email using(snummer) where snummer=$snummer";
 $resultSet = $dbConn->Execute( $sql );
 if ( $resultSet === false ) {
   die( 'Error: ' . $dbConn->ErrorMsg() . ' with ' . $sql );
@@ -178,7 +178,7 @@ if ( isSet( $_REQUEST['btasktime'] ) ) {
     $dbConn->transactionEnd();
   }
 }
-$sql = "SELECT roepnaam, tussenvoegsel,achternaam,lang,email1 FROM student left join alt_email using(snummer) WHERE snummer=$snummer";
+$sql = "SELECT roepnaam, tussenvoegsel,achternaam,lang,email1 FROM student_email left join alt_email using(snummer) WHERE snummer=$snummer";
 $resultSet = $dbConn->Execute( $sql );
 if ( $resultSet === false ) {
   die( 'Error: ' . $dbConn->ErrorMsg() . ' with ' . $sql );

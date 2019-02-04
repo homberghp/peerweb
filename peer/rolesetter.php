@@ -53,7 +53,7 @@ if ( $may_change && isSet( $_REQUEST['submit_roles'] ) ) {
   $affected_rows = $dbConn->executeQueryList( $queries );
 }
 $sql = "select snummer,roepnaam,tussenvoegsel,achternaam,email1 \n" .
-        "from student left join alt_email using(snummer) where snummer=$snummer";
+        "from student_email left join alt_email using(snummer) where snummer=$snummer";
 $resultSet = $dbConn->Execute( $sql );
 if ( $resultSet === false ) {
   die( 'Error: ' . $dbConn->ErrorMsg() . ' with ' . $sql );
@@ -78,7 +78,7 @@ $prjList = $prjSel->getSelector();
 $sql = "select pm.prj_id,s.snummer as actor, rtrim(achternaam) as achternaam,rtrim(tussenvoegsel) as tussenvoegsel,\n" .
         "rtrim(roepnaam) as roepnaam, nationaliteit,hoofdgrp as class,alias,f.faculty_short as faculty,\n" .
         "course_description,role as current_role,sr.rolenum,pr.capabilities as capabilities\n" .
-        " from prj_grp pg join student s using(snummer)\n" .
+        " from prj_grp pg join student_email s using(snummer)\n" .
         " join prj_tutor pt on (pt.prjtg_id=pg.prjtg_id) join prj_milestone pm on(pt.prjm_id=pm.prjm_id)\n" .
         " left join fontys_course on (opl=course)\n" .
         " join faculty f on(s.faculty_id=f.faculty_id)\n " .
@@ -112,7 +112,7 @@ $resultSet3 = $dbConn->Execute( $sql3 );
     <h2 align='center'>Roles in <?= $afko ?> <?= $year ?>: <?= $description ?> 
       <br/>group <?= $grp_num ?> (<?= $alias ?>) prjtg_id <?= $prjtg_id ?></h2>
     <form name='setroles' method='post' action='<?= $PHP_SELF ?>'>
-      <table summary='student roles' frame='box' border='3' style='border-collapse:3D'>
+      <table summary='Student roles' frame='box' border='3' style='border-collapse:3D'>
         <tr>
           <th>snumber</th>
           <th>Name</th>

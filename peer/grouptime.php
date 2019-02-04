@@ -61,7 +61,7 @@ if ($resultSet === false) {
 if (!$resultSet->EOF) {
     extract($resultSet->fields);
 } else {
-    // this prj_id, milestone,student has no task_timers. grab any
+    // this prj_id, milestone,student_email has no task_timers. grab any
     $sql = "select prj_id,milestone,grp_num from prj_grp join all_prj_tutor using(prjtg_id) where snummer=$snummer and prj_id>1 limit 1";
     $resultSet = $dbConn->Execute($sql);
     if ($resultSet === false) {
@@ -110,7 +110,7 @@ if ($csvout == 'Y') {
             "       as project_total from task_timer join prj_grp using(prjm_id,snummer)\n" .
             "  where start_time between '$first_second' and '$last_second' group by prjm_id,grp_num) ttgt using(prjm_id,grp_num)\n" .
             //    "join task_timer_grp_total ttgt using(prj_id,milestone,grp_num)\n".
-            " join project using(prj_id) join student using(snummer)\n" .
+            " join project using(prj_id) join student_email using(snummer)\n" .
             "order by achternaam,milestone,task_id";
     $dbConn->queryToCSV( $sqlt, $filename);
     exit(0);
@@ -162,7 +162,7 @@ $sqltt = "SELECT snummer,roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achtern
         "       as project_total from task_timer join prj_grp using(prj_id,milestone,snummer)\n" .
         "  where start_time between '$first_second' and '$last_second' group by prj_id,milestone,grp_num) ttgt using(prj_id,milestone,grp_num)\n" .
         //    "join task_timer_grp_total ttgt using(prj_id,milestone,grp_num)\n".
-        " join project using(prj_id) join student using(snummer)\n" .
+        " join project using(prj_id) join student_email using(snummer)\n" .
         "where prj_id=$prj_id and milestone=$milestone and grp_num='$grp_num' and prj_id> 1\n" .
         " and task_timer.start_time between '$first_second' and '$last_second'\n" .
         "order by achternaam,milestone,task_id";
@@ -292,7 +292,7 @@ $yearMonthList = "<select name='year_month' onchange='submit()'>\n" .
 
         $sql = "select snummer as student_number,roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam as name,\n" .
                 "'<a href=\'mailto:'||email1||'\'>'||email1||'</a>' as fontys_email\n" .
-                " from student join prj_grp using(snummer) left join alt_email using(snummer)\n" .
+                " from student_email join prj_grp using(snummer) left join alt_email using(snummer)\n" .
                 " where prj_id=$prj_id and milestone=$milestone and grp_num='$grp_num' order by achternaam";
         simpletable($dbConn, $sql, "<table border='1' style='cell-padding:.5em;border-collapse:collapse;'>\n");
         ?>

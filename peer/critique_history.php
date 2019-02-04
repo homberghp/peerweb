@@ -29,7 +29,7 @@ if (isSet($_REQUEST['critique_id'])) {
     "afko,year,apt.grp_num as critiquer_grp\n".
     "from document_critique dcr\n".
     "join critique_history ch using(critique_id)\n".
-    "join student st on (dcr.critiquer=st.snummer)\n".
+    "join student_email st on (dcr.critiquer=st.snummer)\n".
     "join uploads u on(dcr.doc_id=u.upload_id)\n".
       //    "join project_grp_stakeholders ps on(ps.prjtg_id=u.prjtg_id and ps.snummer=dcr.critiquer)\n".
     "join all_prj_tutor apt on(u.prjtg_id=apt.prjtg_id) where critique_id=$critique_id\n".

@@ -9,7 +9,7 @@ require_once 'TemplateWith.php';
 ini_set('error_reporting',(E_ALL & ~E_NOTICE) );
 extract($_SESSION);
 $sql="select roepnaam||' '||coalesce(tussenvoegsel||' ','')||' '||achternaam as line1,snummer \n".
- "from student where snummer=$peer_id";
+ "from student_email where snummer=$peer_id";
 $resultSet=$dbConn->Execute($sql);
 extract($resultSet->fields);
 $line2='Your Function';

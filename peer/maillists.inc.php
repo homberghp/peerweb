@@ -121,5 +121,5 @@ function createGenericMaillistByClassid($dbConn, $class_id) {
     } else {
         $prefix=$resultSet->fields['prefix'];
     }
-    createGenericMaillist($dbConn,$prefix,"select email1 as email from student where class_id=$class_id");
+    createGenericMaillist($dbConn,$prefix,"select email1 as email from student_email where class_id=$class_id");
 }

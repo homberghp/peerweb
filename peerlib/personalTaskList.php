@@ -28,7 +28,7 @@ function taskTable($prj_id, $snummer,$tableBuilder) {
     ." pt.name as task_name,\n"
     ." coalesce(grade::text,mark) as check, ptc.comment as title \n"
     ." from project_member\n"
-    ." natural join student st \n"
+    ." natural join student_student st \n"
     ." join project p using(prj_id)\n"
     ." join project_task pt using(prj_id)\n"
     ." left join project_task_completed_latest ptc using(task_id,snummer)\n"

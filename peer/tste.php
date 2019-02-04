@@ -36,7 +36,7 @@ $navTitle= "Prafda2 testscript ".$PHP_SELF." on DB ".$db_name;
   //navstart($navTitle,$PHP_SELF);
 $ste = new SimpleTableEditor();
 $ste->setFormAction(basename(__FILE__));
-$ste->setRelation('student');
+$ste->setRelation('student_email');
 $ste->setMenuName('student');
 /* Neem de KeyColumns over uit het schema */
 $ste->setKeyColumns(array('snummer'));
@@ -47,7 +47,7 @@ $ste->setOrderList(array('achternaam','roepnaam','tussenvoegsel'));
 /* html template file */
 $ste->setFormTemplate('student.inc');
 /* we halen informatie uit deze relatie (tabel of view) erbij */
-$ste->setSupportingRelation('student');
+$ste->setSupportingRelation('student_email');
 /* die relatie moeten we er wel aan kunnen knopen */
 //$ste->setSupportingJoinList(array('PEOPLE_MANAGER'=>'MEDEWERKER_CODE'));
 /* Dit zie je in de zoeklijst */
@@ -68,7 +68,7 @@ $ste->processResponse();
 //	$ste->setValue("ACHTERNAAM","Stevens");
 //}
 $ste->generateHTML();
-echo '<br>student'.$ste->getValue('snummer');
+echo '<br>student_email'.$ste->getValue('snummer');
 /* kijk of mijn knop is uitgevoerd */
 //if (isSet($_POST['Splits'])){
   // echo '<br>knippen maar';

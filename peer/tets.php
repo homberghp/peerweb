@@ -41,7 +41,7 @@ exit(0);
 /* echo expandListRowTemplate($aA); */
 //var_dump($dbConn);
 echo 'hallo p<br/>';
-$pq = $dbConn->Prepare('select * from student where achternaam ~* $1');
+$pq = $dbConn->Prepare('select * from student_email where achternaam ~* $1');
 //var_dump($pq);
 $rs=$pq->execute(array("den$"));
 echo '<br/>';

@@ -16,7 +16,7 @@ if (isSet($_REQUEST['csvout'])) {
         die("<br>Cannot get class name  with " . $sql . " reason " . $dbConn->ErrorMsg() . "<br>");
     }
     $classname = $resultSet->fields['classname'];
-    $sql = "select * from student where  class_id='$class_id' order by achternaam,roepnaam";
+    $sql = "select * from student_email where  class_id='$class_id' order by achternaam,roepnaam";
     $filename = $classname . date('-Y-M-d') . '.csv';
     $dbConn->queryToCSV($sql, $filename, ',', true);
     exit(0);
@@ -42,7 +42,7 @@ if (isSet($_POST['newhoofdgrp'])) {
 }
 if (isSet($_POST['sethoofdgrp']) && isSet($newhoofdgrp) && isSet($_POST['studenten'])) {
     $memberset = '\'' . implode("','", $_POST['studenten']) . '\'';
-    $sql = "update student set hoofdgrp='$newhoofdgrp' " .
+    $sql = "update student_email set hoofdgrp='$newhoofdgrp' " .
             "where snummer in ($memberset)";
     $resultSet = $dbConn->Execute($sql);
     if ($resultSet === false) {
@@ -94,7 +94,7 @@ $nav->show();
                     . "achternaam||', '||roepnaam||coalesce(' '||tussenvoegsel,'') as naam,pcn,"
                     . "sclass as klas,hoofdgrp,cohort,course_short sprogr,studieplan_short as splan,lang,sex,gebdat,"
                     . " land,plaats,pcode\n"
-                    . " from student st "
+                    . " from student_email st "
                     . "join student_class cl using(class_id)\n"
                     . "natural join studieplan \n"
                     . "left join fontys_course fc on(st.opl=fc.course)\n"

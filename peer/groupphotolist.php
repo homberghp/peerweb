@@ -64,7 +64,7 @@ fwrite( $fp,
 
 $sql = "select snummer,roepnaam||coalesce(' '||tussenvoegsel||' ',' ')||achternaam as name,\n"
         . " photo, coalesce(tutor,'---') as slb\n"
-        . " from student s join prj_grp pg using(snummer) natural join portrait p"
+        . " from student_email s join prj_grp pg using(snummer) natural join portrait p"
         . " left join tutor t on(s.slb=t.userid) \n"
         . " where pg.prjtg_id=$prjtg_id\n"
         . " order by achternaam,roepnaam\n";

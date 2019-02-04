@@ -16,7 +16,7 @@ if ( !$isTutor || $as_student ) {
         "doc_id,doctype,to_char(uploadts,'YYYY-MM-DD HH24:MM') as uploaded,\n".
 	"rtrim(roepnaam) as roepnaam,\n".
 	"rtrim(tussenvoegsel) as tussenvoegsel,rtrim(achternaam) as achternaam from\n".
-	"viewabledocument join student st on (author=st.snummer) join project using(prj_id)\n".
+	"viewabledocument join student_email st on (author=st.snummer) join project using(prj_id)\n".
 	"where viewer=$snummer\n".
 	"and uploadts < (now()-'3 months'::interval)\n".
 	"and doc_id not in (select upload_id from downloaded where snummer=$snummer) order by doc_id desc";
@@ -27,7 +27,7 @@ if ( !$isTutor || $as_student ) {
                 "to_char(uploadts,'YYYY-MM-DD HH24:MM') as uploaded,\n" .
                 "rtrim(roepnaam) as roepnaam,\n" .
                 "rtrim(tussenvoegsel) as tussenvoegsel,rtrim(achternaam) as achternaam from\n" .
-                "uploads join prj_grp using (prjtg_id,snummer) join student using(snummer)\n" .
+                "uploads join prj_grp using (prjtg_id,snummer) join student_email using(snummer)\n" .
                 "join prj_tutor pt using(prjtg_id)\n" .
                 "join prj_milestone pm on(pt.prjm_id=pm.prjm_id)\n " .
                 " join project using(prj_id) where owner_id='$peer_id'\n" .
