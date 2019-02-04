@@ -54,7 +54,7 @@ $sql = "select coalesce(grp_name,'g'||grp_num) as sgroup,tutor,apt.grp_num,\n" .
         " case when reason notnull then 'excused' else null end as check" .
         " from prj_grp pg join all_prj_tutor apt using(prjtg_id)\n" .
         " join activity a  using(prjm_id) \n" .
-        " join student st using(snummer)  \n" .
+        " join student_email st using(snummer)  \n" .
         " left join absence_reason using(act_id,snummer)\n".
         " where act_id=$act_id\n" .
         " order by grp_num,achternaam,roepnaam\n";
