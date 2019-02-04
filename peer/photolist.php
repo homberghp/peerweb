@@ -16,7 +16,7 @@ $sql = "select substr(now()::text,1,16) as ts,rtrim(sclass) as sclass,"
 $resultSet = $dbConn->Execute($sql);
 extract($resultSet->fields);
 $classname = "$faculty_short.$sclass";
-$texdir = $site_home . '/tex/out';
+$texdir = $site_home . '/tex/photolist_out';
 $basename = sanitizeFilename('photolist_' . trim(preg_replace('/\s+/', '_', $classname)));
 $filename = $basename . '.tex';
 $pdfname = $basename . '.pdf';

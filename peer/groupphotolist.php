@@ -14,7 +14,7 @@ $sql = "select substr(now()::text,1,16) as ts,rtrim(afko)||'-'||year as project,
         . "from all_prj_tutor where prjtg_id=$prjtg_id";
 $resultSet = $dbConn->Execute( $sql );
 extract( $resultSet->fields );
-$texdir = $site_home . '/tex/out';
+$texdir = $site_home . '/tex/photolist_out';
 $basename = sanitizeFilename( 'groupphotolist_' . trim( preg_replace( '/\s+/',
                         '_', $project . '_' . $grp_name ) ) );
 $filename = $basename . '.tex';
