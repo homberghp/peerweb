@@ -11,4 +11,4 @@ cat ../functions/class_selector.sql | psql -X ${targetdb}
 cat ../functions/tutor_selector.sql | psql -X ${targetdb}
 cat  drop_menu_items_on_student.sql  | psql -X ${targetdb}
 
-check_student_data.sh ${targetdb}
+./check_student_data.sh ${targetdb}
