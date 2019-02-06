@@ -38,6 +38,7 @@
     body, div, table { font-family: Verdana, Arial, sans-serif; font-size:8pt;}
     body.local {background:#fc8 url(../images/local.png);}
     body.test {background:#cfc url(../images/test.png);}
+    body.staging {background:#def url(../images/staging.png);}
     body.osirix {background:#ccf url(../images/osirix.png);}
     body{ margin:0; 
           padding:0;
