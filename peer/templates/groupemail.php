@@ -18,7 +18,7 @@
                     </td></tr>
             </table>
             <div style='background-color:#eee' >
-                <p>In the text below the following substitutions are available: <b>{$name}, {$firstname}, {$email}, and {$snummer}</b>.</p>
+                <p>In the text below the following substitutions are available: <b>{$name}, {$firstname}, {$email}, {$snummer}, {$grp_num}, and {$grp_name}</b>.</p>
                 <label for='formsubject' style='font-size:120%;font-weight:bold'>subject:</label>&nbsp;
                 <input type='text' name='formsubject' id='formsubject'  size='120' value='<?= $formsubject ?>'/>
                 <textarea class='tinymce' name='mailbody' cols='120' rows='20'><?= $mailbody ?></textarea>

@@ -68,7 +68,8 @@ with pro as (select * from all_prj_tutor where prjm_id=\$1),
   union select tutor_id as recipient,prjtg_id from pro)
 select distinct snummer, email1 as email, 
        roepnaam ||' '||coalesce(tussenvoegsel||' ','')||achternaam as name,roepnaam as firstname,
-       trim(afko)as afko,trim(description)as description,milestone,assessment_due as due,milestone_name
+       trim(afko)as afko,trim(description)as description,milestone,assessment_due as due,milestone_name,
+            grp_num, grp_name
   from rec  join pro using(prjtg_id) join student_email on(recipient=snummer) where snummer in ({$paramtext})
 SQL;
     $formMailer = new FormMailer($dbConn, $formsubject, $mailbody, $peer_id);
