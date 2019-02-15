@@ -382,6 +382,13 @@ $navtable = array(// index, defproject, citeria1,2, milestones
                 'image' => 'subversion.png',
                 'interest' => 'subversion',
             ),
+            array('target' => 'svnprogress.php',
+                'tooltip' => 'SVN progress view.',
+                'linktext' => 'svn progress',
+                'menu_name' => 'svn progress',
+                'image' => 'subversion.png',
+                'interest' => 'subversion',
+            ),
         ),
     ),
     array(
