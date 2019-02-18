@@ -66,28 +66,45 @@ class XLSWriter {
         return $this;
     }
 
+    /**
+     *  Coloring rows for e.g. groups.
+     * @param type $a
+     * @return $this
+     */
     public function setRainBow($a) {
         $this->rainBow = $a;
         return $this;
     }
 
+    /**
+     * Set office doc property.
+     */
     public function setAuthor($a) {
         $this->author = $a;
         return $this;
     }
 
+    /**
+     * Set office doc property.
+     */
     public function setTitle($t) {
         $this->title = $t;
         return $this;
     }
 
+    /**
+     * Set office doc property.
+     */
     public function setDescription($d) {
         $this->description = $d;
         return $this;
     }
 
+    /**
+     * Set office doc property.
+     */
     public function addKeywords($k) {
-        $this->keywords .=$k;
+        $this->keywords .= $k;
         return $this;
     }
 
@@ -106,6 +123,11 @@ class XLSWriter {
         return $this;
     }
 
+    /**
+     *  Output filename, extract extension.
+     * @param type $f
+     * @return $this
+     */
     public function setFilename($f) {
         $this->filename = $f;
         $parts = explode('.', $this->filename);
@@ -115,16 +137,31 @@ class XLSWriter {
         return $this;
     }
 
+    /**
+     * Select the excel variant.
+     * @param type $f
+     * @return $this
+     */
     public function setExcelFormat($f) {
         $this->excelFormat = $f;
         return $this;
     }
 
+    /**
+     * Which column will trigger colour change.
+     * @param type $c
+     * @return $this
+     */
     public function setColorChangerColumn($c) {
         $this->colorChangerColumn = $c;
         return $this;
     }
 
+    /**
+     * Do the rows alternate in background color?
+     * @param type $az
+     * @return $this
+     */
     public function setAutoZebra($az) {
         $this->autoZebra = $az;
         if ($this->autoZebra) {
@@ -153,6 +190,11 @@ class XLSWriter {
         return $this;
     }
 
+    /**
+     * Record the column that adds up weights.
+     * @param type $weightedSumsColumn
+     * @return $this
+     */
     public function setWeightedSumsColumn($weightedSumsColumn) {
         $this->weightedSumsColumn = $weightedSumsColumn;
         return $this;
@@ -168,10 +210,22 @@ class XLSWriter {
         return PHPExcel_Cell::stringFromColumnIndex($column) . $row;
     }
 
+    /**
+     * Helper to compute coordinate string from rows and column with row coordinate absolute.
+     * @param int $column , one based (A==1)
+     * @param int $row, one based 
+     * @return type string
+     */
     static function cellCoordinateAbsoluteRow($column, $row) {
         return PHPExcel_Cell::stringFromColumnIndex($column) . '$' . $row;
     }
 
+    /**
+     * Helper to compute coordinate string from rows and column with row AND column coordinate absolute.
+     * @param int $column , one based (A==1)
+     * @param int $row, one based 
+     * @return type string
+     */
     static function cellCoordinateAbsolute($column, $row) {
         return '$' . PHPExcel_Cell::stringFromColumnIndex($column) . '$' . $row;
     }
@@ -182,17 +236,19 @@ class XLSWriter {
      */
     function writeXlsx($query) {
         PHPExcel_Cell::setValueBinder(new PHPExcel_Cell_AdvancedValueBinder());
-        $objPHPExcel = new PHPExcel();
+        $phpExcelInstance = new PHPExcel();
         if (!isSet($this->rowParser)) {
             $this->rowParser = new DefaultRowParser();
         }
-        $objPHPExcel->getProperties()->setCreator($this->creator);
-        $objPHPExcel->getProperties()->setLastModifiedBy($this->author);
-        $objPHPExcel->getProperties()->setTitle($this->title);
-        $objPHPExcel->getProperties()->setSubject($this->subject);
-        $objPHPExcel->getProperties()->setDescription($this->description);
-        $objPHPExcel->getProperties()->setKeywords($this->keywords);
-        $objPHPExcel->getProperties()->setCategory($this->catagory);
+
+        // set office document properties
+        $phpExcelInstance->getProperties()->setCreator($this->creator);
+        $phpExcelInstance->getProperties()->setLastModifiedBy($this->author);
+        $phpExcelInstance->getProperties()->setTitle($this->title);
+        $phpExcelInstance->getProperties()->setSubject($this->subject);
+        $phpExcelInstance->getProperties()->setDescription($this->description);
+        $phpExcelInstance->getProperties()->setKeywords($this->keywords);
+        $phpExcelInstance->getProperties()->setCategory($this->catagory);
 
 
         global $ADODB_FETCH_MODE;
@@ -230,9 +286,9 @@ class XLSWriter {
         );
         for ($i = 0; $i < $headCount; $i++) {
             $name = $this->tableHeader[$i];
-            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($i, $row, $name);
+            $phpExcelInstance->getActiveSheet()->setCellValueByColumnAndRow($i, $row, $name);
             $coor = XLSWriter::cellCoordinate($i, $row);
-            $objPHPExcel->getActiveSheet()->getStyle($coor)->applyFromArray($headerStyles);
+            $phpExcelInstance->getActiveSheet()->getStyle($coor)->applyFromArray($headerStyles);
         }
         $row++;
         // get types
@@ -283,34 +339,34 @@ class XLSWriter {
         if ($this->firstWeightColumn > 0) {// add weights row
             $this->weigthsRow = $row;
             $coor = XLSWriter::cellCoordinate($this->firstWeightColumn - 1, $row);
-            $objPHPExcel->getActiveSheet()
+            $phpExcelInstance->getActiveSheet()
                     ->setCellValue(
                             $coor, 'Weights', PHPExcel_Cell_DataType::TYPE_STRING);
-            $objPHPExcel->getActiveSheet()->getStyle($coor)->applyFromArray($headerStyles);
+            $phpExcelInstance->getActiveSheet()->getStyle($coor)->applyFromArray($headerStyles);
             $weightSum = 0;
             $w = 0;
             $weightLast = count($this->weights) - 1;
             for (; $w < count($this->weights); $w++) {
                 $coor = XLSWriter::cellCoordinate($this->firstWeightColumn + $w, $row);
-                $weightSum +=$this->weights[$w];
-                $objPHPExcel->getActiveSheet()
+                $weightSum += $this->weights[$w];
+                $phpExcelInstance->getActiveSheet()
                         ->setCellValue(
                                 $coor, $this->weights[$w], PHPExcel_Cell_DataType::TYPE_NUMERIC);
-                $objPHPExcel->getActiveSheet()->getStyle($coor)->applyFromArray($headerStyles);
+                $phpExcelInstance->getActiveSheet()->getStyle($coor)->applyFromArray($headerStyles);
             }
             $coor = XLSWriter::cellCoordinate($this->weightedSumsColumn, $row);
             $wBegin = XLSWriter::cellCoordinate($this->firstWeightColumn, $row);
             $wEnd = XLSWriter::cellCoordinate($this->firstWeightColumn + $weightLast, $row);
             $formula = "=SUM($wBegin:$wEnd)";
-            $objPHPExcel->getActiveSheet()
+            $phpExcelInstance->getActiveSheet()
                     ->setCellValue(
                             $coor, $formula, PHPExcel_Cell_DataType::TYPE_FORMULA);
-            $objPHPExcel->getActiveSheet()->getStyle($coor)->applyFromArray($headerStyles);
+            $phpExcelInstance->getActiveSheet()->getStyle($coor)->applyFromArray($headerStyles);
             $coor = XLSWriter::cellCoordinate($this->weightedSumsColumn, $row - 1);
-            $objPHPExcel->getActiveSheet()
+            $phpExcelInstance->getActiveSheet()
                     ->setCellValue(
                             $coor, 'Total WT', PHPExcel_Cell_DataType::TYPE_STRING);
-            $objPHPExcel->getActiveSheet()->getStyle($coor)->applyFromArray($headerStyles);
+            $phpExcelInstance->getActiveSheet()->getStyle($coor)->applyFromArray($headerStyles);
             $row++;
         }
         while (!$resultSet->EOF) {
@@ -337,21 +393,21 @@ class XLSWriter {
                 $xlstype = isSet($XlsTypes[$i]) ? $XlsTypes[$i] : PHPExcel_Cell_DataType::TYPE_STRING;
                 //error_log("writing cell type = {$xlstype} for column {$i}, value {$value}", 0);
 
-                $objPHPExcel->getActiveSheet()
+                $phpExcelInstance->getActiveSheet()
                         ->setCellValueExplicit(
                                 $coor, $value, $xlstype);
                 if ($this->columnTypes[$i] == 'date') {
-                    $objPHPExcel->getActiveSheet()->getStyle($coor)
+                    $phpExcelInstance->getActiveSheet()->getStyle($coor)
                             ->getNumberFormat()
                             ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_DATE_YYYYMMDD2);
                 } else if ($this->columnTypes[$i] == 'time') {
-                    $objPHPExcel->getActiveSheet()->getStyle($coor)
+                    $phpExcelInstance->getActiveSheet()->getStyle($coor)
                             ->getNumberFormat()
                             ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_DATE_TIME8);
                 }
 
 
-                $objPHPExcel->getActiveSheet()->getStyle($coor)->applyFromArray($cellStyleArray);
+                $phpExcelInstance->getActiveSheet()->getStyle($coor)->applyFromArray($cellStyleArray);
             }
             if ($this->weightedSumsColumn >= 0) {
                 $weightLast = count($this->weights) - 1;
@@ -362,45 +418,45 @@ class XLSWriter {
                 $rEnd = XLSWriter::cellCoordinate($this->firstWeightColumn + $weightLast, $row);
                 $wSumCoor = XLSWriter::cellCoordinateAbsolute($this->weightedSumsColumn, $this->weigthsRow);
                 $formula = "=SUMPRODUCT({$wBegin}:{$wEnd},{$rBegin}:{$rEnd})/$wSumCoor";
-                $objPHPExcel->getActiveSheet()
+                $phpExcelInstance->getActiveSheet()
                         ->setCellValueExplicit(
                                 $coor, $formula, PHPExcel_Cell_DataType::TYPE_FORMULA);
-                $objPHPExcel->getActiveSheet()->getStyle($coor)->applyFromArray($cellStyleArray);
+                $phpExcelInstance->getActiveSheet()->getStyle($coor)->applyFromArray($cellStyleArray);
             }
             $row++;
             $resultSet->moveNext();
         }
 
         $row = 1;
-        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(
+        $phpExcelInstance->getActiveSheet()->setCellValueByColumnAndRow(
                 0, $row, $this->linkText);
-        $objPHPExcel->getActiveSheet()->getCell('A' . $row)
+        $phpExcelInstance->getActiveSheet()->getCell('A' . $row)
                 ->getHyperlink()->setUrl($this->linkUrl);
         $row++;
-        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(
+        $phpExcelInstance->getActiveSheet()->setCellValueByColumnAndRow(
                 0, $row, $this->title);
 
 
-        $objPHPExcel->getActiveSheet()->getStyle('A' . $row)->applyFromArray($headerStyles);
-        $objPHPExcel->getActiveSheet()->getStyle('A1')->applyFromArray($headerStyles);
+        $phpExcelInstance->getActiveSheet()->getStyle('A' . $row)->applyFromArray($headerStyles);
+        $phpExcelInstance->getActiveSheet()->getStyle('A1')->applyFromArray($headerStyles);
         $rightCell1 = XLSWriter::cellCoordinate(min($headCount - 1, 10), $row);
 
-        $objPHPExcel->getActiveSheet()->mergeCells('A' . $row . ':' . $rightCell1);
+        $phpExcelInstance->getActiveSheet()->mergeCells('A' . $row . ':' . $rightCell1);
         $rightCell2 = XLSWriter::cellCoordinate(min($headCount - 1, 10), 1);
-        $objPHPExcel->getActiveSheet()->mergeCells('A1:' . $rightCell2);
+        $phpExcelInstance->getActiveSheet()->mergeCells('A1:' . $rightCell2);
 
 
         // set format
-        $objPHPExcel->getActiveSheet()
+        $phpExcelInstance->getActiveSheet()
                 ->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
-        $objPHPExcel->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+        $phpExcelInstance->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
 
-        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToWidth(1);
-        $objPHPExcel->getActiveSheet()->getPageSetup()->setFitToHeight(0);
+        $phpExcelInstance->getActiveSheet()->getPageSetup()->setFitToWidth(1);
+        $phpExcelInstance->getActiveSheet()->getPageSetup()->setFitToHeight(0);
 
 
         for ($i = 'A', $j = 0; $i <= 'Z' && $j < $headCount; $i++, $j++) {
-            $objPHPExcel->getActiveSheet()->getColumnDimension($i)->setAutoSize(true);
+            $phpExcelInstance->getActiveSheet()->getColumnDimension($i)->setAutoSize(true);
 //            $objPHPExcel->getActiveSheet()->getStyle($i . '2')->applyFromArray($styleArray);
         }
         PHPExcel_Calculation::getInstance()->clearCalculationCache();
@@ -408,15 +464,15 @@ class XLSWriter {
         PHPExcel_Calculation::getInstance()->calculate();
         switch ($this->excelFormat) {
             case 'Excel2007':
-                $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
+                $objWriter = new PHPExcel_Writer_Excel2007($phpExcelInstance);
                 $this->mimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
                 break;
             case 'Excel5':
-                $objWriter = new PHPExcel_Writer_Excel5($objPHPExcel);
+                $objWriter = new PHPExcel_Writer_Excel5($phpExcelInstance);
                 $this->mimeType = 'application/vnd.ms-excel';
                 break;
             default:
-                $objWriter = new PHPExcel_Writer_CSV($objPHPExcel);
+                $objWriter = new PHPExcel_Writer_CSV($phpExcelInstance);
                 $this->mimeType = 'text/comma-separated-values';
                 break;
         }
@@ -436,8 +492,8 @@ class XLSWriter {
 
             fpassthru($fp);
             fclose($fp);
-            $objPHPExcel->disconnectWorksheets();
-            unset($objPHPExcel);
+            $phpExcelInstance->disconnectWorksheets();
+            unset($phpExcelInstance);
             exit(0);
         } else {
             echo "cannot copy file $tempFile to out stream\n";
