@@ -38,7 +38,16 @@ $spreadSheetWriter->processRequest();
 $spreadSheetWidget = $spreadSheetWriter->getWidget();
 
 $rainbow = new RainBow(STARTCOLOR, COLORINCREMENT_RED, COLORINCREMENT_GREEN, COLORINCREMENT_BLUE);
-$scripts = '';
+$scripts = '<script type="text/javascript" src="js/jquery.js"></script>
+    <script src="js/jquery.tablesorter.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+           $("#myTable").tablesorter({widgets: [\'zebra\']});
+      });
+
+    </script>
+    <link rel=\'stylesheet\' type=\'text/css\' href=\'' . SITEROOT . '/style/tablesorterstyle.css\'/>
+';
 
 pagehead2('SVN Progress', $scripts);
 $page_opening = "SVN Progess for project $afko $description <span style='font-size:8pt;'>prjm_id $prjm_id prj_id $prj_id milestone $milestone </span>";
@@ -51,16 +60,6 @@ $emailList = array();
 $grpList = array();
 $resultSet = $dbConn->Execute($sql);
 
-$scripts = '<script type="text/javascript" src="js/jquery.js"></script>
-    <script src="js/jquery.tablesorter.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function() {
-           $("#myTable").tablesorter({widgets: [\'zebra\']});
-      });
-
-    </script>
-    <link rel=\'stylesheet\' type=\'text/css\' href=\'' . SITEROOT . '/style/tablesorterstyle.css\'/>
-';
 $nav->show()
 ?>
 <div id='navmain' style='padding:1em;'>
@@ -73,7 +72,8 @@ $nav->show()
         </form>
     </fieldset>
     <div align='left'>
-        <?= queryToTableChecked($dbConn, $sql, true, $grpColumn, $rainbow, -1, '', ''); ?>
+        <?= simpletable($dbConn, $sql, "<table id='myTable' class='tablesorter' summary='your requested data'"
+                . " style='empty-cells:show;border-collapse:collapse' border='1'>");?>
     </div>
 </div>
 </body>
