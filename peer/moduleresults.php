@@ -75,15 +75,7 @@ if (isSet($_POST['get'])) {
             . " where pm.prj_id=$prj_id and pm.milestone=$milestone and pt.prjtg_id=$prjtg_id\n"
             . " order by pt.grp_num,c.achternaam,a.criterium";
     $dbConn->log($sql);
-    if ($csvout == 'Y') {
-        $dbConn->queryToCSV($sql, $filename);
-        exit(0);
-    }
 }
-// $sqlgrp = "select 'g'||grp_num||' ('||tutor||')'||coalesce(': '||alias,'')  as name,\n" .
-//        "prjtg_id as value,grp_num \n" .
-//        "from prj_tutor pt join prj_milestone pm using(prjm_id) \n" .
-//        "left join grp_alias using(prjtg_id) where prjm_id=$prjm_id order by grp_num";
 
 $sqlgrp = "select distinct grp_num||' ('||tutor||')'||' ['||prjtg_id||']'||coalesce(': '||alias ,'')" .
         " as name,\n" .
@@ -127,7 +119,7 @@ $prj_id_selector = $prjSel->getSelector();
         <table>
             <tr><th>Project milestone</th><td><?= $prj_id_selector ?></td></tr>
             <tr><th>Group</th><td> <select name='prjtg_id'><?= $grpList ?></select>
-                    &nbsp;Excel output?&nbsp;<input type="checkbox" name="csvout" value="Y" <?= $checked ?>/>
+                    
                     <input type="submit" name="get" value="Get"/></td></tr>
         </table>
     </form>

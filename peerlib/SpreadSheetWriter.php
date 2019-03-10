@@ -206,23 +206,23 @@ class SpreadSheetWriter {
     }
 
     function writeAMCFile($query, $filename) {
-
-        $this->dbConn->queryToCSV($query, $filename, ',', false, 'Content-type: text/csv; charset: UTF-8;', false);
+        require_once 'querytocsv.php';
+        queryToCSV($this->dbConn, $query, $filename, ',', false, 'Content-type: text/csv; charset: UTF-8;', false);
         exit(0);
     }
 
     function writeProgresFile($query, $filename) {
+        require_once 'querytocsv.php';
 
-        $this->dbConn->queryToCSV($query, $filename, ';', false, 'Content-type: text/x-comma-separated-values; charset: UTF-8;', false);
+        queryToCSV($this->dbConn, $query, $filename, ';', false, 'Content-type: text/x-comma-separated-values; charset: UTF-8;', false);
         exit(0);
     }
 
     function writeCSVFile($query, $filename) {
+        require_once 'querytocsv.php';
 
-        $this->dbConn->queryToCSV($query, $filename, ';', true, 'Content-type: text/x-comma-separated-values; charset: UTF-8;', true);
+        queryToCSV($this->dbConn, $query, $filename, ';', true, 'Content-type: text/x-comma-separated-values; charset: UTF-8;', true);
         exit(0);
     }
 
 }
-
-?>
