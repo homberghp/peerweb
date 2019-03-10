@@ -633,6 +633,7 @@ function criteriaRow2($criteria, $judge, $contestant, $rainbow) {
  * default pagehead with title, style and body start, optional script
  */
 function pagehead($title, $script = '') {
+    global $body_class;
     echo '<?xml version="1.0" encoding="utf-8" ?>' . "\n" .
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"' . "\n" .
     '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">' . "\n" .
@@ -656,7 +657,7 @@ function pagehead($title, $script = '') {
     <title><?= $title ?></title>
     </head>
     <?php
-    echo "<body class='" . BODY_CLASS . "' >";
+    echo "<body class='{Sbody_class}' >";
 }
 
 /* pagehead() */
@@ -665,6 +666,7 @@ function pagehead($title, $script = '') {
  * default pagehead with title, style and body start, optional extra headers.
  */
 function pagehead2($title, $script = '') {
+    global $body_class;
     echo '<?xml version="1.0" encoding="utf-8" ?>' . "\n" .
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"' . "\n" .
     '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">' . "\n" .
@@ -682,7 +684,7 @@ function pagehead2($title, $script = '') {
     <title><?= $title ?></title>
     </head>
     <?php
-    echo "<body class='" . BODY_CLASS . "'>\n";
+    echo "<body class='{$body_class}'>\n";
 }
 
 /* pagehead2() */
