@@ -110,8 +110,8 @@ if (file_exists($filename)) {
     $class_mail_address = "Existing class email address:&nbsp;<a href='mailto:$maillisthead@fontysvenlo.org'><tt style='fontsize:120%;color:#008;font-weight:bold'>"
             . "$maillisthead@fontysvenlo.org</tt></a> last update {$filetime}";
 }
-?>
-<?= $nav->show() ?>
+ $nav->show() ;
+         ?>
 <div id='navmain' style='padding:1em;'>
     <fieldset><legend>Select class</legend>
         <p>Choose the class of which you want to retrieve the data.</p>

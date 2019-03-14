@@ -31,7 +31,7 @@ switch ($bgstyle) {
         break;
     case 'staging':
         $body_background = 'background:#def url(images/staging.png)';
-        $body_class = 'test';
+        $body_class = 'staging';
         break;
     case 'test':
         $body_background = 'background:#cfc url(images/test.png)';
