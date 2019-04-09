@@ -116,7 +116,7 @@ if ($resultSet !== false && !$resultSet->EOF) {
     $LOGINDATA = array_merge($LOGINDATA, $resultSet->fields);
     extract($resultSet->fields, EXTR_PREFIX_ALL, 'login');
 }
-if (basename(__FILE__) == 'login.php') {
+if (basename(filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL)) == 'login.php') {
     header("location: $root_url/index.php");
 }
 ?>

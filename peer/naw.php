@@ -76,13 +76,14 @@ $sql="select snummer,rtrim(roepnaam) as roepnaam,\n".
     "rtrim(straat) as straat,\n".
     "rtrim(huisnr) as huisnr,rtrim(email1) as email1 from student_email order by achternaam,roepnaam,snummer limit 20 offset $offset";
 $resultSet= $dbConn->Execute($sql);
+$self=basename(__FILE__);
 ob_start();
 if ( $resultSet === false ) {
     echo( "<br>Cannot get sequence next value with ".$dbConn->ErrorMsg()."<br>");
  } else {
     $rowcounter=$offset;
     $offset2=$offset+19;
-    echo "<form name='naw' method='post' action='$PHP_SELF'>\n".
+    echo "<form name='naw' method='post' action='$self'>\n".
 	"<fieldset><legend>Naw data $offset to $offset2 of $scount</legend>";
     echo "<table border='1' style='border-collapse:collapse' summary='student data'>\n".
 	"<tr><th>#</th><th>snummer</th><th>Roepnaam</th><th>voorletters</th><th>tussenvoegsel</th>".
@@ -116,4 +117,3 @@ if ( $resultSet === false ) {
 $page->addBodyComponent( new Component(ob_get_clean()) );
 ob_clean(); 
 $page->show();
-?>

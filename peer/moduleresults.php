@@ -115,7 +115,7 @@ $prj_id_selector = $prjSel->getSelector();
         De gegevens worden gepresenteerd als een tabel of een csv file die automatisch door excel wordt opengemaakt</p>
     <p>De naam van de csv-file wordt gemaakt van module afkorting, grp,milestone en datum van opvragen. 
         Daarbij wordt groep als een underscore weergegeven indien alle groepen wordt opgevraagd. Voorbeeld:<strong>PRJ11Am1_2004-10-09.csv</strong></p>
-    <form method="post" name="moduleresult" action="<?= $PHP_SELF; ?>">
+    <form method="post" name="moduleresult" action="<?= basename(__FILE__); ?>">
         <table>
             <tr><th>Project milestone</th><td><?= $prj_id_selector ?></td></tr>
             <tr><th>Group</th><td> <select name='prjtg_id'><?= $grpList ?></select>

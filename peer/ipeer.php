@@ -327,7 +327,7 @@ if ( !$prjSel->isEmptySelector() ) {
                     group <?= $grp_num ?> (<?= $grp_alias ?>)
                     <br/>for Student <?= $student_data ?>
                 </h2>
-                <form method="post" name="assessment" action="<?= basname(__FILE__) ?>" onsubmit="return confirm('Are you sure you want to submit these data?')">
+                <form method="post" name="assessment" action="<?= basename(__FILE__) ?>" onsubmit="return confirm('Are you sure you want to submit these data?')">
                     <h4 ><?= $gradetype ?></h4>
     <?= $pg->getGroupPhotos() ?>
                     <table align='center' class='navleft'>

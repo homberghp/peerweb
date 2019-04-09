@@ -58,7 +58,7 @@ $sqltail = "achternaam||rtrim(coalesce(', '||tussenvoegsel,'')) as achternaam ,r
 $spreadSheetWriter = new SpreadSheetWriter($dbConn, $sqlhead . $sqltail);
 
 $spreadSheetWriter->setFilename($filename)
-        ->setLinkUrl($server_url . $PHP_SELF . '?prjm_id=' . $prjm_id)
+        ->setLinkUrl($root_url . basename(__FILE__) . '?prjm_id=' . $prjm_id)
         ->setTitle($title)
         ->setAutoZebra(false)
         ->setColorChangerColumn(16);
