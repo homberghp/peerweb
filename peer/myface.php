@@ -5,13 +5,13 @@ require_once('tutorhelper.php');
 require_once'navigation.php';
 
 $pp=array();
-if (file_exists('fotos/' . $judge . '.jpg')) {
-    $pp['foto'] = 'fotos/' . $judge . '.jpg';
+if (file_exists("{$fotobase}/fotos/{$judge}.jpg")) {
+    $pp['foto'] =  "fotos/{$judge}.jpg";
 } else {
     $pp['foto'] = 'fotos/0.jpg';
 }
-if (file_exists('mfotos/' . $judge . '.jpg')) {
-    $pp['mfoto'] = 'mfotos/' . $judge . '.jpg';
+if (file_exists("{$fotobase}/mfotos/{$judge}.jpg")) {
+    $pp['mfoto'] =  "mfotos/{$judge}.jpg";
 } else {
     $pp['mfoto'] = 'mfotos/0.jpg';
 }
@@ -25,4 +25,3 @@ $nav = new Navigation(array(),$page,$title);
 $page->addBodyComponent($nav);
 $page->addHtmlFragment('templates/myface.html',$pp);
 $page->show();
-?>
