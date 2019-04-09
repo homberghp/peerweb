@@ -10,7 +10,7 @@ $title = "Studieplan editor on DB {$db_name} ";
 $page = new PageContainer($title);
 $ste = new SimpleTableEditor($dbConn, $page);
 $ste->setTitle($title)
-    ->setFormAction($PHP_SELF)
+    ->setFormAction(basename(__FILE__))
     ->setRelation('studieplan')
     ->setMenuName('studieplan')
     ->setKeyColumns(array('studieplan'))

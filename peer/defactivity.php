@@ -16,7 +16,7 @@ extract($_SESSION);
 $dbConn->setSqlAutoLog(true);
 $page = new PageContainer("Define or update Activity ");
 $ste = new SimpleTableEditor($dbConn, $page);
-$ste->setFormAction($PHP_SELF)
+$ste->setFormAction(basename(__FILE__))
         ->setRelation('activity')
         ->setMenuName('activity')
         ->setKeyColumns(array('act_id'))

@@ -13,7 +13,7 @@ require_once("ste.php");
 
 $page = new PageContainer("Peerweb Menu option queries on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page);
-$ste->setFormAction($PHP_SELF)
+$ste->setFormAction(basename(__FILE__))
         ->setRelation('menu_option_queries')
         ->setMenuName('option_queries')
         ->setKeyColumns(array('menu_name', 'column_name'))

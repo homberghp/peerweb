@@ -11,9 +11,9 @@ requireCap(CAP_RECRUITER);
  */
 require_once("ste.php");
 requireCap(CAP_LOOKUP_STUDENT);
-$page = new PageContainer("Prospect Student adminstration " . $PHP_SELF . " on DB " . $db_name);
+$page = new PageContainer("Prospect Student adminstration " . basename(__FILE__) . " on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page, hasCap(CAP_ALTER_STUDENT));
-$ste->setFormAction($PHP_SELF)
+$ste->setFormAction(basename(__FILE__))
         ->setRelation('prospects')
         ->setMenuName('prospects')
         ->setKeyColumns(array('snummer'))

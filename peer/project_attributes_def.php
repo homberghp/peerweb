@@ -10,7 +10,7 @@ require_once("ste.php");
 
 $page = new PageContainer("Project attributes and performance indicators on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page);
-$ste->setFormAction($PHP_SELF)
+$ste->setFormAction(basename(__FILE__))
         ->setRelation('project_attributes_def')
         ->setMenuName('project_attributes')
         ->setKeyColumns(array('project_attributes_def'))

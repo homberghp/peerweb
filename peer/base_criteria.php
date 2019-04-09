@@ -12,7 +12,7 @@ requireCap(CAP_TUTOR);
 require_once("ste.php");
 $page = new PageContainer("Base peerweb grading criteria on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page);
-$ste->setFormAction($PHP_SELF)
+$ste->setFormAction(basename(__FILE__))
         ->setRelation('base_criteria')
         ->setMenuName('base_criteria')
         ->setKeyColumns(array('criterium_id'))

@@ -13,7 +13,7 @@ $page->setTitle($title);
 
 $ste = new SimpleTableEditor($dbConn, $page);
 $ste->setTitle($title)
-        ->setFormAction($PHP_SELF)
+        ->setFormAction(basename(__FILE__))
         ->setRelation('partial_grade_event')
         ->setMenuName('partial_grade_event')
         ->setKeyColumns(array('partial_grade_event_id'))

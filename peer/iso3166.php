@@ -9,7 +9,7 @@ require_once("ste.php");
 $page = new PageContainer("Country table $db_name ");
 $ste = new SimpleTableEditor( $dbConn ,$page);
 $ste->setTitle( "country codes" )
-        ->setFormAction( $PHP_SELF )
+        ->setFormAction( basename(__FILE__) )
         ->setRelation( 'iso3166' )
         ->setMenuName( 'iso3166' )
         ->setKeyColumns( array( 'number' ) )

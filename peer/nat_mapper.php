@@ -10,7 +10,7 @@ require_once("ste.php");
 $page = new PageContainer("Nat mapper $db_name ");
 $ste = new SimpleTableEditor( $dbConn ,$page);
 $ste->setTitle( "Map nationalities" )
-        ->setFormAction( $PHP_SELF )
+        ->setFormAction( basename(__FILE__) )
         ->setRelation( 'nat_mapper' )
         ->setMenuName( 'nat_mapper' )
         ->setKeyColumns( array( 'id' ) )

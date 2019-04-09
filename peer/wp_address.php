@@ -10,9 +10,9 @@ requireCap(CAP_LOOKUP_STUDENT);
  * $Id: student_admin.php 1102 2012-02-22 21:44:36Z hom $
  */
 require_once("ste.php");
-$page = new PageContainer("Student work placement address " . $PHP_SELF . " on DB " . $db_name);
+$page = new PageContainer("Student work placement address " . basename(__FILE__) . " on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page, hasCap(CAP_ALTER_STUDENT));
-$ste->setFormAction($PHP_SELF)
+$ste->setFormAction(basename(__FILE__))
         ->setRelation('wp_address')
         ->setMenuName('wp_address')
         ->setKeyColumns(array('wp_address_id'))

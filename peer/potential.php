@@ -15,7 +15,7 @@ require_once("ste.php");
 $page = new PageContainer($navTitle = "Register a potential student on DB " . $db_name);
 $page->setTitle($navTitle);
 $ste = new SimpleTableEditor($dbConn, $page);
-$ste->setFormAction($PHP_SELF)
+$ste->setFormAction(basename(__FILE__))
         ->setRelation('potentials')
         ->setMenuName('potentials')
         ->setKeyColumns(array('pot_id'))

@@ -7,9 +7,9 @@ requireCap(CAP_SYSTEM);
  * $Id: colloquium_speakers.php 1723 2014-01-03 08:34:59Z hom $
  */
 require_once("ste.php");
-$page = new PageContainer("Peerweb colloqium speakers" . $PHP_SELF . " on DB " . $db_name);
+$page = new PageContainer("Peerweb colloqium speakers" . basename(__FILE__) . " on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page);
-$ste->setFormAction($PHP_SELF)
+$ste->setFormAction(basename(__FILE__))
         ->setRelation('colloquium_speakers')
         ->setMenuName('colloquium_speakers')
         ->setKeyColumns(array('colloquium_speaker_id'))

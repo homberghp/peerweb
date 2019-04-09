@@ -12,9 +12,9 @@ requireCap(CAP_SYSTEM);
 
 require_once("ste.php");
 
-$page = new PageContainer("Peerweb testscript " . $PHP_SELF . " on DB " . $db_name);
+$page = new PageContainer("Peerweb testscript " . basename(__FILE__) . " on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page);
-$ste->setFormAction($PHP_SELF)
+$ste->setFormAction(basename(__FILE__))
         ->setRelation('menu_item')
         ->setMenuName('menu_item')
         ->setKeyColumns(array('menu_name', 'column_name'))

@@ -12,7 +12,7 @@ requireCap(CAP_LOOKUP_STUDENT);
 require_once("ste.php");
 $page = new PageContainer("Student adminstration page");
 $ste = new SimpleTableEditor($dbConn, $page, hasCap(CAP_ALTER_STUDENT));
-$ste->setFormAction($PHP_SELF)
+$ste->setFormAction(basename(__FILE__))
         ->setRelation('student_email')
         ->setMenuName('student_admin')
         ->setKeyColumns(array('snummer'))

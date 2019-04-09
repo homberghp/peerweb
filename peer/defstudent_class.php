@@ -13,7 +13,7 @@ require_once("ste.php");
 $page = new PageContainer("Class adminstration page  on DB " . $db_name);
 //$dbConn->setSqlAutoLog(true);
 $ste = new SimpleTableEditor($dbConn, $page);
-$ste->setFormAction($PHP_SELF)
+$ste->setFormAction(basename(__FILE__))
         ->setRelation('student_class')
         ->setMenuName('student_class')
         ->setKeyColumns(array('class_id'))

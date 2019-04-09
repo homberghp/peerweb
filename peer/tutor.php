@@ -11,7 +11,7 @@ $title = "Tutor editor on DB {$db_name} ";
 $page = new PageContainer($title);
 $ste = new SimpleTableEditor($dbConn, $page);
 $ste->setTitle($title)
-        ->setFormAction($PHP_SELF)
+        ->setFormAction(basename(__FILE__))
         ->setRelation('tutor')
         ->setMenuName('tutor')
         ->setRawNames(array('userid','roepnaam','achternaam','tussenvoegsel'))

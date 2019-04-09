@@ -14,9 +14,9 @@ $pdj_id = 1;
 $milestone = 1;
 extract($_SESSION);
 $dbConn->setSqlAutoLog(true);
-$page = new PageContainer("Define project " . $PHP_SELF . " on DB " . $db_name);
+$page = new PageContainer("Define project " . basename(__FILE__) . " on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page);
-$ste->setFormAction($PHP_SELF)
+$ste->setFormAction(basename(__FILE__))
         ->setRelation('project')
         ->setMenuName('project')
         ->setKeyColumns(array('prj_id'))

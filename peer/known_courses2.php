@@ -15,7 +15,7 @@ require_once("ste.php");
 
 $page = new PageContainer("Fontys courses in peerweb on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page);
-$ste->setFormAction($PHP_SELF);
+$ste->setFormAction(basename(__FILE__));
 $ste->setRelation('fontys_course');
 $ste->setMenuName('fontys_course')
         ->setKeyColumns(array('course'))
