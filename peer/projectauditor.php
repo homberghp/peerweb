@@ -69,7 +69,7 @@ $isTutorOwner = checkTutorOwner($dbConn,$prj_id,$tutor_code);
 //
 pagehead('Add project auditor.');
 $page_opening="Add project auditor to a project. prj_id $prj_id milestone $milestone prjm_id $prjm_id";
-$nav=new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav=new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 
 ?>

@@ -46,7 +46,7 @@ $submit_button = "<button name='bsubmit' value='submit'>Submit</button>";
 $page = new PageContainer();
 $page_opening = 'Create class assignment cards for sitting students';
 $page->setTitle($page_opening);
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $page->addBodyComponent($nav);
 
 $form2Form = new HtmlContainer("<form method='post' name='group_def' action='$PHP_SELF'>");

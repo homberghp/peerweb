@@ -84,7 +84,7 @@ $slbList = "<select name='slb'>\n" . getOptionListGrouped($dbConn, $sql_slb, $sl
 
 pagehead2('list students by a slb', $scripts);
 $page_opening = "Student list for slb ";
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 ?>
 <?= $nav->show() ?>

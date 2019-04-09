@@ -42,7 +42,7 @@ $oldClassSelector = $classSelectorClass->setAutoSubmit(true)->addConstraint('sor
 
 
 $page_opening = "Pupil  photos for {$slb_info}";
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $sql = "SELECT distinct st.snummer as number," .
         "st.roepnaam||' '||coalesce(regexp_replace(st.tussenvoegsel,'''','&rsquo;')||' ','')||st.achternaam as name,\n" .

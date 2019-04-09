@@ -195,7 +195,7 @@ $pp['afko_lc'] = strtolower($afko);
 $prjSel->setSubmitOnChange(true);
 $pp['prj_id_selector'] = $prjSel->getWidget();
 $page_opening = "Subversion repositories for project $afko: $description (prj_id: $prj_id, milestone:$milestone)";
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $page->addBodyComponent($nav);
 $page->addHtmlFragment('templates/subversionrepostop.html', $pp);

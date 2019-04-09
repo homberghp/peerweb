@@ -88,7 +88,7 @@ $page = new PageContainer();
 $page_opening = "Open or close an assessment" .
         "<span style='font-size:8pt;'>prj_id $prj_id milestone $milestone prjm_id $prjm_id</span>";
 $page->setTitle('Open or close an assessment');
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 
 $grpTutorString = groupOpenerBarChart2($dbConn, $prjm_id, $isTutorOwner);
 $page->addBodyComponent($nav);

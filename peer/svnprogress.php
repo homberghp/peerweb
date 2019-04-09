@@ -51,7 +51,7 @@ $scripts = '<script type="text/javascript" src="js/jquery.min.js"></script>
 
 pagehead2('SVN Progress', $scripts);
 $page_opening = "SVN Progess for project $afko $description <span style='font-size:8pt;'>prjm_id $prjm_id prj_id $prj_id milestone $milestone </span>";
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 
 $prjSel->setJoin('milestone_grp using (prj_id,milestone)');

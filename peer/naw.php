@@ -67,7 +67,7 @@ $page->addHeadComponent( new Component("<style type='text/css'>
  
  </style>"));
 $page_opening="Peer naw data";
-$nav=new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav=new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $sql="select snummer,rtrim(roepnaam) as roepnaam,\n".
     "rtrim(voorletters) as voorletters,\n".
     "rtrim(tussenvoegsel) as tussenvoegsel,\n".

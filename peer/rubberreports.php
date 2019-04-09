@@ -14,7 +14,7 @@ $css='<style type=\'text/css\'><!--
 </style>';
 pagehead2('Rubber',$css);
 $page_opening="Rubber reports at $rubberbase";
-$nav=new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav=new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->show();
 $_SESSION['conf_editor_basedir'] = $rubberbase;
 echo "<br/>\n";

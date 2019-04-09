@@ -60,7 +60,7 @@ function validateGrade(el) {
   return true;
 }
 </script>");
-$nav=new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav=new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $nav->addLeftNavText(file_get_contents('news.html'));
 ob_start();

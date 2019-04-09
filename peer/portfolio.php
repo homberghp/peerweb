@@ -8,7 +8,7 @@ extract($_SESSION);
 $page = new PageContainer();
 $page->setTitle('Personal portfolio');
 $page_opening = "Welcome to the portfolio of $roepnaam $tussenvoegsel $achternaam ($snummer)";
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 
 $nav->addLeftNavText(file_get_contents('news.html'));

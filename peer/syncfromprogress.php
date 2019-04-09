@@ -47,7 +47,7 @@ if (isSet($_FILES['userfile']['name']) && ( $_FILES['userfile']['name'] != '' ) 
 $page = new PageContainer();
 $page_opening = "Synchronise  Student Data from Progress view SV09_ingeschrevenen";
 $page->setTitle($page_opening);
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $action = $PHP_SELF;
 $page->addBodyComponent($nav);

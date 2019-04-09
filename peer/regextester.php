@@ -38,7 +38,7 @@ $page = new PageContainer();
 $page_opening='Regex tester';
 $page->setTitle($page_opening);
 //$dbConn->setSqlAutoLog(true);
-$nav=new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav=new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $page->addBodyComponent($nav);
 $regex_length=max(strlen($regex),40);
 $formString="

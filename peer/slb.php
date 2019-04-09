@@ -63,7 +63,7 @@ $pp['oldClassOptionsList'] = $classSelectorClass->setSelectorName('oldclass_id')
 $page_opening = "Get and set Student Study coach (SLB) by class.";
 $page = new PageContainer();
 $page->setTitle("Set/check SLB");
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $sql_slb = "select achternaam||','||roepnaam||' ['||tutor||']' as name,\n"
         . " snummer as value,faculty_short||'-'||course_short as namegrp \n"
