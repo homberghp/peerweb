@@ -5,7 +5,7 @@ require_once 'TemplateWith.php';
 
 /**
  * prepended by all
- * if not logged in, append query string to $PHP_SELF, to present the parameters to the same page again
+ * if not logged in, append query string to $SELF, to present the parameters to the same page again
  */
 session_start();
 //require_once('peerutils.php');
@@ -116,7 +116,7 @@ if ($resultSet !== false && !$resultSet->EOF) {
     $LOGINDATA = array_merge($LOGINDATA, $resultSet->fields);
     extract($resultSet->fields, EXTR_PREFIX_ALL, 'login');
 }
-if (basename($PHP_SELF) == 'login.php') {
+if (basename(__FILE__) == 'login.php') {
     header("location: $root_url/index.php");
 }
 ?>

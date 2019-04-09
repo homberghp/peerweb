@@ -81,7 +81,7 @@ $sqlgrp = "select distinct grp_num||' ('||tutor||')'||' ['||prjtg_id||']'||coale
         " as name,\n" .
         " prjtg_id as value,case when ago.open=true then 'background:#fee' else 'font-weight:bold;background:#efe' end as style\n" .
         " from prj_grp natural join prj_tutor \n" .
-        "join tutor on(userid=tutor_id)\n".
+        "join tutor on(userid=tutor_id)\n" .
         " natural join assessment_grp_open ago \n" .
         " natural left join grp_alias \n" .
         " where prjm_id=$prjm_id order by prjtg_id";
@@ -103,7 +103,7 @@ pagehead2('Get the raw data of an assessment', $scripts);
 $page_opening = "Scores voor module $afko: $description ($year) milestone $milestone " .
         "<span style='font-size:6pt;'>($prj_id M $milestone)</span>";
 
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $prjSel->setJoin('available_assessment using (prjm_id)');
 
@@ -119,7 +119,7 @@ $prj_id_selector = $prjSel->getSelector();
         <table>
             <tr><th>Project milestone</th><td><?= $prj_id_selector ?></td></tr>
             <tr><th>Group</th><td> <select name='prjtg_id'><?= $grpList ?></select>
-                    
+
                     <input type="submit" name="get" value="Get"/></td></tr>
         </table>
     </form>

@@ -34,11 +34,13 @@ $isTutorOwner = ($tutor == $tutor_code);
 $page = new PageContainer();
 $page->setTitle('Peer assessment, define project');
 $page_opening = "Define the number of criteria for the project.";
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $page->addBodyComponent($nav);
+
+$self=basename(__FILE__);
 $form1 = new HtmlContainer("<fieldset id='form1'><legend><b>Project milestone and number of criteria.</b></legend>");
-$form1Form = new HtmlContainer("<form id='project' method='post' name='project' action='$PHP_SELF'>");
+$form1Form = new HtmlContainer("<form id='project' method='post' name='project' action='$self'>");
 $input_prj_selector = "<select name='prj_id' onchange='submit()'>\n" .
         getOptionListGrouped($dbConn, "select afko||': '||description||' ('||year||')' as name" .
                 ", year as namegrp,prj_id as value from project order by year desc,afko", $prj_id) . "\n</select>\n";

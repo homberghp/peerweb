@@ -131,7 +131,7 @@ $isTutorOwner = ($tutor == $tutor_code);
 
 $page = new PageContainer();
 $page->setTitle( 'Peer assessment, define project' );
-$nav = new Navigation( $tutor_navtable, basename( $PHP_SELF ), $page_opening );
+$nav = new Navigation( $tutor_navtable, basename( __FILE__ ), $page_opening );
 
 $form1 = new HtmlContainer( "<div>" );
 $input_module_code = "<input type='text' size='10' maxlength='10' class='" . $validator->validationClass( 'afko' ) . "' name='afko' value='$afko' title='Progress module code'/>";

@@ -175,7 +175,7 @@ extract($resultSet->fields);
 $page = new PageContainer();
 $page->setTitle('Select participating student_class');
 $page_opening = "Select the student_class of the participating students";
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $page->addBodyComponent($nav);
 $resultSet = $dbConn->Execute("select afko,description from project where prj_id=$prj_id");
 extract($resultSet->fields);
@@ -185,8 +185,8 @@ $prjSel->setJoin(" (select distinct prjm_id from prj_milestone natural join proj
 
 $form1Form->addText($prjSel->getWidget());
 
-
-$form2Form = new HtmlContainer("<form method='post' name='group_def' action='$PHP_SELF'>");
+$self=basename(__FILE__);
+$form2Form = new HtmlContainer("<form method='post' name='group_def' action='$self'>");
 
 //$form2Form->addText( "Legend:class name [class size]<br/>\n" );
 $sql = "select distinct rtrim(student_class.sclass) as sclass,class_id,sort1,sort2,sort_order,\n" .

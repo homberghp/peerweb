@@ -74,7 +74,7 @@ SQL;
     $formMailer->mailWithData($sql,$params);
 }
 $page_opening = "These students are overdue with filling in their peer assessment forms.";
-$nav = new Navigation(array(), basename($PHP_SELF), $page_opening);
+$nav = new Navigation(array(), basename(__FILE__), $page_opening);
 $page = new PageContainer();
 $page->addBodyComponent($nav);
 if (hasCap(CAP_SYSTEM)) {

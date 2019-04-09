@@ -9,7 +9,7 @@ require_once 'mailFunctions.php';
 $pp = array( );
 $page = new PageContainer();
 $page->setTitle( "Plan absentdag" );
-$nav = new Navigation( $tutor_navtable, basename( $PHP_SELF ), "Plan een absentdag" );
+$nav = new Navigation( $tutor_navtable, basename( __FILE__ ), "Plan een absentdag" );
 $page->addBodyComponent( $nav );
 
 

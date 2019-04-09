@@ -207,7 +207,7 @@ $inputColumns = array(
 $roleDefTable = getQueryToTableChecked2( $dbConn, $sql, false, -1, new RainBow( 0x46B4B4, 64, 32, 0 ), 'document[]', $doctype_set, $inputColumns );
 pagehead( 'Define types of roles students can play.' );
 $page_opening = "Define the roles the students may assume in a project team.";
-$nav = new Navigation( $tutor_navtable, basename( $PHP_SELF ), $page_opening );
+$nav = new Navigation( $tutor_navtable, basename( __FILE__ ), $page_opening );
 $nav->setInterestMap( $tabInterestCount );
 $page = new PageContainer();
 $page->setTitle( $page_opening );

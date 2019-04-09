@@ -9,7 +9,7 @@ $saveResult = ConfFileEditor::save();
 $page_opening = "Rubber editor file ";
 $page = new PageContainer();
 $page->setTitle( $page_opening );
-$nav = new Navigation( $tutor_navtable, basename( $PHP_SELF ), $page_opening );
+$nav = new Navigation( $tutor_navtable, basename($PHP_SELF), $page_opening );
 $page->addBodyComponent( $nav );
 if ( $saveResult != '' ) {
   $page->addBodyComponent( new Component($saveResult) );

@@ -32,7 +32,7 @@ $sql = "select distinct snummer as id,achternaam as surname,roepnaam||coalesce('
 $spreadSheetWriter = new SpreadSheetWriter( $dbConn, $sql );
 $title = "exam list";
 $spreadSheetWriter->setFilename( $filename )
-        ->setLinkUrl( $server_url . $PHP_SELF . '?prjm_id=' . $prjm_id )
+        ->setLinkUrl( $server_url . basename(__FILE__) . '?prjm_id=' . $prjm_id )
         ->setTitle( $title )
         ->setAutoZebra( true );
 
@@ -47,7 +47,7 @@ $spreadSheetWidget = $spreadSheetWriter->getWidget();
 $rainbow = new RainBow( STARTCOLOR, COLORINCREMENT_RED, COLORINCREMENT_GREEN, COLORINCREMENT_BLUE );
 pagehead( 'Get exam list' );
 $page_opening = "Exam list for project $afko $description (prj_id $prj_id milestone $milestone prjm_id $prjm_id)";
-$nav = new Navigation( $tutor_navtable, basename( $PHP_SELF ), $page_opening );
+$nav = new Navigation( $tutor_navtable, basename( __FILE__ ), $page_opening );
 $nav->setInterestMap( $tabInterestCount );
 
 $prjSel->setJoin( 'milestone_grp using (prj_id,milestone)' );
@@ -56,7 +56,7 @@ $prj_id_selector = $prjSel->getSelector();
 <?= $nav->show() ?>
 <div id='navmain' style='padding:1em;'>
     <fieldset><legend>Select project</legend>
-        <form method="get" name="project" action="<?= $PHP_SELF; ?>">
+        <form method="get" name="project" action="<?= basename(__FILE__); ?>">
             <?= $prj_id_selector ?>
             <input type='submit' name='get' value='Get' />
             <?= $spreadSheetWidget ?>

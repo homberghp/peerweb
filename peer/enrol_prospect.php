@@ -76,7 +76,7 @@ $pp['newClassSelector'] = $nclassSelectorClass->setSelectorName('newclass_id')->
 $page = new PageContainer();
 $page_opening = "Enrol Prospect Students from SV05 into Peerweb.";
 $page->setTitle($page_opening);
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 
 $page->addBodyComponent($nav);

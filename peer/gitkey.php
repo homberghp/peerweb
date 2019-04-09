@@ -7,7 +7,7 @@ $page = new PageContainer();
 $page_opening = "Manage you git keys";
 $page->setTitle($page_opening);
 $pp = array();
-$nav = new Navigation(array(), basename($PHP_SELF), $page_opening);
+$nav = new Navigation(array(), basename(__FILE__), $page_opening);
 $page->addBodyComponent($nav);
 $pp['purpose'] = 'laptop';
 $keydir = '/home/git/sandbox/gitolite-admin/keydir/' . $peer_id;
@@ -41,7 +41,7 @@ if (isSet($_POST['btn']) && isSet($_FILES['keyfile']['name'])) {
 	}
     }
     // processed, goto self, dropping post data.
-    header("Location: $PHP_SELF");
+    header("Location: ",basename(__FILE__));
     exit(0);
 }
 if (isSet($_GET['deletefile'])  && (strpos($_GET['deletefile'], '..') === false)) {
@@ -61,6 +61,7 @@ $keyCount = 0;
 $keytable = "<table class='simpletable' border='1' style='border-collapse:collapse'>\n<caption>Your current keys</caption>\n"
         . "<tr><th>file name on server</th><th>key timestamp</th><th>ssh key details</th><th>delete</th></tr>\n";
 if ($dh = opendir($keydir)) {
+    $self=basename(__FILE__);
     while (($filename = readdir($dh)) !== false) {
         if (preg_match('/\.pub$/', $filename)) {
             $filename;
@@ -68,7 +69,7 @@ if ($dh = opendir($keydir)) {
             $kdetails = sshkeyDetails($filepath);
             $fmtime = date ("Y-m-d H:i",filemtime($filepath));
             $keytable .= "<tr><td>$filename </td><td>$fmtime</td><td style='width:600px:word-wrap:break-word'><pre>{$kdetails}</pre></td>"
-                    . "<td><form id='delete' action='$PHP_SELF' method='get'><input type='hidden' name='deletefile' value='$filename'/><input type='submit' name='deletBtn' value='Delete'/></form></td></tr>\n";
+                    . "<td><form id='delete' action='$self' method='get'><input type='hidden' name='deletefile' value='$filename'/><input type='submit' name='deletBtn' value='Delete'/></form></td></tr>\n";
             $keyCount++;
         }
     }

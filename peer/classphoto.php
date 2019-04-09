@@ -38,7 +38,7 @@ if (!$resultSet->EOF)
 $tablehead = "<h2><a href='photolist.php?class_id=$class_id'>"
         . "Class photos for class $faculty_short.$sclass $class_id: $year-" . ($year + 1) . "<img src='images/pdf_icon.png' border='0'/></a></h2>\n";
 $page_opening = "Class photos for class  $faculty_short.$sclass $class_id $year-" . ($year + 1);
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $sql = <<<'SQL'
     SELECT distinct st.snummer as number, 
@@ -54,7 +54,7 @@ $sql = <<<'SQL'
     where class_id=$1   
     order by achternaam,roepnaam
 SQL;
-
+$self = basename(__FILE__);
 //$dbConn->log($sql);
 $resultSet = $dbConn->Prepare($sql)->execute(array($class_id));
 if ($resultSet === false) {
@@ -64,7 +64,7 @@ if ($resultSet === false) {
 <?= $nav->show() ?>
 <div id='navmain' style='padding:1em;'>
     <div class='nav'>
-        <form method="get" name="class" action="<?= $PHP_SELF; ?>">
+        <form method="get" name="class" action="<?= $self; ?>">
             <?= $oldClassSelector ?>
             <input type='submit' name='b' value ='Get fotos'/>
         </form>

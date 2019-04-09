@@ -68,7 +68,7 @@ if ($resultSet === false) {
 }
 pagehead('Upload viewer for tutors');
 $page_opening = "Documents handed in by a group";
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $sql = "select sum(filesize) as zip_filesize from uploads where prjm_id=$prjm_id group by prjm_id";
 $resultSet = $dbConn->Execute($sql);
@@ -83,10 +83,10 @@ if ($resultSet === false) {
 <div id='navmain' style='padding:1em;'>
     <h1>Read uploaded files</h1>
     <fieldset><legend>select project/milestone</legend>
-        <form method="get" name="project" action="<?= $PHP_SELF ?>">
+        <form method="get" name="project" action="<?= basename(__FILE__) ?>">
             <?= $prj_id_selector ?><input type="submit" value="Get Project"/> <?= $prj_id ?>M<?= $milestone ?>/prjm_id=<?= $prjm_id ?>( <?= $doccount ?> documents).
         </form>
-        <form method="get" name="documenttype" action="<?= $PHP_SELF ?>">
+        <form method="get" name="documenttype" action="<?= basename(__FILE__) ?>">
             <?= $docList ?><input type="submit" value="Get doc type"/>  (doctype <?= $doctype ?>)
         </form>
     </fieldset>

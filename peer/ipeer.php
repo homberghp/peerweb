@@ -63,7 +63,7 @@ function validateGrade(el) {
   return true;
 }
 </script>" );
-$nav = new Navigation( $tutor_navtable, basename( $PHP_SELF ), $page_opening );
+$nav = new Navigation( $tutor_navtable, basename( __FILE__ ), $page_opening );
 ob_start();
 tutorHelper( $dbConn, $isTutor );
 $page->addBodyComponent( new Component( ob_get_clean() ) );
@@ -265,11 +265,12 @@ $pg->setPictSize( '84', '126' );
 $pg->setMaxCol( 8 );
 $criteria = getCriteria( $prjm_id );
 $rainbow = new RainBow( STARTCOLOR, COLORINCREMENT_RED, COLORINCREMENT_GREEN, COLORINCREMENT_BLUE );
+$self=basename(__FILE__);
 if ( $isTutor ) {
     $tutor_opener = "<fieldset style='background:#fff'>
 	<legend>For tutors</legend>
 	If you are a tutor you could use this page and the next to enter a participant's data, or just simply assume any participant's role.
-	  <form name='reopenform' method='post' action='$PHP_SELF'>
+	  <form name='reopenform' method='post' action='$self'>
 	  <input type='hidden' name='prjtg_id' value='$prjtg_id'/>
 	  <input type='hidden' name='judge' value='$judge'/>
           To let this person of a group correct his or her values, re-open the assessment for the group by clicking this button.
@@ -326,7 +327,7 @@ if ( !$prjSel->isEmptySelector() ) {
                     group <?= $grp_num ?> (<?= $grp_alias ?>)
                     <br/>for Student <?= $student_data ?>
                 </h2>
-                <form method="post" name="assessment" action="<?= $PHP_SELF ?>" onsubmit="return confirm('Are you sure you want to submit these data?')">
+                <form method="post" name="assessment" action="<?= basname(__FILE__) ?>" onsubmit="return confirm('Are you sure you want to submit these data?')">
                     <h4 ><?= $gradetype ?></h4>
     <?= $pg->getGroupPhotos() ?>
                     <table align='center' class='navleft'>

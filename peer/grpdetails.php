@@ -90,12 +90,12 @@ $scripts = '<script type="text/javascript" src="js/jquery.min.js"></script>
 ';
 pagehead2('Get class list', $scripts);
 $page_opening = "Group details for project ";
-$nav = new Navigation(array(), basename($PHP_SELF), $page_opening);
+$nav = new Navigation(array(), basename(__FILE__), $page_opening);
 $nav->show();
 ?>
 <div id='navmain' style='padding:1em;'>
 <?= $pSel ?>
-    <form method="post" action="<?= $PHP_SELF; ?>" >
+    <form method="post" action="<?= basename(__FILE__); ?>" >
     <?= $table ?>
         <input type='reset' name='reset' value='Reset Form'/>
         <input type='submit' name='submit' value='Submit Form'/>

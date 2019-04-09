@@ -109,7 +109,7 @@ $memberTable = getQueryToTableChecked( $dbConn, $sql, true, 4, $rainbow, -1, '',
 
 pagehead( 'Add individual student.' );
 $page_opening = "Add individual student to a project. <span style='font-size:6pt;'>prj_id $prj_id milestone $milestone </span>";
-$nav = new Navigation( $tutor_navtable, basename( $PHP_SELF ), $page_opening );
+$nav = new Navigation( $tutor_navtable, basename( __FILE__ ), $page_opening );
 $nav->setInterestMap( $tabInterestCount );
 $nav->show();
 $prjSelectWidget = $prjSel->getWidget();

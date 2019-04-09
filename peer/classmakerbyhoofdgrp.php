@@ -1,4 +1,5 @@
 <?php
+
 requireCap(CAP_ALTER_STUDENT_CLASS);
 
 require_once 'component.php';
@@ -13,7 +14,7 @@ require_once 'SpreadSheetWriter.php';
 require_once 'maillists.inc.php';
 $getAll = isSet($_POST['get']) ? 'checked' : '';
 $newclass_id = $oldclass_id = 1;
-$hoofdgrp='ALUMNIINF';
+$hoofdgrp = 'ALUMNIINF';
 extract($_SESSION);
 
 $pp = array();
@@ -48,9 +49,9 @@ $fdate = date('Y-m-d');
 $filename = "hoofdgrp_{$hoofdgrp}-{$fdate}";
 
 $spreadSheetWriter = new SpreadSheetWriter($dbConn, $sqlhead . ' student_email s ' . $sqltail);
-
+$self = basename(__FILE__);
 $spreadSheetWriter->setTitle("Hoofdgrp list  $hoofdgrp $fdate")
-        ->setLinkUrl($server_url . $PHP_SELF . '?oldclass_id=' . $oldclass_id)
+        ->setLinkUrl($server_url . $self . '?oldclass_id=' . $oldclass_id)
         ->setFilename($filename)
         ->setAutoZebra(true);
 
@@ -67,7 +68,7 @@ if (isSet($_POST['update']) && isSet($_POST['studenten'])) {
     if ($resultSet === false) {
         die("<br>Cannot update student_email with " . $sql . " reason " . $dbConn->ErrorMsg() . "<br>");
     }
-    createGenericMaillistByClassid($dbConn,  $oldclass_id);
+    createGenericMaillistByClassid($dbConn, $oldclass_id);
     createGenericMaillistByClassid($dbConn, $newclass_id);
 }
 
@@ -90,7 +91,7 @@ if (isSet($_POST['sethoofdgrp']) && isSet($newhoofdgrp) && isSet($_POST['student
 
 $pp['mailalias'] = $prefix . '@fontysvenlo.org';
 $oclassSelectorClass = new ClassSelectorClass($dbConn, $oldclass_id);
-$pp['oldClassSelector'] = $oldClassSelector;//oclassSelectorClass->setSelectorName('oldclass_id')->addConstraint('student_count <>0')->setAutoSubmit(true)->getSelector();
+$pp['oldClassSelector'] = $oldClassSelector; //oclassSelectorClass->setSelectorName('oldclass_id')->addConstraint('student_count <>0')->setAutoSubmit(true)->getSelector();
 
 $nclassSelectorClass = new ClassSelectorClass($dbConn, $newclass_id);
 $pp['newClassSelector'] = $nclassSelectorClass->setSelectorName('newclass_id')->getSelector();
@@ -98,7 +99,7 @@ $pp['newClassSelector'] = $nclassSelectorClass->setSelectorName('newclass_id')->
 $page = new PageContainer();
 $page_opening = "Move students between student_class.";
 $page->setTitle($page_opening);
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 
 $page->addBodyComponent($nav);

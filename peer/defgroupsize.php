@@ -30,7 +30,7 @@ $spreadSheetWriter = new SpreadSheetWriter($dbConn
 $filename = 'group_defs';
 $title = 'Group definitions';
 $spreadSheetWriter->setFilename($filename)
-        ->setLinkUrl($server_url . $PHP_SELF . '?prjm_id=' . $prjm_id)
+        ->setLinkUrl($server_url . $__FILE__ . '?prjm_id=' . $prjm_id)
         ->setTitle($title)
         ->setAutoZebra(true);
 
@@ -167,7 +167,7 @@ if ($resultSet === false) {
 } else if (!$resultSet->EOF)
     extract($resultSet->fields);
 $page_opening = "Select the number of groups and allocate the tutors. prjm_id $prjm_id prj_id $prj_id milestone $milestone";
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename($__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $sqltut = "select prjtg_id,t.tutor,pt.tutor_id,pt.grp_num, "
         . "gs.size as scount, rtrim(grp_name) as grp_name\n"
@@ -239,7 +239,7 @@ $thead = "               <thead><tr><th>G</th><th>Tutor</th><th align='right'>no
     <?= $prjSel->getWidget() ?>
     <?php if ($isTutorOwner) { ?>
         <fieldset><legend>Select number of group tutors</legend>
-            <form name='grpcount' method='post' action='<?= $PHP_SELF ?>'>
+            <form name='grpcount' method='post' action='<?= __FILE__ ?>'>
                 <input type='text' size='2' align='right' name='grp_count' value='<?= $grp_count ?>'/>
                 <input type='hidden' name='prjm_id' value="<?= $prjm_id ?>"/>
                 <input type='submit' name='bgcount' value='set number of tutors/groups' />
@@ -255,7 +255,7 @@ $thead = "               <thead><tr><th>G</th><th>Tutor</th><th align='right'>no
     <?php } ?>
     <fieldset>
         <legend>Select tutors</legend>
-        <form name='grpnameandtutor' method='post' action='<?= $PHP_SELF ?>'>
+        <form name='grpnameandtutor' method='post' action='<?= basename(__FILE__) ?>'>
             <table frame='box' border='3' style='border-collapse:3d;' rules='groups' cellpadding='3' summary='project groups and tutors'>
                 <?= $thead ?>
                 <?= $rows ?>
@@ -263,7 +263,7 @@ $thead = "               <thead><tr><th>G</th><th>Tutor</th><th align='right'>no
             </table>
         </form>
     </fieldset>
-    <form name='spreadsheet' method='post' action='<?= $PHP_SELF ?>'>
+    <form name='spreadsheet' method='post' action='<?= basename(__FILE__) ?>'>
         <?= $spreadSheetWidget ?>
     </form>
 </div>

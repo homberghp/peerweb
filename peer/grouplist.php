@@ -60,7 +60,7 @@ $sqltail = "achternaam||rtrim(coalesce(', '||tussenvoegsel,'')) as achternaam "
 $spreadSheetWriter = new SpreadSheetWriter($dbConn, $sqlhead . $sqltail);
 
 $spreadSheetWriter->setFilename($filename)
-        ->setLinkUrl($server_url . $PHP_SELF . '?prjm_id=' . $prjm_id)
+        ->setLinkUrl($root_url . basename(__FILE) . '?prjm_id=' . $prjm_id)
         ->setTitle($title)
         ->setAutoZebra(false)
         ->setColorChangerColumn($grpColumn);
@@ -86,7 +86,7 @@ $scripts='';
 /* '; */
 pagehead2('Get group tables', $scripts);
 $page_opening = "Group lists for project $afko $description <span style='font-size:8pt;'>prjm_id $prjm_id prj_id $prj_id milestone $milestone </span>";
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 
 $prjSel->setJoin('milestone_grp using (prj_id,milestone)');
@@ -122,7 +122,7 @@ $nav->show()
 ?>
 <div id='navmain' style='padding:1em;'>
     <fieldset><legend>Select project</legend>
-        <form method="get" name="project" action="<?= $PHP_SELF; ?>">
+        <form method="get" name="project" action="<?= basename(__FILE__); ?>">
             <?= $prj_id_selector ?>
             <input type='submit' name='get' value='Get' />
             <?= $spreadSheetWidget ?>

@@ -90,7 +90,7 @@ if (!$resultSet->EOF)
 $page_opening = "Email to group members From: $roepnaam $tussenvoegsel $achternaam <span style='font-family: courier'>&lt;$email1&gt;</span>";
 $page = new PageContainer();
 $page->setTitle('Mail-list page');
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $page->addBodyComponent($nav);
 //$page->addFileContentsOnce('templates/tinymce_include.html');
 $page->addHeadText(

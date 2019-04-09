@@ -58,9 +58,9 @@ $fdate = date('Y-m-d');
 $filename = 'class_list_' . $faculty_short . '_' . $sclass . '-' . $fdate;
 
 $spreadSheetWriter = new SpreadSheetWriter($dbConn, $sqlhead . ' student_email s ' . $sqltail);
-
+$self = basename(__FILE__);
 $spreadSheetWriter->setTitle("Class list  $faculty_short $sclass $fdate")
-        ->setLinkUrl($server_url . $PHP_SELF . '?oldclass_id=' . $oldclass_id)
+        ->setLinkUrl($server_url . $self . '?oldclass_id=' . $oldclass_id)
         ->setFilename($filename)
         ->setAutoZebra(true);
 
@@ -110,7 +110,7 @@ $pp['newClassSelector'] = $nclassSelectorClass->setSelectorName('newclass_id')->
 $page = new PageContainer();
 $page_opening = "Move students between student classes";
 $page->setTitle($page_opening);
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILENAME__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 
 $page->addBodyComponent($nav);

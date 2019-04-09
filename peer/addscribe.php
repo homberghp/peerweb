@@ -51,7 +51,7 @@ $page= new PageContainer();
 $page_opening="Add project scribe".
     "<span style='font-size:8pt;'>prj_id $prj_id milestone $milestone prjm_id $prjm_id</span>";
 $page->setTitle('Add a project scribe');
-$nav=new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav=new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $page->addBodyComponent($nav);
 $templatefile='templates/addscribe.html';
 $template_text= file_get_contents($templatefile, true);

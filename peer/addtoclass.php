@@ -83,7 +83,7 @@ $memberTable = simpletableString($dbConn, $sql, "<table id='myTable' class='tabl
 
 pagehead2('Add/move individual student to class.', $scripts);
 $page_opening = "Add individual student to a class. <span style='font-size:6pt;'>class_id {$class_id}</span>";
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $nav->show();
 require_once 'templates/addtoclass.html';

@@ -41,7 +41,7 @@ $page_opening = "Assessment received by $contestant_roepnaam $contestant_tussenv
 $page = new PageContainer();
 $page->setTitle('Peer assessment entry form');
 
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 ob_start();
 tutorHelper($dbConn, $isTutor);
 $page->addBodyComponent(new Component(ob_get_clean()));

@@ -194,7 +194,7 @@ $page_opening = "Put participants into groups";
 $page_opening = "Select participants into project groups&nbsp;" .
         "<span style='font-size:8pt;'>prj_id $prj_id milestone $milestone prjm_id $prjm_id</span>";
 $page->setTitle('Put participants into groups');
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 
 extract(getTutorOwnerData2($dbConn, $prjm_id), EXTR_PREFIX_ALL, 'ot');
 

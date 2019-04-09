@@ -63,7 +63,7 @@ $pp['alias']=$grp_alias;
 $page_opening = "Participant $roepnaam $tussenvoegsel $achternaam ($snummer)";
 $page = new PageContainer();
 $page->setTitle( 'Individual result' );
-$nav = new Navigation( $tutor_navtable, basename( $PHP_SELF ), $page_opening );
+$nav = new Navigation( $tutor_navtable, basename( __FILE__ ), $page_opening );
 $nav->setInterestMap( $tabInterestCount );
 
 $nav->addLeftNavText( file_get_contents( 'news.html' ) );
@@ -101,11 +101,12 @@ if ( $resultSet === false ) {
 $pp['fellowTable'] = getQueryToTableChecked( $dbConn, $sql, true, 1,
         new RainBow( 0x46B4B4, 64, 32, 0 ), 7, '', 0 );
 $pp['formOrNop']='';
+$self=basename(__FILE__);
 if ( $lazyCount > 0 ) {
     $pp['formOrNop']= "<br/>" . $langmap['niet zover'][$lang] . ": \n<table>" . $lazyjudges . "</table>\n";
 } else {
     $rainbow = new RainBow( STARTCOLOR, COLORINCREMENT_RED, COLORINCREMENT_GREEN, COLORINCREMENT_BLUE );
-    $pp['formOrNop']= "<form action='$PHP_SELF' name='recalc' method='get'>\n".
+    $pp['formOrNop']= "<form action='$self' name='recalc' method='get'>\n".
     getIndividualResultTable( $dbConn, $lang, $prjtg_id, $snummer, $groupgrade,
             $rainbow )."\n</form>\n"
             ."<table><tr><td>"

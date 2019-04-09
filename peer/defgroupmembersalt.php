@@ -84,7 +84,7 @@ $pp['newGroupOptionList'] = getOptionListGrouped($dbConn, $grp_sql, $newprjtg_id
 $page = new PageContainer();
 $page_opening = "Move students between project groups.";
 $page->setTitle($page_opening);
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $page->addBodyComponent($nav);
 $css = '<link rel=\'stylesheet\' type=\'text/css\' href=\'' . SITEROOT . '/style/tablesorterstyle.css\'/>';

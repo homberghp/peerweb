@@ -101,7 +101,7 @@ $page_opening = "Define the types of deliverables students can upload per milest
 
 $page = new PageContainer();
 $page->setTitle( 'Define types of deliverables students can upload.' );
-$nav = new Navigation( $tutor_navtable, basename( $PHP_SELF ), $page_opening );
+$nav = new Navigation( $tutor_navtable, basename( __FILE__ ), $page_opening );
 $page->addBodyComponent( $nav );
 
 $prjSel->setJoin( 'milestone_grp using (prj_id,milestone)' );

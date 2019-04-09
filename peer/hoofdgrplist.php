@@ -46,10 +46,10 @@ $sqltail = " join student_class using(class_id) left join tutor t on (s.slb=t.us
 $spreadSheetWriter = new SpreadSheetWriter($dbConn, $sqlhead . ' student_email s ' . $sqltail);
 
 $filename = 'hoofdgrp_list_' . $faculty_short . '_' . $hoofdgrp . '-' . date('Y-m-d');
-
+$self=basename(__FILE__);
 $spreadSheetWriter->setFilename($filename)
         ->setTitle("Hoofd groep list  $faculty_short $hoofdgrp $fdate")
-        ->setLinkUrl("{$server_url}{$PHP_SELF}?hoofdgrp={$hoofdgrp}")
+        ->setLinkUrl("{$server_url}/{$self}?hoofdgrp={$hoofdgrp}")
         ->setFilename($filename)
         ->setAutoZebra(true);
 
@@ -81,7 +81,7 @@ $cardsLink=
 
 pagehead2('list students by a hoofgrp', $scripts);
 $page_opening = "Hoofdgrp  list $faculty_short:$hoofdgrp ";
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 ?>
 <?= $nav->show() ?>
@@ -91,7 +91,7 @@ $nav->setInterestMap($tabInterestCount);
             Typically it is used to label students in course type and year or semester.</p>
 
         <p>If you want to retrieve  it (named <?= $filename ?>) as a <strong>spread sheet</strong>, select the spreadsheet option below.</p>
-        <form method="get" name="project" action="<?= $PHP_SELF; ?>">
+        <form method="get" name="project" action="<?= basename(__FILE__); ?>">
             <?= $oldClassSelector ?>
             <input type='submit' name='get' value='Get hoofdgrp' />&nbsp;<?= $spreadSheetWidget ?>
         </form>

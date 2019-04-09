@@ -87,7 +87,7 @@ $dbConn->log($sql);
 $spreadSheetWriter = new SpreadSheetWriter($dbConn, $sql);
 $title ="Results for all participants in project $afko $year milestone $milestone";
 $spreadSheetWriter->setFilename($filename)
-        ->setLinkUrl($server_url . $PHP_SELF )
+        ->setLinkUrl($root_url . basename(__FILE__) )
         ->setTitle($title)
         ->setColorChangerColumn(7);
         //->setRowParser( new RowWithArraysParser());
@@ -98,7 +98,7 @@ $pp['spreadSheetWidget'] = $spreadSheetWriter->getWidget();
 $page = new PageContainer();
 $page->setTitle('Get group tables');
 $page_opening = "Group lists for project $afko $description <span style='font-size:8pt;'>prjm_id $prjm_id prj_id $prj_id milestone $milestone </span>";
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $rainbow = new RainBow();
 $pp['rtable'] = getQueryToTableChecked($dbConn, $sql, false, 7, $rainbow, -1, '', ''); 

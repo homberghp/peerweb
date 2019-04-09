@@ -58,7 +58,7 @@ $filename = 'class_list_' . $faculty_short . '_' . $sclass . '-' . $fdate;
 $spreadSheetWriter = new SpreadSheetWriter($dbConn, $sqlhead1 . ' student_email s left join alt_email aem using(snummer) ' . $sqltail);
 
 $spreadSheetWriter->setTitle("Class list  $faculty_short $sclass $fdate")
-        ->setLinkUrl($server_url . $PHP_SELF . '?class_id=' . $class_id)
+        ->setLinkUrl($server_url . basename(__FILE__). '?class_id=' . $class_id)
         ->setFilename($filename)
         ->setAutoZebra(true);
 
@@ -98,7 +98,7 @@ $scripts = '<script type="text/javascript" src="js/jquery.min.js"></script>
 
 pagehead2('Get class list', $scripts);
 $page_opening = "Class list for class $faculty_short:$sclass ($class_id) ";
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $maillisthead = strtolower($faculty_short) . '.' . strtolower($sclass);
 $known_maillist = '/home/maillists/' . $maillisthead . '.maillist';
@@ -116,7 +116,7 @@ if (file_exists($filename)) {
     <fieldset><legend>Select class</legend>
         <p>Choose the class of which you want to retrieve the data.</p>
         <p>If you want to retrieve  it (named <i>"<?= $filename ?>"</i>) as a <strong>spread sheet</strong>, select the spreadsheet option below.</p>
-        <form method="get" name="project" action="<?= $PHP_SELF; ?>">
+        <form method="get" name="project" action="<?= basename(__FILE__); ?>">
             <?= $oldClassSelector ?>
             <input type='submit' name='get' value='Get class' />&nbsp;<?= $spreadSheetWidget ?>
         </form>

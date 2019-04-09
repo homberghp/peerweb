@@ -60,9 +60,10 @@ $spreadSheetWriter = new SpreadSheetWriter($dbConn, $expanded_query);
 $fdate = date('Y-m-d-H-i');
 $filename = "anyquery-{$fdate}";
 
+$self=basename(__FILE__);
 $spreadSheetWriter->setFilename($filename)
         ->setTitle("Query $query_name ($peer_id) $fdate")
-        ->setLinkUrl($server_url . $PHP_SELF)
+        ->setLinkUrl($root_url . $self)
         ->setAutoZebra(true);
 
 $spreadSheetWriter->processRequest();
@@ -80,7 +81,7 @@ $scripts = '<script type="text/javascript" src="js/jquery.min.js"></script>
 ';
 pagehead2('Execute and sql query to the database', $scripts);
 $page_opening = "Execute a query";
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable,$self , $page_opening);
 $my_queries = "select any_query_id,owner,query_name,query,query_comment from any_query where active";
 $resultSet = $dbConn->Execute($my_queries);
 $my_queries_table = '';
@@ -91,9 +92,9 @@ if ($resultSet !== FALSE) {
         while (!$resultSet->EOF) {
             extract($resultSet->fields);
             $my_queries_table .= "<tr>"
-                    . "<td><a href='$PHP_SELF?query_id=$any_query_id'>{$any_query_id}: {$query_name}</a></td>"
+                    . "<td><a href='$self?query_id=$any_query_id'>{$any_query_id}: {$query_name}</a></td>"
                     . "<td>$owner</td>"
-                    . "<td>$query_comment</td><td><pre>$query</pre></td><td><a href='{$PHP_SELF}?delete_query={$any_query_id}' title='delete query'><img src='images/delete-icon.png' border='0' alt='delete'/></td></tr>\n";
+                    . "<td>$query_comment</td><td><pre>$query</pre></td><td><a href='{$self}?delete_query={$any_query_id}' title='delete query'><img src='images/delete-icon.png' border='0' alt='delete'/></td></tr>\n";
             $resultSet->moveNext();
         }
         $my_queries_table .= "</table>\n";
@@ -104,7 +105,7 @@ $nav->show()
 ?>
 <div id='navmain' style='padding:1em;'>
     <fieldset><legend>Query text</legend>
-        <form method="get" name="project" action="<?= $PHP_SELF; ?>">
+        <form method="get" name="project" action="<?= basename(__FILE__); ?>">
             If you would like to save the query, give it a name<br/>
             <input type='text' name='query_name' value='<?= $query_name ?>' width='30'/><input type='submit' name='save' value='Save'/><br/>
             Comment:<br/>
