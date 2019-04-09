@@ -3,7 +3,7 @@ require_once('validators.php');
 
 $dir=validate($_REQUEST['d'], 'fotodir', 'fotos');
 $foto=validate($_REQUEST['s'], 'snummer', '0');
-$fotodir="/home/f/fontysvenlo.org/peerfotos/{$dir}";
+$fotodir="{$fotobase}/{$dir}";
 $fname="{$fotodir}/{$foto}.jpg";
 
 $fp = @fopen($fname, 'r');
