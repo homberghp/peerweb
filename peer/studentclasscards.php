@@ -87,9 +87,9 @@ $form2Fieldset->add($form2Form);
 
 $page->addBodyComponent(new Component('<!-- db_name=$db_name $Id: defgroup.php 1829 2014-12-28 19:40:37Z hom $ -->'));
 $page->addHeadText('
-<link type="text/css" href="css/pepper-grinder/jquery-ui-1.8.17.custom.css" rel="stylesheet" />	
-<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-1.8.17.custom.min.js"></script>
+<link type="text/css" href="css/pepper-grinder/jquery-ui.custom.css" rel="stylesheet" />	
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.custom.min.js"></script>
   <script>
 	$(function() {
 		$( "#tabs" ).tabs();

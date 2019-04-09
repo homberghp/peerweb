@@ -14,7 +14,7 @@ $page->addBodyComponent( $nav );
 
 
 //$css = "<link rel='stylesheet' type='text/css' href='style/tablesorterstyle.css'/>";
-//$page->addScriptResource('js/jquery.js');
+//$page->addScriptResource('js/jquery.min.js');
 //$page->addScriptResource('js/jquery.tablesorter.js');
 //$page->addJqueryFragment( '$("#myTable").tablesorter({widgets: [\'zebra\'],headers: {0:{sorter:false}}});' );
 //$page->addHeadText($css);
@@ -124,8 +124,8 @@ $pp['rtable']->setCheckColumn( 0 )
                 . " style='empty-cells:show;border-collapse:collapse' border='1'>" );
 $page->addHtmlFragment( 'templates/absentdag.html', $pp );
 $page->addHeadText( file_get_contents( 'templates/simpledatepicker.html' ) );
-$page->addScriptResource( 'js/jquery-1.7.1.min.js' );
-$page->addScriptResource( 'js/jquery-ui-1.8.17.custom.min.js' );
+$page->addScriptResource( 'js/jquery.min.js' );
+$page->addScriptResource( 'js/jquery-ui.custom.min.js' );
 $page->addJqueryFragment( '$(\'#absent_datum\').datepicker(dpoptions);' );
 
 $page->show();

@@ -87,7 +87,7 @@ $sqlgrp = "select distinct grp_num||' ('||tutor||')'||' ['||prjtg_id||']'||coale
         " where prjm_id=$prjm_id order by prjtg_id";
 //echo " <pre>$sqlgrp</pre>\n";
 $grpList = getOptionList($dbConn, $sqlgrp, $grp_num);
-$scripts = '<script type="text/javascript" src="js/jquery.js"></script>          
+$scripts = '<script type="text/javascript" src="js/jquery.min.js"></script>          
     <script src="js/jquery.tablesorter.js"></script>
     <script type="text/javascript">                                         
       $(document).ready(function() {

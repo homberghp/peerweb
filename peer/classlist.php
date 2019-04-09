@@ -84,7 +84,7 @@ $sqlhead2 = "select distinct '<a href=''student_admin.php?snummer='||snummer||''
         . " from \n";
 $sql2 = $sqlhead2 . ' student_email s natural join portrait ' . $sqltail;
 //echo "<pre>{$sqlhead2}</pre>";
-$scripts = '<script type="text/javascript" src="js/jquery.js"></script>
+$scripts = '<script type="text/javascript" src="js/jquery.min.js"></script>
     <script src="js/jquery.tablesorter.js"></script>
     <script type="text/javascript">                                         
       $(document).ready(function() {

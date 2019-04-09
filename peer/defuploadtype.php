@@ -132,8 +132,8 @@ $pp['milestone'] = $milestone;
 
 $datePickers = array( );
 
-$page->addScriptResource( 'js/jquery-1.7.1.min.js' );
-$page->addScriptResource( 'js/jquery-ui-1.8.17.custom.min.js' );
+$page->addScriptResource( 'js/jquery.min.js' );
+$page->addScriptResource( 'js/jquery-ui.custom.min.js' );
 
 $pp['rtable'] = getQueryToTableChecked2( $dbConn, $sql, true, -1, new RainBow(), 'doctype[]', $doctype_set,
         $inputColumns );

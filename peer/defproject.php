@@ -172,8 +172,8 @@ if ( $template_text === false ) {
 $page->addBodyComponent( $nav );
 $page->addBodyComponent( $form1 );
 $page->addHeadText( file_get_contents( 'templates/simpledatepicker.html' ) );
-$page->addScriptResource( 'js/jquery-1.7.1.min.js' );
-$page->addScriptResource( 'js/jquery-ui-1.8.17.custom.min.js' );
+$page->addScriptResource( 'js/jquery.min.js' );
+$page->addScriptResource( 'js/jquery-ui.custom.min.js' );
 $page->addJqueryFragment( '$(\'#embeddedPicker\').datepicker(dpoptions);' );
 $page->show();
 ?>

@@ -176,7 +176,7 @@ if (isSet($_REQUEST['bsubmit']) && isSet($_REQUEST['participant']) && isProjectS
     }
 }
 
-$script = '<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>'
+$script = '<script type="text/javascript" src="js/jquery.min.js"></script>'
         . '<script type="text/javascript" language="JavaScript">
     function checkAll(theForm, cName, cClass, status) {
     var n=theForm.elements.length;

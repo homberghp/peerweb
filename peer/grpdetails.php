@@ -78,7 +78,7 @@ $table = getQueryToTableChecked2($dbConn, $sql, false, -1, new RainBow(0x46B4B4,
 
 //$table = simpleTableString($dbConn, $sql, "<table id='myTable' class='tablesorter' summary='your requested data'"
 //        . " style='empty-cells:show;border-collapse:collapse' border='1'>");
-$scripts = '<script type="text/javascript" src="js/jquery.js"></script>
+$scripts = '<script type="text/javascript" src="js/jquery.min.js"></script>
     <script src="js/jquery.tablesorter.js"></script>
     <script type="text/javascript">                                         
       $(document).ready(function() {

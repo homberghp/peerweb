@@ -73,7 +73,7 @@ $sqlhead = "select distinct '<a href=\"student_admin.php?snummer='||s.snummer||'
 
 $rainbow = new RainBow(STARTCOLOR, COLORINCREMENT_RED, COLORINCREMENT_GREEN, COLORINCREMENT_BLUE);
 $scripts='';
-/* $scripts = '<script type="text/javascript" src="js/jquery.js"></script> */
+/* $scripts = '<script type="text/javascript" src="js/jquery.min.js"></script> */
 /*     <script src="js/jquery.tablesorter.js"></script> */
 /*     <script type="text/javascript"> */
 /*       $(document).ready(function() { */
@@ -108,7 +108,7 @@ if ($resultSet === false) {
     }
 }
 
-$scripts = '<script type="text/javascript" src="js/jquery.js"></script>
+$scripts = '<script type="text/javascript" src="js/jquery.min.js"></script>
     <script src="js/jquery.tablesorter.js"></script>
     <script type="text/javascript">
       $(document).ready(function() {
