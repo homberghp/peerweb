@@ -19,7 +19,7 @@ interface RowParser {
     function parseToTableHeader( $pgResultSet, $headers = null );
 
     /**
-     *  Retreives the data types for the row columns, assuming them all the same.
+     *  Retrieves the data types for the row columns, assuming them all the same.
      * Returns the Adodb type identifiers. see {http://phplens.com/lens/adodb/docs-adodb.htm#metatype} 
      */
     function parseTypes( $pgResultSet );
