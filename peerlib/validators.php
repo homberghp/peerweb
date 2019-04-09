@@ -19,6 +19,7 @@ $validators=array(
 		  'sclass'  => array( '/^\w{1,6}$/','TIPT1' ), 
 		  'grp_num' => array('/^\d{1,3}$/',1),
 		  'doctype' => array('/^\d+$/',1),
+		  'fotodir' => array('/^(fotos|mfotos)$/','fotos'),
 		  'integer' => array('/^\d+$/',1),
 		  'phone_number' => array('/^\+?(\d|\s){8,20}$/','+31877877777'),
 		  'signed_integer' => array('/^(\+|-)\d+$/',0),
