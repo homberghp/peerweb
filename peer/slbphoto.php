@@ -110,7 +110,7 @@ $slbList = "<select name='slb'>\n" . getOptionListGrouped($dbConn, $sql_slb, $sl
         if (file_exists('fotos/' . $number . '.jpg')) {
             $photo = 'fotos/' . $number . '.jpg';
         } else {
-            $photo = 'fotos/anonymous.jpg';
+            $photo = 'fotos/0.jpg';
         }
         $leftpix = 0; //100+$colcount*140;
         $toppix = 0; //$rowcount*160;
