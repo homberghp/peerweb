@@ -20,7 +20,7 @@ if (date('m') < 07) {
     $year -= 1;
 }
 if (isSet($_REQUEST['prj_id'])) {
-    $_SESSION['prj_id'] = $prj_id = $_REQUEST['prj_id'];
+    $_SESSION['prj_id'] = $prj_id = validate($_REQUEST['prj_id'],'integer','0');
 }
 
 $tutor = $tutor_code;
@@ -28,8 +28,8 @@ $owner_id = $peer_id;
 //$dbConn->log($tutor_code);
 if (hasCap(CAP_SYSTEM) && isSet($_REQUEST['owner_id'])) {
     $owner_id = validate($_REQUEST['owner_id'], 'integer', 1);
-    $sql = "update project p set owner_id=$owner_id where prj_id=$prj_id";
-    $resultSet = $dbConn->Execute($sql);
+    $sql = 'update project p set owner_id=$1 where prj_id=$2';
+    $resultSet = $dbConn->Prepare($sql)->execute(array($owner_id,$prj_id));
 }
 // update
 if ($validator_clearance) {

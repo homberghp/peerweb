@@ -1,4 +1,5 @@
 <?php
+
 requireCap(CAP_ALTER_STUDENT_CLASS);
 require_once 'component.php';
 require_once('navigation2.php');
@@ -21,16 +22,19 @@ $pp['newhoofdgrp'] = '';
 $prefix = 'noprefix';
 
 if (isSet($_REQUEST['oldclass_id'])) {
-    $_SESSION['oldclass_id'] = $oldclass_id = $_REQUEST['oldclass_id'];
+    $_SESSION['oldclass_id'] = $oldclass_id = vaildate($_REQUEST['oldclass_id'], 'integer', '0');
 }
 if (isSet($_POST['newclass_id'])) {
-    $_SESSION['newclass_id'] = $newclass_id = $_POST['newclass_id'];
+    $_SESSION['newclass_id'] = $newclass_id = validate($_POST['newclass_id'], 'integer', '0');
 }
 if (isSet($oldclass_id)) {
-    $sql = "select trim(faculty_short) as faculty_short,trim(sclass) as sclass,\n"
-            . "lower(rtrim(faculty_short)||'.'||rtrim(sclass)) as prefix\n"
-            . " from student_class join faculty using(faculty_id) where class_id=$oldclass_id";
-    $resultSet = $dbConn->Execute($sql);
+    $sql = <<<'SQL'
+   select trim(faculty_short) as faculty_short,trim(sclass) as sclass,
+   lower(rtrim(faculty_short)||'.'||rtrim(sclass)) as prefix
+   from student_class join faculty using(faculty_id) where class_id=\$1
+SQL;
+
+    $resultSet = $dbConn->Execute($sql)->execute(array($oldclass_id));
     if ($resultSet !== false) {
         extract($resultSet->fields);
     }

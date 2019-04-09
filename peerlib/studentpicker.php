@@ -23,7 +23,7 @@ class StudentPicker {
         $this->newsnummer = $newsnummer;
         $this->pickerName = $name;
         if (isSet($_REQUEST['searchname']) && !preg_match('/;/', $_REQUEST['searchname'])) {
-            $this->searchString = $_REQUEST['searchname'];
+            $this->searchString = validate($_REQUEST['searchname'], 'anything','xyz');
         }
     }
 

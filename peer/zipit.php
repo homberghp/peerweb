@@ -1,18 +1,19 @@
 <?php
 requireCap(CAP_TUTOR);
+require_once'validators.php';
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
 if ( isSet( $_REQUEST['prjm_id'] ) ) {
-  $prjm_id = $_REQUEST['prjm_id'];
-  $_SESSION['prjm_id'] = $prjm_id;
+  $prjm_id = validate($_REQUEST['prjm_id'],'integer','0');
+  $_SESSION['prjm_id'] = validate($prjm_id,'integer','0');
 }
 
 $sql = "select afko,year,prjm_id,doctype,milestone,tutor,grp_num,rel_file_path,doc_type_desc,author,author_name,archfilename\n"
         . "from upload_archive_names where prjm_id=$prjm_id";
 if (isSet( $_REQUEST['doctype'] ) ){
-    $doctype=$_REQUEST['doctype'];
+    $doctype=validate($_REQUEST['doctype'],'integer','0');
     $sql .= " and doctype=$doctype";
 }
 $resultSet = $dbConn->Execute( $sql );
