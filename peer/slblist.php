@@ -51,7 +51,7 @@ $filename = 'slb_list_' . $faculty_short . '_' . $tutorCode . '-' . date('Y-m-d'
 
 $spreadSheetWriter->setFilename($filename)
         ->setTitle("Slb groep list  $faculty_short $tutorCode $fdate")
-        ->setLinkUrl($server_url . $PHP_SELF)
+        ->setLinkUrl($root_url . basename(__FILE__))
         ->setFilename($filename)
         ->setAutoZebra(true);
 
@@ -93,7 +93,7 @@ $nav->setInterestMap($tabInterestCount);
         <p>Choose the slb for to see then pupils.</p>
 
         <p>If you want to retrieve  it (named <?= $filename ?>) as a <strong>spread sheet</strong>, select the spreadsheet option below.</p>
-        <form method="get" name="project" action="<?= $PHP_SELF; ?>">
+        <form method="get" name="project" action="<?= basename(__FILE__); ?>">
             <?= $slbList ?>
             <input type='submit' name='get' value='Get slb' />&nbsp;<?= $spreadSheetWidget ?>
         </form>

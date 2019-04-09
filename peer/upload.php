@@ -8,7 +8,7 @@ require_once 'studentPrjMilestoneSelector.php';
 require_once 'TemplateWith.php'; 
 $doctype = 0;
 $version_limit = 2;
-$url = $PHP_SELF;
+$url = basename(__FILE__);
 $filesizelimit = 25*1024*1024;
 $prj_id = 1;
 $milestone = 1;

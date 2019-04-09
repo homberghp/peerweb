@@ -48,8 +48,8 @@ $page_opening = 'Create class assignment cards for sitting students';
 $page->setTitle($page_opening);
 $nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $page->addBodyComponent($nav);
-
-$form2Form = new HtmlContainer("<form method='post' name='group_def' action='$PHP_SELF'>");
+$self=basename(__FILE__);
+$form2Form = new HtmlContainer("<form method='post' name='group_def' action='$self'>");
 
 //$form2Form->addText( "Legend:class name [class size]<br/>\n" );
 $sql = "select distinct rtrim(student_class.sclass) as sclass,class_id,sort1,sort2,sort_order,\n" .

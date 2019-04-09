@@ -49,7 +49,7 @@ $page_opening = "Synchronise  Student Data from Progress view SV09_ingeschrevene
 $page->setTitle($page_opening);
 $nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
-$action = $PHP_SELF;
+$action = basename(__FILE__);
 $page->addBodyComponent($nav);
 $templatefile = 'templates/syncfromprogress.html';
 $template_text = file_get_contents($templatefile, true);

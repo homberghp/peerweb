@@ -33,7 +33,7 @@ if ($matches) {
   $matchStyle='color:white;background:#800;font-weight:bold;';
   $matchst="<span style='$matchStyle'>No</span>"; 
 }
-$navTitle= "Peerweb regex testscript ".$PHP_SELF." on DB ".$db_name;
+$navTitle= "Peerweb regex testscript ".basename(__FILE__)." on DB ".$db_name;
 $page = new PageContainer();
 $page_opening='Regex tester';
 $page->setTitle($page_opening);
@@ -41,13 +41,14 @@ $page->setTitle($page_opening);
 $nav=new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $page->addBodyComponent($nav);
 $regex_length=max(strlen($regex),40);
+$self=basename(__FILE__);
 $formString="
 <fieldset align='center' width='50%'><legend>PCRE regex tester</legend>
 <h3>This is a tester for the PHP implementation of PERL compatible regular expressions.</h3>
 </p>The peerweb application requires UTF8 conformance, which requires proper support from the regex library.
 At least PHP 5.2.3 and it's bundled lebprce promise to provide that.</p>
 
-<form name='regex' method='post' action='$PHP_SELF'>
+<form name='regex' method='post' action='$self'>
 <table>
 <tr><th>regex_name</t><th>Regex</th><th>String</th><th>matches</th></tr>
 <tr><th>$regex_name</th><td><input name='regex' value='$regex' size='$regex_length'/></td>
@@ -65,7 +66,7 @@ $resultSet= $dbConn->Execute($sql);
 $table = "<table>\n\t<th>Regexname</th><th></th></tr>\n";
 while (!$resultSet->EOF){
     extract($resultSet->fields);
-    $table .= "\n<tr><td><a href='$PHP_SELF?regex_name=$regex_name'>$regex_name</a></td><td>$regex</td></tr>";
+    $table .= "\n<tr><td><a href='$self?regex_name=$regex_name'>$regex_name</a></td><td>$regex</td></tr>";
     $resultSet->moveNext();
 }
 $table .="</table>";

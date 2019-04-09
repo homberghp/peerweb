@@ -43,7 +43,7 @@ $page->setTitle('Shared group files');
 $page_opening = "Welcome to the files of the groups of $roepnaam $tussenvoegsel $achternaam ($snummer)";
 $page_opening = "Files uploaded for projects in which $roepnaam $tussenvoegsel $achternaam ($snummer) participates on $today";
 $nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
-$_SESSION['referer'] = $PHP_SELF;
+$_SESSION['referer'] = basename(__FILE__);
 ob_start();
 tutorHelper($dbConn, $isTutor);
 $page->addBodyComponent(new Component(ob_get_clean()));
@@ -60,8 +60,8 @@ if ($resultSet === false) {
 }
 extract($resultSet->fields);
 $preload = array('0' => array('name' => '&nbsp;', 'value' => '1:1'));
-
-$prjList = "<form name='prjmil' action='$PHP_SELF' method='get'>\n" .
+$self=basename(__FILE__);
+$prjList = "<form name='prjmil' action='$self' method='get'>\n" .
         $prjSel->getSelector()
         . "</select>&nbsp;<input type='submit' value='Get'/>\n</form>";
 

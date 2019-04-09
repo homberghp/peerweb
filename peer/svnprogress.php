@@ -28,7 +28,7 @@ $sql =
 $spreadSheetWriter = new SpreadSheetWriter($dbConn, $sql);
 
 $spreadSheetWriter->setFilename($filename)
-        ->setLinkUrl($server_url . $PHP_SELF . '?prjm_id=' . $prjm_id)
+        ->setLinkUrl($server_url . basename(__FILE__) . '?prjm_id=' . $prjm_id)
         ->setTitle($title)
         ->setAutoZebra(false)
         ->setColorChangerColumn($grpColumn);
@@ -64,7 +64,7 @@ $nav->show()
 ?>
 <div id='navmain' style='padding:1em;'>
     <fieldset><legend>Select project</legend>
-        <form method="get" name="project" action="<?= $PHP_SELF; ?>">
+        <form method="get" name="project" action="<?= basename(__FILE__); ?>">
             <?= $prj_id_selector ?>
             <input type='submit' name='get' value='Get' />
             <?= $spreadSheetWidget ?>

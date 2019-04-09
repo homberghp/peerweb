@@ -89,7 +89,7 @@ extract($resultSet->fields,EXTR_PREFIX_ALL,'auditor');
 if ($newauditor !=0 ) {
 ?>
 <fieldset><legend>Select groups to audit.</legend>
-<form name='set auditgroups' method='post' action='<?=$PHP_SELF?>'>
+<form name='set auditgroups' method='post' action='<?=basename(__FILE__)?>'>
 <p>Choose groups in project <b><?=$afko?> <?=$year?> milestone <?=$milestone?></b> to be audited by <b><?=$auditor_roepnaam?> <?=$auditor_tussenvoegsel?> <?=$auditor_achternaam?>(<?=$auditor_snummer?>)</b>.</p>
 <p>Group 0 gives access to all.</p>
 <?php

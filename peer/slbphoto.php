@@ -69,7 +69,7 @@ $slbList = "<select name='slb'>\n" . getOptionListGrouped($dbConn, $sql_slb, $sl
 <?= $nav->show() ?>
 <div id='navmain' style='padding:1em;'>
     <div class='nav'>
-        <form method="get" name="slb" action="<?= $PHP_SELF; ?>">
+        <form method="get" name="slb" action="<?= basename(__FILE__); ?>">
             <?= $slbList ?>
             <input type='submit' name='b' value ='Get fotos'/>
         </form>

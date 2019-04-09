@@ -120,7 +120,7 @@ $nav->show()
 ?>
 <div id='navmain' style='padding:1em;'>
     <fieldset><legend>Select project</legend>
-        <form method="get" name="project" action="<?= $PHP_SELF; ?>">
+        <form method="get" name="project" action="<?= basename(__FILE__); ?>">
             <?= $prj_id_selector ?>
             <input type='submit' name='get' value='Get' />
             <?= $spreadSheetWidget ?>

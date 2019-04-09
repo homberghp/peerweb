@@ -86,7 +86,7 @@ if (!$resultSet->EOF) {
         $_SESSION['conf_editor_basedir'] = '/home';
         $_SESSION['fileToEdit'] = $authzfile;
         $pp['repos_id'] = $id;
-        $pp['fileeditor'] = new ConfFileEditor($PHP_SELF, 'templates/authzeditor.html');
+        $pp['fileeditor'] = new ConfFileEditor(basename(__FILE__), 'templates/authzeditor.html');
     }
 }
 $pp['page'] = $page;
@@ -99,6 +99,7 @@ $resultSet = $dbConn->Execute($sql);
 $repolist = '';
 $repobase = '';
 $reposTable = '';
+$self=basename(__FILE__);
 if (!$resultSet->EOF) {
     $reposTable .= "<fieldset><legend>Available repositories</legend>"
             . "<table>\n"
@@ -109,7 +110,7 @@ if (!$resultSet->EOF) {
         $editControl = '&nbsp;';
         $url = $svnserver_url . $url_tail;
         if ($isroot == 't') {
-            $editControl = "\t<form method='post' name='editauthz' action='$PHP_SELF'>\n"
+            $editControl = "\t<form method='post' name='editauthz' action='$self'>\n"
                     . "\t\t<input type='submit' value='Edit autzh' name='edit_authz'  "
                     . "title='edit authorization for repo or repo group'/>\n"
                     . "\t\t<input type='hidden' name='repos_id' value='$id'/>\n\t</form>";
