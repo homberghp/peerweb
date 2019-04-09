@@ -75,7 +75,7 @@ if ( $debug ) {
 if ( !$resultSet->EOF ) {
     fwrite( $fp, "\\tablehead{" . $grp_name . "}\n" );
 }
-$fotodir = '../../peer/';
+$fotodir = '/home/f/fontysvenlo.org/peerfotos/';
 $colcount = 0;
 $cont = '';
 while ( !$resultSet->EOF ) {
@@ -84,8 +84,7 @@ while ( !$resultSet->EOF ) {
             $cont
             . "\n"
             . "\\begin{minipage}{35mm}"
-            . "\\center\\includegraphics[height=40mm]{"
-            . $fotodir . $photo . "}"
+            . "\\center\\includegraphics[height=40mm]{{$fotodir}{$photo}}"
             . "\n\\vfill\\sf{}\\textbf{" . $name
             . "}\\\\$snummer ($slb)"
             . "\\end{minipage}\n" );
