@@ -59,7 +59,7 @@ $page_opening = "Import New Students from Progress View SV05_aanmelders";
 $page->setTitle( $page_opening );
 $nav = new Navigation( $tutor_navtable, basename( __FILE__ ), $page_opening );
 $nav->setInterestMap( $tabInterestCount );
-$action = basename(__FILE);
+$action = basename(__FILE__);
 $page->addBodyComponent( $nav );
 $prjList = $prjSel->getSelector();
 $templatefile = 'templates/importfromprogress.html';
