@@ -35,7 +35,7 @@ $searchname = '';
 $studentPicker = new StudentPicker( $dbConn, $newsnummer, 'Search and select participant to add.' );
 if ( isSet( $_REQUEST['searchname'] ) ) {
     if ( !preg_match( '/;/', $_REQUEST['searchname'] ) ) {
-        $searchname = vaildate($_REQUEST['searchname'],'anything','xyz');
+        $searchname = validate($_REQUEST['searchname'],'anything','xyz');
         $studentPicker->setSearchString( $searchname );
         if ( !isSet( $_REQUEST['newsnummer'] ) ) {
             $newsnummer = $studentPicker->findStudentNumber();
