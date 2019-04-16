@@ -12,19 +12,15 @@ require_once 'SimpleTableFormatter.php';
 require_once 'classSelector.php';
 
 $newhoofdgrp = '';
-$slb = 0;
+$oldslb = $slb = 0;
 $newclass_id = $oldclass_id = 1;
 extract($_SESSION);
-if (isSet($_REQUEST['oldclass_id'])) {
-    $_SESSION['oldclass_id'] = $oldclass_id = $_REQUEST['oldclass_id'];
-}
-if (isSet($_POST['newclass_id'])) {
-    $_SESSION['newclass_id'] = $newclass_id = $_POST['newclass_id'];
-}
 
 if (isSet($_POST['slb']) && preg_match('/^\d+$/', $_POST['slb'])) {
-    //$newslb= preg_replace('/\W+/g','',$_POST['slb']);
     $_SESSION['slb'] = $slb = $_POST['slb'];
+}
+if (isSet($_POST['oldslb']) && preg_match('/^\d+$/', $_POST['oldslb'])) {
+    $_SESSION['oldslb'] = $oldslb = $_POST['oldslb'];
 }
 
 if (isSet($_POST['setslb']) && isSet($slb) && isSet($_POST['studenten'])) {
@@ -36,20 +32,7 @@ if (isSet($_POST['setslb']) && isSet($slb) && isSet($_POST['studenten'])) {
         die("<br>Cannot update student_email  with " . $sql . " reason " . $dbConn->ErrorMsg() . "<br>");
     }
 }
-$class_sql = "select distinct student_class.sclass||'#'||class_id||' (#'||coalesce(student_count,0)||')'  as name,\n"
-        . "class_id as value, \n"
-        . "  trim(faculty_short)||'.'||trim(coalesce(cluster_name,'')) as namegrp, \n"
-        . " faculty_short,\n"
-        . " case when class_cluster=(select class_cluster from student_email join student_class using(class_id) where snummer=$peer_id) then 0 else 1 end as myclass "
-        . " from student_class "
-        . " natural left join class_cluster\n"
-        . " left join faculty  using(faculty_id) \n"
-        . " left join class_size using(class_id) \n"
-        . "order by myclass,namegrp,name";
-
 $pp = array();
-$classSelectorClass = new ClassSelectorClass($dbConn,$oldclass_id);
-$pp['oldClassOptionsList'] = $classSelectorClass->setSelectorName('oldclass_id')->addConstraint('sort1 < 10 and student_count <>0')->setAutoSubmit(true)->getSelector();
 
 $page_opening = "Get and set Student Study coach (SLB) by class.";
 $page = new PageContainer();
@@ -62,7 +45,12 @@ $sql_slb = "select achternaam||','||roepnaam||' ['||tutor||']' as name,\n"
         . " left join fontys_course fc on (tjs.opl=fc.course)\n"
         . " order by namegrp,faculty,achternaam,roepnaam ";
 
+$sql_oldslb = "select mine,namegrp,name,userid as value from tutor_selector($peer_id) \n"
+        . "order by mine,namegrp,name";
+$pp['oldslb'] = getOptionListGrouped($dbConn, $sql_oldslb, $oldslb);
+
 $pp['slbList'] = getOptionListGrouped($dbConn, $sql_slb, $slb);
+
 
 $css = '<link rel=\'stylesheet\' type=\'text/css\' href=\'' . SITEROOT . '/style/tablesorterstyle.css\'/>';
 $page->addScriptResource('js/jquery.min.js');
@@ -88,7 +76,7 @@ $sql = "SELECT '<input type=''checkbox''  name=''studenten[]'' value='''||st.snu
         . "left join fontys_course fc on(st.opl=fc.course)\n"
         . "left join tutor t on (st.slb=t.userid)\n"
         . "natural left join portrait \n"
-        . "where class_id='$oldclass_id' "
+        . "where st.slb={$oldslb} "
         . "order by hoofdgrp,st.opl,sclass asc,achternaam,roepnaam";
 //simpletable($dbConn,$sql,"<table id='myTable' class='tablesorter' summary='your requested data'"
 //		." style='empty-cells:show;border-collapse:collapse' border='1'>");
@@ -99,7 +87,7 @@ $tableFormatter->setCheckColumn(0);
 $tableFormatter->setTabledef("<table id='myTable' class='tablesorter' summary='your requested data'"
         . " style='empty-cells:show;border-collapse:collapse' border='1'>");
 $pp['cTable'] = $tableFormatter;
-$page->addHtmlFragment('templates/slb.html', $pp);
+$page->addHtmlFragment('templates/slbchange.html', $pp);
 $page->show();
 ?>
  
