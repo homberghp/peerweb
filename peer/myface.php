@@ -23,5 +23,5 @@ tutorHelper($dbConn, $isTutor);
 $page->addBodyComponent(new Component(ob_get_clean()));
 $nav = new Navigation(array(),$page,$title);
 $page->addBodyComponent($nav);
-$page->addHtmlFragment('templates/myface.html',$pp);
+$page->addHtmlFragment('../templates/myface.html',$pp);
 $page->show();

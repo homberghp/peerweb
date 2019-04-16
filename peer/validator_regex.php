@@ -19,7 +19,7 @@ $ste->setTitle('Regex Editor')
         ->setKeyColumns(array('regex_name'))
         ->setNameExpression("rtrim(regex_name,' ')||', '||rtrim(regex,' ')")
         ->setOrderList(array('regex_name'))
-        ->setFormTemplate('templates/validator_regex.html')
+        ->setFormTemplate('../templates/validator_regex.html')
         ->show();
 
 

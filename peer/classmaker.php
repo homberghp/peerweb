@@ -155,6 +155,6 @@ $tableFormatter->setTabledef("<table id='myTable' class='tablesorter' summary='y
 
 $pp['classTable'] = $tableFormatter->getTable();
 
-$page->addHtmlFragment('templates/classmaker.html', $pp);
+$page->addHtmlFragment('../templates/classmaker.html', $pp);
 $page->show();
 ?>

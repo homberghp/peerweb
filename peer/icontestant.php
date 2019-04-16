@@ -77,7 +77,7 @@ ob_start();
   <?php
 
 if (!$prjSel->isEmptySelector()) {
-  require_once 'templates/icontestant.html';
+  require_once '../templates/icontestant.html';
 }
 ?>
 </div><?php

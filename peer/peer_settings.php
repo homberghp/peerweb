@@ -16,5 +16,5 @@ $ste->setFormAction(basename(__FILE__))->setRelation('peer_settings')->setMenuNa
         ->setNameExpression("rtrim(key)")
         ->setListRowTemplate(array('key', 'value', 'comment'))
         ->setOrderList(array('key'))
-        ->setFormTemplate('templates/peer_settings.html')
+        ->setFormTemplate('../templates/peer_settings.html')
         ->show();

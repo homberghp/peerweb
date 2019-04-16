@@ -119,7 +119,7 @@ $submit_button = "<button type='submit' name='bsubmit' value='Update'>Update</bu
 // }
 $project_selector = getProjectSelector($dbConn, $peer_id, $prj_id);
 
-$templatefile = 'templates/defmilestoneform1.html';
+$templatefile = '../templates/defmilestoneform1.html';
 $template_text = file_get_contents($templatefile, true);
 if ($template_text === false) {
     $form1Form->addText("<strong>cannot read template file $templatefile</strong>");

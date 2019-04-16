@@ -139,7 +139,7 @@ $tableFormatter->setTabledef("<table id='myTable' class='tablesorter' summary='y
         . " style='empty-cells:show;border-collapse:collapse' border='1'>");
 
 $pp['memberTable'] = $tableFormatter->getTable();
-$page->addHtmlFragment('templates/defgroupmembersalt.html', $pp);
+$page->addHtmlFragment('../templates/defgroupmembersalt.html', $pp);
 
 $page->show();
 ?>

@@ -21,7 +21,7 @@ $ste->setFormAction(basename(__FILE__))
         ->setListRowTemplate(array('menu_name', 'column_name', 'edit_type', 'item_length', 'regex_name', 'placeholder','id'))
         ->setNameExpression("rtrim(menu_name,' ')||', '||rtrim(column_name,' ')")
         ->setOrderList(array('menu_name', 'column_name'))
-        ->setFormTemplate('templates/menu_item.html')
+        ->setFormTemplate('../templates/menu_item.html')
         ->show();
 
 

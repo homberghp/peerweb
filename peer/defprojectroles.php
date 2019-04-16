@@ -212,7 +212,7 @@ $nav->setInterestMap( $tabInterestCount );
 $page = new PageContainer();
 $page->setTitle( $page_opening );
 $page->addBodyComponent( $nav );
-$templatefile = 'templates/defprojectrolestop.html';
+$templatefile = '../templates/defprojectrolestop.html';
 $template_text = file_get_contents( $templatefile, true );
 if ( $template_text === false ) {
     $page->addBodyComponent( "<strong>cannot read template file $templatefile</strong>" );
@@ -220,7 +220,7 @@ if ( $template_text === false ) {
     $page->addBodyComponent( templateWith( $template_text, get_defined_vars() ) );
 }
 if ( $isTutorOwner ) {
-    $templatefile = 'templates/defprojectrolesbottom.html';
+    $templatefile = '../templates/defprojectrolesbottom.html';
     $template_text = file_get_contents( $templatefile, true );
     if ( $template_text === false ) {
         $page->addBodyComponent( "<strong>cannot read template file $templatefile</strong>" );

@@ -23,7 +23,7 @@ $ste->setMenuName('menu');
 $ste->setKeyColumns(array('menu_name', 'relation_name'));
 $ste->setNameExpression("rtrim(menu_name,' ')||', '||rtrim(relation_name,' ')");
 $ste->setOrderList(array('menu_name', 'relation_name'));
-$ste->setFormTemplate('templates/menu.html');
+$ste->setFormTemplate('../templates/menu.html');
 $ste->setListRowTemplate(array('menu_name', 'relation_name'));
 
 $page_opening = "Menu";

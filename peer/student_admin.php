@@ -19,7 +19,7 @@ $ste->setFormAction(basename(__FILE__))
         ->setRawNames(array('snummer', 'class_id'))
         ->setNameExpression("st_.snummer||' '||rtrim(achternaam,' ')||', '||rtrim(roepnaam,' ')||coalesce(' '||trim(tussenvoegsel),'')")
         ->setOrderList(array('achternaam', 'roepnaam'))
-        ->setFormTemplate('templates/student_admin.html')
+        ->setFormTemplate('../templates/student_admin.html')
         ->setListRowTemplate(array('st_.snummer', 'minifoto', 'email1', 'pcn', 
             'hoofdgrp', 'sclass', 'cohort', 'gebdat', 'slb', 'studieplan'))
         ->setListQueryExtension("\n"

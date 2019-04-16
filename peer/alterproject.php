@@ -150,7 +150,7 @@ $activity_project_checked = $resultSet->fields['active_project_set'] ? 'checked'
 
 $input_activity_project = "<input type='checkbox' name='activity_project' value='set' $activity_project_checked/>";
 
-$templatefile = 'templates/alterproject.html';
+$templatefile = '../templates/alterproject.html';
 $template_text = file_get_contents($templatefile, true);
 if ($template_text === false) {
     $form1Form->addText("<strong>cannot read template file $templatefile</strong>");
@@ -161,7 +161,7 @@ if ($template_text === false) {
 $page->addBodyComponent($nav);
 $page->addBodyComponent($form1);
 $page->addBodyComponent(new Component('<!-- db_name=$db_name $Id: alterproject.php 1726 2014-02-03 13:54:48Z hom $ -->'));
-$page->addHeadText(file_get_contents('templates/simpledatepicker.html'));
+$page->addHeadText(file_get_contents('../templates/simpledatepicker.html'));
 $page->addScriptResource('js/jquery.min.js');
 $page->addScriptResource('js/jquery-ui.custom.min.js');
 $page->addJqueryFragment('$(\'#embeddedPicker\').datepicker(dpoptions);');

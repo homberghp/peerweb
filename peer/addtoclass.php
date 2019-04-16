@@ -86,7 +86,7 @@ $page_opening = "Add individual student to a class. <span style='font-size:6pt;'
 $nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $nav->show();
-require_once 'templates/addtoclass.html';
+require_once '../templates/addtoclass.html';
 ?>
 <!-- db_name=<?= $db_name ?> -->
 <!-- $Id: addtoclass.php 1853 2015-07-25 14:17:12Z hom $ -->

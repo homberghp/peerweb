@@ -25,7 +25,7 @@ $pp=array();
 
 $pp['presence_table'] = personalPresenceList($dbConn,$snummer);
 
-$page->addHtmlFragment('templates/peerpresenceoverview.html',$pp);
+$page->addHtmlFragment('../templates/peerpresenceoverview.html',$pp);
 
 
 //$page->addBodyComponent(new Component($text));

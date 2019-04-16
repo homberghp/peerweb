@@ -25,7 +25,7 @@ $ste->setFormAction(basename(__FILE__))
         ->setOrderList(array('datum desc', 'start_time', 'short'))
         ->setListRowTemplate(array('project', 'prj_id','project_description' ,'ac_.prjm_id','datum', 'start_time', 'act_id','act_type', 'part'))
         //->setListRowTemplate(array('datum', 'start_time', 'act_id','act_type', 'part'))
-        ->setFormTemplate('templates/activity.html')
+        ->setFormTemplate('../templates/activity.html')
         ->setSubRel('all_project_milestone')
         ->setSubRelJoinColumns(array('prjm_id'=>' prjm_id'))
         ->show();

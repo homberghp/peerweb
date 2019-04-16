@@ -80,7 +80,7 @@ if (is_file($authzfilepath)) {
     $pp['executionResult'] = ConfFileEditor::save();
     $_SESSION['conf_editor_basedir'] = $reposauthzroot;
     $_SESSION['fileToEdit'] = $authzfile;
-    $fileeditor = new ConfFileEditor(basename(__FILE__), 'templates/authzeditor.html');
+    $fileeditor = new ConfFileEditor(basename(__FILE__), '../templates/authzeditor.html');
 }
 //$fileeditor->setMustCommit( true );
 //$fileeditor->save();
@@ -161,7 +161,7 @@ if ($resultSet === false) {
         $pp['reposTable'] .= "</table>\n";
     }
 }
-$page->addHtmlFragment('templates/isubversionrepos.html', $pp);
+$page->addHtmlFragment('../templates/isubversionrepos.html', $pp);
 if (isSet($fileeditor)) {
     $fileeditor->getWidgetForPage($page);
 }

@@ -101,7 +101,7 @@ $page->addBodyComponent($nav);
 $tableBuilder = new CheckTable($dbConn, new MyRowHeaderBuilder(), new MyCellBuilder());
 $presence_table = $tableBuilder->getTable($sql, 'snummer');
 //$presence_table = checkTable($dbConn,$sql,0,4,5,6);
-$templatefile = 'templates/presenceoverview.html';
+$templatefile = '../templates/presenceoverview.html';
 $template_text = file_get_contents($templatefile, true);
 $text = '';
 if ($template_text === false) {

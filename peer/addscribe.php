@@ -53,7 +53,7 @@ $page_opening="Add project scribe".
 $page->setTitle('Add a project scribe');
 $nav=new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $page->addBodyComponent($nav);
-$templatefile='templates/addscribe.html';
+$templatefile='../templates/addscribe.html';
 $template_text= file_get_contents($templatefile, true);
 $studentPicker->setPresentQuery("select scribe as snummer from project_scribe where prj_id=$prj_id");
 $student_picker_text=$studentPicker->getPicker();

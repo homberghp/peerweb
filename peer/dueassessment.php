@@ -25,7 +25,7 @@ if ($resultSet === false) {
 $replyto = $resultSet->fields['email'];
 $snmailto = array();
 $formsubject = 'Please fill in your peer assessment data for project {$afko}: {$description}';
-$templatefile = "templates/duemailbodytemplate.html";
+$templatefile = "../templates/duemailbodytemplate.html";
 $sqlsender = "select rtrim(email1) as sender,roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam as sender_name," .
         "coalesce(signature," .
         "'sent by the peerweb service on behalf of '||roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam)\n" .
@@ -133,7 +133,7 @@ $sql = $sqlhead . " from  \n"
         . " and snummer in" . $sqllate . "\n"
         . " order by afko,grp_num,achternaam,roepnaam";
 $dueTable = getQueryToTableChecked($dbConn, $sql, true, 2, new RainBow(0x46B4B4, 64, 32, 0), 3, 'snmailto[]', $snmailto);
-$templatefile = 'templates/dueassessment.html';
+$templatefile = '../templates/dueassessment.html';
 $template_text = file_get_contents($templatefile, true);
 $pp=[];
 if ($template_text === false) {
@@ -141,7 +141,7 @@ if ($template_text === false) {
 } else {
     $page->addBodyComponent(new Component(templateWith($template_text, get_defined_vars())));
 }
-$page->addHtmlFragment('templates/tinymce_include.html', $pp);
+$page->addHtmlFragment('../templates/tinymce_include.html', $pp);
 
 $page->addHeadText(
         '<script type="text/javascript">

@@ -16,5 +16,5 @@ $ste->setFormAction(basename(__FILE__))
         ->setNameExpression("rtrim(speaker_org||':'||lastname)")
         ->setListRowTemplate(array('speaker_org', 'achternaam', 'roepnaam', 'email'))
         ->setOrderList(array('speaker_org', 'achternaam'))
-        ->setFormTemplate('templates/colloquium_speakers.html')
+        ->setFormTemplate('../templates/colloquium_speakers.html')
         ->show();

@@ -24,5 +24,5 @@ $ste->setMenuName('fontys_course')
         ->setListRowTemplate(array('fo_.course','course_short','course_description','fo_.faculty_id','faculty_short'))
         ->setSubRel('faculty')
         ->setSubRelJoinColumns(array('faculty_id' => 'faculty_id'))
-        ->setFormTemplate('templates/known_courses2.html')
+        ->setFormTemplate('../templates/known_courses2.html')
         ->show();

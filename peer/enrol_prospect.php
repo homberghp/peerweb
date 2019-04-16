@@ -122,6 +122,6 @@ $tableFormatter->setTabledef("<table id='myTable' class='tablesorter' summary='y
 
 $pp['classTable'] = $tableFormatter->getTable();
 
-$page->addHtmlFragment('templates/enrol_prospect.html', $pp);
+$page->addHtmlFragment('../templates/enrol_prospect.html', $pp);
 $page->show();
 ?>

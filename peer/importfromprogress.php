@@ -62,7 +62,7 @@ $nav->setInterestMap( $tabInterestCount );
 $action = basename(__FILE__);
 $page->addBodyComponent( $nav );
 $prjList = $prjSel->getSelector();
-$templatefile = 'templates/importfromprogress.html';
+$templatefile = '../templates/importfromprogress.html';
 $template_text = file_get_contents( $templatefile, true );
 $products = glob( 'output/{classcard,phototicket,prospects,jmerge}*', GLOB_BRACE );
 if ( count( $products ) ) {

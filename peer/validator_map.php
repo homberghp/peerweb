@@ -19,5 +19,5 @@ $ste->setFormAction(basename(__FILE__))
         ->setKeyColumns(array('input_name'))
         ->setNameExpression("rtrim(input_name,' ')||', '||rtrim(regex_name,' ')")
         ->setOrderList(array('input_name'))
-        ->setFormTemplate('templates/validator_map.html')
+        ->setFormTemplate('../templates/validator_map.html')
         ->show();

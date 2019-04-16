@@ -22,6 +22,6 @@ $ste->setTitle($title)
         ->setNameExpression("rtrim(tutor)||':'||rtrim(sub_rel.achternaam)")
         ->setListRowTemplate(array('tu_.faculty_id', 'sub_rel.faculty_id', 'tu_.tutor', 'userid', 'team', 'sub_rel.achternaam', 'sub_rel.roepnaam'))
         ->setOrderList(array('sub_rel.faculty_id', 'tutor'))
-        ->setFormTemplate('templates/tutor.html')
+        ->setFormTemplate('../templates/tutor.html')
         ->show();
 ?>

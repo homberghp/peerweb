@@ -366,7 +366,7 @@ if ($prj_id > 1) { // no coauthors for personal project with id==1
     $pp['coauthor_table'] .= "<table>\n";
 }
 $pp['prjSel'] = $prjSel;
-$page->addHtmlFragment('templates/upload.html', $pp);
+$page->addHtmlFragment('../templates/upload.html', $pp);
 
 $page->addBodyComponent(new Component(ob_get_clean()));
 //$page->addBodyComponent($dbConn->getLogHtml());

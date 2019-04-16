@@ -115,7 +115,7 @@ if ( $lazyCount > 0 ) {
             .$langmap['columnnorights'][$lang]
             ."</td></tr></table>\n";
 }
-$page->addHtmlFragment( 'templates/iresult.html' , $pp );
+$page->addHtmlFragment( '../templates/iresult.html' , $pp );
 
 $page->show();
 ?>

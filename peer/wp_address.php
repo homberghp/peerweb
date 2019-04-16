@@ -16,7 +16,7 @@ $ste->setFormAction(basename(__FILE__))
         ->setRelation('wp_address')
         ->setMenuName('wp_address')
         ->setKeyColumns(array('wp_address_id'))
-        ->setFormTemplate('templates/wp_address.html')
+        ->setFormTemplate('../templates/wp_address.html')
         ->setListRowTemplate(array('snummer', 'wp_type', 'company'))
         ->setNameExpression("snummer||': '||wp_type||', start '||start_date||' at '||company")
         ->show();

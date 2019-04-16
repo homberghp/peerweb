@@ -16,6 +16,6 @@ $ste->setTitle( "country codes" )
         ->setNameExpression( "rtrim(country)" )
         ->setListRowTemplate( array( 'country','a2','a3','number','country_by_lang','land_nl'))
         ->setOrderList( array( 'a3' ) )
-        ->setFormTemplate( 'templates/iso3166.html' )
+        ->setFormTemplate( '../templates/iso3166.html' )
         ->show();
 ?>

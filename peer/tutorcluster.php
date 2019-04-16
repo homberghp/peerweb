@@ -59,7 +59,7 @@ $nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 
 echo $nav->show();
 
-require_once 'templates/tutorcluster.xhtml';
+require_once '../templates/tutorcluster.xhtml';
 ?>
 </body>
 </html>

@@ -93,7 +93,7 @@ $page = new PageContainer();
 $page->setTitle('Mail-list page');
 $nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $page->addBodyComponent($nav);
-//$page->addFileContentsOnce('templates/tinymce_include.html');
+//$page->addFileContentsOnce('../templates/tinymce_include.html');
 $page->addHeadText(
         '<script type="text/javascript">
  function checkThem(ref,state){
@@ -241,6 +241,6 @@ $pp['eTable'] = emailTable($dbConn, $prjm_id, $isTutor, $mailto);
 $pp['rTable'] = roleTable($dbConn, $prjm_id);
 $pp['classTable'] = classTable($dbConn, $prjm_id);
 $pp['selWidget'] = $prjSel->getWidget();
-$page->addHtmlFragment('templates/groupemail.php', $pp);
-$page->addHtmlFragment('templates/tinymce_include.html', $pp);
+$page->addHtmlFragment('../templates/groupemail.php', $pp);
+$page->addHtmlFragment('../templates/tinymce_include.html', $pp);
 $page->show();

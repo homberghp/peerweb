@@ -23,6 +23,6 @@ $ste->setFormAction(basename(__FILE__))
         ->setNameExpression("rtrim(afko)||'-'||year||': '||rtrim(description)")
         ->setOrderList(array('year desc', 'afko', 'description'))
         ->setListRowTemplate(array('year', 'owner_id','afko', 'description', 'valid_until','owner_id','comment'))
-        ->setFormTemplate('templates/project.html')
+        ->setFormTemplate('../templates/project.html')
         ->show();
 ?>

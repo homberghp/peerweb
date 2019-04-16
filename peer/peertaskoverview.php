@@ -33,7 +33,7 @@ $page->addHeadComponent( new Component("<style type='text/css'>
     }
  </style>"));
 $task_table = personalTaskList($dbConn,$snummer);
-$templatefile='templates/peertaskoverview.html';
+$templatefile='../templates/peertaskoverview.html';
 $template_text= file_get_contents($templatefile, true);
 $text='';
 if ($template_text === false ) {

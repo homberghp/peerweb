@@ -22,7 +22,7 @@ $ste->setMenuName('literature');
 $ste->setKeyColumns(array('literature_id'));
 $ste->setNameExpression("rtrim(menu_name,' ')||', '||rtrim(column_name,' ')");
 $ste->setOrderList(array('literature_code'));
-$ste->setFormTemplate('templates/literature.html');
+$ste->setFormTemplate('../templates/literature.html');
 
 $page_opening = "Literature for all courses";
 $nav = new Navigation($tutor_navtable, basename(basename(__FILE__)), $page_opening);

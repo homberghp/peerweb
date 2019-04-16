@@ -25,6 +25,6 @@ $ste->setFormAction(basename(__FILE__))
         ->setNameExpression('name')
         ->setOrderList(array('task_id', 'name', 'description'))
         ->setListRowTemplate(array('description', 'prj_id'))
-        ->setFormTemplate('templates/tasks.html')
+        ->setFormTemplate('../templates/tasks.html')
         ->show();
 ?>

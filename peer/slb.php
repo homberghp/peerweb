@@ -99,7 +99,7 @@ $tableFormatter->setCheckColumn(0);
 $tableFormatter->setTabledef("<table id='myTable' class='tablesorter' summary='your requested data'"
         . " style='empty-cells:show;border-collapse:collapse' border='1'>");
 $pp['cTable'] = $tableFormatter;
-$page->addHtmlFragment('templates/slb.html', $pp);
+$page->addHtmlFragment('../templates/slb.html', $pp);
 $page->show();
 ?>
  

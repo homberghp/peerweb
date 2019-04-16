@@ -17,5 +17,5 @@ $ste->setTitle( $title )
         ->setNameExpression( "rtrim(opleiding)" )
         ->setListRowTemplate( array( 'instituutcode','hoofdgrp','lang','course') )
         ->setOrderList( array( 'opleiding' ) )
-        ->setFormTemplate( 'templates/hoofdgrp_map.html' )
+        ->setFormTemplate( '../templates/hoofdgrp_map.html' )
         ->show();

@@ -16,5 +16,5 @@ $ste->setFormAction(basename(__FILE__))
         ->setNameExpression("rtrim(cluster_name)")
         ->setListRowTemplate(array('cluster_name', 'cluster_description'))
         ->setOrderList(array('sort_order'))
-        ->setFormTemplate('templates/class_cluster.html')
+        ->setFormTemplate('../templates/class_cluster.html')
         ->show();

@@ -107,6 +107,6 @@ if ($isTutor) {
     $pp['tutorText'] = '';
 }
 
-$page->addHtmlFragment('templates/uploadviewer.html', $pp);
+$page->addHtmlFragment('../templates/uploadviewer.html', $pp);
 $page->show();
 ?>

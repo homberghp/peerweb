@@ -18,7 +18,7 @@ $ste->setMenuName('curriculum_module');
 $ste->setKeyColumns(array('curriculum_module_id'));
 $ste->setNameExpression("rtrim(common_name,' ')||', '||rtrim(first_academic_year,' ')");
 $ste->setOrderList(array('curriculum_module_code'));
-$ste->setFormTemplate('templates/curriculum_module.html');
+$ste->setFormTemplate('../templates/curriculum_module.html');
 $ste->show();
 ?>
 

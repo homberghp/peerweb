@@ -96,7 +96,7 @@ $page->addHeadText('
 	});
 	</script>
 ');
-$templatefile = 'templates/studentclasscards.html';
+$templatefile = '../templates/studentclasscards.html';
 $template_text = file_get_contents($templatefile, true);
 if ($template_text === false) {
     $page->addBodyComponent(new Component("<strong>cannot read template file $templatefile</strong>"));

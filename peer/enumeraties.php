@@ -16,7 +16,7 @@ $ste->setFormAction(basename(__FILE__))
         ->setRelation('enumeraties')
         ->setMenuName('enumeraties')
         ->setKeyColumns(array('id'))
-        ->setFormTemplate('templates/enumeraties.html')
+        ->setFormTemplate('../templates/enumeraties.html')
         ->setListRowTemplate(array('id', 'menu_name', 'column_name', 'name', 'value', 'sort_order', 'is_default'))
         ->setNameExpression("menu_name||', '||column_name")
         ->show();

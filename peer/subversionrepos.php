@@ -86,7 +86,7 @@ if (!$resultSet->EOF) {
         $_SESSION['conf_editor_basedir'] = '/home';
         $_SESSION['fileToEdit'] = $authzfile;
         $pp['repos_id'] = $id;
-        $pp['fileeditor'] = new ConfFileEditor(basename(__FILE__), 'templates/authzeditor.html');
+        $pp['fileeditor'] = new ConfFileEditor(basename(__FILE__), '../templates/authzeditor.html');
     }
 }
 $pp['page'] = $page;
@@ -199,10 +199,10 @@ $page_opening = "Subversion repositories for project $afko: $description (prj_id
 $nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $page->addBodyComponent($nav);
-$page->addHtmlFragment('templates/subversionrepostop.html', $pp);
+$page->addHtmlFragment('../templates/subversionrepostop.html', $pp);
 if (isSet($pp['fileeditor'])) {
     $pp['fileeditor']->getWidgetForPage($page, $pp);
 }
-$page->addHtmlFragment('templates/subversionreposbottom.html', $pp);
+$page->addHtmlFragment('../templates/subversionreposbottom.html', $pp);
 $page->show();
 

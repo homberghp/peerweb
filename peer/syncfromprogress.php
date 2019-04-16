@@ -51,7 +51,7 @@ $nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $action = basename(__FILE__);
 $page->addBodyComponent($nav);
-$templatefile = 'templates/syncfromprogress.html';
+$templatefile = '../templates/syncfromprogress.html';
 $template_text = file_get_contents($templatefile, true);
 $sql="select x,comment from sv09_import_summary order by row";
 $uploadResult.= simpleTableString($dbConn,$sql);

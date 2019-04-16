@@ -20,6 +20,6 @@ $ste->setFormAction(basename(__FILE__))
         ->setNameExpression("rtrim(menu_name,' ')||', '||rtrim(column_name,' ')")
         ->setOrderList(array('menu_name', 'column_name'))
         ->setListRowTemplate(array('column_name','query'))
-        ->setFormTemplate('templates/menu_option_queries.html')
+        ->setFormTemplate('../templates/menu_option_queries.html')
         ->show();
 

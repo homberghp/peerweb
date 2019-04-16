@@ -19,7 +19,7 @@ $ste->setFormAction(basename(__FILE__))
         ->setRelation('potentials')
         ->setMenuName('potentials')
         ->setKeyColumns(array('pot_id'))
-        ->setFormTemplate('templates/potential.html')
+        ->setFormTemplate('../templates/potential.html')
         ->setNameExpression("rtrim(achternaam,' ')||', '||rtrim(roepnaam,' ')||'('||trim(coalesce(email,'no email'))||')'")
         ->setOrderList(array('achternaam', 'roepnaam'))
         ->show();

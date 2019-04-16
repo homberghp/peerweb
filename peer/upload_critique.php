@@ -240,9 +240,9 @@ if (!isSet($_REQUEST['doc_id'])) {
 
 $pp['critiqueList'] = $critiqueList;
 if (authorized_document($critiquer, $doc_id)) {
-    $fragment = 'templates/upload_critique.html';
+    $fragment = '../templates/upload_critique.html';
 } else {
-    $fragment = 'templates/upload_critique_noaccess.html';
+    $fragment = '../templates/upload_critique_noaccess.html';
 }
 $page->addHtmlFragment($fragment, $pp);
 $page->addHeadText('

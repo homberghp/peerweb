@@ -22,7 +22,7 @@ $ste->setFormAction(basename(__FILE__))
 //        ->setSupportingRelation('faculty')
 //        ->setSupportingJoinList(array('faculty_id' => 'faculty_id'))
         ->setOrderList(array('sort1', 'sort2', 'sclass'))
-        ->setFormTemplate('templates/class_admin.html')
+        ->setFormTemplate('../templates/class_admin.html')
         ->show();
 ?>
 

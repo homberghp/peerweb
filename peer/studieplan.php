@@ -17,6 +17,6 @@ $ste->setTitle($title)
     ->setNameExpression("studieplan||':'||rtrim(studieplan_short)")
     ->setListRowTemplate(array('studieplan','studieplan_short', 'studieplan_omschrijving', 'studieprogr','variant_omschrijving'))
     ->setOrderList(array('studieplan_short'))
-    ->setFormTemplate('templates/studieplan.html')
+    ->setFormTemplate('../templates/studieplan.html')
     ->show();
 

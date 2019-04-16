@@ -19,9 +19,9 @@ if ( $saveResult != '' ) {
 if (isSet($_REQUEST['formEditFile'])) {
   $_SESSION['formFileToEdit'] = $_REQUEST['formEditFile'];
 }
-$_SESSION['formFileToEdit']='./templates/editform/html';
+$_SESSION['formFileToEdit']='./../templates/editform/html';
 $pp = array( );
-$fileEditor = new ConfFileEditor( basename(__FILE__), 'templates/formedit.html');
+$fileEditor = new ConfFileEditor( basename(__FILE__), '../templates/formedit.html');
 $fileEditor->setDescription("Edit query, template or tex file");
 $fileEditor->getWidgetForPage( $page );
 $page->show();

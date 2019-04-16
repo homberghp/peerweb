@@ -79,7 +79,7 @@ $keytable .= "\t\t</table>\n";
 
 $pp['keytable'] = ($keyCount > 0) ? $keytable : '';
 
-$page->addHtmlFragment('templates/gitkey.xhtml.php', $pp);
+$page->addHtmlFragment('../templates/gitkey.xhtml.php', $pp);
 $page->show();
 
 

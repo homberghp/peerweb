@@ -40,6 +40,6 @@ $page_opening = "Edit Subversion repositories for $roepnaam $tussenvoegsel $acht
 $nav = new Navigation( $tutor_navtable, basename( __FILE__ ), $page_opening );
 $nav->setInterestMap( $tabInterestCount );
 $page->addBodyComponent( $nav );
-$page->addHtmlFragment( 'templates/svneditor.html', $pp );
+$page->addHtmlFragment( '../templates/svneditor.html', $pp );
 $page->show();
 ?>

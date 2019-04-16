@@ -84,6 +84,6 @@ $nav->setInterestMap( $tabInterestCount );
 $rainbow = new RainBow();
 $pp['rtable'] = getQueryToTableChecked( $dbConn, $sql, false, 5, $rainbow, -1, '', '' );
 $page->addBodyComponent( $nav );
-$page->addHtmlFragment('templates/allgroupresult.html', $pp);
+$page->addHtmlFragment('../templates/allgroupresult.html', $pp);
 $page->show();
 ?>

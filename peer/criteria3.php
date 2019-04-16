@@ -91,7 +91,7 @@ while (!$resultSet->EOF) {
 }
 $table .= "</table>";
 //$form1Form->addText($table);
-$templatefile = 'templates/criteria3.html';
+$templatefile = '../templates/criteria3.html';
 $template_text = file_get_contents($templatefile, true);
 if ($template_text === false) {
     $form1Form->addText("<strong>cannot read template file $templatefile</strong>");

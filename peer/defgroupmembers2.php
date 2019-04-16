@@ -7,7 +7,7 @@ require_once 'maillists.inc.php';
 require_once 'TemplateWith.php';
 
 if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE')) {
-    require_once 'templates/getrealbrowser.html';
+    require_once '../templates/getrealbrowser.html';
     exit(0);
 }
 $maillist_dir = '/home/maillists';
@@ -199,7 +199,7 @@ $nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 extract(getTutorOwnerData2($dbConn, $prjm_id), EXTR_PREFIX_ALL, 'ot');
 
 $page->addBodyComponent($nav);
-$templatefile = 'templates/defgroupmembers3.html';
+$templatefile = '../templates/defgroupmembers3.html';
 $ie_warning = strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') ? "Internet Exploder is not supported" : "";
 $template_text = file_get_contents($templatefile, true);
 if ($template_text === false) {

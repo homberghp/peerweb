@@ -17,6 +17,6 @@ $ste->setFormAction(basename(__FILE__))
         ->setNameExpression("rtrim(pi_name)")
         ->setListRowTemplate(array('project_attributes_def', 'pi_name', 'author', 'interpretation', 'prj_id'))
         ->setOrderList(array('author', 'pi_name'))
-        ->setFormTemplate('templates/project_attributes_def.html')
+        ->setFormTemplate('../templates/project_attributes_def.html')
         ->show();
 ?>

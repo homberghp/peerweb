@@ -124,7 +124,7 @@ if ($isTutorOwner) {
 }
 $project_selector = getProjectSelector($dbConn, $peer_id, $prj_id);
 
-$templatefile = 'templates/addmilestone.html';
+$templatefile = '../templates/addmilestone.html';
 $template_text = file_get_contents($templatefile, true);
 if ($template_text === false) {
     $form1Form->addText("<strong>cannot read template file $templatefile</strong>");
@@ -163,7 +163,7 @@ $form2Form->addText("<input type='hidden' name='prj_id' value='$prj_id' />\n" .
 $form2->add($form2Form);
 $page->addBodyComponent($form2);
 $page->addBodyComponent(new Component('<!-- db_name=$db_name $Id: addmilestone.php 1769 2014-08-01 10:04:30Z hom $ -->'));
-$page->addHeadText(file_get_contents('templates/simpledatepicker.html'));
+$page->addHeadText(file_get_contents('../templates/simpledatepicker.html'));
 $page->addScriptResource('js/jquery.min.js');
 $page->addScriptResource('js/jquery-ui.custom.min.js');
 

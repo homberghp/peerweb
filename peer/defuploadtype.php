@@ -94,7 +94,7 @@ while ( !$resultSet->EOF ) {
 }
 //echo "<pre>doctype_set \n";print_r($doctype_set);echo "</pre>\n";
 $pp = array( );
-pagehead2( 'Define types of deliverables students can upload.', file_get_contents( 'templates/simpledatepicker.html' ) );
+pagehead2( 'Define types of deliverables students can upload.', file_get_contents( '../templates/simpledatepicker.html' ) );
 
 $page_opening = "Define the types of deliverables students can upload per milestones in a project. " .
         "<font style='font-size:6pt'>prj_id=$prj_id milestone=$milestone</font>";
@@ -144,6 +144,6 @@ if ( count( $datePickers ) > 0 ) {
   }
 }
 $pp['prjSelectionDetails'] = $prjSel->getSelectionDetails();
-$page->addHtmlFragment( 'templates/defuploadtype.html', $pp );
+$page->addHtmlFragment( '../templates/defuploadtype.html', $pp );
 $page->show();
 ?>

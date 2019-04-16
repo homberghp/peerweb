@@ -49,7 +49,7 @@ $prjSel->setJoin('milestone_grp using (prj_id,milestone)');
 
 $prj_id_selector=$prjSel->getSelector();
 
-$templatefile='templates/defcontacts1.html';
+$templatefile='../templates/defcontacts1.html';
 $template_text= file_get_contents($templatefile, true);
 $sql ="select * from project join tutor on(owner_id=userid) join student_email on(userid=snummer)\n".
     "where prj_id=$prj_id";

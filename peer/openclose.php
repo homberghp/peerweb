@@ -37,7 +37,7 @@ $isAdmin = hasCap(CAP_SYSTEM) ? 'true' : 'false';
 extract(getTutorOwnerData2($dbConn, $prjm_id), EXTR_PREFIX_ALL, 'ot');
 //$_SESSION['prjm_id']=$prjm_id=$ot_prjm_id;
 $mailsubject = "invitation to fill in your peer assessment data for project \$afko: \$description";
-$templatefile = 'templates/invitemailBodyTemplate.html';
+$templatefile = '../templates/invitemailBodyTemplate.html';
 // create mailbody
 $mailbody = file_get_contents($templatefile, true);
 $sqlsender = "select rtrim(email1) as sender,roepnaam||"
@@ -94,7 +94,7 @@ $nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 
 $grpTutorString = groupOpenerBarChart2($dbConn, $prjm_id, $isTutorOwner);
 $page->addBodyComponent($nav);
-$templatefile = 'templates/openclose.html';
+$templatefile = '../templates/openclose.html';
 $template_text = file_get_contents($templatefile, true);
 $text = '';
 $pp=array();
@@ -103,6 +103,6 @@ if ($template_text === false) {
 } else {
     $page->addBodyComponent(new Component(templateWith($template_text, get_defined_vars())));
 }
-$page->addHtmlFragment('templates/tinymce_include.html', $pp);
+$page->addHtmlFragment('../templates/tinymce_include.html', $pp);
 $page->show();
 

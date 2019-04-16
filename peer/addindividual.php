@@ -113,7 +113,7 @@ $nav = new Navigation( $tutor_navtable, basename( __FILE__ ), $page_opening );
 $nav->setInterestMap( $tabInterestCount );
 $nav->show();
 $prjSelectWidget = $prjSel->getWidget();
-require_once'templates/addindividual.html';
+require_once'../templates/addindividual.html';
 ?>
 <!-- db_name=<?= $db_name ?> -->
 <!-- $Id: addindividual.php 1725 2014-01-16 08:39:59Z hom $ -->

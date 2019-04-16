@@ -97,7 +97,7 @@ $page_opening="Set the capabilities of a peerweb user.";
 $nav=new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 echo $nav->show();
 
-require_once 'templates/editcapabilities.xhtml';
+require_once '../templates/editcapabilities.xhtml';
 ?>
 </body>
 </html>

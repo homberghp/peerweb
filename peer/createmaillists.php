@@ -55,7 +55,7 @@ ob_start();
 simpletable( $dbConn, $sql, "<table summary='maillists for project ' style='border-collapse:collapse' border='1'>" );
 $maillist_table = ob_get_clean();
 
-$templatefile = 'templates/createmaillists.html';
+$templatefile = '../templates/createmaillists.html';
 $template_text = file_get_contents( $templatefile, true );
 $text = '';
 if ( $template_text === false ) {

@@ -17,5 +17,5 @@ $ste->setTitle( "Map nationalities" )
         ->setNameExpression( "rtrim(nation_omschr)" )
         ->setListRowTemplate( array( 'nation_omschr','nationaliteit','id') )
         ->setOrderList( array( 'nation_omschr' ) )
-        ->setFormTemplate( 'templates/nat_mapper.html' )
+        ->setFormTemplate( '../templates/nat_mapper.html' )
         ->show();

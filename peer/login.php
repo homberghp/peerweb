@@ -92,7 +92,7 @@ if (isSet($_SESSION['userCap'])) {
 if (!isSet($_SESSION['auth_user'])) { // make login screen
     //    pagehead('Peerweb login');
     $action_uri = $_SERVER['REQUEST_URI'];
-    $templatefile = 'templates/logintemplate.html';
+    $templatefile = '../templates/logintemplate.html';
     $result = '';
     if (isSet($_REQUEST['baccessrequest'])) {
         $result = makenewlogincode($_REQUEST['newlogincode'], $_REQUEST['secret']);

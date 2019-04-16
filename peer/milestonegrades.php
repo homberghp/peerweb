@@ -105,6 +105,6 @@ $pp['rtable'] = getQueryToTableChecked($dbConn, $sql, false, 7, $rainbow, -1, ''
 $pp['selector'] = $prjSel->getSelector();
 $pp['selectionDetails'] = $prjSel->getSelectionDetails();
 $page->addBodyComponent($nav);
-$page->addHtmlFragment('templates/milestonegrades.html', $pp);
+$page->addHtmlFragment('../templates/milestonegrades.html', $pp);
 $page->show();
 ?>

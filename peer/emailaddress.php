@@ -267,7 +267,7 @@ ob_start();
             By entering an empty line here (erasing the current value) you delete that current entry.
         </p>
     </fieldset>
-<?php include 'templates/student.html' ?>
+<?php include '../templates/student.html' ?>
 </div>
 <!-- db_name=<?= $db_name ?> -->
 <?php

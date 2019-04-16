@@ -243,5 +243,5 @@ if ($resultSet === false) {
             " order by apt.grp_num,achternaam,roepnaam\n";
     $myRowFactory = new MyRowFactory();
     $tableBuilder = new TableBuilder($dbConn, $myRowFactory);
-    include 'templates/presencelist.html';
+    include '../templates/presencelist.html';
 }

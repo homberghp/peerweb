@@ -20,7 +20,7 @@ $ste->setFormAction(basename(__FILE__))
         ->setRawNames(array('snummer', 'class_id'))
         ->setNameExpression("pr_.snummer||' '||rtrim(achternaam,' ')||', '||rtrim(roepnaam,' ')||coalesce(' '||trim(tussenvoegsel),'')")
         ->setOrderList(array('achternaam', 'roepnaam'))
-        ->setFormTemplate('templates/prospect_admin.html')
+        ->setFormTemplate('../templates/prospect_admin.html')
         ->setListRowTemplate(array('pr_.snummer', 'email1', 'pcn', 'hoofdgrp','country', 'lang', 'gebdat', 'slb', 'studieplan', 'phone_gsm'))
         ->setListQueryExtension(' left join iso3166 on(geboorteland=a3)')
 
