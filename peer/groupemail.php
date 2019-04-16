@@ -62,16 +62,17 @@ if (isSet($_POST['mailto'])) {
     $paramtext = setToParamList($mailto, 2);
 
     // in the query below we have one constructed parameter, paramtext
-    $mailerQuery = <<<"SQL"
-with pro as (select * from all_prj_tutor where prjm_id=\$1),
+    $mailerQuery = <<<'SQL'
+with pro as (select * from all_prj_tutor where prjm_id=$1),
   rec as (select snummer as recipient,prjtg_id from prj_grp join pro using(prjtg_id)
   union select tutor_id as recipient,prjtg_id from pro)
 select distinct snummer, email1 as email, 
        roepnaam ||' '||coalesce(tussenvoegsel||' ','')||achternaam as name,roepnaam as firstname,
        trim(afko)as afko,trim(description)as description,milestone,assessment_due as due,milestone_name,
             grp_num, grp_name
-  from rec  join pro using(prjtg_id) join student_email on(recipient=snummer) where snummer in ({$paramtext})
+  from rec  join pro using(prjtg_id) join student_email on(recipient=snummer) where snummer in 
 SQL;
+    $mailerQuery +="({$paramtext})";
     $formMailer = new FormMailer($dbConn, $formsubject, $mailbody, $peer_id);
     $formMailer->mailWithData($mailerQuery, $params);
 }

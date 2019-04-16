@@ -73,12 +73,14 @@ if (isSet($_POST['formsubject'])) {
 $substitutions='{$email1}, {$roepnaam}, {$name},{$afko}, {$description}, {$milestone}, {$assessment_due}, {$prjm_id}, and {$milestone_name}' ;
 if (isSet($_POST['invite'])) {
 
-    $mailerQuery = "select email1 as email, \n"
-            . " roepnaam ||' '||coalesce(tussenvoegsel||' ','')||achternaam as name,roepnaam as firstname,\n"
-            . " prjm_id,trim(afko) as afko,trim(description) as description,milestone,assessment_due as due,milestone_name \n"
-            . "  from prj_grp join all_prj_tutor using(prjtg_id) \n"
-            . " join student_email using(snummer) \n"
-            . " left join alt_email using(snummer) where prjm_id =\$1 and prj_grp_open=true";
+    $mailerQuery = <<<'SQL'
+            select email1 as email,
+            roepnaam ||' '||coalesce(tussenvoegsel||' ','')||achternaam as name,roepnaam as firstname,
+            prjm_id,trim(afko) as afko,trim(description) as description,milestone,assessment_due as due,milestone_name
+            from prj_grp join all_prj_tutor using(prjtg_id)
+             join student_email using(snummer) 
+             left join alt_email using(snummer) where prjm_id =$1 and prj_grp_open=true
+SQL;
     //formMailer($dbConn, $sql, $mailsubject, $mailbody, $sender, $sender_name);
     $formMailer= new FormMailer($dbConn,$mailsubject,$mailbody,$peer_id);
     $formMailer->mailWithData($mailerQuery,[$prjm_id]);

@@ -282,14 +282,13 @@ if ( $isTutor ) {
 }
 
 if ( isSet( $prjtg_id ) ) {
-    $q =
-<<<"SQL"
+    $q =<<<'SQL'
             SELECT ca.contestant,roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam||coalesce(' ('||role||')','') as naam ,ca.prj_id,
             grp_num,criterium,milestone,grade,coalesce(remark,'') as remark from contestant_assessment ca
              left join student_role sr on(ca.prjm_id=sr.prjm_id and ca.contestant=sr.snummer)
              left join project_roles pr on(ca.prj_id=pr.prj_id and sr.rolenum=pr.rolenum)
              natural left join assessment_remarks ar
-            where ca.judge=\$1 and ca.prjtg_id=\$2
+            where ca.judge=$1 and ca.prjtg_id=$2
             order by achternaam,contestant,criterium
 SQL;
             $rs=$dbConn->Prepare($q)->execute(array($judge,$prjtg_id));

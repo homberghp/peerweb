@@ -22,7 +22,7 @@ $pp['newhoofdgrp'] = '';
 $prefix = 'noprefix';
 
 if (isSet($_REQUEST['oldclass_id'])) {
-    $_SESSION['oldclass_id'] = $oldclass_id = vaildate($_REQUEST['oldclass_id'], 'integer', '0');
+    $_SESSION['oldclass_id'] = $oldclass_id = validate($_REQUEST['oldclass_id'], 'integer', '0');
 }
 if (isSet($_POST['newclass_id'])) {
     $_SESSION['newclass_id'] = $newclass_id = validate($_POST['newclass_id'], 'integer', '0');
@@ -31,10 +31,10 @@ if (isSet($oldclass_id)) {
     $sql = <<<'SQL'
    select trim(faculty_short) as faculty_short,trim(sclass) as sclass,
    lower(rtrim(faculty_short)||'.'||rtrim(sclass)) as prefix
-   from student_class join faculty using(faculty_id) where class_id=\$1
+   from student_class join faculty using(faculty_id) where class_id=$1
 SQL;
 
-    $resultSet = $dbConn->Execute($sql)->execute(array($oldclass_id));
+    $resultSet = $dbConn->Prepare($sql)->execute([$oldclass_id]);
     if ($resultSet !== false) {
         extract($resultSet->fields);
     }
@@ -110,7 +110,7 @@ $pp['newClassSelector'] = $nclassSelectorClass->setSelectorName('newclass_id')->
 $page = new PageContainer();
 $page_opening = "Move students between student classes";
 $page->setTitle($page_opening);
-$nav = new Navigation($tutor_navtable, basename(__FILENAME__), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 
 $page->addBodyComponent($nav);

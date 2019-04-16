@@ -37,9 +37,9 @@ if (isSet($_POST['slb']) && preg_match('/^\d+$/', $_POST['slb'])) {
 }
 
 if (isSet($_POST['setslb']) && isSet($slb) && isSet($_POST['studenten'])) {
-    $memberset = '\'' . implode("','", $_POST['studenten']) . '\'';
+    $memberset = implode(",", $_POST['studenten']);
     $sql = "update student_email set slb=$slb " .
-            "where snummer in ($memberset)";
+            "where snummer in ({$memberset})";
     $resultSet = $dbConn->Execute($sql);
     if ($resultSet === false) {
         die("<br>Cannot update student_email  with " . $sql . " reason " . $dbConn->ErrorMsg() . "<br>");

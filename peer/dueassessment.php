@@ -52,7 +52,7 @@ if (isSet($_POST['snmailto']) && isSet($_POST['domail'])) {
     $snmailto = $_POST['snmailto'];
     $mailset = '\'' . implode("','", $snmailto) . '\'';
     $paramtext = setToParamList($snmailto, 2);
-    $sql = <<<"SQL"
+    $sql = <<<'SQL'
 select distinct email1 as email, tutor_email,s.roepnaam as firstname,
     s.roepnaam ||' '||coalesce(s.tussenvoegsel,'')||' '||s.achternaam as name,
     trim(afko) as afko, trim(description) as description,milestone,assessment_due as due,milestone_name 
@@ -64,8 +64,9 @@ select distinct email1 as email, tutor_email,s.roepnaam as firstname,
     join project p on (pm.prj_id=p.prj_id)
     join tutor_data td on (pt.tutor_id=td.tutor_id)
     left join alt_email aem on (s.snummer=aem.snummer)
-where  pm.prjm_id=\$1 and s.snummer in ($paramtext)
+where  pm.prjm_id=$1 and s.snummer in
 SQL;
+    $sql +="($paramtext)";
     //$dbConn->log($sql);
     //formMailer($dbConn, $sql, $formsubject, $mailbody, $sender, $sender_name);
     $formMailer = new FormMailer($dbConn, $formsubject, $mailbody, $peer_id);

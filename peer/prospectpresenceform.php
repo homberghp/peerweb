@@ -48,10 +48,10 @@ fwrite( $fp, "\\documentclass[11pt]{article}\n" .
         . "\\begin{document}\n"
         . "\\pagestyle{fancy}\n" );
 
-$sql = <<<"SQL"
+$sql = <<<'SQL'
         select hoofdgrp,snummer,
          achternaam||', '||roepnaam||coalesce(' '||tussenvoegsel,'') as name
-        from prospects where hoofdgrp=\$1
+        from prospects where hoofdgrp=$1
         order by achternaam,roepnaam
 SQL;
 
