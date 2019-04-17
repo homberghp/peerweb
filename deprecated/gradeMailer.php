@@ -20,12 +20,12 @@ $page->addBodyComponent( $nav );
 //$page->addScriptResource('js/jquery.tablesorter.js');
 //$page->addJqueryFragment( '$("#myTable").tablesorter({widgets: [\'zebra\'],headers: {0:{sorter:false}}});' );
 //$page->addHeadText($css);
-$page->addHeadFragment( 'templates/tinymce_include.html' );
+$page->addHeadFragment( '../templates/tinymce_include.html' );
 $pp['subject_de'] = 'Einladung zum Schnuppertag an der Fontys FH in Venlo';
 $pp['subject_nl'] = 'Uitnodiging voor een meeloopdag bij Fontys Hogescholen in Venlo';
 
-$pp['mailbody_de'] = file_get_contents( 'templates/meeloop_mailbody_de.html', true );
-$pp['mailbody_nl'] = file_get_contents( 'templates/meeloop_mailbody_nl.html', true );
+$pp['mailbody_de'] = file_get_contents( '../templates/meeloop_mailbody_de.html', true );
+$pp['mailbody_nl'] = file_get_contents( '../templates/meeloop_mailbody_nl.html', true );
 
 $sql = "select 0 as sorter,m.*,s.roepnaam||coalesce(' '||s.tussenvoegsel||' ',' ')||s.achternaam as mail_author from meeloopmail m join student_email s on (owner=snummer) where owner=$peer_id \n"
         . "union\n"
@@ -126,8 +126,8 @@ $pp['rtable']->setCheckColumn( 0 )
         ->setColorChangerColumn( 10 )
         ->setTabledef( "<table id='myTable' class='tablesorter' summary='meeloop studenten'"
                 . " style='empty-cells:show;border-collapse:collapse' border='1'>" );
-$page->addHtmlFragment( 'templates/meeloopdag.html', $pp );
-$page->addHeadText( file_get_contents( 'templates/simpledatepicker.html' ) );
+$page->addHtmlFragment( '../templates/meeloopdag.html', $pp );
+$page->addHeadText( file_get_contents( '../templates/simpledatepicker.html' ) );
 $page->addScriptResource( 'js/jquery-1.7.1.min.js' );
 $page->addScriptResource( 'js/jquery-ui-1.8.17.custom.min.js' );
 $page->addJqueryFragment( '$(\'#meeloop_datum\').datepicker(dpoptions);' );

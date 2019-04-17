@@ -333,7 +333,7 @@ class MenuField {
                 $result = "<!-- datepicker --><input type='text' placeholder='yyyy-mm-dd' style='text-align:left;' size='10' name='" . $this->name . "' id='" . $this->name . "' value='" . $this->value . "'/>\n";
                 $this->page->addScriptResource('js/jquery-1.7.1.min.js')
                         ->addScriptResource('js/jquery-ui-1.8.17.custom.min.js')
-                        ->addFileContentsOnce('templates/simpledatepicker.html')
+                        ->addFileContentsOnce('../templates/simpledatepicker.html')
                         ->addJqueryFragment("\$('#" . $this->name . "').datepicker(dpoptions);");
                 break;
             case 't':

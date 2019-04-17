@@ -355,7 +355,7 @@ class SimpleTableEditor {
      */
     function setDefaultButtons() {
         if ( $this->allowIUD ) {
-            $this->setButtonTemplate( 'templates/buttontemplate.html' );
+            $this->setButtonTemplate( '../templates/buttontemplate.html' );
             $butDefs = array(
                 array( 'name' => 'Clear', 'value' => 'Clear', 'accessKey' => 'C',
                     'type' => 'submit' ), //,'onclick'=>'clearForm(this.form);'),
