@@ -1,4 +1,5 @@
 <?php
+
 requireCap(CAP_TUTOR);
 /* $Id: groupemail.php 1845 2015-03-19 11:56:26Z hom $ */
 require_once('peerutils.php');
@@ -72,7 +73,9 @@ select distinct snummer, email1 as email,
             grp_num, grp_name
   from rec  join pro using(prjtg_id) join student_email on(recipient=snummer) where snummer in 
 SQL;
-    $mailerQuery +="({$paramtext})";
+    $mailerQuery .= "({$paramtext})";
+//    echo "mailerQuery=<pre>{$mailerQuery}</pre>";
+//    print_r($params);
     $formMailer = new FormMailer($dbConn, $formsubject, $mailbody, $peer_id);
     $formMailer->mailWithData($mailerQuery, $params);
 }
