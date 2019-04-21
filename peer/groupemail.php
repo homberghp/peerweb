@@ -74,8 +74,6 @@ select distinct snummer, email1 as email,
   from rec  join pro using(prjtg_id) join student_email on(recipient=snummer) where snummer in 
 SQL;
     $mailerQuery .= "({$paramtext})";
-//    echo "mailerQuery=<pre>{$mailerQuery}</pre>";
-//    print_r($params);
     $formMailer = new FormMailer($dbConn, $formsubject, $mailbody, $peer_id);
     $formMailer->mailWithData($mailerQuery, $params);
 }
