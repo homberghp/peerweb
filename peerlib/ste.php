@@ -647,7 +647,7 @@ class SimpleTableEditor {
 
         if ( isset( $_SESSION[ 'searchQueryValues' ] ) ) {//$this->searchQueryValues != NULL) {
             $this->page->addHeadText( '<link rel="stylesheet" href="style/tablesorterstyle.css" type="text/css" media="print, projection, screen" />' )
-                    ->addScriptResource( 'js/jquery-1.7.1.min.js' )
+                    ->addScriptResource( 'js/jquery.min.js' )
                     ->addScriptResource( 'js/jquery.tablesorter.min.js' )
                     ->addJqueryFragment( "$('#resultlist').tablesorter({widthFixed: true, widgets: ['zebra']});" );
             $this->searchQuery->setSubmitValueSet( $_SESSION[ 'searchQueryValues' ] );

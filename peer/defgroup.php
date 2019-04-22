@@ -217,7 +217,7 @@ $page->addBodyComponent(new Component('<!-- db_name=$db_name $Id: defgroup.php 1
 $page->addHeadText('
 <link type="text/css" href="css/pepper-grinder/jquery-ui.custom.css" rel="stylesheet" />	
 <script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui.custom.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-custom/jquery-ui.custom.min.js"></script>
   <script>
 	$(function() {
 		$( "#tabs" ).tabs();

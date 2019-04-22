@@ -125,7 +125,7 @@ $pp['rtable']->setCheckColumn( 0 )
 $page->addHtmlFragment( '../templates/absentdag.html', $pp );
 $page->addHeadText( file_get_contents( '../templates/simpledatepicker.html' ) );
 $page->addScriptResource( 'js/jquery.min.js' );
-$page->addScriptResource( 'js/jquery-ui.custom.min.js' );
+$page->addScriptResource( 'js/jquery-ui-custom/jquery-ui.custom.min.js' );
 $page->addJqueryFragment( '$(\'#absent_datum\').datepicker(dpoptions);' );
 
 $page->show();

@@ -116,7 +116,7 @@ $page = new PageContainer();
 $page_opening = "Copy project groupsfrom" .
         "<span style='font-size:8pt;'>prj_id $prj_id milestone $milestone prjm_id $prjm_id</span>";
 $page->setTitle('Copy project groups');
-$nav = new Navigation($tutor_navtable, basename($__FILE__), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 
 extract(getTutorOwnerData2($dbConn, $prjm_id), EXTR_PREFIX_ALL, 'ot');
 

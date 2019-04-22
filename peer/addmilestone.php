@@ -165,7 +165,7 @@ $page->addBodyComponent($form2);
 $page->addBodyComponent(new Component('<!-- db_name=$db_name $Id: addmilestone.php 1769 2014-08-01 10:04:30Z hom $ -->'));
 $page->addHeadText(file_get_contents('../templates/simpledatepicker.html'));
 $page->addScriptResource('js/jquery.min.js');
-$page->addScriptResource('js/jquery-ui.custom.min.js');
+$page->addScriptResource('js/jquery-ui-custom/jquery-ui.min.js');
 
 if (count($datePickers) > 0) {
     foreach ($datePickers as $dp) {
