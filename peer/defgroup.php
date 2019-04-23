@@ -215,9 +215,9 @@ $page->addBodyComponent($form2Fieldset);
 
 $page->addBodyComponent(new Component('<!-- db_name=$db_name $Id: defgroup.php 1829 2014-12-28 19:40:37Z hom $ -->'));
 $page->addHeadText('
-<link type="text/css" href="css/pepper-grinder/jquery-ui.custom.css" rel="stylesheet" />	
+<link type="text/css" href="js/jquery-ui-custom/jquery-ui.css" rel="stylesheet" />	
 <script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-custom/jquery-ui.custom.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-custom/jquery-ui.min.js"></script>
   <script>
 	$(function() {
 		$( "#tabs" ).tabs();
