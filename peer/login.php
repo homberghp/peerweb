@@ -94,9 +94,9 @@ if (!isSet($_SESSION['auth_user'])) { // make login screen
     $action_uri = $_SERVER['REQUEST_URI'];
     $templatefile = '../templates/logintemplate.html';
     $result = '';
-    if (isSet($_REQUEST['baccessrequest'])) {
-        $result = makenewlogincode($_REQUEST['newlogincode'], $_REQUEST['secret']);
-    }
+    // if (isSet($_REQUEST['baccessrequest'])) {
+    //     $result = makenewlogincode($_REQUEST['newlogincode'], $_REQUEST['secret']);
+    // }
     $ktipicon = IMAGEROOT . '/ktip.png';
     $pdficon = IMAGEROOT . '/pdf.png';
     $template_text = file_get_contents($templatefile, true);

@@ -66,7 +66,7 @@ $spreadSheetWriter->processRequest();
 $spreadSheetWidget = $spreadSheetWriter->getWidget();
 
 $sqlhead2 = "select distinct '<a href=''student_admin.php?snummer='||snummer||''' target=''_blank''>'||snummer||'</a>' as snummer,"
-        //. "'<img src='''||photo||''' style=''height:24px;width:auto;''/>' as foto,\n"
+          . "'<img src='''||photo||''' style=''height:24px;width:auto;''/>' as foto,\n"
         . "achternaam ,roepnaam, tussenvoegsel as tussenvoegsel," .
         "pcn,"
         . "lang,"

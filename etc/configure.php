@@ -15,7 +15,7 @@ if (is_file($site_dir . '/CLOSED')) {
 }
 
 $include_path = ini_get('include_path');
-$include_path = $site_home . '/peerlib:' . $include_path . ':/usr/share/php/PHPExcel';
+$include_path = $site_home . '/peerlib:' . $include_path . ':/usr/share/php/PHPExcel/Classes';
 $include_path = ini_set('include_path', $include_path);
 $subversionscriptdir = "{$site_home}/subversion";
 define('ADODB_ASSOC_CASE', 2);

@@ -36,7 +36,8 @@ my $query =qq(select snummer,trim(achternaam) as achternaam,
    trim(hoofdgrp) as course_grp,lang
    from prospects 
    where faculty_id=$faculty
-   and hoofdgrp in ('WTBDE2018','WTBNL2018','WTBEN2018','IPODE2018','IPONL2018','IPOEN2018','ADENNL2018','MEDE2018','MENL2018','MEDE2018')
+--    and hoofdgrp like 'ME%'
+   and hoofdgrp in ('WTBDE2019','WTBNL2019','WTBEN2019','IPODE2019','IPONL2019','IPOEN2019','ADENNL2019') 
    order by hoofdgrp,achternaam,roepnaam);
 my $dbh= DBI->connect("dbi:Pg:dbname=$dbname",$username,$password,{pg_utf8_strings =>1});
 # --   where (course_grp like 'IPO%' or course_grp like 'WTB%')

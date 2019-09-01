@@ -60,39 +60,6 @@
                     <p>No admission? Request a (new) password.
                         This will be sent to the registered university email address.</p>
                 </div>
-                <fieldset>
-                    <legend>Authentication request</legend>
-                    <form name='accessrequest' method='post' autocomplete='off' action='{$PHP_SELF}'>
-                        <table class='layout'>
-                            <tr>
-                                <td>Logincode (student number if you are a student, pcn if you are staff member) </td>
-                                <td><input type='text' name='newlogincode'/></td>
-                            </tr>
-                            <tr>
-                                <td>Date of birth (format yyyy-mm-dd like 1970-01-24)</td>
-                                <td><input type='password' name='secret'/></td>
-                            </tr>
-                            <tr>
-                                <td>Click the button</td>
-                                <td><input type='submit' name='baccessrequest' value='Submit'/></td>
-                            </tr>
-                        </table> 
-                    </form>
-                    <p>$result</p>
-                    <div class='notice' style='width:15%'><img src='{$ktipicon}' alt='tip'/>Why my birthday?</div>
-                    <p>In case you wonder why I want your birthday: Not asking for some kind of 'secret' would make it to trivial
-                        for script kiddies to make this service into a <i>denial of service</i> for the intended users. 
-                        The new authentication becomes effective immediately, so someone could generate passwords faster then you can read your mail.
-                        A birthday combined with an id is secret enough and at the same time known to the user. 
-                        We already have the information in the database. We just use it as a check to make
-                        (almost) sure that the right person is requesting the new authentication code.</p>
-                </fieldset>
-                <!--div>
-                     <fieldset><legend>Peerweb  video tutorial on YouTube</legend>
-                     <p>The tutorial below was prepared by Rob Thuyls, Lecturer at Fontys International Hogeschool voor Economie.</p>
-                <object width='960' height='745'><param name='movie' value='https://www.youtube.com/v/XYtDEdirs6Y?fs=1&amp;hl=en_US&amp;hd=1'></param><param name='allowFullScreen' value='true'></param><param name='allowscriptaccess' value='always'></param><embed src='https://www.youtube.com/v/XYtDEdirs6Y?fs=1&amp;hl=en_US&amp;hd=1' type='application/x-shockwave-flash' allowscriptaccess='always' allowfullscreen='true' width='960' height='745'></embed></object>
-                     </fieldset>
-                </div-->
             </div>
         </div>
     </body>

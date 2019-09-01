@@ -32,7 +32,7 @@ if (isSet($_REQUEST['class_id'])) {
     }
     $basename = $basename . '-' . date('Ymd');
     $sql = "select roepnaam||coalesce(' '||tussenvoegsel||' ',' ')||achternaam as line1,\n" .
-            "snummer as line2,\n" .
+            "'Always have Pen or Pencil' as line2,\n" .
             "course_short||'.'||coalesce(apt.alias,apt.grp_name,'g'||apt.grp_name) as line3," .
             "snummer as barcode,\n" .
             "achternaam,roepnaam\n" .
