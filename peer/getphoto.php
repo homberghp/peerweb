@@ -4,7 +4,7 @@ require_once('validators.php');
 $dir=validate($_REQUEST['d'], 'fotodir', 'fotos');
 $foto=validate($_REQUEST['s'], 'snummer', '0');
 $fotodir="{$fotobase}/{$dir}";
-$fname="{$fotodir}/{$foto}.jpg";
+$fname="{$fotodir}/".allowedPhoto($peer_id,$foto);
 
 $fp = @fopen($fname, 'r');
 // send the right headers

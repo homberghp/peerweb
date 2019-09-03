@@ -68,4 +68,17 @@ function validate_date($value, $replacement = '1970-01-01') {
         return $replacement;
 }
 
-?>
+/**
+ * @$supplicant, the requestor of the photo
+ * @$portrait, requested foto.
+ * @return <somephoto>.jpg where somephoto=$photoSnummer or 0 when not allowed
+ */
+function allowedPhoto($supplicant, $photoSnummer ){
+    //return '0.jpg';
+    if (hasCap(CAP_TUTOR)) {
+        return "{$photoSnummer}.jpg";
+    } else {
+        "0.jpg";
+    }
+    
+}
