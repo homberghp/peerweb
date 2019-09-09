@@ -23,8 +23,11 @@ $_SESSION['milestone'] = $milestone;
 
 $filename = 'svnProgress_' . $afko . '-' . date('Ymd');
 $title = "Student and groups in project $afko milestone $milestone";
-$sql = 
-        "select snummer,achternaam,roepnaam,grp_name,'<a href={$svnserver_url}'||url_tail||' target=_blank>'||grp_name||'</a>' as url,youngest,last_commit from svn_progress where prjm_id={$prjm_id}";
+$sql = "select '<a href=''student_admin.php?snummer='||snummer||''' target=''_blank''>'||snummer||'</a>' as snummer,"
+     . "'<a href=''student_admin.php?snummer='||snummer||''' target=''_blank''><img src='''||photo||''' style=''height:32px;width:auto;''/></a>' as foto,"
+     ."achternaam,roepnaam,grp_name,"
+     ."'<a href={$svnserver_url}'||url_tail||' target=_blank>'||grp_name||'</a>' as url,"
+     ."youngest,last_commit from svn_progress join portrait using(snummer) where prjm_id={$prjm_id}";
 $spreadSheetWriter = new SpreadSheetWriter($dbConn, $sql);
 
 $spreadSheetWriter->setFilename($filename)
