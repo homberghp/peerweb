@@ -16,16 +16,16 @@ extract($_SESSION);
 $dbConn->setSqlAutoLog(true);
 $page = new PageContainer("Define or update Activity ");
 $ste = new SimpleTableEditor($dbConn, $page);
-$ste->setFormAction($PHP_SELF)
+$ste->setFormAction(basename(__FILE__))
         ->setRelation('activity')
         ->setMenuName('activity')
         ->setKeyColumns(array('act_id'))
         //->setShowQuery(true)
-    ->setNameExpression("rtrim(short)||'*'||part||': '||rtrim(ac_.description)")
+    ->setNameExpression("coalesce(rtrim(short)||'*'||part||': '||rtrim(ac_.description),'unnamed')")
         ->setOrderList(array('datum desc', 'start_time', 'short'))
         ->setListRowTemplate(array('project', 'prj_id','project_description' ,'ac_.prjm_id','datum', 'start_time', 'act_id','act_type', 'part'))
         //->setListRowTemplate(array('datum', 'start_time', 'act_id','act_type', 'part'))
-        ->setFormTemplate('templates/activity.html')
+        ->setFormTemplate('../templates/activity.html')
         ->setSubRel('all_project_milestone')
         ->setSubRelJoinColumns(array('prjm_id'=>' prjm_id'))
         ->show();

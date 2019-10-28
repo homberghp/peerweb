@@ -657,7 +657,7 @@ function pagehead($title, $script = '') {
     <title><?= $title ?></title>
     </head>
     <?php
-    echo "<body class='{Sbody_class}' >";
+    echo "<body class='{$body_class}' >";
 }
 
 /* pagehead() */

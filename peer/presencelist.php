@@ -176,7 +176,7 @@ if (isSet($_REQUEST['bsubmit']) && isSet($_REQUEST['participant']) && isProjectS
     }
 }
 
-$script = '<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>'
+$script = '<script type="text/javascript" src="js/jquery.min.js"></script>'
         . '<script type="text/javascript" language="JavaScript">
     function checkAll(theForm, cName, cClass, status) {
     var n=theForm.elements.length;
@@ -197,7 +197,7 @@ $script = '<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
 // get group tables for a project
 pagehead2('Get presence list', $script);
 $page_opening = "Presence list for students attending activities xyz";
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $nav->show();
 $sql3 = "select datum||'@'||start_time||', '||' ('||act_id||', #'||coalesce(apc.count,0)||') '||act_type_descr||' '||rtrim(short)" .
@@ -243,5 +243,5 @@ if ($resultSet === false) {
             " order by apt.grp_num,achternaam,roepnaam\n";
     $myRowFactory = new MyRowFactory();
     $tableBuilder = new TableBuilder($dbConn, $myRowFactory);
-    include 'templates/presencelist.html';
+    include '../templates/presencelist.html';
 }

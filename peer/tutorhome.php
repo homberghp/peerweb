@@ -11,7 +11,7 @@ $page->addHeadComponent( new Component("<style type='text/css'>
  
  </style>"));
 $page_opening="Peer assessment, what&#39;s in it for me, the tutor?";
-$nav=new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav=new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $page->addBodyComponent($nav);
 $newsfile='news.html';
 $news_text= file_get_contents($newsfile, true);

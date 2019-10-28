@@ -5,6 +5,7 @@ destdir=${site_home}/output
 workdir=.
 GETOPT=/usr/bin/getopt
 ARGS=$(${GETOPT} -o d:w:t:h --long destdir:,workdir:,timestamp:,help -- "$@")
+FILETS=$(date +%Y-%m-%d)
 eval set -- "$ARGS"
 while [ $# -gt 0 ]
 do

@@ -10,13 +10,13 @@ $title = "Studieplan editor on DB {$db_name} ";
 $page = new PageContainer($title);
 $ste = new SimpleTableEditor($dbConn, $page);
 $ste->setTitle($title)
-    ->setFormAction($PHP_SELF)
+    ->setFormAction(basename(__FILE__))
     ->setRelation('studieplan')
     ->setMenuName('studieplan')
     ->setKeyColumns(array('studieplan'))
     ->setNameExpression("studieplan||':'||rtrim(studieplan_short)")
     ->setListRowTemplate(array('studieplan','studieplan_short', 'studieplan_omschrijving', 'studieprogr','variant_omschrijving'))
     ->setOrderList(array('studieplan_short'))
-    ->setFormTemplate('templates/studieplan.html')
+    ->setFormTemplate('../templates/studieplan.html')
     ->show();
 

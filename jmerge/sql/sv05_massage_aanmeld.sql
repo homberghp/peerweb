@@ -1,7 +1,7 @@
 -- begin work;
 -- weg met afmelders
 delete from sv05_aanmelders where datum_annulering notnull;
-alter table sv05_aanmelders alter column draaidatum type date using ('1899-12-30'::date+floor(draaidatum)::int);
+--alter table sv05_aanmelders alter column draaidatum type date using ('1899-12-30'::date+floor(draaidatum)::int);
 alter table sv05_aanmelders rename column draaidatum  to peildatum;
 
 update sv05_aanmelders set fase='Bachelor' where fase <> 'Bachelor';
@@ -60,6 +60,10 @@ update sv05_aanmelders set course_grp='CEEN'||studiejaar where  opleiding='B Com
 update sv05_aanmelders set course_grp='IBMSDE'||studiejaar where  opleiding='B Internat Business and Managem Studies' and voorkeurstaal='Duits';
 update sv05_aanmelders set course_grp='IBMSNL'||studiejaar where  opleiding='B Internat Business and Managem Studies' and voorkeurstaal='Nederlands';
 update sv05_aanmelders set course_grp='IBMSEN'||studiejaar where  opleiding='B Internat Business and Managem Studies' and voorkeurstaal='Engels';
+
+update sv05_aanmelders set course_grp='LENGDE'||studiejaar where  opleiding='B Logistics Engineering' and voorkeurstaal='Duits';
+update sv05_aanmelders set course_grp='LENGNL'||studiejaar where  opleiding='B Logistics Engineering' and voorkeurstaal='Nederlands';
+update sv05_aanmelders set course_grp='LENGEN'||studiejaar where  opleiding='B Logistics Engineering' and voorkeurstaal='Engels';
 
 update sv05_aanmelders set course_grp='ADENNL'||studiejaar where  opleiding='Ad Engineering' and voorkeurstaal='Nederlands';
 

@@ -12,22 +12,22 @@ require_once("peerutils.php");
 require_once('navigation2.php');
 require_once("utils.php");
 require_once("ste.php");
-$navTitle = "Peerweb testscript " . $PHP_SELF . " on DB " . $db_name;
+$navTitle = "Peerweb testscript " . basename(__FILE__) . " on DB " . $db_name;
 $page = new PageContainer();
 $page->setTitle('Menu');
 //$dbConn->setSqlAutoLog(true);
 $ste = new SimpleTableEditor($dbConn, $page);
-$ste->setFormAction($PHP_SELF);
+$ste->setFormAction(basename(__FILE__));
 $ste->setRelation('menu');
 $ste->setMenuName('menu');
 $ste->setKeyColumns(array('menu_name', 'relation_name'));
 $ste->setNameExpression("rtrim(menu_name,' ')||', '||rtrim(relation_name,' ')");
 $ste->setOrderList(array('menu_name', 'relation_name'));
-$ste->setFormTemplate('templates/menu.html');
+$ste->setFormTemplate('../templates/menu.html');
 $ste->setListRowTemplate(array('menu_name', 'relation_name'));
 
 $page_opening = "Menu";
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(basename(__FILE__)), $page_opening);
 $page->addBodyComponent($nav);
 
 if (isSet($_POST['Insert'])) {
@@ -44,5 +44,5 @@ if (isSet($_POST['Insert'])) {
 }
 $ste->render();
 $page->addBodyComponent(new Component('<!-- db_name=$db_name $Id: menu.php 1723 2014-01-03 08:34:59Z hom $ -->'));
-$page->addBodyComponent(new Component('<a href="tets.php">tets</a>' . $PHP_SELF));
+$page->addBodyComponent(new Component('<a href="tets.php">tets</a>' . basename(__FILE__)));
 $page->show();

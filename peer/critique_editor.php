@@ -160,7 +160,7 @@ $critique_text = stripslashes($critique_text);
 $editor_result = $critique_text;
 $critique_text_rte = rteSafe($critique_text);
 $critique_id_text = ($critique_id > 0) ? $critique_id : '\'<i>new</i>\'';
-$templatefile = 'templates/critique_editor_form.html';
+$templatefile = '../templates/critique_editor_form.html';
 $template_text = file_get_contents($templatefile, true);
 if ($template_text === false) {
     $form1->addText("<strong>cannot read template file $templatefile</strong>");
@@ -168,7 +168,7 @@ if ($template_text === false) {
     $form1->addText(templateWith($template_text, get_defined_vars()));
 }
 $page->addBodyComponent($form1);
-$page->addHtmlFragment('templates/tinymce_include.html', $pp);
+$page->addHtmlFragment('../templates/tinymce_include.html', $pp);
 
 $page->show();
 ?>

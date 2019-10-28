@@ -10,12 +10,12 @@ require_once("ste.php");
 $page = new PageContainer("Nat mapper $db_name ");
 $ste = new SimpleTableEditor( $dbConn ,$page);
 $ste->setTitle( "Map nationalities" )
-        ->setFormAction( $PHP_SELF )
+        ->setFormAction( basename(__FILE__) )
         ->setRelation( 'nat_mapper' )
         ->setMenuName( 'nat_mapper' )
         ->setKeyColumns( array( 'id' ) )
         ->setNameExpression( "rtrim(nation_omschr)" )
         ->setListRowTemplate( array( 'nation_omschr','nationaliteit','id') )
         ->setOrderList( array( 'nation_omschr' ) )
-        ->setFormTemplate( 'templates/nat_mapper.html' )
+        ->setFormTemplate( '../templates/nat_mapper.html' )
         ->show();

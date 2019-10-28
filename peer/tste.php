@@ -24,8 +24,8 @@ require_once("ste.php");
  // require_once("blocked_tail.inc");
  // exit;
  //}
-global $PHP_SELF;
-$navTitle= "Prafda2 testscript ".$PHP_SELF." on DB ".$db_name;
+global basename(__FILE__);
+$navTitle= "Prafda2 testscript ".basename(__FILE__)." on DB ".$db_name;
 ?>
 <title>
 <?php echo $navTitle; ?>
@@ -33,7 +33,7 @@ $navTitle= "Prafda2 testscript ".$PHP_SELF." on DB ".$db_name;
 </head>
 <body>
 <?php
-  //navstart($navTitle,$PHP_SELF);
+  //navstart($navTitle,basename(__FILE__));
 $ste = new SimpleTableEditor();
 $ste->setFormAction(basename(__FILE__));
 $ste->setRelation('student_email');

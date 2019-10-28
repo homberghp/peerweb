@@ -12,71 +12,70 @@ $prj_id = 1;
 $milestone = 1;
 $afko = 'undef';
 $prjm_id = 0;
-extract( $_SESSION );
+extract($_SESSION);
 
-$prjSel = new StudentMilestoneSelector( $dbConn, $judge, $prjm_id );
-$prjSel->setExtraConstraint( " and prjm_id in (select prjm_id from project_deliverables) " );
-extract( $prjSel->getSelectedData() );
+$prjSel = new StudentMilestoneSelector($dbConn, $judge, $prjm_id);
+$prjSel->setExtraConstraint(" and prjm_id in (select prjm_id from project_deliverables) ");
+extract($prjSel->getSelectedData());
 $_SESSION['prjtg_id'] = $prjtg_id;
 $_SESSION['prj_id'] = $prj_id;
 $_SESSION['prjm_id'] = $prjm_id;
 $_SESSION['milestone'] = $milestone;
 $_SESSION['grp_num'] = $grp_num;
 
-if ( isSet( $_REQUEST['prj_id_milestone'] ) ) {
-  list($prj_id, $milestone) = explode( ':',
-          validate( $_REQUEST['prj_id_milestone'], 'prj_id_milestone', $prj_id, ':' . $milestone ) );
-  $_SESSION['prj_id'] = $prj_id;
-  $_SESSION['milestone'] = $milestone;
+if (isSet($_REQUEST['prj_id_milestone'])) {
+    list($prj_id, $milestone) = explode(':', validate($_REQUEST['prj_id_milestone'], 'prj_id_milestone', $prj_id, ':' . $milestone));
+    $_SESSION['prj_id'] = $prj_id;
+    $_SESSION['milestone'] = $milestone;
 }
 $sql = "select prjm_id from prj_milestone where prj_id=$prj_id and milestone=$milestone";
-$resultSet = $dbConn->Execute( $sql );
-if ( $resultSet === false ) {
-  die( 'Error: ' . $dbConn->ErrorMsg() . ' with ' . $sql );
+$resultSet = $dbConn->Execute($sql);
+if ($resultSet === false) {
+    die('Error: ' . $dbConn->ErrorMsg() . ' with ' . $sql);
 }
-extract( $resultSet->fields );
+extract($resultSet->fields);
 
-$lang = strtolower( $lang );
-$today = date( 'Y-m-d' );
+$lang = strtolower($lang);
+$today = date('Y-m-d');
 
 $page = new PageContainer();
-$page->setTitle( 'Shared group files' );
+$page->setTitle('Shared group files');
 $page_opening = "Welcome to the files of the groups of $roepnaam $tussenvoegsel $achternaam ($snummer)";
 $page_opening = "Files uploaded for projects in which $roepnaam $tussenvoegsel $achternaam ($snummer) participates on $today";
-$nav = new Navigation( $tutor_navtable, basename( $PHP_SELF ), $page_opening );
-$_SESSION['referer'] = $PHP_SELF;
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
+$_SESSION['referer'] = basename(__FILE__);
 ob_start();
-tutorHelper( $dbConn, $isTutor );
-$page->addBodyComponent( new Component( ob_get_clean() ) );
-$page->addBodyComponent( $nav );
+tutorHelper($dbConn, $isTutor);
+$page->addBodyComponent(new Component(ob_get_clean()));
+$page->addBodyComponent($nav);
 $sql = "SELECT distinct apt.prj_id||':'||apt.milestone as value, \n" .
         "apt.afko||': '||apt.description||'('||apt.year::text||')'||' milestone '||apt.milestone as name\n" .
         ", apt.prj_id,apt.milestone,apt.afko, apt.year as namegrp,apt.year, apt.description,apt.grp_num \n" .
         "FROM all_prj_tutor apt join prj_grp pg using(prjtg_id) " .
         " join project_deliverables pd using(prjm_id)\n" .
         " where snummer=$snummer order by year desc,afko";
-$resultSet = $dbConn->Execute( $sql );
-if ( $resultSet === false ) {
-  die( 'Error: ' . $dbConn->ErrorMsg() . ' with <pre>' . $sql . "</pre>\n" );
+$resultSet = $dbConn->Execute($sql);
+if ($resultSet === false) {
+    die('Error: ' . $dbConn->ErrorMsg() . ' with <pre>' . $sql . "</pre>\n");
 }
-extract( $resultSet->fields );
-$preload = array( '0' => array( 'name' => '&nbsp;', 'value' => '1:1' ) );
-
-$prjList = "<form name='prjmil' action='$PHP_SELF' method='get'>\n" .
+extract($resultSet->fields);
+$preload = array('0' => array('name' => '&nbsp;', 'value' => '1:1'));
+$self=basename(__FILE__);
+$prjList = "<form name='prjmil' action='$self' method='get'>\n" .
         $prjSel->getSelector()
         . "</select>&nbsp;<input type='submit' value='Get'/>\n</form>";
 
-$pp = array( );
+$pp = array();
 $pp['prjList'] = $prjList;
 $sql = "SELECT roepnaam, tussenvoegsel,achternaam,lang,prjtg_id FROM student_email \n"
         . "join prj_grp using(snummer) join prj_tutor pt using(prjtg_id) \n"
         . "WHERE snummer=$snummer and pt.prjm_id=$prjm_id";
-$resultSet = $dbConn->Execute( $sql );
-if ( $resultSet === false ) {
-  die( 'Error: ' . $dbConn->ErrorMsg() . ' with ' . $sql );
+$resultSet = $dbConn->Execute($sql);
+if ($resultSet === false) {
+    die('Error: ' . $dbConn->ErrorMsg() . ' with ' . $sql);
 }
-if ( !$resultSet->EOF ) {
-  extract( $resultSet->fields );
+if (!$resultSet->EOF) {
+    extract($resultSet->fields);
 }
 $isTutorBool = $isTutor ? 'true' : 'false';
 
@@ -97,17 +96,17 @@ $sqlfolders = "select ddd.*,doc_count from (select rtrim(afko) as afko,rtrim(des
 
     order by afko,milestone,authorgrp";
 
-$pp['documentFolders'] = getDocumentFolders( $dbConn, $sqlfolders );
+$pp['documentFolders'] = getDocumentFolders($dbConn, $sqlfolders);
 
-if ( $isTutor ) {
-  $pp['tutorText'] = "Tutors can always read all files without limitation.
+if ($isTutor) {
+    $pp['tutorText'] = "Tutors can always read all files without limitation.
             The extra files visable to the tutor have <span style='font-weight: bold; color:#800;'>red</span> due dates.
             The others are <span style='font-weight: bold; color:#080;'>green</span>
             (And these last remarks are only visible because you appear to be a tutor. )";
 } else {
-  $pp['tutorText'] = '';
+    $pp['tutorText'] = '';
 }
 
-$page->addHtmlFragment( 'templates/uploadviewer.html', $pp );
+$page->addHtmlFragment('../templates/uploadviewer.html', $pp);
 $page->show();
 ?>

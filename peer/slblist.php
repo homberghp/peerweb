@@ -51,7 +51,7 @@ $filename = 'slb_list_' . $faculty_short . '_' . $tutorCode . '-' . date('Y-m-d'
 
 $spreadSheetWriter->setFilename($filename)
         ->setTitle("Slb groep list  $faculty_short $tutorCode $fdate")
-        ->setLinkUrl($server_url . $PHP_SELF)
+        ->setLinkUrl($root_url . basename(__FILE__))
         ->setFilename($filename)
         ->setAutoZebra(true);
 
@@ -67,7 +67,7 @@ $sqlhead = "select distinct '<a href=''student_admin.php?snummer='||snummer||'''
         . " from \n";
 $sql2 = $sqlhead . ' student_email s natural join portrait ' . $sqltail;
 //$dbConn->log($sql2);
-$scripts = '<script type="text/javascript" src="js/jquery.js"></script>
+$scripts = '<script type="text/javascript" src="js/jquery.min.js"></script>
     <script src="js/jquery.tablesorter.js"></script>
     <script type="text/javascript">                                         
       $(document).ready(function() {
@@ -84,7 +84,7 @@ $slbList = "<select name='slb'>\n" . getOptionListGrouped($dbConn, $sql_slb, $sl
 
 pagehead2('list students by a slb', $scripts);
 $page_opening = "Student list for slb ";
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 ?>
 <?= $nav->show() ?>
@@ -93,7 +93,7 @@ $nav->setInterestMap($tabInterestCount);
         <p>Choose the slb for to see then pupils.</p>
 
         <p>If you want to retrieve  it (named <?= $filename ?>) as a <strong>spread sheet</strong>, select the spreadsheet option below.</p>
-        <form method="get" name="project" action="<?= $PHP_SELF; ?>">
+        <form method="get" name="project" action="<?= basename(__FILE__); ?>">
             <?= $slbList ?>
             <input type='submit' name='get' value='Get slb' />&nbsp;<?= $spreadSheetWidget ?>
         </form>

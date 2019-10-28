@@ -35,7 +35,7 @@ $searchname = '';
 $studentPicker = new StudentPicker( $dbConn, $newsnummer, 'Search and select participant to add.' );
 if ( isSet( $_REQUEST['searchname'] ) ) {
     if ( !preg_match( '/;/', $_REQUEST['searchname'] ) ) {
-        $searchname = $_REQUEST['searchname'];
+        $searchname = validate($_REQUEST['searchname'],'anything','xyz');
         $studentPicker->setSearchString( $searchname );
         if ( !isSet( $_REQUEST['newsnummer'] ) ) {
             $newsnummer = $studentPicker->findStudentNumber();
@@ -109,11 +109,11 @@ $memberTable = getQueryToTableChecked( $dbConn, $sql, true, 4, $rainbow, -1, '',
 
 pagehead( 'Add individual student.' );
 $page_opening = "Add individual student to a project. <span style='font-size:6pt;'>prj_id $prj_id milestone $milestone </span>";
-$nav = new Navigation( $tutor_navtable, basename( $PHP_SELF ), $page_opening );
+$nav = new Navigation( $tutor_navtable, basename( __FILE__ ), $page_opening );
 $nav->setInterestMap( $tabInterestCount );
 $nav->show();
 $prjSelectWidget = $prjSel->getWidget();
-require_once'templates/addindividual.html';
+require_once'../templates/addindividual.html';
 ?>
 <!-- db_name=<?= $db_name ?> -->
 <!-- $Id: addindividual.php 1725 2014-01-16 08:39:59Z hom $ -->

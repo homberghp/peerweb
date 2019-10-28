@@ -131,7 +131,7 @@ $isTutorOwner = ($tutor == $tutor_code);
 
 $page = new PageContainer();
 $page->setTitle( 'Peer assessment, define project' );
-$nav = new Navigation( $tutor_navtable, basename( $PHP_SELF ), $page_opening );
+$nav = new Navigation( $tutor_navtable, basename( __FILE__ ), $page_opening );
 
 $form1 = new HtmlContainer( "<div>" );
 $input_module_code = "<input type='text' size='10' maxlength='10' class='" . $validator->validationClass( 'afko' ) . "' name='afko' value='$afko' title='Progress module code'/>";
@@ -161,7 +161,7 @@ $activity_project_checked = $resultSet->fields['active_project_set'] ? 'checked'
 
 $input_activity_project = "<input type='checkbox' name='activity_project' value='set' $activity_project_checked/>";
 
-$templatefile = 'templates/defproject.html';
+$templatefile = '../templates/defproject.html';
 $template_text = file_get_contents( $templatefile, true );
 if ( $template_text === false ) {
   $form1Form->addText( "<strong>cannot read template file $templatefile</strong>" );
@@ -171,9 +171,9 @@ if ( $template_text === false ) {
 }
 $page->addBodyComponent( $nav );
 $page->addBodyComponent( $form1 );
-$page->addHeadText( file_get_contents( 'templates/simpledatepicker.html' ) );
-$page->addScriptResource( 'js/jquery-1.7.1.min.js' );
-$page->addScriptResource( 'js/jquery-ui-1.8.17.custom.min.js' );
+$page->addHeadText( file_get_contents( '../templates/simpledatepicker.html' ) );
+$page->addScriptResource( 'js/jquery.min.js' );
+$page->addScriptResource( 'js/jquery-ui-custom/jquery-ui.min.js' );
 $page->addJqueryFragment( '$(\'#embeddedPicker\').datepicker(dpoptions);' );
 $page->show();
 ?>

@@ -96,12 +96,12 @@ $page->addHeadComponent(new Component("<style type='text/css'>
     }
  </style>"));
 $page_opening = "Presence list for project $afko $description prjm_id $prjm_id prj_id $prj_id milestone $milestone";
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $page->addBodyComponent($nav);
 $tableBuilder = new CheckTable($dbConn, new MyRowHeaderBuilder(), new MyCellBuilder());
 $presence_table = $tableBuilder->getTable($sql, 'snummer');
 //$presence_table = checkTable($dbConn,$sql,0,4,5,6);
-$templatefile = 'templates/presenceoverview.html';
+$templatefile = '../templates/presenceoverview.html';
 $template_text = file_get_contents($templatefile, true);
 $text = '';
 if ($template_text === false) {

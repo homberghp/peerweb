@@ -37,9 +37,9 @@ function closeAction() {
   ' );
 $page->setTitle( 'Edit Subversion repositories' );
 $page_opening = "Edit Subversion repositories for $roepnaam $tussenvoegsel $achternaam ($snummer)";
-$nav = new Navigation( $tutor_navtable, basename( $PHP_SELF ), $page_opening );
+$nav = new Navigation( $tutor_navtable, basename( __FILE__ ), $page_opening );
 $nav->setInterestMap( $tabInterestCount );
 $page->addBodyComponent( $nav );
-$page->addHtmlFragment( 'templates/svneditor.html', $pp );
+$page->addHtmlFragment( '../templates/svneditor.html', $pp );
 $page->show();
 ?>

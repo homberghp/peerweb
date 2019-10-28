@@ -105,11 +105,11 @@ $isTutorOwner = ($tutor == $tutor_code);
 $page = new PageContainer();
 $page->setTitle('Define the number of assessments (milestones) in the project.');
 $page_opening = "Define the number of assessments (milestones) in the project. <font style='font-size:6pt;'>prj_id $prj_id</font>\n";
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $form1 = new HtmlContainer("<fieldset id='form1'><legend><b>Project milestones.</b></legend>");
 $form1->addText("After you determined the number of milestones, select the due dates. (Defaults are 14 days from now).");
-
-$form1Form = new HtmlContainer("<form id='project' method='post' name='project' action='$PHP_SELF'>");
+$self=basename(__FILE__);
+$form1Form = new HtmlContainer("<form id='project' method='post' name='project' action='$self'>");
 
 // ."<!--<input type='submit' name='bsubmit' value='Get'>-->";
 //if ($isTutorOwner) {
@@ -119,7 +119,7 @@ $submit_button = "<button type='submit' name='bsubmit' value='Update'>Update</bu
 // }
 $project_selector = getProjectSelector($dbConn, $peer_id, $prj_id);
 
-$templatefile = 'templates/defmilestoneform1.html';
+$templatefile = '../templates/defmilestoneform1.html';
 $template_text = file_get_contents($templatefile, true);
 if ($template_text === false) {
     $form1Form->addText("<strong>cannot read template file $templatefile</strong>");
@@ -132,7 +132,7 @@ $page->addBodyComponent($form1);
 
 $form2 = new HtmlContainer("<fieldset><legend>Due dates</legend>");
 $form2->addText("After you determined the number of milestones, select the due dates. (Defaults are 14 days from now).");
-$form2Form = new HtmlContainer("<form method='post' name='duedates' action='$PHP_SELF'>");
+$form2Form = new HtmlContainer("<form method='post' name='duedates' action='$self'>");
 
 $sql = "select 'M'||milestone as name, assessment_due,\n" .
         "  case when prj_milestone_open=true then  'open' else 'closed' end as open \n" .

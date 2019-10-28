@@ -153,7 +153,7 @@ if (isSet($_REQUEST['bsubmit']) && isSet($_REQUEST['participant']) && isProjectS
 // get group tables for a project
 pagehead('Record task completed');
 $page_opening="Record completion of tasks for project";
-$nav=new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav=new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $nav->show();
 $sql3="select task_id as value,name||': '||description as name from project_task order by task_number";
@@ -190,7 +190,7 @@ $tableBuilder = new TableBuilder($dbConn,$myRowFactory);
 <div id='navmain' style='padding:1em;'>
   <?=$prjSel->getWidget()?>
 <fieldset><legend>Select task</legend>
-<form method="post" name="activity" action="<?=$PHP_SELF;?>">
+<form method="post" name="activity" action="<?=basename(__FILE__);?>">
   Select task: <input type='hidden' name='prjm_id' value='<?=$prjm_id?>'/>
   <input type='hidden' name='task_id' value='<?=$task_id?>'/>
 <?=$task_id_selector?><input type='submit' name='sbm' value='Get'>

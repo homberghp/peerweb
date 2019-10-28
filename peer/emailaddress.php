@@ -28,7 +28,7 @@ $page = new PageContainer();
 $page->setTitle('Personal settings');
 //$page->addHeadComponent(new HtmlContainer("<script id='tasktimerstarter' type='text/javascript'>"));
 
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 
 //$nav->addLeftNavText(file_get_contents('news.html'));
 ob_start();
@@ -253,7 +253,7 @@ ob_start();
 ?>
 <div style='padding:1em'>
     <fieldset><legend>These email addresses will be used for notifications</legend>
-        <form name='email' method='post' action='<?= $PHP_SELF ?>'>
+        <form name='email' method='post' action='<?= basename(__FILE__) ?>'>
             <table summary='email address'>
                 <tr><th colspan='2'>Email addresses:</th></tr>
                 <tr><th  align='right'>Fontys email address </th><td><?= $email1 ?></td><td>&nbsp;</td></tr>
@@ -267,7 +267,7 @@ ob_start();
             By entering an empty line here (erasing the current value) you delete that current entry.
         </p>
     </fieldset>
-<?php include 'templates/student.html' ?>
+<?php include '../templates/student.html' ?>
 </div>
 <!-- db_name=<?= $db_name ?> -->
 <?php

@@ -25,7 +25,7 @@ if ($resultSet === false) {
 $replyto = $resultSet->fields['email'];
 $snmailto = array();
 $formsubject = 'Please fill in your peer assessment data for project {$afko}: {$description}';
-$templatefile = "templates/duemailbodytemplate.html";
+$templatefile = "../templates/duemailbodytemplate.html";
 $sqlsender = "select rtrim(email1) as sender,roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam as sender_name," .
         "coalesce(signature," .
         "'sent by the peerweb service on behalf of '||roepnaam||coalesce(' '||tussenvoegsel,'')||' '||achternaam)\n" .
@@ -52,7 +52,7 @@ if (isSet($_POST['snmailto']) && isSet($_POST['domail'])) {
     $snmailto = $_POST['snmailto'];
     $mailset = '\'' . implode("','", $snmailto) . '\'';
     $paramtext = setToParamList($snmailto, 2);
-    $sql = <<<"SQL"
+    $sql = <<<'SQL'
 select distinct email1 as email, tutor_email,s.roepnaam as firstname,
     s.roepnaam ||' '||coalesce(s.tussenvoegsel,'')||' '||s.achternaam as name,
     trim(afko) as afko, trim(description) as description,milestone,assessment_due as due,milestone_name 
@@ -64,8 +64,9 @@ select distinct email1 as email, tutor_email,s.roepnaam as firstname,
     join project p on (pm.prj_id=p.prj_id)
     join tutor_data td on (pt.tutor_id=td.tutor_id)
     left join alt_email aem on (s.snummer=aem.snummer)
-where  pm.prjm_id=\$1 and s.snummer in ($paramtext)
+where  pm.prjm_id=$1 and s.snummer in
 SQL;
+    $sql +="($paramtext)";
     //$dbConn->log($sql);
     //formMailer($dbConn, $sql, $formsubject, $mailbody, $sender, $sender_name);
     $formMailer = new FormMailer($dbConn, $formsubject, $mailbody, $peer_id);
@@ -74,7 +75,7 @@ SQL;
     $formMailer->mailWithData($sql,$params);
 }
 $page_opening = "These students are overdue with filling in their peer assessment forms.";
-$nav = new Navigation(array(), basename($PHP_SELF), $page_opening);
+$nav = new Navigation(array(), basename(__FILE__), $page_opening);
 $page = new PageContainer();
 $page->addBodyComponent($nav);
 if (hasCap(CAP_SYSTEM)) {
@@ -132,7 +133,7 @@ $sql = $sqlhead . " from  \n"
         . " and snummer in" . $sqllate . "\n"
         . " order by afko,grp_num,achternaam,roepnaam";
 $dueTable = getQueryToTableChecked($dbConn, $sql, true, 2, new RainBow(0x46B4B4, 64, 32, 0), 3, 'snmailto[]', $snmailto);
-$templatefile = 'templates/dueassessment.html';
+$templatefile = '../templates/dueassessment.html';
 $template_text = file_get_contents($templatefile, true);
 $pp=[];
 if ($template_text === false) {
@@ -140,7 +141,7 @@ if ($template_text === false) {
 } else {
     $page->addBodyComponent(new Component(templateWith($template_text, get_defined_vars())));
 }
-$page->addHtmlFragment('templates/tinymce_include.html', $pp);
+$page->addHtmlFragment('../templates/tinymce_include.html', $pp);
 
 $page->addHeadText(
         '<script type="text/javascript">

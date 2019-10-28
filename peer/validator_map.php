@@ -13,11 +13,11 @@ require_once("ste.php");
 
 $page = new PageContainer("Validator Regex Editor on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page);
-$ste->setFormAction($PHP_SELF)
+$ste->setFormAction(basename(__FILE__))
         ->setRelation('validator_map')
         ->setMenuName('validator_map')
         ->setKeyColumns(array('input_name'))
         ->setNameExpression("rtrim(input_name,' ')||', '||rtrim(regex_name,' ')")
         ->setOrderList(array('input_name'))
-        ->setFormTemplate('templates/validator_map.html')
+        ->setFormTemplate('../templates/validator_map.html')
         ->show();

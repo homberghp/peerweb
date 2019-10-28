@@ -8,7 +8,7 @@ require_once 'document_access.php';
 require_once 'selector.php';
 $hasCapSystem = 1;
 $prjm_id = 0;
-extract( $_SESSION );
+extract($_SESSION);
 
 $sortorder = 'desc';
 if (isSet($_REQUEST['sortorder'])) {
@@ -23,7 +23,7 @@ if (isSet($_REQUEST['doc_id'])) {
 }
 $pp['doc_id'] = $_SESSION['doc_id'];
 
-$_SESSION['referer'] = $PHP_SELF;
+$_SESSION['referer'] = basename(__FILE__);
 $sql = "SELECT roepnaam as jroepnaam, tussenvoegsel as jtussenvoegsel,achternaam as jachternaam,email1 as jemail1, lang as jlang FROM student_email WHERE snummer=$peer_id";
 $resultSet = $dbConn->Execute($sql);
 if ($resultSet === false) {
@@ -103,6 +103,7 @@ if (isSet($_REQUEST['delete_critique'])) {
 $page = new PageContainer();
 $page->setTitle('Document and feedback viewer');
 
+$self = basename(__FILE__);
 if (!isSet($_REQUEST['doc_id'])) {
     echo "<p>To critisize a document you should select a document from the <a href='uploadviewer.php'>documents page</a> " .
     "and click on the critisizeable document</p>";
@@ -136,37 +137,32 @@ if (!isSet($_REQUEST['doc_id'])) {
         $pp['filename'] = $rel_file_path;
         $pp['filepath'] = $upload_path_prefix . '/' . $rel_file_path;
         $pp['title'] = stripslashes($title);
-        $refreshUrl = htmlspecialchars("$PHP_SELF?doc_id=$doc_id&sortorder=$sortorder");
-        
+        $self = basename(__FILE__);
+        $refreshUrl = htmlspecialchars("$self?doc_id=$doc_id&sortorder=$sortorder");
+
         $pp['downloadUrl'] = $root_url . "/downloader/$doc_id/" . $pp['filename'];
-        $pp['file_size'] = $filesize;//@filesize($filepath);
+        $pp['file_size'] = $filesize; //@filesize($filepath);
         $pp['page_opening'] = "Hello $jroepnaam $jtussenvoegsel $jachternaam " .
                 "<span style='font-size:6pt;'>($snummer)</span>, " .
                 "this the critique page. ";
         $pp['mime_type_sel'] = $mime_type;
-        $pp['imagedisplay'] ='';
-        if ($mime_type =='image/jpeg'){
-            $pp['imagedisplay'] ="<img src='{$pp['downloadUrl']}' alt='{$pp['downloadUrl']}' />";
+        $pp['imagedisplay'] = '';
+        if ($mime_type == 'image/jpeg') {
+            $pp['imagedisplay'] = "<img src='{$pp['downloadUrl']}' alt='{$pp['downloadUrl']}' />";
         }
         $pp['grp_name'] = $grp_name;
         $pp['doc_type_sel'] = $documenttype;
         if (($author == $peer_id) || $hasCapSystem) {
-            $pp['formstart'] = "<form method='post' action='" . $PHP_SELF . "?doc_id=" . $doc_id . "'>";
+            $pp['formstart'] = "<form method='post' action='" . basename(__FILE__) . "?doc_id=" . $doc_id . "'>";
             $pp['formend'] = "</form>";
             $pp['titleinput'] = "<input type='text' size='80' name='doc_title' value='$title' />";
             $pp['docbutton'] = "<tr><td>To modify</td>" .
                     "<td><input type='submit' name='doc_update' value='update'/><input type='reset'/></td></tr>";
-            $mime_type_selector =
-                    new Selector($dbConn, 'mime_type',
-                            "select mime_type as name, mime_type as value from upload_mime_types order by name",
-                            $mime_type, false); // no auto submit.
-            $doc_type_selector =
-                    new Selector($dbConn, 'doctype',
-                            "select doctype as value, description as name\n"
-                            . " from uploaddocumenttypes where prj_id=$prj_id", $doctype, false);
-            $pp['grp_sel'] = new Selector($dbConn, 'new_prjtg_id',
-                            "select prjtg_id as value, coalesce('g'||grp_num||' '''||alias||'''','g'||grp_num)||' tutor '||tutor as name \n"
-                            . "from all_prj_tutor where prjm_id=$prjm_id order by grp_num", $prjtg_id, false);
+            $mime_type_selector = new Selector($dbConn, 'mime_type', "select mime_type as name, mime_type as value from upload_mime_types order by name", $mime_type, false); // no auto submit.
+            $doc_type_selector = new Selector($dbConn, 'doctype', "select doctype as value, description as name\n"
+                    . " from uploaddocumenttypes where prj_id=$prj_id", $doctype, false);
+            $pp['grp_sel'] = new Selector($dbConn, 'new_prjtg_id', "select prjtg_id as value, coalesce('g'||grp_num||' '''||alias||'''','g'||grp_num)||' tutor '||tutor as name \n"
+                    . "from all_prj_tutor where prjm_id=$prjm_id order by grp_num", $prjtg_id, false);
             $pp['mime_type_sel'] = $mime_type_selector->getSelector();
             $pp['doc_type_sel'] = $doc_type_selector->getSelector();
             $checkenable = '';
@@ -181,8 +177,7 @@ if (!isSet($_REQUEST['doc_id'])) {
         }
         $pp['groupRights'] = "Group <input type='checkbox' name='groupread' value='t' " . (($rights[0] == 't') ? 'checked' : '') . " $checkenable />";
         $pp['projectRights'] = "Module participants<input type='checkbox' name='projectread' value='t' " . (($rights[1] == 't') ? 'checked' : '') . " $checkenable  />";
-
-        $pp['refreshUrl'] = htmlspecialchars("$PHP_SELF?doc_id=$doc_id&sortorder=");
+        $pp['refreshUrl'] = htmlspecialchars("$self?doc_id=$doc_id&sortorder=");
         if ($sortorder == 'desc') {
             $pp['refreshLink'] = "first (current) or <a href='" . $refreshUrl . 'asc' . "'>last</a>";
         } else {
@@ -221,10 +216,10 @@ if (!isSet($_REQUEST['doc_id'])) {
             } else {
                 $editor_inputs = '';
             }
-            $form_head = "\n<form id='delete_edit_form${critique_id}' method='get' action='$PHP_SELF'>\n";
+            $form_head = "\n<form id='delete_edit_form${critique_id}' method='get' action='$self'>\n";
             $legend_head = "<legend>Critique $critique_id by $roepnaam $tussenvoegsel $achternaam ($critiquer)</legend>\n" . $editor_inputs . "\n";
             $history_link = ($history_count > 0 ) ? "<a href='critique_history.php?critique_id=$critique_id' target='_blank'>$edit_time</a>" : "$edit_time";
-            $critiqueList .="\n$div_head\n"
+            $critiqueList .= "\n$div_head\n"
                     . "$form_head\n"
                     . "<fieldset>\n"
                     . "$legend_head\n"
@@ -245,9 +240,9 @@ if (!isSet($_REQUEST['doc_id'])) {
 
 $pp['critiqueList'] = $critiqueList;
 if (authorized_document($critiquer, $doc_id)) {
-    $fragment = 'templates/upload_critique.html';
+    $fragment = '../templates/upload_critique.html';
 } else {
-    $fragment = 'templates/upload_critique_noaccess.html';
+    $fragment = '../templates/upload_critique_noaccess.html';
 }
 $page->addHtmlFragment($fragment, $pp);
 $page->addHeadText('

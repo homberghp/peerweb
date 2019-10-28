@@ -17,10 +17,10 @@ usage jmerge [-h|--help] [-p|--propfile <propfile>] [-c|--confDirname <confdir>]
 EOF
 	    exit 0;;
 	-c|--confDirName) confDirName=$2; shift;;
-    -p|--propfile) propfile=$2; shift;;
-    -w|--workdir) workdir=$2; shift;;
-    --) shift; break;;
-    -*) echo "$0: error - unrecognized option $1" 1>&2; exit 1;;
+	-p|--propfile) propfile=$2; shift;;
+	-w|--workdir) workdir=$2; shift;;
+	--) shift; break;;
+	-*) echo "$0: error - unrecognized option $1" 1>&2; exit 1;;
     *)  break;;
     esac
     shift

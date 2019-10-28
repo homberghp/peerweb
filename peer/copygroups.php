@@ -116,12 +116,12 @@ $page = new PageContainer();
 $page_opening = "Copy project groupsfrom" .
         "<span style='font-size:8pt;'>prj_id $prj_id milestone $milestone prjm_id $prjm_id</span>";
 $page->setTitle('Copy project groups');
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 
 extract(getTutorOwnerData2($dbConn, $prjm_id), EXTR_PREFIX_ALL, 'ot');
 
 $page->addBodyComponent($nav);
-$templatefile = 'templates/copygroups.html';
+$templatefile = '../templates/copygroups.html';
 $template_text = file_get_contents($templatefile, true);
 if ($template_text === false) {
     $page->addBodyComponent(new Component("<strong>cannot read template file $templatefile</strong>"));

@@ -60,7 +60,7 @@ function validateGrade(el) {
   return true;
 }
 </script>");
-$nav=new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav=new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $nav->addLeftNavText(file_get_contents('news.html'));
 ob_start();
@@ -243,7 +243,7 @@ if ($grp_open ) $gradetype=$langmap['gradetype'][$lang];
 <fieldset class="control">
 <legend>Assessment form</legend>
 <h2 align='center'>Assessment for <?=$afko?> <?=$year?> <?=$description?> <br/>group <?=$grp_num?> (<?=$grp_alias?>)</h2>
-<form method="post" name="assessment "action="<?=$PHP_SELF?>">
+<form method="post" name="assessment "action="<?=basename(__FILE__)?>">
 <h4 align='center'><?=$gradetype?></h4>
 <?php
     //    echo "post 6 prj_id_milestone = $prj_id:$milestone<br/>"; 
@@ -272,12 +272,12 @@ if ($grp_open) {
 }
 ?>
 <?php
-
+$self=basename(__FILE__);
 if ($isTutor) {
   $tutor_opener="<fieldset style='background:#fff'>
 	<legend>For tutors</legend>
 	If you are a tutor you could use this page and the next to enter a participant's data, or just simply assume any participant's role.
-	  <form name='reopenform' method='post' action='$PHP_SELF'>
+	  <form name='reopenform' method='post' action='$self'>
 	  <input type='hidden' name='prjtg_id' value='$prjtg_id'/>
 	  <input type='hidden' name='judge' value='$judge'/>
           To let this person of a group correct his or her values, re-open the assessment for the group by clicking this button.

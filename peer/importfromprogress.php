@@ -32,13 +32,13 @@ if ( isSet( $_FILES[ 'userfile' ][ 'name' ] ) && ( $_FILES[ 'userfile' ][ 'name'
         //$cmdString1 = "{$site_home}/scripts/spreadsheet2xlsx {$temp_file_with_extension} {$worksheet} ";
         $cmdString1 = "{$site_home}/scripts/importfromprogress.sh {$workdir} {$temp_file_with_extension} {$worksheet} {$email} \&";
         $cmd1 = exec( $cmdString1, $out, $result );
-        if ( $result !== 0 ) {
-            throw new Exception( "command failed " + $cmdString1 );
-        }
+        // if ( $result !== 0 ) {
+        //     throw new Exception( "command failed " + $cmdString1 );
+        // }
 //        $cmdString2 = "{$site_home}/scripts/jmergeAndTicket -w {$workdir}";
 //        $cmd2 = exec( $cmdString2 );
 //        $uploadResult .= "<pre>Commands \n\t{$cmdString1}  \nand \n\t{$cmdString2} executed</pre></fieldset>";
-        $uploadResult .= "<pre>Commands \n\t{$cmdString1}  \n\texecuted</pre></fieldset>";
+        $uploadResult .= "<pre>Commands \n\t{$cmdString1}  \n\texecuted</pre> with result {$cmd1}</fieldset>";
         $uploadResult .= "<pre>results of this command will appear in the prospects table and in links on this page below.</pre></fieldset>";
     }
     $_SESSION[ 'userfile' ] = $_FILES[ 'userfile' ];
@@ -57,12 +57,12 @@ $_SESSION[ 'milestone' ] = $milestone;
 $page = new PageContainer();
 $page_opening = "Import New Students from Progress View SV05_aanmelders";
 $page->setTitle( $page_opening );
-$nav = new Navigation( $tutor_navtable, basename( $PHP_SELF ), $page_opening );
+$nav = new Navigation( $tutor_navtable, basename( __FILE__ ), $page_opening );
 $nav->setInterestMap( $tabInterestCount );
-$action = $PHP_SELF;
+$action = basename(__FILE__);
 $page->addBodyComponent( $nav );
 $prjList = $prjSel->getSelector();
-$templatefile = 'templates/importfromprogress.html';
+$templatefile = '../templates/importfromprogress.html';
 $template_text = file_get_contents( $templatefile, true );
 $products = glob( 'output/{classcard,phototicket,prospects,jmerge}*', GLOB_BRACE );
 if ( count( $products ) ) {

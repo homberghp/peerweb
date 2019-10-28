@@ -69,7 +69,7 @@ $isTutorOwner = checkTutorOwner($dbConn,$prj_id,$tutor_code);
 //
 pagehead('Add project auditor.');
 $page_opening="Add project auditor to a project. prj_id $prj_id milestone $milestone prjm_id $prjm_id";
-$nav=new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav=new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 
 ?>
@@ -89,7 +89,7 @@ extract($resultSet->fields,EXTR_PREFIX_ALL,'auditor');
 if ($newauditor !=0 ) {
 ?>
 <fieldset><legend>Select groups to audit.</legend>
-<form name='set auditgroups' method='post' action='<?=$PHP_SELF?>'>
+<form name='set auditgroups' method='post' action='<?=basename(__FILE__)?>'>
 <p>Choose groups in project <b><?=$afko?> <?=$year?> milestone <?=$milestone?></b> to be audited by <b><?=$auditor_roepnaam?> <?=$auditor_tussenvoegsel?> <?=$auditor_achternaam?>(<?=$auditor_snummer?>)</b>.</p>
 <p>Group 0 gives access to all.</p>
 <?php

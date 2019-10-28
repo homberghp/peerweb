@@ -84,11 +84,11 @@ $pp['newGroupOptionList'] = getOptionListGrouped($dbConn, $grp_sql, $newprjtg_id
 $page = new PageContainer();
 $page_opening = "Move students between project groups.";
 $page->setTitle($page_opening);
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $page->addBodyComponent($nav);
 $css = '<link rel=\'stylesheet\' type=\'text/css\' href=\'' . SITEROOT . '/style/tablesorterstyle.css\'/>';
-$page->addScriptResource('js/jquery.js');
+$page->addScriptResource('js/jquery.min.js');
 $page->addScriptResource('js/jquery.tablesorter.js');
 $page->addHeadText($css);
 $page->addJqueryFragment('$("#myTable").tablesorter({widgets: [\'zebra\'],headers: {0:{sorter:false}}});
@@ -139,7 +139,7 @@ $tableFormatter->setTabledef("<table id='myTable' class='tablesorter' summary='y
         . " style='empty-cells:show;border-collapse:collapse' border='1'>");
 
 $pp['memberTable'] = $tableFormatter->getTable();
-$page->addHtmlFragment('templates/defgroupmembersalt.html', $pp);
+$page->addHtmlFragment('../templates/defgroupmembersalt.html', $pp);
 
 $page->show();
 ?>

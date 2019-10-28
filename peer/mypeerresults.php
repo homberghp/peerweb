@@ -16,7 +16,7 @@ $student_data="$judge_roepnaam $judge_tussenvoegsel $judge_achternaam ($judge_sn
 $page_opening='All peer assessment results for '.$student_data;
 $page=new PageContainer();
 $page->setTitle($page_opening);
-$nav=new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav=new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 
 $nav->addLeftNavText(file_get_contents('news.html'));

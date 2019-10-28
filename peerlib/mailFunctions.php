@@ -51,8 +51,12 @@ function formMailer($dbConn, $sql, $fsubject, $body, $sender, $sender_name) {
 }
 
 /**
- * Create a prepared statement parameter list from a set
+ * Create a prepared statement parameter list from a set.
+ * The length of set determines the number of parameter placeholder ($x) are created,
+ * the optional firstnumber what to start counting with.
+ * 
  * @param type $set
+ * @param $firstnumber starting number
  */
 function setToParamList($set, $firstnumber = 1) {
     $paramset = [];

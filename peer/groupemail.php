@@ -1,4 +1,5 @@
 <?php
+
 requireCap(CAP_TUTOR);
 /* $Id: groupemail.php 1845 2015-03-19 11:56:26Z hom $ */
 require_once('peerutils.php');
@@ -62,16 +63,17 @@ if (isSet($_POST['mailto'])) {
     $paramtext = setToParamList($mailto, 2);
 
     // in the query below we have one constructed parameter, paramtext
-    $mailerQuery = <<<"SQL"
-with pro as (select * from all_prj_tutor where prjm_id=\$1),
+    $mailerQuery = <<<'SQL'
+with pro as (select * from all_prj_tutor where prjm_id=$1),
   rec as (select snummer as recipient,prjtg_id from prj_grp join pro using(prjtg_id)
   union select tutor_id as recipient,prjtg_id from pro)
 select distinct snummer, email1 as email, 
        roepnaam ||' '||coalesce(tussenvoegsel||' ','')||achternaam as name,roepnaam as firstname,
        trim(afko)as afko,trim(description)as description,milestone,assessment_due as due,milestone_name,
             grp_num, grp_name
-  from rec  join pro using(prjtg_id) join student_email on(recipient=snummer) where snummer in ({$paramtext})
+  from rec  join pro using(prjtg_id) join student_email on(recipient=snummer) where snummer in 
 SQL;
+    $mailerQuery .= "({$paramtext})";
     $formMailer = new FormMailer($dbConn, $formsubject, $mailbody, $peer_id);
     $formMailer->mailWithData($mailerQuery, $params);
 }
@@ -90,9 +92,9 @@ if (!$resultSet->EOF)
 $page_opening = "Email to group members From: $roepnaam $tussenvoegsel $achternaam <span style='font-family: courier'>&lt;$email1&gt;</span>";
 $page = new PageContainer();
 $page->setTitle('Mail-list page');
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $page->addBodyComponent($nav);
-//$page->addFileContentsOnce('templates/tinymce_include.html');
+//$page->addFileContentsOnce('../templates/tinymce_include.html');
 $page->addHeadText(
         '<script type="text/javascript">
  function checkThem(ref,state){
@@ -240,6 +242,6 @@ $pp['eTable'] = emailTable($dbConn, $prjm_id, $isTutor, $mailto);
 $pp['rTable'] = roleTable($dbConn, $prjm_id);
 $pp['classTable'] = classTable($dbConn, $prjm_id);
 $pp['selWidget'] = $prjSel->getWidget();
-$page->addHtmlFragment('templates/groupemail.php', $pp);
-$page->addHtmlFragment('templates/tinymce_include.html', $pp);
+$page->addHtmlFragment('../templates/groupemail.php', $pp);
+$page->addHtmlFragment('../templates/tinymce_include.html', $pp);
 $page->show();

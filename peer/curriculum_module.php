@@ -10,15 +10,15 @@ requireCap(CAP_SYSTEM);
  */
 
 require_once("ste.php");
-$page = new PageContainer("Course (curriculum) module ".$PHP_SELF." on DB ".$db_name);
+$page = new PageContainer("Course (curriculum) module ".basename(__FILE__)." on DB ".$db_name);
 $ste = new SimpleTableEditor($dbConn,$page);
-$ste->setFormAction($PHP_SELF);
+$ste->setFormAction(basename(__FILE__));
 $ste->setRelation('curriculum_module');
 $ste->setMenuName('curriculum_module');
 $ste->setKeyColumns(array('curriculum_module_id'));
 $ste->setNameExpression("rtrim(common_name,' ')||', '||rtrim(first_academic_year,' ')");
 $ste->setOrderList(array('curriculum_module_code'));
-$ste->setFormTemplate('templates/curriculum_module.html');
+$ste->setFormTemplate('../templates/curriculum_module.html');
 $ste->show();
 ?>
 

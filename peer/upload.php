@@ -8,7 +8,7 @@ require_once 'studentPrjMilestoneSelector.php';
 require_once 'TemplateWith.php'; 
 $doctype = 0;
 $version_limit = 2;
-$url = $PHP_SELF;
+$url = basename(__FILE__);
 $filesizelimit = 25*1024*1024;
 $prj_id = 1;
 $milestone = 1;
@@ -259,7 +259,7 @@ if (!$resultSet->EOF)
 $page = new PageContainer();
 $page->setTitle('Peer (re)viewable portfolio');
 $page_opening = "Welcome to the upload page of $roepnaam $tussenvoegsel $achternaam ($snummer)";
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 
 $nav->addLeftNavText(file_get_contents('news.html'));
@@ -366,7 +366,7 @@ if ($prj_id > 1) { // no coauthors for personal project with id==1
     $pp['coauthor_table'] .= "<table>\n";
 }
 $pp['prjSel'] = $prjSel;
-$page->addHtmlFragment('templates/upload.html', $pp);
+$page->addHtmlFragment('../templates/upload.html', $pp);
 
 $page->addBodyComponent(new Component(ob_get_clean()));
 //$page->addBodyComponent($dbConn->getLogHtml());

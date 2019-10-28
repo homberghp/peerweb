@@ -9,13 +9,13 @@ require_once("ste.php");
 $page = new PageContainer("Country table $db_name ");
 $ste = new SimpleTableEditor( $dbConn ,$page);
 $ste->setTitle( "country codes" )
-        ->setFormAction( $PHP_SELF )
+        ->setFormAction( basename(__FILE__) )
         ->setRelation( 'iso3166' )
         ->setMenuName( 'iso3166' )
         ->setKeyColumns( array( 'number' ) )
         ->setNameExpression( "rtrim(country)" )
         ->setListRowTemplate( array( 'country','a2','a3','number','country_by_lang','land_nl'))
         ->setOrderList( array( 'a3' ) )
-        ->setFormTemplate( 'templates/iso3166.html' )
+        ->setFormTemplate( '../templates/iso3166.html' )
         ->show();
 ?>

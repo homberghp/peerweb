@@ -1,4 +1,5 @@
 <?php
+
 requireCap(CAP_ALTER_STUDENT_CLASS);
 require_once 'component.php';
 require_once('navigation2.php');
@@ -21,16 +22,19 @@ $pp['newhoofdgrp'] = '';
 $prefix = 'noprefix';
 
 if (isSet($_REQUEST['oldclass_id'])) {
-    $_SESSION['oldclass_id'] = $oldclass_id = $_REQUEST['oldclass_id'];
+    $_SESSION['oldclass_id'] = $oldclass_id = validate($_REQUEST['oldclass_id'], 'integer', '0');
 }
 if (isSet($_POST['newclass_id'])) {
-    $_SESSION['newclass_id'] = $newclass_id = $_POST['newclass_id'];
+    $_SESSION['newclass_id'] = $newclass_id = validate($_POST['newclass_id'], 'integer', '0');
 }
 if (isSet($oldclass_id)) {
-    $sql = "select trim(faculty_short) as faculty_short,trim(sclass) as sclass,\n"
-            . "lower(rtrim(faculty_short)||'.'||rtrim(sclass)) as prefix\n"
-            . " from student_class join faculty using(faculty_id) where class_id=$oldclass_id";
-    $resultSet = $dbConn->Execute($sql);
+    $sql = <<<'SQL'
+   select trim(faculty_short) as faculty_short,trim(sclass) as sclass,
+   lower(rtrim(faculty_short)||'.'||rtrim(sclass)) as prefix
+   from student_class join faculty using(faculty_id) where class_id=$1
+SQL;
+
+    $resultSet = $dbConn->Prepare($sql)->execute([$oldclass_id]);
     if ($resultSet !== false) {
         extract($resultSet->fields);
     }
@@ -54,9 +58,9 @@ $fdate = date('Y-m-d');
 $filename = 'class_list_' . $faculty_short . '_' . $sclass . '-' . $fdate;
 
 $spreadSheetWriter = new SpreadSheetWriter($dbConn, $sqlhead . ' student_email s ' . $sqltail);
-
+$self = basename(__FILE__);
 $spreadSheetWriter->setTitle("Class list  $faculty_short $sclass $fdate")
-        ->setLinkUrl($server_url . $PHP_SELF . '?oldclass_id=' . $oldclass_id)
+        ->setLinkUrl($server_url . $self . '?oldclass_id=' . $oldclass_id)
         ->setFilename($filename)
         ->setAutoZebra(true);
 
@@ -106,12 +110,12 @@ $pp['newClassSelector'] = $nclassSelectorClass->setSelectorName('newclass_id')->
 $page = new PageContainer();
 $page_opening = "Move students between student classes";
 $page->setTitle($page_opening);
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 
 $page->addBodyComponent($nav);
 $css = '<link rel=\'stylesheet\' type=\'text/css\' href=\'' . SITEROOT . '/style/tablesorterstyle.css\'/>';
-$page->addScriptResource('js/jquery.js');
+$page->addScriptResource('js/jquery.min.js');
 $page->addScriptResource('js/jquery.tablesorter.js');
 $page->addHeadText($css);
 $page->addJqueryFragment('$("#myTable").tablesorter({widgets: [\'zebra\'],headers: {0:{sorter:false}}});
@@ -151,6 +155,6 @@ $tableFormatter->setTabledef("<table id='myTable' class='tablesorter' summary='y
 
 $pp['classTable'] = $tableFormatter->getTable();
 
-$page->addHtmlFragment('templates/classmaker.html', $pp);
+$page->addHtmlFragment('../templates/classmaker.html', $pp);
 $page->show();
 ?>

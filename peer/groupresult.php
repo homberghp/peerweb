@@ -206,7 +206,7 @@ $sqlt = "select s.snummer as contestant, "
 $spreadSheetWriter = new SpreadSheetWriter($dbConn, $sqlt);
 
 $spreadSheetWriter->setFilename($filename)
-        ->setLinkUrl($server_url . $PHP_SELF . '?class_id=' . $class_id)
+        ->setLinkUrl($root_url . basename(__FILE__) . '?class_id=' . $class_id)
         ->setTitle($title)
         ->setAutoZebra(true)
         ->setWeights(array(1, 2, 3, 4))
@@ -219,7 +219,7 @@ $spreadSheetWriter->setFilename($filename)
 $spreadSheetWriter->processRequest();
 
 
-$scripts = '<script type="text/javascript" src="js/jquery.js"></script>          
+$scripts = '<script type="text/javascript" src="js/jquery.min.js"></script>          
     <script src="js/jquery.tablesorter.js"></script>            
     <script type="text/javascript">                                         
       $(document).ready(function() {
@@ -243,7 +243,7 @@ $grpList .= getOptionList($dbConn, "select distinct grp_num||' ('||tutor||')'||c
 $grpList .= "\n</select>\n";
 
 $page_opening = "Group results for $afko \"$description\" $year prj_id $prj_id mil $milestone ($prjm_id)";
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $prj_widget = $prjSel->getWidget();
 $spreadSheetWidget = $spreadSheetWriter->getWidget();
@@ -265,7 +265,7 @@ $remarkList = remarkList($dbConn, $prjtg_id);
     ?>
     <fieldset class='noprint' ><legend>Project and group selection</legend>
 
-        <form method="post" name="project" action="<?= $PHP_SELF; ?>">
+        <form method="post" name="project" action="<?= basename(__FILE__); ?>">
             <p>In this form below you can enter a <i>group grade</i>, (default a 7 at the moment <b><?= $productgrade ?></b>)
                 that will be used to compute a proposal for the individual grade.</p>
             <table class='layout' width='100%' summary='layout' style='border-collapse: collapse;' border='1'>
@@ -290,7 +290,7 @@ $remarkList = remarkList($dbConn, $prjtg_id);
                     <th class='layout'> <?= $spreadSheetWidget ?></th></tr>
             </table>
         </form>
-        <form name='reopenform' method='get' action=<?= $PHP_SELF ?>>
+        <form name='reopenform' method='get' action=<?= basename(__FILE__) ?>>
             <input type='hidden' name='open_prjtg_id' value='<?= $prjtg_id ?>'/>
             <p>You can also reopen the assessment for the group: To let a group 
                 correct their values, re-open the assessment for the group by clicking this button.

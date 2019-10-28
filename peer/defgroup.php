@@ -175,7 +175,7 @@ extract($resultSet->fields);
 $page = new PageContainer();
 $page->setTitle('Select participating student_class');
 $page_opening = "Select the student_class of the participating students";
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $page->addBodyComponent($nav);
 $resultSet = $dbConn->Execute("select afko,description from project where prj_id=$prj_id");
 extract($resultSet->fields);
@@ -185,8 +185,8 @@ $prjSel->setJoin(" (select distinct prjm_id from prj_milestone natural join proj
 
 $form1Form->addText($prjSel->getWidget());
 
-
-$form2Form = new HtmlContainer("<form method='post' name='group_def' action='$PHP_SELF'>");
+$self=basename(__FILE__);
+$form2Form = new HtmlContainer("<form method='post' name='group_def' action='$self'>");
 
 //$form2Form->addText( "Legend:class name [class size]<br/>\n" );
 $sql = "select distinct rtrim(student_class.sclass) as sclass,class_id,sort1,sort2,sort_order,\n" .
@@ -215,9 +215,9 @@ $page->addBodyComponent($form2Fieldset);
 
 $page->addBodyComponent(new Component('<!-- db_name=$db_name $Id: defgroup.php 1829 2014-12-28 19:40:37Z hom $ -->'));
 $page->addHeadText('
-<link type="text/css" href="css/pepper-grinder/jquery-ui-1.8.17.custom.css" rel="stylesheet" />	
-<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-1.8.17.custom.min.js"></script>
+<link type="text/css" href="js/jquery-ui-custom/jquery-ui.css" rel="stylesheet" />	
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-custom/jquery-ui.min.js"></script>
   <script>
 	$(function() {
 		$( "#tabs" ).tabs();

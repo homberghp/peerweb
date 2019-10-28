@@ -59,5 +59,5 @@ $q = "select roepnaam||coalesce(' '||tussenvoegsel||' ',' ')||achternaam as stud
 $rs = $dbConn->Execute($q);
 extract($rs->fields);
 //$student_name='Piet Puk';
-include 'templates/downloader_sorry.php';
+include '../templates/downloader_sorry.php';
 ?>

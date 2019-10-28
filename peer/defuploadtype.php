@@ -94,14 +94,14 @@ while ( !$resultSet->EOF ) {
 }
 //echo "<pre>doctype_set \n";print_r($doctype_set);echo "</pre>\n";
 $pp = array( );
-pagehead2( 'Define types of deliverables students can upload.', file_get_contents( 'templates/simpledatepicker.html' ) );
+pagehead2( 'Define types of deliverables students can upload.', file_get_contents( '../templates/simpledatepicker.html' ) );
 
 $page_opening = "Define the types of deliverables students can upload per milestones in a project. " .
         "<font style='font-size:6pt'>prj_id=$prj_id milestone=$milestone</font>";
 
 $page = new PageContainer();
 $page->setTitle( 'Define types of deliverables students can upload.' );
-$nav = new Navigation( $tutor_navtable, basename( $PHP_SELF ), $page_opening );
+$nav = new Navigation( $tutor_navtable, basename( __FILE__ ), $page_opening );
 $page->addBodyComponent( $nav );
 
 $prjSel->setJoin( 'milestone_grp using (prj_id,milestone)' );
@@ -132,8 +132,8 @@ $pp['milestone'] = $milestone;
 
 $datePickers = array( );
 
-$page->addScriptResource( 'js/jquery-1.7.1.min.js' );
-$page->addScriptResource( 'js/jquery-ui-1.8.17.custom.min.js' );
+$page->addScriptResource( 'js/jquery.min.js' );
+$page->addScriptResource( 'js/jquery-ui-custom/jquery-ui.custom.min.js' );
 
 $pp['rtable'] = getQueryToTableChecked2( $dbConn, $sql, true, -1, new RainBow(), 'doctype[]', $doctype_set,
         $inputColumns );
@@ -144,6 +144,6 @@ if ( count( $datePickers ) > 0 ) {
   }
 }
 $pp['prjSelectionDetails'] = $prjSel->getSelectionDetails();
-$page->addHtmlFragment( 'templates/defuploadtype.html', $pp );
+$page->addHtmlFragment( '../templates/defuploadtype.html', $pp );
 $page->show();
 ?>

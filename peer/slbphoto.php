@@ -42,7 +42,7 @@ $oldClassSelector = $classSelectorClass->setAutoSubmit(true)->addConstraint('sor
 
 
 $page_opening = "Pupil  photos for {$slb_info}";
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $sql = "SELECT distinct st.snummer as number," .
         "st.roepnaam||' '||coalesce(regexp_replace(st.tussenvoegsel,'''','&rsquo;')||' ','')||st.achternaam as name,\n" .
@@ -69,7 +69,7 @@ $slbList = "<select name='slb'>\n" . getOptionListGrouped($dbConn, $sql_slb, $sl
 <?= $nav->show() ?>
 <div id='navmain' style='padding:1em;'>
     <div class='nav'>
-        <form method="get" name="slb" action="<?= $PHP_SELF; ?>">
+        <form method="get" name="slb" action="<?= basename(__FILE__); ?>">
             <?= $slbList ?>
             <input type='submit' name='b' value ='Get fotos'/>
         </form>
@@ -110,7 +110,7 @@ $slbList = "<select name='slb'>\n" . getOptionListGrouped($dbConn, $sql_slb, $sl
         if (file_exists('fotos/' . $number . '.jpg')) {
             $photo = 'fotos/' . $number . '.jpg';
         } else {
-            $photo = 'fotos/anonymous.jpg';
+            $photo = 'fotos/0.jpg';
         }
         $leftpix = 0; //100+$colcount*140;
         $toppix = 0; //$rowcount*160;

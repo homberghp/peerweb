@@ -1,5 +1,5 @@
 <?php
-requireCap(CAP_SYSTEM);
+requireCap(CAP_TUTOR);
 require_once('peerutils.php');
 require_once('validators.php');
 require_once('component.php');
@@ -75,7 +75,6 @@ if ( $debug ) {
 if ( !$resultSet->EOF ) {
     fwrite( $fp, "\\tablehead{" . $grp_name . "}\n" );
 }
-$fotodir = '../../peer/';
 $colcount = 0;
 $cont = '';
 while ( !$resultSet->EOF ) {
@@ -84,8 +83,7 @@ while ( !$resultSet->EOF ) {
             $cont
             . "\n"
             . "\\begin{minipage}{35mm}"
-            . "\\center\\includegraphics[height=40mm]{"
-            . $fotodir . $photo . "}"
+            . "\\center\\includegraphics[height=40mm]{{$fotobase}/{$photo}}"
             . "\n\\vfill\\sf{}\\textbf{" . $name
             . "}\\\\$snummer ($slb)"
             . "\\end{minipage}\n" );

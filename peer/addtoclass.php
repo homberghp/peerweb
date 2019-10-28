@@ -59,7 +59,7 @@ if (hasCap(CAP_ALTER_STUDENT_CLASS) && $newsnummer != 0) {
         $dbConn->Execute("commit");
     }
 }
-$scripts = '<script type="text/javascript" src="js/jquery.js"></script>
+$scripts = '<script type="text/javascript" src="js/jquery.min.js"></script>
     <script src="js/jquery.tablesorter.js"></script>
     <script type="text/javascript">
       $(document).ready(function() {
@@ -83,10 +83,10 @@ $memberTable = simpletableString($dbConn, $sql, "<table id='myTable' class='tabl
 
 pagehead2('Add/move individual student to class.', $scripts);
 $page_opening = "Add individual student to a class. <span style='font-size:6pt;'>class_id {$class_id}</span>";
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $nav->show();
-require_once 'templates/addtoclass.html';
+require_once '../templates/addtoclass.html';
 ?>
 <!-- db_name=<?= $db_name ?> -->
 <!-- $Id: addtoclass.php 1853 2015-07-25 14:17:12Z hom $ -->

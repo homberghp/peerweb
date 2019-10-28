@@ -16,15 +16,15 @@ $pdj_id = 1;
 $milestone = 1;
 extract($_SESSION);
 $dbConn->setSqlAutoLog(true);
-$page = new PageContainer("Peerweb testscript " . $PHP_SELF . " on DB " . $db_name);
+$page = new PageContainer("Peerweb testscript " . basename(__FILE__) . " on DB " . $db_name);
 $ste = new SimpleTableEditor($dbConn, $page);
-$ste->setFormAction($PHP_SELF)
+$ste->setFormAction(basename(__FILE__))
         ->setRelation('project_task')
         ->setMenuName('project_task')
         ->setKeyColumns(array('task_id'))
         ->setNameExpression('name')
         ->setOrderList(array('task_id', 'name', 'description'))
         ->setListRowTemplate(array('description', 'prj_id'))
-        ->setFormTemplate('templates/tasks.html')
+        ->setFormTemplate('../templates/tasks.html')
         ->show();
 ?>

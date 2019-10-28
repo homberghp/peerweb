@@ -23,7 +23,7 @@
 <span class='journalbox'>ssh-keygen -l -f "filename.pub"</span> on it. If the file is not in that format, the script will make one attempt to convert it from 'putty ssh-key' format to open-ssh and on failure drop the uploaded file silently.</p></strong> 
         </div>
         <?= $keytable ?>
-        <form enctype="multipart/form-data" action='<?= $PHP_SELF ?>' method="post">
+        <form enctype="multipart/form-data" action='<?= basename(__FILE__) ?>' method="post">
 
             <input type="hidden" name="MAX_FILE_SIZE" value="768" />
 

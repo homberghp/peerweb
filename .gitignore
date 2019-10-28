@@ -24,5 +24,4 @@ pg_extensions/peer_password/peer_password.o
 pg_extensions/peer_password/peer_password.so
 **/out/
 **/output/
-peer/nbproject/private/
-peer/nbproject/private/private.xml
+nbproject

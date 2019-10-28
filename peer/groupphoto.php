@@ -70,7 +70,7 @@ if (!isSet($alias))
 $next_year = $year + 1;
 $page_opening = "Group photos for project $afko: $description $year-$next_year" .
         "<span style='font-size:6pt;'> prj_id=$prj_id  milestone $milestone (prjm_id=$prjm_id) group $grp_num (prjtg_id=$prjtg_id)</span>";
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $sql = "select distinct st.snummer as number,st.roepnaam||' '||coalesce(st.tussenvoegsel||' ','')||st.achternaam as name,\n" .
         " gebdat as birthday, st.roepnaam,st.achternaam,st.tussenvoegsel,cohort,pcn,role,straat,huisnr,plaats,pcode,nationaliteit,\n" .
@@ -90,11 +90,11 @@ if ($resultSet === false) {
 <?= $nav->show() ?>
 <div id='navmain' style='padding:1em;'>
     <div class='nav'>
-        <form method="get" name="project" action="<?= $PHP_SELF; ?>">
+        <form method="get" name="project" action="<?= basename(__FILE__); ?>">
             <?= $prj_id_selector ?><input type="submit" value='Get Project'/>
             <input type='hidden' name='grp_num' value='1'/>
         </form>
-        <form method="get" name="group" action="<?= $PHP_SELF; ?>">
+        <form method="get" name="group" action="<?= basename(__FILE__); ?>">
             <?= $grpList ?><input type='submit' name='submit' value='Get Group'/>
             <input type='hidden' name='prj_id_milestone' value='<?= $prj_id ?>:<?= $milestone ?>'/>
         </form>

@@ -1,9 +1,9 @@
 <div id="content">
-    <form method='post' name='project' action='<?= $PHP_SELF; ?>'>
+    <form method='post' name='project' action='<?= basename(__FILE__); ?>'>
         <?= $selWidget ?>
     </form>
     <fieldset><legend>Select Student or via role</legend>
-        <form name='mailer' method='post' action='<?= $PHP_SELF ?>'>
+        <form name='mailer' method='post' action='<?= basename(__FILE__) ?>'>
             <table><tr>
                     <td>
                         <p><strong>Note that a copy of that mail is sent to the tutor as well.</strong></p>

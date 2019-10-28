@@ -16,7 +16,7 @@ update sv05_aanmelders set geboorteland='Bondsrepubliek Duitsland' where geboort
 -- alter table sv05_aanmelders validate constraint sv05_iso3166_land_nl_fk ;
 -- alter table sv05_aanmelders validate constraint sv05_iso3166_geboorteland_fk ;
 -- alter table sv05_aanmelders rename column geslacht to sex  ;
-alter table sv05_aanmelders alter column geslacht type char(1);
+-- alter table sv05_aanmelders alter column geslacht type char(1);
 update  sv05_aanmelders set geslacht='F' where geslacht='V';
 -- alter table sv05_aanmelders alter column geboortedatum type date using to_date(geboortedatum,'dd-mm-yyyy');
 create view sv05_as_student_email_v as
@@ -33,7 +33,7 @@ create view sv05_as_student_email_v as
        nm.nationaliteit,
        coalesce(extract(year from datum_aankomst_opleiding),studiejaar,extract(year from now()::date)) as cohort, 
        geboortedatum as gebdat, 
-       geslacht as sex,
+       case when geslacht ='Man' then 'M'else 'F' end as sex,
        case 
        	    when voorkeurstaal ='Engels'  then 'EN' 
        	    when voorkeurstaal ='Duits'     then 'DE'

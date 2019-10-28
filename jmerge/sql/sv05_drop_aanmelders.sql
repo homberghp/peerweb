@@ -27,7 +27,7 @@ SET default_with_oids = false;
 drop table sv05_aanmelders cascade;
 CREATE TABLE IF NOT EXISTS sv05_aanmelders  (
 --    peildatum date,
-      draaidatum double precision,
+      draaidatum date,-- double precision,
       aanmelddatum date,
     instroom text,
     datum_van date,

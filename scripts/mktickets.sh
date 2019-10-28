@@ -4,7 +4,7 @@ me=$(basename $0)
 GETOPT=/usr/bin/getopt
 # sensible defaults: pick everything up from wd.
 workdir=$(pwd)
-confDirName=$(pwd)
+confDirName=${scriptdir}/../jmerge
 destdir=$(pwd)
 propfile=jMerge.properties
 FILETS=$(date)

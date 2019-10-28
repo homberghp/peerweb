@@ -104,16 +104,17 @@ extract(getTutorOwnerData($dbConn, $prj_id));
 $_SESSION['prj_id'] = $prj_id;
 $isTutorOwner = ($tutor == $tutor_code);
 $page = new PageContainer();
+ $self=basename(__FILE__);
 $page->setTitle('Define the number of assessments (milestones) in the project.');
 $page_opening = "Define the number of assessments (milestones) in the project. <font style='font-size:6pt;'>prj_id $prj_id</font>\n";
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, $self, $page_opening);
 $page->addBodyComponent($nav);
 $nav->setInterestMap($tabInterestCount);
 $form1 = new HtmlContainer("<fieldset id='form1'><legend><b>Project milestones.</b></legend>");
 $form1->addText("<p>A project starts life with one milstone. If you need to add another, this "
         . "is the page to be. Here you can also set the due dates for the assessment milstones.</p>");
 
-$form1Form = new HtmlContainer("<form id='project' method='post' name='project' action='$PHP_SELF'>");
+$form1Form = new HtmlContainer("<form id='project' method='post' name='project' action='{$self}'>");
 
 // ."<!--<input type='submit' name='baddmil' value='Get'>-->";
 if ($isTutorOwner) {
@@ -123,7 +124,7 @@ if ($isTutorOwner) {
 }
 $project_selector = getProjectSelector($dbConn, $peer_id, $prj_id);
 
-$templatefile = 'templates/addmilestone.html';
+$templatefile = '../templates/addmilestone.html';
 $template_text = file_get_contents($templatefile, true);
 if ($template_text === false) {
     $form1Form->addText("<strong>cannot read template file $templatefile</strong>");
@@ -132,13 +133,12 @@ if ($template_text === false) {
 }
 $form1->add($form1Form);
 $page->addBodyComponent($form1);
-
 $form2 = new HtmlContainer("<fieldset><legend>Defined milestones and due dates.</legend>");
 $form2->addText("<p>After you determined the number of milestones, select the due dates. " .
         "(Defaults are 14 days from now).</p>"
         . "<p>Weight is used in grade calculation with more milestones per project, <br/>" .
         "the name is optional and describes the purpose of the milestone/grade and weight.</p>");
-$form2Form = new HtmlContainer("<form method='post' name='duedates' action='$PHP_SELF'>");
+$form2Form = new HtmlContainer("<form method='post' name='duedates' action='{$self}'>");
 
 $sql = "select milestone as number, prjm_id, assessment_due,weight, milestone_name,\n" .
         "  case when prj_milestone_open=true then  'open' else 'closed' end as open, has_assessment, public \n" .
@@ -163,9 +163,9 @@ $form2Form->addText("<input type='hidden' name='prj_id' value='$prj_id' />\n" .
 $form2->add($form2Form);
 $page->addBodyComponent($form2);
 $page->addBodyComponent(new Component('<!-- db_name=$db_name $Id: addmilestone.php 1769 2014-08-01 10:04:30Z hom $ -->'));
-$page->addHeadText(file_get_contents('templates/simpledatepicker.html'));
-$page->addScriptResource('js/jquery-1.7.1.min.js');
-$page->addScriptResource('js/jquery-ui-1.8.17.custom.min.js');
+$page->addHeadText(file_get_contents('../templates/simpledatepicker.html'));
+$page->addScriptResource('js/jquery.min.js');
+$page->addScriptResource('js/jquery-ui-custom/jquery-ui.min.js');
 
 if (count($datePickers) > 0) {
     foreach ($datePickers as $dp) {

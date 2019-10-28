@@ -39,16 +39,17 @@ if (isSet($_REQUEST['bsubmit']) && isSet($_REQUEST['contact'])) {
 $page = new PageContainer();
 $page->setTitle('Peer assessment, define project contact');
 $page_opening="Define contact persons for project groups";
-$nav=new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$self=basename(__FILE__);
+$nav=new Navigation($tutor_navtable, $self, $page_opening);
 $page->addBodyComponent($nav);
 $form1 = new HtmlContainer("<fieldset id='form1'><legend><b>For project and milestone.</b></legend>");
-$form1Form = new HtmlContainer("<form id='project' method='get' name='project' action='$PHP_SELF'>");
+$form1Form = new HtmlContainer("<form id='project' method='get' name='project' action='$self'>");
 
 $prjSel->setJoin('milestone_grp using (prj_id,milestone)');
 
 $prj_id_selector=$prjSel->getSelector();
 
-$templatefile='templates/defcontacts1.html';
+$templatefile='../templates/defcontacts1.html';
 $template_text= file_get_contents($templatefile, true);
 $sql ="select * from project join tutor on(owner_id=userid) join student_email on(userid=snummer)\n".
     "where prj_id=$prj_id";
@@ -62,7 +63,7 @@ if ($template_text === false ) {
 }
 $form1->add($form1Form);
 
-$form2Form=new HtmlContainer("<form id='contacts' method='post' name='contacts' action='$PHP_SELF'>");
+$form2Form=new HtmlContainer("<form id='contacts' method='post' name='contacts' action='$self'>");
 	$form2Table=new HtmlContainer("<table id='contact_table' style='border-collapse:collapse' border='1' summary='contacts table'>");
 	$form2Table->addText("<tr><th colspan='3'>Grp,tutor</th><th colspan='3'>Current contact</th><th>New contact</th></tr>\n".
 			     "<tr><th>Grp</th>".

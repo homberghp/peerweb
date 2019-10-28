@@ -21,15 +21,6 @@ if (isSet($_REQUEST['oldclass_id'])) {
 if (isSet($_POST['newclass_id'])) {
     $_SESSION['newclass_id'] = $newclass_id = $_POST['newclass_id'];
 }
-if (isSet($_POST['update']) && isSet($_POST['studenten'])) {
-    $memberset = '\'' . implode("','", $_POST['studenten']) . '\'';
-    $sql = "update student_email set class_id='$newclass_id' " .
-            "where snummer in ($memberset)";
-    $resultSet = $dbConn->Execute($sql);
-    if ($resultSet === false) {
-        die("<br>Cannot update student_email with " . $sql . " reason " . $dbConn->ErrorMsg() . "<br>");
-    }
-}
 
 if (isSet($_POST['slb']) && preg_match('/^\d+$/', $_POST['slb'])) {
     //$newslb= preg_replace('/\W+/g','',$_POST['slb']);
@@ -37,9 +28,9 @@ if (isSet($_POST['slb']) && preg_match('/^\d+$/', $_POST['slb'])) {
 }
 
 if (isSet($_POST['setslb']) && isSet($slb) && isSet($_POST['studenten'])) {
-    $memberset = '\'' . implode("','", $_POST['studenten']) . '\'';
+    $memberset = implode(",", $_POST['studenten']);
     $sql = "update student_email set slb=$slb " .
-            "where snummer in ($memberset)";
+            "where snummer in ({$memberset})";
     $resultSet = $dbConn->Execute($sql);
     if ($resultSet === false) {
         die("<br>Cannot update student_email  with " . $sql . " reason " . $dbConn->ErrorMsg() . "<br>");
@@ -63,7 +54,7 @@ $pp['oldClassOptionsList'] = $classSelectorClass->setSelectorName('oldclass_id')
 $page_opening = "Get and set Student Study coach (SLB) by class.";
 $page = new PageContainer();
 $page->setTitle("Set/check SLB");
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $sql_slb = "select achternaam||','||roepnaam||' ['||tutor||']' as name,\n"
         . " snummer as value,faculty_short||'-'||course_short as namegrp \n"
@@ -74,7 +65,7 @@ $sql_slb = "select achternaam||','||roepnaam||' ['||tutor||']' as name,\n"
 $pp['slbList'] = getOptionListGrouped($dbConn, $sql_slb, $slb);
 
 $css = '<link rel=\'stylesheet\' type=\'text/css\' href=\'' . SITEROOT . '/style/tablesorterstyle.css\'/>';
-$page->addScriptResource('js/jquery.js');
+$page->addScriptResource('js/jquery.min.js');
 $page->addScriptResource('js/jquery.tablesorter.js');
 $page->addHeadText($css);
 $page->addJqueryFragment('$("#myTable").tablesorter({widgets: [\'zebra\'],headers: {0:{sorter:false}}});');
@@ -108,7 +99,7 @@ $tableFormatter->setCheckColumn(0);
 $tableFormatter->setTabledef("<table id='myTable' class='tablesorter' summary='your requested data'"
         . " style='empty-cells:show;border-collapse:collapse' border='1'>");
 $pp['cTable'] = $tableFormatter;
-$page->addHtmlFragment('templates/slb.html', $pp);
+$page->addHtmlFragment('../templates/slb.html', $pp);
 $page->show();
 ?>
  

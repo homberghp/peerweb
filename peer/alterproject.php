@@ -1,4 +1,5 @@
 <?php
+
 requireCap(CAP_TUTOR);
 require_once('peerutils.php');
 require_once('navigation2.php');
@@ -20,16 +21,16 @@ if (date('m') < 07) {
     $year -= 1;
 }
 if (isSet($_REQUEST['prj_id'])) {
-    $_SESSION['prj_id'] = $prj_id = $_REQUEST['prj_id'];
+    $_SESSION['prj_id'] = $prj_id = validate($_REQUEST['prj_id'], 'integer', '0');
 }
 
 $tutor = $tutor_code;
 $owner_id = $peer_id;
 //$dbConn->log($tutor_code);
-if (hasCap(CAP_SYSTEM) && isSet($_REQUEST['owner_id'])) {
+if (isSet($_REQUEST['owner_id'])) {
     $owner_id = validate($_REQUEST['owner_id'], 'integer', 1);
-    $sql = "update project p set owner_id=$owner_id where prj_id=$prj_id";
-    $resultSet = $dbConn->Execute($sql);
+    $sql = 'update project p set owner_id=$1 where prj_id=$2';
+    $resultSet = $dbConn->Prepare($sql)->execute(array($owner_id, $prj_id));
 }
 // update
 if ($validator_clearance) {
@@ -94,11 +95,10 @@ extract(getTutorOwnerData($dbConn, $prj_id));
 $isTutorOwner = ($owner_id == $peer_id);
 $page = new PageContainer();
 $page->setTitle('Alter a peerweb project definition');
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 $form1 = new HtmlContainer("<div>");
 
-//$form1Form = new HtmlContainer("<form method='post' name='project' action='$PHP_SELF'>"); // 
 $project_selector = getProjectSelector($dbConn, $peer_id, $_SESSION['prj_id']);
 
 $input_module_code = "<input type='text' size='10' maxlength='10' name='afko' class='" . $validator->validationClass('afko') . "' value='$afko' title='Progress module code'/>";
@@ -113,7 +113,7 @@ $input_update_button = ($isTutorOwner) ? "<input type='submit' name='bsubmit'\n"
         "value='Update' title='Use this to update project data for project_id=$prj_id' />" : '';
 
 $tutor_owner_form = "";
-
+$self = basename(__FILE__);
 if (hasCap(CAP_SYSTEM)) {
     $tutor_sql = "select achternaam||', '||roepnaam||' '||coalesce(tussenvoegsel,'')" .
             "||' ('||tutor||')' as name,\n" .
@@ -126,7 +126,7 @@ if (hasCap(CAP_SYSTEM)) {
             "where teaches " .
             " order by mine,namegrp desc,achternaam,roepnaam";
 //    echo "<pre>{$tutor_sql}</pre>";
-    $tutor_owner_form = "<form name='tuto' action='$PHP_SELF' method='get'>\n" .
+    $tutor_owner_form = "<form name='tuto' action='{$self}' method='get'>\n" .
             "<select name='owner_id' title='set tutor_owner'>" .
             getOptionListGrouped($dbConn, $tutor_sql, $owner_id) .
             "</select>\n" .
@@ -150,7 +150,7 @@ $activity_project_checked = $resultSet->fields['active_project_set'] ? 'checked'
 
 $input_activity_project = "<input type='checkbox' name='activity_project' value='set' $activity_project_checked/>";
 
-$templatefile = 'templates/alterproject.html';
+$templatefile = '../templates/alterproject.html';
 $template_text = file_get_contents($templatefile, true);
 if ($template_text === false) {
     $form1Form->addText("<strong>cannot read template file $templatefile</strong>");
@@ -161,9 +161,9 @@ if ($template_text === false) {
 $page->addBodyComponent($nav);
 $page->addBodyComponent($form1);
 $page->addBodyComponent(new Component('<!-- db_name=$db_name $Id: alterproject.php 1726 2014-02-03 13:54:48Z hom $ -->'));
-$page->addHeadText(file_get_contents('templates/simpledatepicker.html'));
-$page->addScriptResource('js/jquery-1.7.1.min.js');
-$page->addScriptResource('js/jquery-ui-1.8.17.custom.min.js');
+$page->addHeadText(file_get_contents('../templates/simpledatepicker.html'));
+$page->addScriptResource('js/jquery.min.js');
+$page->addScriptResource('js/jquery-ui-custom/jquery-ui.min.js');
 $page->addJqueryFragment('$(\'#embeddedPicker\').datepicker(dpoptions);');
 
 $page->show();

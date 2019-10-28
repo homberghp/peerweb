@@ -207,12 +207,12 @@ $inputColumns = array(
 $roleDefTable = getQueryToTableChecked2( $dbConn, $sql, false, -1, new RainBow( 0x46B4B4, 64, 32, 0 ), 'document[]', $doctype_set, $inputColumns );
 pagehead( 'Define types of roles students can play.' );
 $page_opening = "Define the roles the students may assume in a project team.";
-$nav = new Navigation( $tutor_navtable, basename( $PHP_SELF ), $page_opening );
+$nav = new Navigation( $tutor_navtable, basename( __FILE__ ), $page_opening );
 $nav->setInterestMap( $tabInterestCount );
 $page = new PageContainer();
 $page->setTitle( $page_opening );
 $page->addBodyComponent( $nav );
-$templatefile = 'templates/defprojectrolestop.html';
+$templatefile = '../templates/defprojectrolestop.html';
 $template_text = file_get_contents( $templatefile, true );
 if ( $template_text === false ) {
     $page->addBodyComponent( "<strong>cannot read template file $templatefile</strong>" );
@@ -220,7 +220,7 @@ if ( $template_text === false ) {
     $page->addBodyComponent( templateWith( $template_text, get_defined_vars() ) );
 }
 if ( $isTutorOwner ) {
-    $templatefile = 'templates/defprojectrolesbottom.html';
+    $templatefile = '../templates/defprojectrolesbottom.html';
     $template_text = file_get_contents( $templatefile, true );
     if ( $template_text === false ) {
         $page->addBodyComponent( "<strong>cannot read template file $templatefile</strong>" );

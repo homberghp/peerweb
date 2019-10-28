@@ -76,12 +76,12 @@ $pp['newClassSelector'] = $nclassSelectorClass->setSelectorName('newclass_id')->
 $page = new PageContainer();
 $page_opening = "Enrol Prospect Students from SV05 into Peerweb.";
 $page->setTitle($page_opening);
-$nav = new Navigation($tutor_navtable, basename($PHP_SELF), $page_opening);
+$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
 
 $page->addBodyComponent($nav);
 $css = '<link rel=\'stylesheet\' type=\'text/css\' href=\'' . SITEROOT . '/style/tablesorterstyle.css\'/>';
-$page->addScriptResource('js/jquery.js');
+$page->addScriptResource('js/jquery.min.js');
 $page->addScriptResource('js/jquery.tablesorter.js');
 $page->addHeadText($css);
 $page->addJqueryFragment('$("#myTable").tablesorter({widgets: [\'zebra\'],headers: {0:{sorter:false}}});
@@ -122,6 +122,6 @@ $tableFormatter->setTabledef("<table id='myTable' class='tablesorter' summary='y
 
 $pp['classTable'] = $tableFormatter->getTable();
 
-$page->addHtmlFragment('templates/enrol_prospect.html', $pp);
+$page->addHtmlFragment('../templates/enrol_prospect.html', $pp);
 $page->show();
 ?>
