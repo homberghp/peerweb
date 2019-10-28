@@ -24,7 +24,7 @@ require_once("ste.php");
  // require_once("blocked_tail.inc");
  // exit;
  //}
-global basename(__FILE__);
+//global basename(__FILE__);
 $navTitle= "Prafda2 testscript ".basename(__FILE__)." on DB ".$db_name;
 ?>
 <title>
