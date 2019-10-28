@@ -659,9 +659,9 @@ class InsertQuery extends SearchQuery {
             $paramCtr = 1;
             foreach ( $this->updateSet as $key => $value ) {
                 // the test ensures that non set values take their default or null.
-                if ( $key != '' ) {
+                if ( $key != ''  && $value !=null) {
                     $columns[] = $key;
-                    $this->values[] = ($value !== '') ? $value : null;
+                    $this->values[] = $value;
                     $params[] = '$' . $paramCtr++;
                 }
             }

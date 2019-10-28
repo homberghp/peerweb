@@ -302,6 +302,11 @@
         align-content: space-around;
         justify-content: center;
         align-items: flex-end; /*last baseline;*/
-    } 
+    }
+    .required::before{ 
+        content: 'required';
+        display: inline;
+        color: red;
+    }
 }
 

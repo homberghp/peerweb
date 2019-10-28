@@ -10,7 +10,7 @@ require_once 'youtubelink.php';
  * It is assumed that the fieldSet defines the variables to be presented.
  * The fieldSet is an (associative) array with the fieldname as key
  * and a set of attributes as value.
- * It is assumed that the fieldnames and the names of the recordset are the same.
+ * It is assumed that the field names and the names of the recordset are the same.
  * The generated field is either and input element (text or hidden, possibly readonly) or
  * a select with an optionList.
  */
@@ -231,7 +231,7 @@ class MenuField {
         $onChange = '';
         $alignText = ' style="text-align:left;"';
         $textSize = $this->item_length;
-        $validClass = " class='$cssClass' ";
+        $validClass = " class='{$cssClass}' ";
         switch (substr($this->data_type, 0, 1)) {
             case 'N':
                 $textSize = $this->data_precision;
