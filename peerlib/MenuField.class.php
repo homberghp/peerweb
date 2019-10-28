@@ -359,7 +359,6 @@ class MenuField {
                     $result = $login_snummer;
                 }
                 break;
-// intentional fallthrough
             case 'X': /* data is editable (for search) but discarded on insert */
                 $result = $this->value;
                 break;
