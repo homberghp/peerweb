@@ -5,7 +5,7 @@ require_once('navigation2.php');
 require_once 'simplequerytable.php';
 require_once 'classSelector.php';
 require_once 'SpreadSheetWriter.php';
-
+$faculty_short='';
 $slb = $peer_id;
 // get group tables for a project
 $hoofdgrp = 'TUTORINF';
@@ -19,7 +19,7 @@ extract($_SESSION);
 $oldClassSelector = hoofdgrpSelector($dbConn, 'hoofdgrp', $hoofdgrp);
 
 if (isSet($hoofdgrp)) {
-    $sql = "select trim(f.faculty_short) as faculty_short,trim(hoofdgrp) as hoofdgrp\n" .
+    $sql = "select coalesce(trim(f.faculty_short),'') as faculty_short,coalesce(trim(hoofdgrp),'') as hoofdgrp\n" .
             " from hoofdgrp_s h join faculty f using(faculty_id) where hoofdgrp='$hoofdgrp'";
     $resultSet = $dbConn->Execute($sql);
     if ($resultSet !== false) {
