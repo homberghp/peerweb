@@ -115,7 +115,7 @@ if (file_exists($filename)) {
 <div id='navmain' style='padding:1em;'>
     <fieldset><legend>Select class</legend>
         <p>Choose the class of which you want to retrieve the data.</p>
-        <p>If you want to retrieve  it (named <i>"<?= $filename ?>"</i>) as a <strong>spread sheet</strong>, select the spreadsheet option below.</p>
+        <p>If you want to retrieve the date as a <strong>spread sheet</strong>, select the spreadsheet option below.</p>
         <form method="get" name="project" action="<?= basename(__FILE__); ?>">
             <?= $oldClassSelector ?>
             <input type='submit' name='get' value='Get class' />&nbsp;<?= $spreadSheetWidget ?>
