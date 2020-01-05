@@ -5,7 +5,7 @@ require_once('navigation2.php');
 require_once 'selector.php';
 require_once 'prjMilestoneSelector2.php';
 require_once 'TableBuilder.class.php';
-requireScribeCap($peer_id);
+//requireScribeCap($peer_id);
 
 class MyRowFactory implements RowFactory {
 
