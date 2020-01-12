@@ -32,10 +32,10 @@ CREATE VIEW public.menu_item_defs AS
     mid."precision",
     mi.placeholder,
     mi.regex_name,
-    atc.nullable
+    atc.is_nullable as "nullable"
    FROM ((((public.menu m
      JOIN public.menu_item mi USING (menu_name))
-     JOIN public.all_tab_columns atc ON ((((m.relation_name)::text = atc.table_name) AND ((mi.column_name)::text = atc.column_name))))
+     JOIN information_schema.columns atc ON ((((m.relation_name)::text = atc.table_name) AND ((mi.column_name)::text = atc.column_name))))
      LEFT JOIN public.menu_option_queries moq ON ((((m.menu_name)::text = (moq.menu_name)::text) AND ((mi.column_name)::text = (moq.column_name)::text))))
      LEFT JOIN public.menu_item_display mid ON ((((mid.menu_name)::text = (mi.menu_name)::text) AND ((mid.column_name)::text = (mi.column_name)::text))));
 
