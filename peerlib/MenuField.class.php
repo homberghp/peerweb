@@ -10,7 +10,7 @@ require_once 'youtubelink.php';
  * It is assumed that the fieldSet defines the variables to be presented.
  * The fieldSet is an (associative) array with the fieldname as key
  * and a set of attributes as value.
- * It is assumed that the fieldnames and the names of the recordset are the same.
+ * It is assumed that the field names and the names of the recordset are the same.
  * The generated field is either and input element (text or hidden, possibly readonly) or
  * a select with an optionList.
  */
@@ -66,7 +66,8 @@ class MenuField {
     var $capability;
     var $optionPreloadList;
     var $itemValidator;
-    var $placeholder = '12345';
+    var $placeholder = 'some input';
+    var $nullable = '?';
 
     function setPlaceHolder($p) {
         $this->placeholder = $p;
@@ -226,12 +227,13 @@ class MenuField {
         global $_SESSION;
         //global $page;
         global $login_snummer;
-        $cssClass = $validator->validationClass($this->name);
+        $cssClass = "{$validator->validationClass($this->name)} ";
         $result = '';
         $onChange = '';
         $alignText = ' style="text-align:left;"';
         $textSize = $this->item_length;
-        $validClass = " class='$cssClass' ";
+        $cssClass .= $this->nullable === 'N' ? 'required ' : '';
+
         switch (substr($this->data_type, 0, 1)) {
             case 'N':
                 $textSize = $this->data_precision;
@@ -254,7 +256,7 @@ class MenuField {
                 }
                 // HACK
                 //	    $rows=12;$cols=72;
-                $result .='<textarea id="' . $this->name . '" name="' . $this->name
+                $result .= '<textarea id="' . $this->name . '" name="' . $this->name
                         . '" cols="' . $cols . '" rows="' . $rows . '">' . $this->value . '</textarea>';
                 break;
             // informational, value only, no vardef.
@@ -266,13 +268,13 @@ class MenuField {
                 /*         . "style='vertical-align:middle;'><span style='font-weight:bold'>" */
                 /*                 .niceName($this->name) */
                 /*                 ."</span></input>\n"; */
-                $result .="<label style='font-weigth:bold' for='{$this->name}'>{$this->name}</label><select name='{$this->name}' id='{$this->name}'>\n\t<option value=''></option>\n"
+                $result .= "<label style='font-weigth:bold' for='{$this->name}'>{$this->name}</label><select name='{$this->name}' id='{$this->name}'>\n\t<option value=''></option>\n"
                         . "\t<option " . $checkedFalse . " value='false'>False</options>\n"
                         . "\t<option " . $checkedTrue . " value='true'>True</options>\n"
                         . "</select>\n";
                 break;
             case 'I':
-                $result .= '<div class="informational"' . $alignText . $validClass . '>' . $this->value . '</div>&nbsp;' . "\n";
+                $result .= '<div class="informational"' . $alignText . "class=\"{$cssClass}\"" . '>' . $this->value . '</div>&nbsp;' . "\n";
                 break;
             /* hidden only */
             case 'H': $result .= '<input type="hidden" id="' . $this->name . '" name="' . $this->name . '" value ="' . $this->value . '"/>' . "\n";
@@ -302,11 +304,11 @@ class MenuField {
                             'onfocus="clr();">' . "\n";
                     extract($_SESSION);
                     $q = $this->selectQuery;
-                    $q= templateWith($q, get_defined_vars());//$substitutions)
-                    $result .= getOptionListGrouped($this->dbConn, $q, $this->value, 'value', isSet($this->optionPreloadList) ? $this->optionPreloadList : array('name' => '&nbsp;', 'value' => '') );
+                    $q = templateWith($q, get_defined_vars()); //$substitutions)
+                    $result .= getOptionListGrouped($this->dbConn, $q, $this->value, 'value', isSet($this->optionPreloadList) ? $this->optionPreloadList : array('name' => '&nbsp;', 'value' => ''));
                     $result .= "\n" . '</select>' . "\n";
                 } else {
-                    $result .= '<input' . $alignText . $sizeText . $readText . $validClass . ' type="text" id="' . $this->name . '" name="' . $this->name .
+                    $result .= '<input' . $alignText . $sizeText . $readText . "class=\"{$cssClass}\"" . ' type="text" id="' . $this->name . '" name="' . $this->name .
                             '" value="' . $this->value . '"/>' . "\n";
                 }
                 break;
@@ -320,12 +322,12 @@ class MenuField {
                     extract($_SESSION);
                     $q = $this->selectQuery;
                     //echo "<pre style='color:blue'> {$_SESSION['prjm_id']}:{$q}</pre>";
-                    $q= templateWith($q, get_defined_vars());//$substitutions)
+                    $q = templateWith($q, get_defined_vars()); //$substitutions)
                     //echo "<pre style='color:green'>{$q}</pre>";
-                    $result .= getOptionList($this->dbConn, $q, $this->value, isSet($this->optionPreloadList) ? $this->optionPreloadList : array('name' => '&nbsp;', 'value' => '') );
+                    $result .= getOptionList($this->dbConn, $q, $this->value, isSet($this->optionPreloadList) ? $this->optionPreloadList : array('name' => '&nbsp;', 'value' => ''));
                     $result .= "\n" . '</select>' . "\n";
                 } else {
-                    $result .= '<input' . $alignText . $sizeText . $readText . $validClass . ' type="text" id="' . $this->name . '" name="' . $this->name .
+                    $result .= '<input' . $alignText . $sizeText . $readText . "class=\"{$cssClass}\"" . ' type="text" id="' . $this->name . '" name="' . $this->name .
                             '" value="' . $this->value . '"/>' . "\n";
                 }
                 break;
@@ -337,13 +339,15 @@ class MenuField {
                         ->addJqueryFragment("\$('#" . $this->name . "').datepicker(dpoptions);");
                 break;
             case 't':
-                $result = "<input type='time' placeholder='HH:MM' style='text-align:left;' size='8' name='" . $this->name . "' id='" . $this->name . "' value='" . $this->value . "'/>\n";
+                $result = "<input type='time' placeholder='08:45' style='text-align:left;' size='8' name='" . $this->name . "' id='" . $this->name . "' value='" . $this->value . "'/>\n";
                 break;
             case 'e':
                 $result = "<input type='email' placeholder='" . $this->placeholder . "' style='text-align:left;' size='64' name='" . $this->name . "' id='" . $this->name . "' value='" . $this->value . "'/>\n";
                 break;
             case 'd':
-                $result = "<input type='number' placeholder='" . $this->placeholder . "' pattern='\\d+' style='text-align:right;' size='10' name='" . $this->name . "' id='" . $this->name . "' value='" . $this->value . "'/>\n";
+                $result = "<input type='number' placeholder='{$this->placeholder}' "
+                        . "pattern='\\d+' style='text-align:right;' size='10' "
+                        . "name='{$this->name}' id='{$this->name}' value='{$this->value}'/>\n";
                 break;
             case 'p': // use peer_id of person logged in, unless it is a tutor.
                 if (hasCap(CAP_TUTOR)) {
@@ -351,20 +355,18 @@ class MenuField {
                             . "name='" . $this->name
                             . "' id='" . $this->name
                             . "' value='" . $this->value . "'/>\n";
-                    ;
                 } else {
                     $result = $login_snummer;
                 }
                 break;
-// intentional fallthrough
             case 'X': /* data is editable (for search) but discarded on insert */
                 $result = $this->value;
                 break;
             case 'U': /* mutator is editable (for search) but discared on insert */
             case 'T':
             default:
-                $result .= '<input' . $alignText . $sizeText . $readText . $validClass . ' type="text" id="' . $this->name
-                        . '" name="' . $this->name . '" value="' . $this->value . '" placeholder="' . $this->placeholder . '"/>' . "\n";
+                $result .= "<input type=\"text\" {$alignText} {$sizeText} {$readText} class=\"{$cssClass}\"  id=\"{$this->name}\""
+                        . " name=\"{$this->name}\" value=\"{$this->value}\" placeholder=\"{$this->placeholder}\" />\n";
                 break;
             case 'C':
                 $result .= '<input type=\'checkbox\' name=\'' . $this->name . '\' value=\'t\' '
@@ -383,26 +385,39 @@ class MenuField {
      */
     function setDef($def) {
         // var_dump($def);
-        if (isSet($def['column_name']))
+        if (isSet($def['column_name'])) {
             $this->setName(trim($def['column_name']));
-        if (isSet($def['data_type']))
+        }
+        if (isSet($def['data_type'])) {
             $this->setData_Type(trim($def['data_type']));
-        if (isSet($def['item_length']))
+        }
+        if (isSet($def['item_length'])) {
             $this->setItem_Length(trim($def['item_length']));
-        if (isSet($def['length']))
+        }
+        if (isSet($def['length'])) {
             $this->setItem_Length(trim($def['length']));
-        if (isSet($def['data_precision']))
+        }
+        if (isSet($def['data_precision'])) {
             $this->setData_Precision(trim($def['data_precision']));
-        if (isSet($def['data_scale']))
+        }
+        if (isSet($def['data_scale'])) {
             $this->setData_Scale(trim($def['data_scale']));
-        if (isSet($def['edit_type']))
+        }
+        if (isSet($def['edit_type'])) {
             $this->setEdit_Type(trim($def['edit_type']));
-        if (isSet($def['query']))
+        }
+        if (isSet($def['query'])) {
             $this->setSelectQuery(trim($def['query']));
-        if (isSet($def['placeholder']))
+        }
+        if (isSet($def['placeholder'])) {
             $this->setPlaceHolder(trim($def['placeholder']));
-        if (isSet($def['capability']))
-            $this->setCapability(trim($def['capability'])); // 
+        }
+        if (isSet($def['capability'])) {
+            $this->setCapability(trim($def['capability']));
+        } // 
+        if (isSet($def['nullable'])) {
+            $this->setNullable(trim($def['nullable']));
+        } // 
     }
 
     function toString() {
@@ -425,6 +440,10 @@ class MenuField {
      */
     function pickValueFromAssoc($values) {
         $this->setValue(nstripslashes(trim($values[$this->name])));
+    }
+
+    public function setNullable($nb) {
+        $this->nullable = $nb;
     }
 
 }

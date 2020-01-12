@@ -814,7 +814,7 @@ class SimpleTableEditor {
         }
         $this->menu->setFieldPrefix( 'veld' );
         $this->menu->setItemDefQuery( "select column_name,data_type,item_length," .
-                "edit_type,query,capability,precision,placeholder,regex_name\n" .
+                "edit_type,query,capability,precision,placeholder,regex_name,nullable\n" .
                 "from menu_item_defs where menu_name='$this->menuName'" );
 
         $this->menu->setDBConn( $this->dbConn );

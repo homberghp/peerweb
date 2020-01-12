@@ -27,7 +27,7 @@ if (isSet($_REQUEST['prj_id'])) {
 $tutor = $tutor_code;
 $owner_id = $peer_id;
 //$dbConn->log($tutor_code);
-if (hasCap(CAP_SYSTEM) && isSet($_REQUEST['owner_id'])) {
+if (isSet($_REQUEST['owner_id'])) {
     $owner_id = validate($_REQUEST['owner_id'], 'integer', 1);
     $sql = 'update project p set owner_id=$1 where prj_id=$2';
     $resultSet = $dbConn->Prepare($sql)->execute(array($owner_id, $prj_id));

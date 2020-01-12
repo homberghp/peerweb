@@ -75,7 +75,7 @@ function validate_date($value, $replacement = '1970-01-01') {
  */
 function allowedPhoto($supplicant, $photoSnummer ){
     //return '0.jpg';
-    if (hasCap(CAP_TUTOR)) {
+    if ( $supplicant === $photoSnummer || hasCap(CAP_TUTOR) ) {
         return "{$photoSnummer}.jpg";
     } else {
         "0.jpg";
