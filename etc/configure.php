@@ -60,7 +60,7 @@ isset($dbhost) || $dbhost = '';
 $dbproto = 'pgsql';
 $tutor_code = '';
 $dbConn = new PeerPGDBConnection($dbproto);
-if (!$dbConn->Connect($dbhost, $dbUser, $pass, $db_name)) {
+if (!$dbConn->Connect($dbhost, $dbUser, $pass, $db_name,$pg_port)) {
     die("sorry, cannot connect to database $db_name because " . $dbConn->ErrorMsg());
 }
 // get database time
