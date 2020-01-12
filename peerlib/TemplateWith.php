@@ -47,7 +47,7 @@ function templateWith( string $template, array $substitutions ) {
                     $i++;
                     $charOut[] = $charIn[ $i ];
                 }
-                continue;
+                continue 2;
             default:
                 switch ( $state ) {
                     default:
