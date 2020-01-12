@@ -18,6 +18,9 @@ peer/output
 output/
 etc/peerpassword
 etc/*.credentials
+etc/roles_20200112.sql
+*/peer_backup*.sql.bz2
+peer_backup*.sql.bz2
 etc/settings.php
 etc/credentials
 pg_extensions/peer_password/peer_password.o
