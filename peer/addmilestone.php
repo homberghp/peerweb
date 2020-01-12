@@ -14,11 +14,11 @@ $milestone_span = 14 * 86400; // think of better default
 if (date('m') < 07) {
     $year -= 1;
 }
-if (isSet($_POST['prj_id'])) {
-    $_SESSION['prj_id'] = $prj_id = $_POST['prj_id'];
+if (isSet($VPOST['prj_id'])) {
+    $_SESSION['prj_id'] = $prj_id = $VPOST['prj_id'];
 }
-if (isSet($_POST['milestone'])) {
-    $_SESSION['milestone'] = $milestone = $_POST['milestone'];
+if (isSet($VPOST['milestone'])) {
+    $_SESSION['milestone'] = $milestone = $VPOST['milestone'];
 }
 if (!isSet($_SESSION['prj_id'])) {
     // smart guess
@@ -38,7 +38,7 @@ if (!isSet($_SESSION['prj_id'])) {
 }
 if (isSet($_SESSION['prj_id'])) {
     $sql = "select prj_id,afko,description,year,max(milestone) as milestones from " .
-            "project p left join prj_milestone m using (prj_id) where prj_id=$prj_id group by prj_id,afko,description,year";
+            "project p left join prj_milestone m using (prj_id) where prj_id={$prj_id} group by prj_id,afko,description,year";
     $resultSet = $dbConn->Execute($sql);
     if ($resultSet === false) {
         die("<br>Cannot get sequence next value with " . $dbConn->ErrorMsg() . "<br>");
@@ -48,11 +48,12 @@ if (isSet($_SESSION['prj_id'])) {
     $year = $resultSet->fields['year'];
     if (isSet($resultSet->fields['milestones'])) {
         $milestones = $resultSet->fields['milestones'];
-    } else
+    } else {
         $milestones = 0;
+    }
 }
-if (isSet($_POST['baddmil'])) {
-    if ($_POST['baddmil'] == 'AddMil' && isSet($_POST['prj_id'])) {
+if (isSet($VPOST['baddmil'])) {
+    if ($VPOST['baddmil'] == 'AddMil' && isSet($VPOST['prj_id'])) {
         // now get the max present and add to what's needed
         $sql = "select max(milestone) as milestone from prj_milestone where prj_id=$prj_id";
         $resultSet = $dbConn->Execute($sql);
@@ -61,8 +62,9 @@ if (isSet($_POST['baddmil'])) {
         }
         if (isSet($resultSet->fields['milestone'])) {
             $milestone = $resultSet->fields['milestone'] + 1;
-        } else
+        } else {
             $milestone = 1;
+        }
         $milestones = $milestone + 1;
         $milestone_date = time() + $milestone_span;
         while ($milestone < $milestones) {
@@ -78,21 +80,22 @@ if (isSet($_POST['baddmil'])) {
         }
     }
     $_SESSION['milestone'] = $milestones; // save last used value as default
-} else if (isSet($_POST['submitdue']) && isSet($_POST['assessment_due'])) {
+} else if (isSet($VPOST['submitdue']) && isSet($VPOST['assessment_due'])) {
     $sql = "begin work;\n";
-    for ($i = 0; $i < count($_POST['assessment_due']); $i++) {
-        $assessment_due = $_POST['assessment_due'][$i];
-        $weight = $_POST['weight'][$i];
-        $milestone_name = $_POST['milestone_name'][$i];
-        $milestone_name = $_POST['milestone_name'][$i];
-        $has_assessment = isSet($_POST['has_assessment'][$i]) ? 'true' : 'false';
-        $isPublic = isSet($_POST['public'][$i]) ? 'true' : 'false';
-        $mil = $i + 1;
-        $sql .= "update prj_milestone set assessment_due='$assessment_due',"
-                . " weight=$weight, milestone_name='$milestone_name',has_assessment={$has_assessment},public={$isPublic} "
-                . " where prj_id=$prj_id and milestone=$mil;\n";
+    $PPOST=$VPOST;
+    for ($i = 0; $i < count($PPOST['assessment_due']); $i++) {
+        $assessment_due = $PPOST['assessment_due'][$i];
+        $weight = $PPOST['weight'][$i];
+        $milestone_name = $PPOST['milestone_name'][$i];
+        $_prjm_id = $PPOST['prjm_id'][$i];
+        $has_assessment = isSet($PPOST['has_assessment'][$i]) ? 'true' : 'false';
+        $isPublic = isSet($PPOST['public'][$i]) ? 'true' : 'false';
+        $sql .= "update prj_milestone set assessment_due='{$assessment_due}',"
+                . " weight={$weight}, milestone_name='{$milestone_name}',has_assessment={$has_assessment},public={$isPublic} "
+                . " where prjm_id={$_prjm_id};\n";
     }
     $sql .= "commit";
+//    echo "<pre>{$sql}</pre>";
     $resultSet = $dbConn->Execute($sql);
     if ($resultSet === false) {
         echo( "<br>Cannot update milestone values with " . $sql . " reason " . $dbConn->ErrorMsg() . "<br>");
@@ -104,7 +107,7 @@ extract(getTutorOwnerData($dbConn, $prj_id));
 $_SESSION['prj_id'] = $prj_id;
 $isTutorOwner = ($tutor == $tutor_code);
 $page = new PageContainer();
- $self=basename(__FILE__);
+$self = basename(__FILE__);
 $page->setTitle('Define the number of assessments (milestones) in the project.');
 $page_opening = "Define the number of assessments (milestones) in the project. <font style='font-size:6pt;'>prj_id $prj_id</font>\n";
 $nav = new Navigation($tutor_navtable, $self, $page_opening);
@@ -140,18 +143,19 @@ $form2->addText("<p>After you determined the number of milestones, select the du
         "the name is optional and describes the purpose of the milestone/grade and weight.</p>");
 $form2Form = new HtmlContainer("<form method='post' name='duedates' action='{$self}'>");
 
-$sql = "select milestone as number, prjm_id, assessment_due,weight, milestone_name,\n" .
+$sql = "select milestone  , prjm_id, assessment_due,weight, milestone_name,\n" .
         "  case when prj_milestone_open=true then  'open' else 'closed' end as open, has_assessment, public \n" .
         " from prj_milestone where prj_id=$prj_id order by milestone";
-$inputColumns = array('1' => array('type' => 'N', 'size' => '12'));
+//$inputColumns = array('1' => array('type' => 'N', 'size' => '12'));
 ob_start(); // collect table data
 // column '0' = M<milestone>
 $inputColumns = array(//'0' => array( 'type' => 'T', 'size' => '4'),
+    '1' => array('type' => 'H', 'size' => '2'),
     '2' => array('type' => 'D', 'size' => '10'),
-    '3' => array('type' => 'N', 'size' => '1'),
+    '3' => array('type' => 'N', 'size' => '3'),
     '4' => array('type' => 'T', 'size' => '20'),
-    '6' => array('type' => 'B', size => '2'),
-    '7' => array('type' => 'B', size => '2'),
+    '6' => array('type' => 'B', 'size' => '2'),
+    '7' => array('type' => 'B', 'size' => '2'),
         //'2' => array( 'type' => 'B', 'size' => '1', 'colname' => 'open' ),
 );
 $datePickers = array();
@@ -173,4 +177,3 @@ if (count($datePickers) > 0) {
     }
 }
 $page->show();
-?>
