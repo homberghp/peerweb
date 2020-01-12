@@ -111,4 +111,17 @@ function mail_attachment($filename,$path, $mailto, $from_mail, $from_name, $repl
   $mail->send($mailto, $hdrs, $body);
   
 }
-?>
+
+/**
+ * Create a new password request token and insert it into the database.
+ * If a token is already is present, and has not expired, 
+ * @param type $peerid
+ * @return token created
+ */
+function newPasswordToken($peerid){
+    $sql= <<<"EOT"
+    insert into password_request_token 
+    select $peerid,md5(now()||{$peerid}||(random()*10^15)::text)
+EOT;
+    
+}
