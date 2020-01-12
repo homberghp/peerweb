@@ -64,8 +64,8 @@ if ($resultSet === false) {
 }
 extract($resultSet->fields);
 $oldmaxgrp = 0;
-if ($isTutorOwner && isSet($_REQUEST['bgcount'])) {
-    $grp_count = $_REQUEST['grp_count'];
+if ($isTutorOwner && isSet($VREQUEST['bgcount'])) {
+    $grp_count = $VREQUEST['grp_count'];
     // to prevent orphaning of groups, make the new group count the minimally equal to the
     // original group count
     if ($grp_count < $org_grp_count) {
@@ -82,8 +82,9 @@ if ($isTutorOwner && isSet($_REQUEST['bgcount'])) {
         stacktrace(1);
         die();
     }
-    if (!$resultSet->EOF)
+    if (!$resultSet->EOF) {
         extract($resultSet->fields);
+    }
     //    echo "grp count=$grp_count old max = $oldmaxgrp<br/>";
     $newmaxgrp = $grp_count;
     $grp_num = $oldmaxgrp;
@@ -97,10 +98,16 @@ if ($isTutorOwner && isSet($_REQUEST['bgcount'])) {
     //    $dbConn->log($sql);
     $oldmaxgrp++;
     $grp_num = $oldmaxgrp;
+    $numsize = 1;
+    if ($newmaxgrp >= 100) {
+        $numsize = 3;
+    } else if ($newmaxgrp >= 10) {
+        $numsize = 2;
+    }
     while ($grp_num <= $newmaxgrp) {
-        $grp_name = ($grp_num == $newmaxgrp)?'Attic':"g{$grp_num}";
-        $sql .="insert into prj_tutor (prjm_id,tutor_id,grp_num,grp_name) " .
-                "select $prjm_id,$tutor_id,$grp_num,'$grp_name' from tutor where userid='$tutor_id';\n";
+        $grp_name = ($grp_num == $newmaxgrp) ? 'Attic' : 'g' . str_pad($grp_num, $numsize, '0', STR_PAD_LEFT);
+        $sql .= "insert into prj_tutor (prjm_id,tutor_id,grp_num,grp_name) " .
+                "select $prjm_id,$tutor_id,$grp_num,'{$grp_name}' from tutor where userid='$tutor_id';\n";
         $grp_num++;
     }
 
@@ -136,20 +143,20 @@ if ($grp_count > 0) {
         die();
     }
     extract($resultSet->fields);
-}
-else
+} else {
     $grp_size = 0;
-if ($isTutorOwner && isSet($_REQUEST['btutor'])) {
-    $tutors = $_REQUEST['tutor_id'];
-    $prjtg_ids = $_REQUEST['prjtg_id'];
-    $grp_names = $_REQUEST['grp_name'];
+}
+if ($isTutorOwner && isSet($VREQUEST['btutor'])) {
+    $tutors = $VREQUEST['tutor_id'];
+    $prjtg_ids = $VREQUEST['prjtg_id'];
+    $grp_names = $VREQUEST['grp_name'];
     $sql = "begin work;\n";
     for ($i = 0; $i < count($tutors); $i++) {
         $grp_names[$i] = pg_escape_string($grp_names[$i]);
-        $sql .="update prj_tutor set tutor_id= {$tutors[$i]},grp_name='{$grp_names[$i]}' where prjtg_id=$prjtg_ids[$i];\n";
+        $sql .= "update prj_tutor set tutor_id= {$tutors[$i]},grp_name='{$grp_names[$i]}' where prjtg_id=$prjtg_ids[$i];\n";
     }
 
-    $sql .="commit;";
+    $sql .= "commit;";
     //echo "<pre>$sql</pre>";
     $resultSet = $dbConn->Execute($sql);
     if ($resultSet === false) {
@@ -163,8 +170,9 @@ $resultSet = $dbConn->Execute($sql);
 if ($resultSet === false) {
     $dbConn->log('<br>Cannot set prj tutors with <pre>' . $sql . '</pre> cause ' . $dbConn->ErrorMsg() . "<br/>" .
             stacktracestring(1));
-} else if (!$resultSet->EOF)
+} else if (!$resultSet->EOF) {
     extract($resultSet->fields);
+}
 $page_opening = "Select the number of groups and allocate the tutors. prjm_id $prjm_id prj_id $prj_id milestone $milestone";
 $nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $nav->setInterestMap($tabInterestCount);
@@ -221,7 +229,7 @@ while (!$resultSet->EOF) {
     $rowCounter++;
 }
 if ($isTutorOwner) {
-    $rows.="<tr><td>&nbsp;</td>\n"
+    $rows .= "<tr><td>&nbsp;</td>\n"
             . "<td>"
             . "    <input type='hidden' name='grp_count' value='<?= $grp_count ?>'/>"
             . "  <input type='hidden' name='prjm_id' value='<?= $prjm_id ?>'/>"
@@ -231,7 +239,7 @@ if ($isTutorOwner) {
 }
 
 $thead = "               <thead><tr><th>G</th><th>Tutor</th><th align='right'>no</th><th>prjtg</th><th>group name</th></tr></thead>";
-$self=basename(__FILE__);
+$self = basename(__FILE__);
 ?>
 <?= $nav->show() ?>
 <div id='navmain' style='padding:1em;'>
@@ -240,7 +248,7 @@ $self=basename(__FILE__);
     <?php if ($isTutorOwner) { ?>
         <fieldset><legend>Select number of group tutors</legend>
             <form name='grpcount' method='post' action='<?= $self ?>'>
-               <input type='text' size='2' align='right' name='grp_count' value='<?= $grp_count ?>'/>
+                <input type='text' size='2' align='right' name='grp_count' value='<?= $grp_count ?>'/>
                 <input type='hidden' name='prjm_id' value="<?= $prjm_id ?>"/>
                 <input type='submit' name='bgcount' value='set number of tutors/groups' />
                 (Typical group size =<?= $grp_size ?>, current number of studentgroups is <?= $org_grp_count ?> )

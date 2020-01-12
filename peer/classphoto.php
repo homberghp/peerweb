@@ -16,8 +16,8 @@ $resultSet = $dbConn->Execute($sql);
 if (!$resultSet->EOF)
     extract($resultSet->fields);
 
-if (isSet($_REQUEST['class_id'])) {
-    $_SESSION['class_id'] = $class_id = validate($_REQUEST['class_id'], 'integer', '0');
+if (isSet($VREQUEST['class_id'])) {
+    $_SESSION['class_id'] = $class_id = validate($VREQUEST['class_id'], 'integer', '0');
 }
 
 $style = file_get_contents('js/balloonscript.html');
@@ -72,10 +72,10 @@ if ($resultSet === false) {
     <?php
     $colcount = 0;
     $rowcount = 0;
-    $browserIE = strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') ? true : false;
+//    $browserIE = strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') ? true : false;
 
     while (!$resultSet->EOF) {
-        if ($rowcount == 0 && $colcount == 0)
+        if ($rowcount == 0 && $colcount == 0) {
             echo "$tablehead\n<table><colgroup>\n"
             . "<col width='140px'/>\n"
             . "<col width='140px'/>\n"
@@ -83,8 +83,10 @@ if ($resultSet === false) {
             . "<col width='140px'/>\n"
             . "<col width='140px'/>\n"
             . "</colgroup>\n";
-        if ($colcount == 0)
+        }
+        if ($colcount == 0) {
             echo "<tr>\n";
+        }
         extract($resultSet->fields);
 
         if (file_exists('fotos/' . $number . '.jpg')) {
@@ -124,10 +126,12 @@ if ($resultSet === false) {
         }
         $resultSet->moveNext();
     }
-    if ($colcount != 0)
+    if ($colcount != 0) {
         echo "</tr>\n";
-    if ($rowcount != 0)
+    }
+    if ($rowcount != 0) {
         echo "</table>\n";
+    }
     ?>
 </div>
 <?php echo "<!-- db_name=" . $db_name . "-->\n" ?>
