@@ -21,6 +21,7 @@ function templateWith( string $template, array $substitutions ) {
     $key = array();
     $i = 0;
     while ($i < $count) {
+        con:
         $char = $charIn[ $i ];
         switch ( $char ) {
             case '{': if ( $state === 0 ) {
@@ -42,12 +43,13 @@ function templateWith( string $template, array $substitutions ) {
                         break;
                     case 1: $state = 2;
                         break;
-                }
+                } 
+                break;
             case '\\': if ( $state === 0 ) {
                     $i++;
                     $charOut[] = $charIn[ $i ];
                 }
-                continue 2;
+                goto con;
             default:
                 switch ( $state ) {
                     default:
