@@ -2,7 +2,8 @@ MODULES = peer_password
 PGXS := $(shell pg_config --pgxs)
 include $(PGXS)
 #PG_VERSION=9.6
-PG_VERSION=10
+#PG_VERSION=10
+PG_VERSION=12
 
 
 peer_password.so: peer_password.o generator.o
