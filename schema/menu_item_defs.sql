@@ -4,7 +4,7 @@
 
 -- Dumped from database version 10.10 (Ubuntu 10.10-1.pgdg16.04+1)
 -- Dumped by pg_dump version 10.10 (Ubuntu 10.10-1.pgdg16.04+1)
-
+begin work;
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -20,6 +20,8 @@ SET row_security = off;
 -- Name: menu_item_defs; Type: VIEW; Schema: public; Owner: rpadmin
 --
 
+DROP VIEW IF EXISTS public.menu_item_defs ;
+DROP VIEW IF exists public.all_tab_columns;
 CREATE VIEW public.menu_item_defs AS
  SELECT m.menu_name,
     mi.column_name,
@@ -53,3 +55,4 @@ GRANT SELECT,INSERT,REFERENCES,DELETE,TRIGGER,UPDATE ON TABLE public.menu_item_d
 -- PostgreSQL database dump complete
 --
 
+commit;
