@@ -7,6 +7,8 @@ $fotodir="{$fotobase}/{$dir}";
 $fname="{$fotodir}/".allowedPhoto($peer_id,$foto);
 
 $fp = @fopen($fname, 'r');
+//echo $fname;
+//exit(0);
 // send the right headers
 header("Content-type: image/jpeg");
 header("Pragma: public");
