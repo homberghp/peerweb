@@ -6,7 +6,7 @@ class ConfFileEditor {
 
     private $filenameField = 'filename';
     private $rows = 60;
-    private $acedir = '/ace-builds/src-min-noconflict';
+    private $acedir = 'ace-builds/src-min-noconflict';
     private $editorName = 'confeditor';
     private $title = 'Edit a file';
     private $template = '';
@@ -52,7 +52,7 @@ class ConfFileEditor {
         $pp['description'] = $this->description;
         $pp['client'] = $this->client;
         $page->addScriptResource('js/jquery.min.js');
-        $page->addBodyFooter("<script src='ace-builds/src-noconflict/ace.js' type='text/javascript' charset='utf-8'></script>\n"
+        $page->addBodyFooter("<script src='{$this->acedir}/ace.js' type='text/javascript' charset='utf-8'></script>\n"
                 . "<script type='text/javascript'>"
                 . "   var editor = ace.edit('confeditor');\n"
                 . "   editor.setTheme('ace/theme/chrome');\n"
