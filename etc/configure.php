@@ -10,7 +10,7 @@ $rubberbase = "{$site_home}/rubberreports";
 $site_dir = $site_home . '/peer'; // the dir on the server
 // IF CLOSED file exists, exit after showing sign
 if (is_file($site_dir . '/CLOSED')) {
-    require_once 'templates/loginclosed.html';
+    require_once '../templates/loginclosed.html';
     exit;
 }
 
