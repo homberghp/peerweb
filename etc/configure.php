@@ -4,7 +4,7 @@
 // do not change anything below this line
 //
 
-
+$pg_port=5432;
 require_once "{$etc_dir}/settings.php";
 $rubberbase = "{$site_home}/rubberreports";
 $site_dir = $site_home . '/peer'; // the dir on the server
