@@ -667,24 +667,23 @@ function pagehead($title, $script = '') {
  */
 function pagehead2($title, $script = '') {
     global $body_class;
-    echo '<?xml version="1.0" encoding="utf-8" ?>' . "\n" .
-    '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"' . "\n" .
-    '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">' . "\n" .
-    '<html xmlns="http://www.w3.org/1999/xhtml">';
-    echo "<head>
+    $styleFile=STYLEFILE;
+    echo <<<"EOF"
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
   <meta http-equiv='Content-type' content='text/html; charset: utf-8'/>
   <meta http-equiv='Content-Script-Type' content='text/javascript'/>
   <meta http-equiv='Content-Style-Type' content='text/css'/>
   <meta name='GENERATOR' content='(x)emacs'/>
-" . '<!-- $Id: peerutils.php 1826 2014-12-27 15:01:13Z hom $ -->' . "
-  <link rel='stylesheet' type='text/css' href='" . STYLEFILE . "'/>
-";
-    ?>
-    <?php echo $script ?>
-    <title><?= $title ?></title>
+  <!-- peerutils.php 1826 2014-12-27 15:01:13Z hom $ -->
+  <link rel='stylesheet' type='text/css' href='{$styleFile}'/>
+{$script}
+    <title><{$title}</title>
     </head>
-    <?php
-    echo "<body class='{$body_class}'>\n";
+    <body class='{$body_class}'>
+EOF;
 }
 
 /* pagehead2() */
@@ -1137,8 +1136,9 @@ function sequenceNextValue($dbC, $seqnam) {
         echo( "<br>Cannot get sequence value with $sql, cause " . $dbC->ErrorMsg() . "<br>");
         stacktrace(1);
         die();
-    } else
+    } else {
         return $resultSet->fields['nextval'];
+    }
 }
 
 /**

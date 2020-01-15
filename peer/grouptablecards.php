@@ -1,5 +1,5 @@
 <?php
-requireCap(CAP_SYSTEM);
+requireCap(CAP_TUTOR);
 require_once 'validators.php';
 require_once 'component.php';
 $frole='';

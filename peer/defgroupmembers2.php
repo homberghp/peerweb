@@ -123,7 +123,7 @@ $studentListQuery = "SELECT apt.grp_num||': '||achternaam||', '||roepnaam||' '||
 
 $dbConn->log($studentListQuery);
 $studentList = getOptionListGrouped($dbConn, $studentListQuery, $grp_num, 'grp_num');
-$isAdmin = hasCap(CAP_SYSTEM) ? 'true' : 'false';
+$isAdmin = hasCap(CAP_TUTOR_OWNER) ? 'true' : 'false';
 
 $sql = "select tutor,tutor_id from prj_tutor join tutor on(prj_tutor.tutor_id=tutor.userid)"
         . " where prjm_id=$prjm_id and grp_num='$grp_num'";
