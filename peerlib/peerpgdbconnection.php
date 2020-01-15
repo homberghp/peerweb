@@ -600,7 +600,8 @@ class PeerResultSet {
      */
     function FetchField($i) {
         $name = pg_field_name($this->resource, $i);
-        $value = $this->fields[$i];
+        
+        $value = $this->fields!=null?$this->fields[$i]:null;
 
         return new RowField($name, $value, $i);
     }
