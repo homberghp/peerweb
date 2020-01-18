@@ -6,7 +6,6 @@ require_once('navigation2.php');
 require_once('validators.php');
 include 'project_selector.php';
 
-requireCap(CAP_TUTOR);
 $page_opening = 'Alter a project definition';
 $afko = 'WHATFR';
 $description = 'Refine me or catch flies';
@@ -114,7 +113,7 @@ $input_update_button = ($isTutorOwner) ? "<input type='submit' name='bsubmit'\n"
 
 $tutor_owner_form = "";
 $self = basename(__FILE__);
-if (hasCap(CAP_SYSTEM)) {
+if (hasCap(CAP_TUTOR_OWNER)) {
     $tutor_sql = "select achternaam||', '||roepnaam||' '||coalesce(tussenvoegsel,'')" .
             "||' ('||tutor||')' as name,\n" .
             " userid as value,\n" .

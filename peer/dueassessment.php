@@ -66,7 +66,7 @@ select distinct email1 as email, tutor_email,s.roepnaam as firstname,
     left join alt_email aem on (s.snummer=aem.snummer)
 where  pm.prjm_id=$1 and s.snummer in
 SQL;
-    $sql +="($paramtext)";
+    $sql .="($paramtext)";
     //$dbConn->log($sql);
     //formMailer($dbConn, $sql, $formsubject, $mailbody, $sender, $sender_name);
     $formMailer = new FormMailer($dbConn, $formsubject, $mailbody, $peer_id);
@@ -78,7 +78,7 @@ $page_opening = "These students are overdue with filling in their peer assessmen
 $nav = new Navigation(array(), basename(__FILE__), $page_opening);
 $page = new PageContainer();
 $page->addBodyComponent($nav);
-if (hasCap(CAP_SYSTEM)) {
+if (hasCap(CAP_TUTOR_OWNER)) {
     $tutor_select = "";
 } else {
     $tutor_select = " and (tutor='$tutor' or tutor_owner='$tutor') ";
