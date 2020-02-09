@@ -101,7 +101,7 @@ class PrjMilestoneSelector2 {
                 . " end as css_class\n"
                 . " from project p join tutor t on(owner_id=userid) join prj_milestone pm using(prj_id) join fontys_course fc on (p.course = fc.course)\n"
                 . (($this->extraJoin !== '') ? ("\njoin " . $this->extraJoin . "\n") : '')
-                    .' where p.valid_until > now() '
+                . ' where p.valid_until > now() '
                 . (($this->whereClause !== '') ? ("\nand " . $this->whereClause . "\n") : '')
                 . ' order by ' . $this->orderBy;
         //      echo "<pre style='padding:2em'>{$sql}</pre>";
@@ -183,11 +183,14 @@ class PrjMilestoneSelector2 {
     }
 
     function getSelectionDetails() {
+        $valid_until = '2000-01-01';
+        $assessment_due='1999-09-09';
         extract($this->getSelectedData());
         return "<table border='0'><tr><td>current selection</td><td style='font-size:160%'>" .
                 "<b>$afko.$course_short</b> $year<sub>(prj_id={$prj_id})</sub> milestone $milestone"
                 . " \"<i>$description</i>\" (prjm_id $prjm_id)</span></td></tr>"
-                . "<tr><td>Owning tutor</td><td ><strong>$tutor_owner</strong>, project valid until: $valid_until, milestone assessment due $assessment_due</td></tr></table> ";
+                . "<tr><td>Owning tutor</td><td ><strong>$tutor_owner</strong>, "
+                . "project valid until: $valid_until, milestone assessment due $assessment_due</td></tr></table> ";
     }
 
     function setWhere($w) {
