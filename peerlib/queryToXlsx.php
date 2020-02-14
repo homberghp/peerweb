@@ -455,9 +455,9 @@ class XLSWriter {
         for ($i = 'A', $j = 0; $i <= 'Z' && $j < $headCount; $i++, $j++) {
             $phpExcelInstance->getActiveSheet()->getColumnDimension($i)->setAutoSize(true);
         }
-        \PhpOffice\PhpSpreadsheet\Calculation\Calculation::getInstance()->clearCalculationCache();
-        \PhpOffice\PhpSpreadsheet\Calculation\Calculation::getInstance()->disableCalculationCache();
-        \PhpOffice\PhpSpreadsheet\Calculation\Calculation::getInstance()->calculate();
+        Calculation\Calculation::getInstance()->clearCalculationCache();
+        Calculation\Calculation::getInstance()->disableCalculationCache();
+        Calculation\Calculation::getInstance()->calculate();
         switch ($this->excelFormat) {
             case 'Excel2007':
                 $objWriter = new Writer\Xlsx($phpExcelInstance);
