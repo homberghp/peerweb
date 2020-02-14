@@ -391,12 +391,7 @@ class XLSWriter {
                 $value = $rowData[$i];
                 $coor = XLSWriter::cellCoordinate($i+1, $row);
                 $xlstype = isSet($XlsTypes[$i]) ? $XlsTypes[$i] : Cell\DataType::TYPE_STRING;
-                //error_log("writing cell type = {$xlstype} for column {$i}, value {$value}", 0);
-//                $phpExcelInstance->getActiveSheet()
-//                        ->setCellValueExplicit(
-//                                $coor, $value, $xlstype);
-                $cell=
-                $phpExcelInstance->getActiveSheet()
+                $cell=                $phpExcelInstance->getActiveSheet()
                         ->getCellByColumnAndRow($i + 1, $row);
                 
                 $cell->setValue($value, $xlstype);
