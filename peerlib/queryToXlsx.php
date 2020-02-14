@@ -51,7 +51,6 @@ class XLSWriter {
      * Construct a writer for a query.
      * @param type $dbC 
      */
-
     public function __construct($dbC) {
         $this->dbConn = $dbC;
         $this->rainBow = new RainBow();
@@ -264,31 +263,34 @@ class XLSWriter {
         $row = 3;
         $this->tableHeader = $this->rowParser->parseToTableHeader($resultSet);
         $headCount = count($this->tableHeader);
-        $headerStyles = array(
-            'font' => array(
+        $headerStyles = [
+            'font' => [
                 'bold' => true,
-            ),
-            'alignment' => array(
+                'color' => [
+                    'argb' => 'FF000000',
+                ]
+            ],
+            'alignment' => [
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-            ),
-            'borders' => array(
-                'allborders' => array(
-                    'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                ),
-            ),
-            'fill' => array(
-                'type' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+            ],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                ],
+            ],
+            'fill' => [
+                'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                 'rotation' => 0,
-                'color' => array(
+                'color' => [
                     'argb' => 'FFC0C0C0',
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
         for ($i = 0; $i < $headCount; $i++) {
             $name = $this->tableHeader[$i];
-            $phpExcelInstance->getActiveSheet()->setCellValueByColumnAndRow($i, $row, $name);
             $coor = XLSWriter::cellCoordinate($i, $row);
             $phpExcelInstance->getActiveSheet()->getStyle($coor)->applyFromArray($headerStyles);
+            $phpExcelInstance->getActiveSheet()->getCell($coor)->setValue($name);
         }
         $row++;
         // get types
@@ -320,20 +322,24 @@ class XLSWriter {
             }
             $XlsTypes[] = $ftype;
         }
-        $cellStyleArray = array(
-            'borders' => array(
-                'allborders' => array(
-                    'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                ),
-            ),
-            'fill' => array(
-                'type' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+        $cellStyleArray = [
+            'font' => [
+                'bold' => false,
+            ]
+            ,
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                ],
+            ],
+            'fill' => [
+                'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                 'rotation' => 0,
-                'color' => array(
-                    'argb' => 'FF0000',
-                ),
-            ),
-        );
+                'startColor' => [
+                    'argb' => 'FF000000',
+                ],
+            ],
+        ];
         $oldValue = '';
 
         if ($this->firstWeightColumn > 0) {// add weights row
@@ -407,7 +413,14 @@ class XLSWriter {
                 }
 
 
-                $phpExcelInstance->getActiveSheet()->getStyle($coor)->applyFromArray($cellStyleArray);
+                $phpExcelInstance->getActiveSheet()->getStyle($coor)
+                        ->applyFromArray($cellStyleArray);
+//                $phpExcelInstance->getActiveSheet()->getStyle($coor)
+//                        ->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+//                        ->getStartColor()->setARGB($cellStyleArray['fill']['color']['argb']);
+//                $phpExcelInstance->getActiveSheet()->getStyle($coor)
+//                        ->getBorders()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+//                        ->getStartColor()->setARGB($cellStyleArray['fill']['color']['argb']);
             }
             if ($this->weightedSumsColumn >= 0) {
                 $weightLast = count($this->weights) - 1;
@@ -428,13 +441,11 @@ class XLSWriter {
         }
 
         $row = 1;
-        $phpExcelInstance->getActiveSheet()->setCellValueByColumnAndRow(
-                0, $row, $this->linkText);
-        $phpExcelInstance->getActiveSheet()->getCell('A' . $row)
+        $phpExcelInstance->getActiveSheet()->getCell('A2')->setValue( $this->linkText);
+        $phpExcelInstance->getActiveSheet()->getCell('A2' )
                 ->getHyperlink()->setUrl($this->linkUrl);
         $row++;
-        $phpExcelInstance->getActiveSheet()->setCellValueByColumnAndRow(
-                0, $row, $this->title);
+        $phpExcelInstance->getActiveSheet()->getCell('A1')->setValue($this->title);
 
 
         $phpExcelInstance->getActiveSheet()->getStyle('A' . $row)->applyFromArray($headerStyles);
