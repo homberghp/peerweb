@@ -2,18 +2,18 @@
 
 require_once 'rainbow.php';
 require_once 'pgrowparser.php';
+//require_once __DIR__.'/../vendor/autoload.php';
+/** \PhpOffice\PhpSpreadsheet\Spreadsheet */
+//require_once '\PhpOffice\PhpSpreadsheet\Spreadsheet.php';
 
-/** PHPExcel */
-require_once 'PHPExcel.php';
+/** \PhpOffice\PhpSpreadsheet\Writer\Xlsx */
+//require_once '\PhpOffice\PhpSpreadsheet\Spreadsheet/Cell/AdvancedValueBinder.php';
 
-/** PHPExcel_Writer_Excel2007 */
-require_once 'PHPExcel/Cell/AdvancedValueBinder.php';
-
-/** PHPExcel_IOFactory */
-// require_once 'PHPExcel/IOFactory.php';
-require_once 'PHPExcel/Writer/Excel2007.php';
-require_once 'PHPExcel/Writer/Excel5.php';
-require_once 'PHPExcel/Writer/CSV.php';
+/** \PhpOffice\PhpSpreadsheet\IOFactory */
+// require_once '\PhpOffice\PhpSpreadsheet\Spreadsheet/IOFactory.php';
+//require_once '\PhpOffice\PhpSpreadsheet\Spreadsheet/Writer/Excel2007.php';
+//require_once '\PhpOffice\PhpSpreadsheet\Spreadsheet/Writer/Excel5.php';
+//require_once '\PhpOffice\PhpSpreadsheet\Spreadsheet/Writer/CSV.php';
 
 class XLSWriter {
 
@@ -21,7 +21,7 @@ class XLSWriter {
     private $author = "Pieter van den Hombergh";
     private $title = "excel sheet";
     private $subject = "some peerweb table or view";
-    private $description = "Class list extracted from peerweb, generated using PHPExcel student_class by Maarten Balliauw.  http://phpexcel.codeplex.com/";
+    private $description = "Class list extracted from peerweb, generated using \PhpOffice\PhpSpreadsheet\Spreadsheet student_class by Maarten Balliauw.  http://phpexcel.codeplex.com/";
     private $keywords = "peerweb fontys venlo informatica php";
     private $catagory = "class list";
     private $linkUrl = 'https://peerweb.fontysvenlo.org';
@@ -207,7 +207,7 @@ class XLSWriter {
      * @return type
      */
     static function cellCoordinate($column, $row) {
-        return PHPExcel_Cell::stringFromColumnIndex($column) . $row;
+        return \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($column) . $row;
     }
 
     /**
@@ -217,7 +217,7 @@ class XLSWriter {
      * @return type string
      */
     static function cellCoordinateAbsoluteRow($column, $row) {
-        return PHPExcel_Cell::stringFromColumnIndex($column) . '$' . $row;
+        return \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($column) . '$' . $row;
     }
 
     /**
@@ -227,7 +227,7 @@ class XLSWriter {
      * @return type string
      */
     static function cellCoordinateAbsolute($column, $row) {
-        return '$' . PHPExcel_Cell::stringFromColumnIndex($column) . '$' . $row;
+        return '$' . \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($column) . '$' . $row;
     }
 
     /**
@@ -235,8 +235,8 @@ class XLSWriter {
      * @param $query the query.
      */
     function writeXlsx($query) {
-        PHPExcel_Cell::setValueBinder(new PHPExcel_Cell_AdvancedValueBinder());
-        $phpExcelInstance = new PHPExcel();
+        \PhpOffice\PhpSpreadsheet\Cell\Cell::setValueBinder(new \PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder());
+        $phpExcelInstance = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         if (!isSet($this->rowParser)) {
             $this->rowParser = new DefaultRowParser();
         }
@@ -269,15 +269,15 @@ class XLSWriter {
                 'bold' => true,
             ),
             'alignment' => array(
-                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
             ),
             'borders' => array(
                 'allborders' => array(
-                    'style' => PHPExcel_Style_Border::BORDER_THIN,
+                    'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
                 ),
             ),
             'fill' => array(
-                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                'type' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                 'rotation' => 0,
                 'color' => array(
                     'argb' => 'FFC0C0C0',
@@ -296,7 +296,7 @@ class XLSWriter {
         $XlsTypes = array();
         //error_log('there are ' . count($this->columnTypes) . ' types from db =' . print_r($this->columnTypes, true), 0);
         for ($i = 0; $i < count($this->columnTypes); $i++) {
-            $ftype = PHPExcel_Cell_DataType::TYPE_NUMERIC;
+            $ftype = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC;
             //error_log("found  type = {$this->columnTypes[$i]} for column {$i}", 0);
             switch ($this->columnTypes[$i]) {
                 case 'char':
@@ -304,7 +304,7 @@ class XLSWriter {
                 case 'varchar':
                 case 'text':
                 case 'date':
-                    $ftype = PHPExcel_Cell_DataType::TYPE_STRING;
+                    $ftype = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING;
                     break;
                 case 'int2':
                 case 'int4':
@@ -312,10 +312,10 @@ class XLSWriter {
                 case '_numeric':
                 case 'numeric':
                 case 'float8':
-                    $ftype = PHPExcel_Cell_DataType::TYPE_NUMERIC;
+                    $ftype = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC;
                     break;
                 default:
-                    $ftype = PHPExcel_Cell_DataType::TYPE_STRING;
+                    $ftype = \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING;
                     break;
             }
             $XlsTypes[] = $ftype;
@@ -323,11 +323,11 @@ class XLSWriter {
         $cellStyleArray = array(
             'borders' => array(
                 'allborders' => array(
-                    'style' => PHPExcel_Style_Border::BORDER_THIN,
+                    'style' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
                 ),
             ),
             'fill' => array(
-                'type' => PHPExcel_Style_Fill::FILL_SOLID,
+                'type' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                 'rotation' => 0,
                 'color' => array(
                     'argb' => 'FF0000',
@@ -341,7 +341,7 @@ class XLSWriter {
             $coor = XLSWriter::cellCoordinate($this->firstWeightColumn - 1, $row);
             $phpExcelInstance->getActiveSheet()
                     ->setCellValue(
-                            $coor, 'Weights', PHPExcel_Cell_DataType::TYPE_STRING);
+                            $coor, 'Weights', \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
             $phpExcelInstance->getActiveSheet()->getStyle($coor)->applyFromArray($headerStyles);
             $weightSum = 0;
             $w = 0;
@@ -351,7 +351,7 @@ class XLSWriter {
                 $weightSum += $this->weights[$w];
                 $phpExcelInstance->getActiveSheet()
                         ->setCellValue(
-                                $coor, $this->weights[$w], PHPExcel_Cell_DataType::TYPE_NUMERIC);
+                                $coor, $this->weights[$w], \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC);
                 $phpExcelInstance->getActiveSheet()->getStyle($coor)->applyFromArray($headerStyles);
             }
             $coor = XLSWriter::cellCoordinate($this->weightedSumsColumn, $row);
@@ -360,12 +360,12 @@ class XLSWriter {
             $formula = "=SUM($wBegin:$wEnd)";
             $phpExcelInstance->getActiveSheet()
                     ->setCellValue(
-                            $coor, $formula, PHPExcel_Cell_DataType::TYPE_FORMULA);
+                            $coor, $formula, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_FORMULA);
             $phpExcelInstance->getActiveSheet()->getStyle($coor)->applyFromArray($headerStyles);
             $coor = XLSWriter::cellCoordinate($this->weightedSumsColumn, $row - 1);
             $phpExcelInstance->getActiveSheet()
                     ->setCellValue(
-                            $coor, 'Total WT', PHPExcel_Cell_DataType::TYPE_STRING);
+                            $coor, 'Total WT', \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
             $phpExcelInstance->getActiveSheet()->getStyle($coor)->applyFromArray($headerStyles);
             $row++;
         }
@@ -390,7 +390,7 @@ class XLSWriter {
             for (; $i < $headCount; $i++) {
                 $value = $rowData[$i];
                 $coor = XLSWriter::cellCoordinate($i, $row);
-                $xlstype = isSet($XlsTypes[$i]) ? $XlsTypes[$i] : PHPExcel_Cell_DataType::TYPE_STRING;
+                $xlstype = isSet($XlsTypes[$i]) ? $XlsTypes[$i] : \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING;
                 //error_log("writing cell type = {$xlstype} for column {$i}, value {$value}", 0);
 
                 $phpExcelInstance->getActiveSheet()
@@ -399,11 +399,11 @@ class XLSWriter {
                 if ($this->columnTypes[$i] == 'date') {
                     $phpExcelInstance->getActiveSheet()->getStyle($coor)
                             ->getNumberFormat()
-                            ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_DATE_YYYYMMDD2);
+                            ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDD2);
                 } else if ($this->columnTypes[$i] == 'time') {
                     $phpExcelInstance->getActiveSheet()->getStyle($coor)
                             ->getNumberFormat()
-                            ->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_DATE_TIME8);
+                            ->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_TIME8);
                 }
 
 
@@ -420,7 +420,7 @@ class XLSWriter {
                 $formula = "=SUMPRODUCT({$wBegin}:{$wEnd},{$rBegin}:{$rEnd})/$wSumCoor";
                 $phpExcelInstance->getActiveSheet()
                         ->setCellValueExplicit(
-                                $coor, $formula, PHPExcel_Cell_DataType::TYPE_FORMULA);
+                                $coor, $formula, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_FORMULA);
                 $phpExcelInstance->getActiveSheet()->getStyle($coor)->applyFromArray($cellStyleArray);
             }
             $row++;
@@ -448,8 +448,8 @@ class XLSWriter {
 
         // set format
         $phpExcelInstance->getActiveSheet()
-                ->getPageSetup()->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
-        $phpExcelInstance->getActiveSheet()->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4);
+                ->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+        $phpExcelInstance->getActiveSheet()->getPageSetup()->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4);
 
         $phpExcelInstance->getActiveSheet()->getPageSetup()->setFitToWidth(1);
         $phpExcelInstance->getActiveSheet()->getPageSetup()->setFitToHeight(0);
@@ -459,20 +459,20 @@ class XLSWriter {
             $phpExcelInstance->getActiveSheet()->getColumnDimension($i)->setAutoSize(true);
 //            $objPHPExcel->getActiveSheet()->getStyle($i . '2')->applyFromArray($styleArray);
         }
-        PHPExcel_Calculation::getInstance()->clearCalculationCache();
-        PHPExcel_Calculation::getInstance()->disableCalculationCache();
-        PHPExcel_Calculation::getInstance()->calculate();
+        \PhpOffice\PhpSpreadsheet\Calculation\Calculation::getInstance()->clearCalculationCache();
+        \PhpOffice\PhpSpreadsheet\Calculation\Calculation::getInstance()->disableCalculationCache();
+        \PhpOffice\PhpSpreadsheet\Calculation\Calculation::getInstance()->calculate();
         switch ($this->excelFormat) {
             case 'Excel2007':
-                $objWriter = new PHPExcel_Writer_Excel2007($phpExcelInstance);
+                $objWriter = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($phpExcelInstance);
                 $this->mimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
                 break;
             case 'Excel5':
-                $objWriter = new PHPExcel_Writer_Excel5($phpExcelInstance);
+                $objWriter = new \PhpOffice\PhpSpreadsheet\Writer\Xls($phpExcelInstance);
                 $this->mimeType = 'application/vnd.ms-excel';
                 break;
             default:
-                $objWriter = new PHPExcel_Writer_CSV($phpExcelInstance);
+                $objWriter = new \PhpOffice\PhpSpreadsheet\Writer\Csv($phpExcelInstance);
                 $this->mimeType = 'text/comma-separated-values';
                 break;
         }

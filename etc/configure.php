@@ -15,9 +15,10 @@ if (is_file($site_dir . '/CLOSED')) {
 }
 
 $include_path = ini_get('include_path');
-$include_path = $site_home . '/peerlib:' . $include_path . ':/usr/share/php/PHPExcel/Classes';
+$include_path = $site_home . '/peerlib:' . $include_path .':'. $site_home.'/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/';
 $include_path = ini_set('include_path', $include_path);
 $subversionscriptdir = "{$site_home}/subversion";
+require_once $site_home.'/vendor/autoload.php';
 define('ADODB_ASSOC_CASE', 2);
 define('STYLEFILE', $root_url . '/style/peertreestyle.css');
 define('SITEROOT', $root_url);
