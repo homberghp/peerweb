@@ -118,10 +118,6 @@ class SpreadSheetWriter {
                     $fileExtension = 'xlsx';
                     $excelFormat = 'Excel2007';
                     break;
-                case 'Excel2003':
-                    $fileExtension = 'xls';
-                    $excelFormat = 'Excel5';
-                    break;
                 default:
                 case 'csv':
                     $fileExtension = 'csv';
@@ -174,7 +170,6 @@ class SpreadSheetWriter {
             Spread sheet&nbsp;output:
             <select name='filetype'>
                 <option value='Excel2007'>Excel2007</option>
-                <option value='Excel2003'>Excel2003</option>
                 <option value='csv'>semicolon separated</option>
                 <option value='AMC-exam'> comma ',' seperated</option>
                 <option value='PROGRESS-set'>Progress result set</option>
