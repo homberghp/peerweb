@@ -52,7 +52,7 @@ BalloonConfig = function(balloon, set) {
     balloon.stemOverlap        = 3;                             //
     balloon.vOffset            = 1;                             //
     balloon.hOffset            = 1;                             //    
-    balloon.opacity            = 0.9;                           //
+    balloon.opacity            = 1.0;                           //
     balloon.configured         = set || true;                   //
   }                                                             //
   ////////////////////////////////////////////////////////////////
