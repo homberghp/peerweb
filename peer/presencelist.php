@@ -87,7 +87,7 @@ class MyRowFactory implements RowFactory {
             $trans_title = "title = 'operator $operator at $ts from $from_ip'";
         }
         return "\t<td>\n"
-                . "\t\t<div style='font-size:80%' id='radio_${snummer}' class='$divClass'>\n"
+                . "\t\t<div style='font-size:80%' id='radio_${snummer}' class='{$divClass}'>\n"
                 . "\t\t\t<input type='radio' class='absent a$grp_id' name='mark_${snummer}[]'"
                 . " value='' $checkedAbsent style='vertical-align: middle' onChange='this.parentNode.className=\"absent\"'>Absent&nbsp;<br/>\n"
                 . "\t\t\t<input type='radio' class='present p$grp_id' name='mark_${snummer}[]'"
