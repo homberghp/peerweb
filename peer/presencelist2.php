@@ -50,20 +50,22 @@ $script = <<<'STYLE'
             display:inline-block;
         }
         img.f{float:left; margin-right:5px}
-        div.box{border: 1px solid black;}
+        div.box{border: 1px solid black; padding:1em;margin:0.5em;}
         div.box > button {halign:center;}
         div.g{ 
            display: flex;
            flex-flow: column;
            flex-direction: row;
+           flex-wrap: wrap;
            align-content: space-around;
+           width:80%
         }
         div.grps{
           display: flex; 
           flex-flow: wrap; 
           flex-direction: row;
           align-content: space-around;
-          justify-content: center; 
+          justify-content: left; 
         }
         </style>
         STYLE;
@@ -88,7 +90,7 @@ $act_id_selector = $actSel->getSelector();
 // candidates
 $sql4 = <<<"SQL"
         select s.snummer, regexp_replace(s.achternaam,'\s+','&nbsp;') as achternaam, regexp_replace(s.roepnaam,'\s+','&nbsp;') as roepnaam,pt.grp_num,
-        '<img src="'||photo||'" width=''26'' height=''auto'' valign=''bottom'' class=''f''/>' as face,
+        '<img src="'||photo||'" width=''32'' height=''auto'' valign=''bottom'' class=''f''/>' as face,
         ap.presence,ar.reason as comment
         from student s
         join  prj_grp pg using(snummer) 
@@ -152,13 +154,12 @@ if ( $resultSet === false ) {
         $gm .= <<<"HTML"
                 <div class='{$divClass} box'>
                      <div>{$face}&nbsp;{$snummer}<br/>{$roepnaam}</br> {$achternaam}</div>
-                     <button align='bottom'>Next</button>
+                     <input type='radio' class='a' name='m_{$snummer}' value='' $checkX/>
+                     <input type='radio' class='p' name='m_{$snummer}' value='P' $checkP/>
+                     <input type='radio' class='r' name='m_{$snummer}' value='A' $checkA/>
                 </div><br/>
 
 HTML;
-//                     <input type='radio' class='a' name='m_{$snummer}' value='' $checkX/>
-//                     <input type='radio' class='p' name='m_{$snummer}' value='P' $checkP/>
-//                     <input type='radio' class='r' name='m_{$snummer}' value='A' $checkA/>
 //        echo $gm;
         $pgcount++;
 
