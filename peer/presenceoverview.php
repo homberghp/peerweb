@@ -36,7 +36,7 @@ class MyRowHeaderBuilder implements RowHeaderBuilder {
     }
 
     public function buildHeader( $data ) {
-        return "<th>snummer</th><th>Name</th><th>pict</th>\n";
+        return "<th>snummer</th><th>Name</th><th>grp</th><th>pict</th>\n";
     }
 
 }
@@ -93,7 +93,7 @@ $sql = "select snummer,roepnaam||coalesce(' '||tussenvoegsel||' ',' ')||achterna
         . " from act_presence_list2 al join student_email st using(snummer) \n"
         . " join portrait tp using (snummer) \n"
         . " left join absence_reason ar using (act_id,snummer)\n"
-        . " where prjm_id=$prjm_id order by grp_num,achternaam,roepnaam,al.act_id\n";
+        . " where prjm_id=$prjm_id and datum <= now()::date order by grp_num,achternaam,roepnaam,al.act_id\n";
 
 $page = new PageContainer();
 include 'js/balloonscript.php';
