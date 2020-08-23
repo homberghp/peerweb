@@ -9,7 +9,7 @@
 <col style='background:rgba(80,80,80,0.3)' align='center'/>
 <col align='center'/>
 <?php
-   $sql = "select achternaam,tussenvoegsel,roepnaam from student_student where snummer=$snummer";
+   $sql = "select achternaam,tussenvoegsel,roepnaam from student where snummer=$snummer";
    $resultSet= $dbConn->Execute($sql);
     extract($resultSet->fields);
 ?>
