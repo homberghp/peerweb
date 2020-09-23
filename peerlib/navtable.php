@@ -354,6 +354,13 @@ $navtable = array(// index, defproject, citeria1,2, milestones
         'image' => 'filesaveas.png',
         'subitems' =>
         array(// files etc
+            array('target' => 'moocProgress.php',
+                'tooltip' => 'Watch filtered mooc progress.',
+                'linktext' => 'Mooc Progress',
+                'menu_name' => 'moocprogress',
+                'image' => 'editcut.png',
+                'interest' => 'tutor',
+            ),
             array('target' => 'defuploadtype.php',
                 'tooltip' => 'Define the documents to upload.',
                 'linktext' => 'eDeliverables',
