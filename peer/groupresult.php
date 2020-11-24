@@ -19,7 +19,6 @@ $grp_num = 1;
 extract($_SESSION);
 $productgrade = 7.0;
 $prjSel = new PrjMilestoneSelector2($dbConn, $peer_id, $prjm_id);
-$prjSel->setWhere("has_assessment=true");
 extract($prjSel->getSelectedData());
 
 if (isSet($_REQUEST['prjtg_id'])) {

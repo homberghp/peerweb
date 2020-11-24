@@ -1,0 +1,12 @@
+<div id='navmain' style='padding:1em;'>
+    <fieldset><legend>Select Project/activity</legend>
+        <form method="get" id="select" action="<?= $PHP_SELF; ?>">
+        Project <?= $prjSel->getSelector() ?><br/>
+        Select activity
+            <?= $act_id_selector ?><input type='submit' name='sbm' value='Get'>
+       </form>
+    </fieldset>
+    <div class='grps'>
+    <?= $participants ?>
+    </div>
+</div>

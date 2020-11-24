@@ -680,7 +680,7 @@ function pagehead2($title, $script = '') {
   <!-- peerutils.php 1826 2014-12-27 15:01:13Z hom $ -->
   <link rel='stylesheet' type='text/css' href='{$styleFile}'/>
 {$script}
-    <title><{$title}</title>
+    <title>{$title}</title>
     </head>
     <body class='{$body_class}'>
 EOF;
