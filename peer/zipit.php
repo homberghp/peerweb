@@ -27,7 +27,6 @@ if ( $resultSet === false ) {
 } else if ( !$resultSet->EOF ) {
   $zipfilename = tempnam('/tmp','zip');;
   $zip = new ZipArchive();
-  $upload_path_prefix='/home/f/fontysvenlo.org/peerweb/upload/';
   $res = $zip->open( $zipfilename, ZipArchive::CREATE );
   $filename='';
   if ( $res === TRUE ) {
