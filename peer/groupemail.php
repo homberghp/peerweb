@@ -191,7 +191,7 @@ function emailTable($dbConn, $prjm_id, $isTutor, $mailto) {
     } else {
         $grpSelect = "and grp_num='$judge_grp_num' ";
     }
-    $sql = "select afko,pt.grp_num,coalesce('g'||pt.grp_num,pt.grp_name) as grp_name,\n"
+    $sql = "select afko,pt.grp_num,coalesce(pt.grp_name,'g'||pt.grp_num) as grp_name,\n"
             . "pg.snummer as mail,rtrim(role) as role, pg.snummer,\n"
             . "achternaam||coalesce(', '||tussenvoegsel,'') as achternaam,roepnaam,\n"
             . "trim(sclass) as sclass, tutor, 'role'||sr.rolenum as checkclass, 0 as lo\n"
