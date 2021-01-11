@@ -59,7 +59,7 @@ if ($resultSet === false) {
 <div id='navmain' style='padding:1em;'>
     <h1>Read uploaded files</h1>
     <fieldset><legend>select project/milestone</legend>
-        <form method="get" name="project" action="<?= __FILE__ ?>">
+        <form method="get" name="project" action="<?= $PHP_SELF ?>">
             <?= $prjSel->getSelector() ?><input type="submit" value="Get Project"/>
             <?= $prj_id ?>M<?= $milestone ?>/prjm_id=<?= $prjm_id ?>( <?= $doccount ?> documents).
         </form>
