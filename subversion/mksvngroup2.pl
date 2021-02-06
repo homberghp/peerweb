@@ -217,7 +217,7 @@ print AUTHZ "\n[/]\n".
   "\@tutor = rw\n".
   "* =\n";
 
-foreach $groupname (sort keys %ghash) {
+foreach $groupname (sort keys %repoHash) {
   print AUTHZ "\n[$groupname:/]\n".
     "\@$groupname = rw\n".
       "\@tutor = r\n".

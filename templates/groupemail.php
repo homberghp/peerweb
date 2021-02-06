@@ -9,8 +9,10 @@
                         <p><strong>Note that a copy of that mail is sent to the tutor as well.</strong></p>
                         <?= $eTable ?>
                     </td><td valign='top'>
-                        <p><strong>Select the addressees by their role</strong></p>
+                        <p><strong>Select the addressees by group</strong></p>
+                        <?= $groupTable ?>
 
+			<p><strong>Select the addressees by their role</strong></p>
                         <?= $rTable ?>
 
                         <p><strong>Select the addressees by class</strong></p>

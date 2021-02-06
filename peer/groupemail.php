@@ -149,6 +149,32 @@ function roleTable($dbConn, $prjm_id) {
     return $result . "</table>\n";
 }
 
+function groupTable($dbConn, $prjm_id) {
+    $result = "\n<table border='1' style='border-collapse: collapse;'>\n"
+            . "\t<tr style='background:rgba(240,240,240,0.4)'><th>num</th><th>select</th><th>Group</th></tr>";
+
+    $sql = "select pt.* from prj_tutor pt where prjm_id={$prjm_id}"
+            . " order  by grp_num";
+    //simpletable($dbConn, $sql,"<table border='1' caption='roles in project'>");
+    $resultSet = $dbConn->Execute($sql);
+    $rb = RainBow::zebra();
+    $bg = $rb->restart();
+    while (!$resultSet->EOF) {
+        extract($resultSet->fields);
+	$grp='grp'.$grp_num;
+        $result .= "\t\t<tr style='background:$bg'>"
+                . "<td align='right'>{$grp_num}</td>\n"
+                . "\t\t<td><input type='checkbox' name='grps[]' "
+                . "value='$grps' "
+                . "onclick='javascript:selectByClass(\"mailto[]\",\"{$grp}\",this.checked)'/></td>\n"
+                . "\t\t<td>{$grp_name}</td>"
+                . "</tr>\n";
+        $bg = $rb->getNext();
+        $resultSet->moveNext();
+    }
+    return $result . "</table>\n";
+}
+
 function classTable($dbConn, $prjm_id) {
     $result = "\n<table border='1' style='border-collapse: collapse;'>\n"
             . "\t<tr style='background:rgba(240,240,240,0.4)'><th>num</th><th>select</th><th>Class</th></tr>";
@@ -224,10 +250,11 @@ function emailTable($dbConn, $prjm_id, $isTutor, $mailto) {
             $bg = $rb->getNext();
             $og = $grp_num;
         }
-        $checked = in_array($snummer, $mailto) ? 'checked' : '';
+ 	$grp='grp'.$grp_num;
+ 	$checked = in_array($snummer, $mailto) ? 'checked' : '';
         $result .= "
                 <tr style='background:$bg'><td align='right'>$counter</td>
-                    <td align='center'><input type='checkbox' name='mailto[]' value='$snummer' class='$checkclass $sclass' $checked/></td>
+                    <td align='center'><input type='checkbox' name='mailto[]' value='$snummer' class='$checkclass $sclass $grp' $checked/></td>
                     <td>$role</td>
                     <td>$snummer</td><td>$achternaam</td><td>$roepnaam</td><td>{$sclass}</td>
                     <td class='num'>$grp_num</td><td>$grp_name</td><td>$tutor</td>
@@ -240,6 +267,7 @@ function emailTable($dbConn, $prjm_id, $isTutor, $mailto) {
 
 $pp['eTable'] = emailTable($dbConn, $prjm_id, $isTutor, $mailto);
 $pp['rTable'] = roleTable($dbConn, $prjm_id);
+$pp['groupTable'] = groupTable($dbConn, $prjm_id);
 $pp['classTable'] = classTable($dbConn, $prjm_id);
 $pp['selWidget'] = $prjSel->getWidget();
 $page->addHtmlFragment('../templates/groupemail.php', $pp);

@@ -27,7 +27,8 @@ if (isSet($class_id)) {
     }
 }
 
-$sql1 = "select * from mooc_progress where sclass='{$sclass}' order by achternaam,roepnaam";
+//$sql1 = "select * from mooc_progress where sclass='{$sclass}' order by achternaam,roepnaam";
+$sql1 = "select * from mooc_progress order by achternaam,roepnaam";
 
 
 $fdate = date('Y-m-d');
