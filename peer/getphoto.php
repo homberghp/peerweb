@@ -4,6 +4,9 @@ require_once('validators.php');
 $dir=validate($_REQUEST['d'], 'fotodir', 'fotos');
 $foto=validate($_REQUEST['s'], 'snummer', '0');
 $fotodir="{$fotobase}/{$dir}";
+if (! defined($peer_id)) {
+   $peer_id=validate($SERVER['REMOTE_USER'],'snummer',0);
+}
 $fname="{$fotodir}/".allowedPhoto($peer_id,$foto);
 
 $fp = @fopen($fname, 'r');
