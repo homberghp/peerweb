@@ -82,4 +82,4 @@ $dbConn->setSqlLogging(true);
 include_once("treeviewclasses.php");
 // login starts a session
 include_once($site_dir . '/' . 'login.php');
-
+$fotobase='/home/f/fontysvenlo.org/peerfotos/';
