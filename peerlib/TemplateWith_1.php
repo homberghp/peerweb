@@ -13,7 +13,7 @@
  * 3 escape char seen
  * 
  */
-function templateWith(string $template, array $substitutions) {
+function templateWith(string $template, array $substitutions): string {
     $state = 0; // forwarding
     $charIn = preg_split('//u', $template, -1, PREG_SPLIT_NO_EMPTY);
     $charOut = array();
@@ -21,7 +21,6 @@ function templateWith(string $template, array $substitutions) {
     $key = array();
     $i = 0;
     while ($i < $count) {
-        con:
         $char = $charIn[$i];
         switch ($state) {
             case 0: // pass thru
