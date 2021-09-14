@@ -28,7 +28,7 @@ class TemplateWithTest extends TestCase {
     
     public function testTwo() {
         $s = 'hello {$itom}';
-        $expected = 'hello ';
+        $expected = 'hello {$itom}';
         $needles = array('item' => 'world', 'hello' => 'nothing');
         $result = templateWith($s, $needles);
         $this->assertEquals($expected, $result, 'not equals');
@@ -59,7 +59,8 @@ class TemplateWithTest extends TestCase {
             ['hello {$world}','hello Schöne Heimat', array('world'=> 'Schöne Heimat')],
             ['hello {$süßes}','hello Schöne Heimat', array('süßes'=> 'Schöne Heimat')],
             ['hello $schatz I have not seen my {}','hello $schatz I have not seen my {}', array('schatz'=> 'Schöne Heimat')],
-//            ['hello $schatz','hello Schöne Heimat', array('schatz'=> 'Schöne Heimat')],
+            ['こんにちは {$schatz}','こんにちは Schöne Heimat', array('schatz'=> 'Schöne Heimat')],
+            ['hello {$恋しい}','hello エクスペンシブ',array('恋しい'=>'エクスペンシブ')],
             ['with underscores {$schatz_z}','with underscores Schöne Heimat', array('schatz_z'=> 'Schöne Heimat')],
             ['one well known pattern is Façade, {$süßes}','one well known pattern is Façade, Liebling', array('süßes'=> 'Liebling')],
             ['dollar ony, utf8 hello {$süßes}','dollar ony, utf8 hello Schöne Heimat', array('süßes'=> 'Schöne Heimat')],

@@ -24,7 +24,7 @@ function templateWith(string $template, array $substitutions) {
         con:
         $char = $charIn[$i];
         switch ($state) {
-            case 0:
+            case 0: // pass thru
                 switch ($char) {
                     case '\\':
                         $state = 3;
@@ -36,7 +36,7 @@ function templateWith(string $template, array $substitutions) {
                         $charOut[] = $charIn[$i];
                         break;
                 }break;
-            case 1:
+            case 1: // seen { 
                 switch ($char) {
                     case '$':
                         $state = 2;
@@ -45,22 +45,24 @@ function templateWith(string $template, array $substitutions) {
                         break;
                 }
                 break;
-            case 2:
+            case 2: // seen { and $, collecting key until }
                 switch ($char) {
                     case '}': // key complete 
                         $ks = join('', $key);
                         if (array_key_exists($ks, $substitutions)) {
                             $charOut[] = $substitutions[$ks];
+                        } else { // output key 
+                            $charOut[] = "{\${$ks}}";
                         }
                         $key = [];
                         $state = 0;
                         break;
-                    default:
+                    default: // collect into key
                         $key[] = $char;
                         break;
                 }
                 break;
-            case 3:
+            case 3: // seen escape
                 $charOut[] = $charIn[$i];
                 break;
         }
