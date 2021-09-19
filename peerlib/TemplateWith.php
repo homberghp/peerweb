@@ -9,76 +9,78 @@
  * Implementation notes: There is a little state machine with the following states:
  * 0 initial and passing characters
  * 1 found starting { in {$name}.
- * 2 found $ in {$name} and collecting key
- * 3 from $ as start.
+ * 2 found $ in {$name} and collecting key. stops at }
+ * 3 escape char seen
  * 
  */
-function templateWith( string $template, array $substitutions ) {
-    $state = 0; // forwarding
-    $charIn = preg_split( '//u', $template, -1, PREG_SPLIT_NO_EMPTY );
-    $charOut = array();
-    $count = count( $charIn );
-    $key = array();
-    $i = 0;
-    while ($i < $count) {
-        con:
+function templateWith( string $charIn, array $substitutions ): string {
+    $state = 'A'; // forwarding
+    $charOut = '';
+    $count = strlen( $charIn );
+    $key = '';
+    $keyStart = -1;
+    $keyLen = 0;
+    $start = $len = $i = 0;
+    while ( $i < $count ) {
         $char = $charIn[ $i ];
-        switch ( $char ) {
-            case '{': if ( $state === 0 ) {
-                    $state = 1;
-                }
-                break;
-            case '}':
-                if ( $state === 2 ) {
-                    $ks = join( '', $key );
-                    if ( array_key_exists( $ks, $substitutions ) ) {
-                        $charOut[] = $substitutions[ $ks ];
-                    }
-                    $key = array();
-                    $state = 0;
-                }
-                break;
-            case '$': switch ( $state ) {
-                    case 0: $state = 3;
+        switch ( $state ) {
+            case 'A': // pass thru
+                switch ( $char ) {
+                    case '\\':
+                        $state = 'D';
+                        $charOut .= substr( $charIn, $start, $len );
+                        $start = $i + 1;
+                        $len = 0;
                         break;
-                    case 1: $state = 2;
+                    case '{':
+                        $state = 'B';
                         break;
-                } 
-                break;
-            case '\\': if ( $state === 0 ) {
-                    $i++;
-                    $charOut[] = $charIn[ $i ];
-                }
-                goto con;
-            default:
-                switch ( $state ) {
                     default:
-                    case 0: $charOut[] = $char;
-                        break;
-                    case 2: $key[] = $char;
-                        break;
-                    case 3: if ( preg_match( '/^\w$/u',$char ) ) {
-                            $key[] = $char;
-                        } else { // token complete, but save $char.  
-                            $ks = join( '', $key );
-                            if ( array_key_exists( $ks, $substitutions ) ) {
-                                $charOut[] = $substitutions[ $ks ];
-                            }
-                            $charOut[] = $char;
-                            $key = array();
-                            $state = 0;
-                        }
+                        $len++;
                         break;
                 }
+                break;
+            case 'B': // seen { 
+                switch ( $char ) {
+                    case '$':
+                        $state = 'C';
+                        $keyStart = $i + 1;
+                        $keyLen = 0;
+                        break;
+                    default:
+                        $charOut .= substr( $charIn, $start, $len ) . '{' . $char;
+                        $start = $i + 1;
+                        $len = 0;
+                        $state = 'A';
+                        break;
+                }
+                break;
+            case 'C': // seen { and $, collecting key until }
+                switch ( $char ) {
+                    case '}': // key complete 
+                        $charOut .= substr( $charIn, $start, $len );
+                        $key = substr( $charIn, $keyStart, $keyLen );
+                        if ( array_key_exists( $key, $substitutions ) ) {
+                            $charOut .= $substitutions[ $key ];
+                        }
+                        $start = $i + 1;
+                        $len = 0;
+                        $key = '';
+                        $state = 'A';
+                        break;
+                    default: // collect into key
+                        $keyLen++;
+                        break;
+                }
+                break;
+            case 'D': // seen escape
+                $charOut .= $char;
+                $start = $i + 1;
+                $len = 0;
+                break;
         }
         $i++;
-        if ( $i === $count && count( $key ) ) {
-            $ks = join( '', $key );
-            if ( array_key_exists( $ks, $substitutions ) ) {
-                $charOut[] = $substitutions[ $ks ];
-            }
-        }
     }
-
-    return join( '', $charOut );
+    $charOut .= substr( $charIn, $start, $len );
+    return $charOut;
 }
