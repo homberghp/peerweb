@@ -2,7 +2,7 @@
 
 /**
  * Component and xxcontainer are designed as a composite pattern
- * Component and xxcontainer Both implement the show() method
+ * Component and xxcontainer both implement the show() method
  * xxcontainer has an add method
  * HtmlContainer derives the endtag from the parameter to the constructor.
  */
