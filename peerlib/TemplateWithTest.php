@@ -56,7 +56,7 @@ class TemplateWithTest extends TestCase {
     public function provider(){
         return [
             ['all','hello {$world}','hello Schöne Heimat', array('world'=> 'Schöne Heimat')],
-            ['before end','hello {$süßes}!','hello Schöne Heimat!', array('süßes'=> 'Schöne Heimat')],
+            ['before end','hello {$süßes}! Schön {$dich} wieder zu sehen.','hello Schöne Heimat! Schön Sie wieder zu sehen.', array('süßes'=> 'Schöne Heimat','dich'=> 'Sie')],
             ['escaped before end','hello \{$süßes}!','hello {$süßes}!', array('süßes'=> 'Schöne Heimat')],
             ['no dollar','hello {süßes}','hello {süßes}', array('süßes'=> 'Schöne Heimat')],
             ['no curlies','hello $süßes','hello $süßes', array('süßes'=> 'Schöne Heimat')],
