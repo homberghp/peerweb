@@ -49,7 +49,7 @@ class SimpleTableEditor {
     /**
      * the constructor
      */
-    function __construct( &$dbConn, &$page, $allowIUD = true ) {
+    function __construct( PDO $dbConn, &$page, $allowIUD = true ) {
         global $PHP_SELF;
         global $validator;
         $this->dbConn = $dbConn;
@@ -110,7 +110,7 @@ class SimpleTableEditor {
     private $relation;
 
     /** DB connection to use */
-    private $dbConn;
+    private PDO $dbConn;
 
     /** */
     private $itemValidator;

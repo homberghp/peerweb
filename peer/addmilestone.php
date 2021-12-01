@@ -24,30 +24,31 @@ if (!isSet($_SESSION['prj_id'])) {
     // smart guess
     $sql = "select prj_id,afko,year,description from project\n" .
             " where prj_id=(select max(prj_id) as prj_id from project)";
-    $resultSet = $dbConn->Execute($sql);
+    $resultSet = $dbConn->query($sql);
     if ($resultSet === false) {
-        die("<br>Cannot get smart project data with $sql, cause" . $dbConn->ErrorMsg() . "<br>");
+        die("<br>Cannot get smart project data with $sql, cause" . $dbConn->errorInf()[2] . "<br>");
     }
 
-    if ($resultSet->EOF) {
+    if (($row=$resultSet->fetch())===false) {
         $prj_id = 0;
     } else {
-        extract($resultSet->fields);
+        extract($row);
     }
     $_SESSION['prj_id'] = $prj_id;
 }
 if (isSet($_SESSION['prj_id'])) {
     $sql = "select prj_id,afko,description,year,max(milestone) as milestones from " .
             "project p left join prj_milestone m using (prj_id) where prj_id={$prj_id} group by prj_id,afko,description,year";
-    $resultSet = $dbConn->Execute($sql);
+    $resultSet = $dbConn->query($sql);
     if ($resultSet === false) {
-        die("<br>Cannot get sequence next value with " . $dbConn->ErrorMsg() . "<br>");
+        die("<br>Cannot get sequence next value with " . $dbConn->errorInf()[2] . "<br>");
     }
-    $afko = $resultSet->fields['afko'];
-    $description = $resultSet->fields['description'];
-    $year = $resultSet->fields['year'];
-    if (isSet($resultSet->fields['milestones'])) {
-        $milestones = $resultSet->fields['milestones'];
+    $row=$resultSet->fetch();
+    $afko = $row['afko'];
+    $description = $row['description'];
+    $year = $row['year'];
+    if (isSet($row['milestones'])) {
+        $milestones = $row['milestones'];
     } else {
         $milestones = 0;
     }
@@ -58,7 +59,7 @@ if (isSet($VPOST['baddmil'])) {
         $sql = "select max(milestone) as milestone from prj_milestone where prj_id=$prj_id";
         $resultSet = $dbConn->Execute($sql);
         if ($resultSet === false) {
-            die("<br>Cannot get max with " . $sql . " reason " . $dbConn->ErrorMsg() . "<br>");
+            die("<br>Cannot get max with " . $sql . " reason " . $dbConn->errorInf()[2] . "<br>");
         }
         if (isSet($resultSet->fields['milestone'])) {
             $milestone = $resultSet->fields['milestone'] + 1;
@@ -73,7 +74,7 @@ if (isSet($VPOST['baddmil'])) {
                     " values( $prj_id,$milestone,false,'$assessment_due')";
             $resultSet = $dbConn->Execute($sql);
             if ($resultSet === false) {
-                die("<br>Cannot update milestone values with " . $sql . " reason " . $dbConn->ErrorMsg() . "<br>");
+                die("<br>Cannot update milestone values with " . $sql . " reason " . $dbConn->errorInf()[2] . "<br>");
             }
             $milestone++;
             $milestone_date += $milestone_span;
@@ -98,7 +99,7 @@ if (isSet($VPOST['baddmil'])) {
 //    echo "<pre>{$sql}</pre>";
     $resultSet = $dbConn->Execute($sql);
     if ($resultSet === false) {
-        echo( "<br>Cannot update milestone values with " . $sql . " reason " . $dbConn->ErrorMsg() . "<br>");
+        echo( "<br>Cannot update milestone values with " . $sql . " reason " . $dbConn->errorInf()[2] . "<br>");
     }
 }
 

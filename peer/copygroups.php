@@ -34,9 +34,10 @@ if (isSet($_POST['dup'])) {
 
     if ($new_prjm_id <> '') {
         $sql = "select prj_id,milestone from prj_milestone where prjm_id=$new_prjm_id";
-        $resultSet = $dbConn->Execute($sql);
-        $new_prj_id = $resultSet->fields['prj_id'];
-        $new_milestone = $resultSet->fields['milestone'];
+        $pstm = $dbConn->query($sql);
+        $row=$pstm->fetch();
+        $new_prj_id = $row['prj_id'];
+        $new_milestone = $row['milestone'];
         $sql = "BEGIN WORK;\n"
             . "DELETE FROM prj_grp WHERE prjtg_id in \n" 
             . "(select prjtg_id from prj_tutor where prjm_id =$new_prjm_id);\n";
@@ -68,7 +69,8 @@ if (isSet($_POST['dup'])) {
                 " where prjm_id=$prjm_id;\n";
         $sql .= "commit;\n";
         //	$dbConn->log($sql);
-        $dbConn->doOrDie($sql);
+        $pstm = $dbConn->query($sql);
+        if ($pstm===false) die("error with {$sql}");
         // go to the dupped group.
         $prjSel->setPrjmId($new_prjm_id);
         extract($prjSel->getSelectedData());
@@ -102,13 +104,13 @@ $dupPrjList = getOptionList($dbConn, $sqlDup, $prjm_id);
 
 //$dbConn->log($sqlDup);
 $sql = "select tutor,tutor_id from prj_tutor pt join tutor t on(t.userid=pt.tutor_id) where prjm_id=$prjm_id and grp_num='$grp_num'";
-$resultSet = $dbConn->Execute($sql);
-if ($resultSet === false) {
-    print 'error selecting: ' . $dbConn->ErrorMsg() . '<br> with ' . $sql . ' <br/>';
+$pstm = $dbConn->query($sql);
+if ($pstm === false) {
+    print 'error selecting: ' . $dbConn->errorInfo()[2] . '<br> with ' . $sql . ' <br/>';
 }
-if (!$resultSet->EOF) {
-    $tutor = $resultSet->fields['tutor'];
-    $tutorid = $resultSet->fields['tutor_id'];
+if (($row=$pstm->fetch())!==false) {
+    $tutor = $row['tutor'];
+    $tutorid = $row['tutor_id'];
 }
 
 

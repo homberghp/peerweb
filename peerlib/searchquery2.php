@@ -56,7 +56,7 @@ class SearchQuery {
     /**
      * $dbConn
      */
-    protected $dbConn;
+    protected PDO $dbConn;
     protected $queryExtension;
 
     function setQueryExtension( $qe ) {
@@ -73,7 +73,7 @@ class SearchQuery {
      * @param $dbConn connection to use in queries
      * @param relname relation to select from
      */
-    function __construct( PeerPGDBConnection &$dbConn, $relName ) {
+    function __construct( PDO $dbConn, $relName ) {
         $this->dbConn = $dbConn;
         $this->setRelation( $relName );
     }
@@ -102,25 +102,24 @@ class SearchQuery {
      * @param $relName string name of the relation (tabel or view)
      */
     function setRelation( $relName ) {
-        //    global $dbConn;
         $this->relation = $relName;
         $this->relPrefix = substr( $this->relation, 0, 2 ) . '_';
         $query = "select column_name,data_type "
                 . "from information_schema.columns "
-                . "where table_name='{$this->relation}'";
+                . "where table_name=?";
         $dbMessage = '';
         $this->matchColumnSet = array();
 
         $this->columnNames = array();
         $this->dataTypes = array();
-        $rs = $this->dbConn->Execute( $query );
-        while ( !$rs->EOF ) {
-            $name = trim( $rs->fields[ 'column_name' ] );
+        $pstm = $this->dbConn->prepare( $query );
+        $pstm->execute( [ $this->relation ] );
+//        $rs = $this->dbConn->Execute( $query );
+        while ( ($row = $pstm->fetch()) !== false ) {
+            $name = trim( $row[ 'column_name' ] );
             $this->matchColumnSet[] = $name;
             $this->columnNames[ $name ] = $name;
-            $this->dataTypes[ $name ] = $rs->fields[ 'data_type' ];
-
-            $rs->moveNext();
+            $this->dataTypes[ $name ] = $row[ 'data_type' ];
         }
         return $this;
     }
@@ -575,7 +574,7 @@ class UpdateQuery extends SearchQuery {
         $query .= join( ', ', $columnExpr ) . "\n"
                 . $whereClause;
 
-        $stmnt = $this->dbConn->Prepare( $query, '' );
+        $stmnt = $this->dbConn->prepare( $query );
         return $stmnt->execute( $values );
     }
 
@@ -659,7 +658,7 @@ class InsertQuery extends SearchQuery {
             $paramCtr = 1;
             foreach ( $this->updateSet as $key => $value ) {
                 // the test ensures that non set values take their default or null.
-                if ( $key != ''  && $value !=null) {
+                if ( $key != '' && $value != null ) {
                     $columns[] = $key;
                     $this->values[] = $value;
                     $params[] = '$' . $paramCtr++;
@@ -803,7 +802,7 @@ class SupportingJoinQuery {
         $result = 'select * from ' . $this->relation . ' ' . $this->relPrefix . ' ' . ' where ';
         $tail = '';
         $continuation = '';
-        foreach ( $this->keyMap as $fkey =>$pkey ) {
+        foreach ( $this->keyMap as $fkey => $pkey ) {
             if ( $fkey != '' && $pkey != '' ) {
                 $val = $this->submitValueSet[ $fkey ];
                 if ( isSet( $val ) && $val != '' ) {

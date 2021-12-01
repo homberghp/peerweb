@@ -1,10 +1,11 @@
 <?php
+
 require_once 'TemplateWith.php';
 /*
  * $Id: querytotable.php 1769 2014-08-01 10:04:30Z hom $
  */
 
-function queryToTableChecked2( $dbConn, $query, $numerate, $watchColumn, $rb, $checkName, $checkSet = array(), $inputColumns = array(), $tally = false ) {
+function queryToTableChecked2( PDO $dbConn, $query, $numerate, $watchColumn, $rb, $checkName, $checkSet = array(), $inputColumns = array(), $tally = false ): void {
     echo getQueryToTableChecked2( $dbConn, $query, $numerate, $watchColumn, $rb, $checkName, $checkSet, $inputColumns, $tally );
 }
 
@@ -19,7 +20,7 @@ function queryToTableChecked2( $dbConn, $query, $numerate, $watchColumn, $rb, $c
  * @param $inputColumn array columns that are inputs. In array, type and width is defined
  * @param $tally sum numerical columns
  */
-function getQueryToTableChecked2( $dbConn, $query, $numerate, $watchColumn, $rb, $checkName, $checkSet = array(), $inputColumns = array(), $tally = false ) {
+function getQueryToTableChecked2( PDO $dbConn, $query, $numerate, $watchColumn, $rb, $checkName, $checkSet = array(), $inputColumns = array(), $tally = false ): string {
     global $ADODB_FETCH_MODE;
     global $datePickers;
     $result = "<!-- table created by" . '$Id: querytotable.php 1769 2014-08-01 10:04:30Z hom $' . " -->\n";
@@ -29,15 +30,15 @@ function getQueryToTableChecked2( $dbConn, $query, $numerate, $watchColumn, $rb,
     $watchVal = '';
     $rowNr = 0;
     $pickerCount = 0;
-    $resultSet = $dbConn->Execute( $query );
-    if ( $resultSet === false ) {
-        $result .= "<pre>Cannot read table data with \n\t" . $query . " \n\treason \n\t" . $dbConn->ErrorMsg() . "at\n";
+    $pstm = $dbConn->query( $query );
+    if ( $pstm === false ) {
+        $result .= "<pre>Cannot read table data with \n\t{$query}\n\treason \n\t{$dbConn->errorInfo()[ 2 ]}at\n";
         stacktrace( 1 );
         $result .= "</pre>";
     }
-    $colcount = $resultSet->FieldCount();
-    if ( !$resultSet->EOF && $watchColumn >= 0 && $watchColumn < $colcount )
-        $watchVal = $resultSet->fields[ $watchColumn ];
+    $colcount = $pstm->columnCount();
+    if ( !$pstm->EOF && $watchColumn >= 0 && $watchColumn < $colcount )
+        $watchVal = $pstm->fields[ $watchColumn ];
     //  $rb = new RainBow(0xFF8844,-20,20,40);
     $result .= "<table class='tabledata' border='1' width='100%' style='empty-cells:show; border-collapse:collapse;' summary='query table'>\n";
     $result .= "<tr>\n";
@@ -46,35 +47,35 @@ function getQueryToTableChecked2( $dbConn, $query, $numerate, $watchColumn, $rb,
     $columnNames = array();
     $hide = false;
     for ( $i = 0; $i < $colcount; $i++ ) {
-        $field = $resultSet->FetchField( $i );
-        $columnNames[ $i ] = $field->name;
+        $fieldMeta = $pstm->getColumnMeta( $i );
+        $columnNames[ $i ] = $fieldMeta[ 'name' ];
         if ( isSet( $inputColumns[ $i ] ) ) {
             $hide = $inputColumns[ $i ][ 'type' ] == 'H';
         } else {
             $hide = false;
         }
         if ( !$hide )
-            $result .= "\t\t<th class='tabledata head' style='text-algin:left;'>" . niceName( $field->name ) . "</th>\n";
-        $columntypes[ $i ] = $resultSet->MetaType( $i );
+            $result .= "\t\t<th class='tabledata head' style='text-algin:left;'>" . niceName( $fieldMeta->name ) . "</th>\n";
+        $columntypes[ $i ] = $fieldMeta[ 'natural_type' ];
         $sums[ $i ] = 0;
     }
     $result .= "</tr>\n";
     $rowColor = $rb->restart();
     $rowstyle = " style='background-color:" . $rowColor . "'";
-    while (!$resultSet->EOF) { // process all rows
+    while ( ($row = $pstm->fetch()) !== false ) { // process all rows
         $nr = $rowNr + 1;
         if ( $watchColumn >= 0 ) {
-            if ( stripslashes( $resultSet->fields[ $watchColumn ] ) != $watchVal ) {
+            if ( stripslashes( $row[ $watchColumn ] ) != $watchVal ) {
                 $rowColor = $rb->getNext();
             }
-            $watchVal = stripslashes( $resultSet->fields[ $watchColumn ] );
+            $watchVal = stripslashes( $row[ $watchColumn ] );
         }
         $rowstyle = " style='background-color:" . $rowColor . "'";
         $result .= "\t<tr $rowstyle>\n";
         if ( $numerate )
             $result .= "\t\t<td class='tabledata num'>" . $nr . "</td>\n";
-        for ( $i = 0, $max = $resultSet->FieldCount(); $i < $max; $i++ ) {
-            $val = isSet( $resultSet->fields[ $i ] ) ? trim( $resultSet->fields[ $i ] ) : '';
+        for ( $i = 0, $max = $pstm->columnCount(); $i < $max; $i++ ) {
+            $val = isSet( $row[ $i ] ) ? trim( $row[ $i ] ) : '';
             $tdclass = 'tabledata';
             switch ( $columntypes[ $i ] ) {
                 case 'I':
@@ -177,7 +178,7 @@ function getQueryToTableChecked2( $dbConn, $query, $numerate, $watchColumn, $rb,
             $result .= "$rowText\n";
         }
         $result .= "\t</tr>\n";
-        $resultSet->MoveNext();
+//        $pstm->MoveNext();
         $rowNr++;
     }
     if ( $tally ) {
@@ -209,7 +210,7 @@ function getQueryToTableChecked2( $dbConn, $query, $numerate, $watchColumn, $rb,
     }
     $result .= "</table>\n";
     $result .= "<input type='hidden' name='rowcount' value='$rowNr' />";
-    $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
+//    $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
     return $result;
 }
 

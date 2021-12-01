@@ -33,18 +33,16 @@ if (isSet($_SESSION['prjm_id'])) {
             "  join student_class cl using(class_id)\n" .
             "where prjm_id=$prjm_id\n" .
             " order by sclass,class_id asc";
-    $resultSet = $dbConn->Execute($sql);
+    $resultSet = $dbConn->query($sql);
     if ($resultSet === false) {
-        die("<br>Cannot get groups with \"" . $sql . '", cause ' . $dbConn->ErrorMsg() . "<br>");
+        die("<br>Cannot get groups with \"" . $sql . '", cause ' . $dbConn->errorInfo()[2] . "<br>");
     }
     $gcount = 0;
-    while (!$resultSet->EOF) {
-        $sclass = $resultSet->fields['sclass'];
-        $class_id = $resultSet->fields['class_id'];
+    while (($row=$resultSet->fetch()) !==false) {
+        $sclass = $row['sclass'];
+        $class_id = $row['class_id'];
         $class_ids[$gcount] = $class_id;
         $gcount++;
-        //		echo "class_id $class_id<br/>";
-        $resultSet->moveNext();
     }
     $_SESSION['class_ids'] = $class_ids;
 } else {
@@ -52,15 +50,15 @@ if (isSet($_SESSION['prjm_id'])) {
     // smart guess
     $sql = "select prj_id,afko,year,description from project\n" .
             " where prj_id=(select max(prj_id) as prj_id from project)";
-    $resultSet = $dbConn->Execute($sql);
+    $resultSet = $dbConn->query($sql);
     if ($resultSet === false) {
-        die("<br>Cannot get smart project data with $sql, cause" . $dbConn->ErrorMsg() . "<br>");
+        die("<br>Cannot get smart project data with $sql, cause" . $dbConn->errorInfo()[2] . "<br>");
     }
 
-    if ($resultSet->EOF) {
+    if (($row=$resultSet->fetch()) ===false) {
         $prj_id = 0;
     } else {
-        extract($resultSet->fields);
+        extract($row);
     }
     $_SESSION['prj_id'] = $prj_id;
 }
@@ -87,7 +85,7 @@ if (isSet($_POST['bsubmit'])) {
         $dbConn->log($sql);
         $resultSet = $dbConn->Execute($sql);
         if ($resultSet === false) {
-            die("<br>Cannot delete group members " . $sql . " reason " . $dbConn->ErrorMsg() . "<br>");
+            die("<br>Cannot delete group members " . $sql . " reason " . $dbConn->errorInfo()[2] . "<br>");
         }
     } else {
         $class_ids = array();
@@ -95,7 +93,7 @@ if (isSet($_POST['bsubmit'])) {
         //	echo "<br/>sql=$sql<br/>";
         $resultSet = $dbConn->Execute($sql);
         if ($resultSet === false) {
-            echo( "<br>Cannot delete prj/milestone " . $sql . " reason " . $dbConn->ErrorMsg() . "<br>");
+            echo( "<br>Cannot delete prj/milestone " . $sql . " reason " . $dbConn->errorInfo()[2] . "<br>");
             stacktrace(1);
             die();
         }
@@ -109,7 +107,7 @@ if (isSet($_POST['bsubmit'])) {
     $curSet = array();
     $resultSet = $dbConn->Execute($sql);
     if ($resultSet === false) {
-        die("<br>Cannot get project values with " . $sql . " reason " . $dbConn->ErrorMsg() . "<br>");
+        die("<br>Cannot get project values with " . $sql . " reason " . $dbConn->errorInfo()[2] . "<br>");
     }
     while (!$resultSet->EOF) {
         $curSet[] = $resultSet->fields['class_id'];
@@ -125,7 +123,7 @@ if (isSet($_POST['bsubmit'])) {
     $resultSet = $dbConn->Execute($sql);
     //    $dbConn->log("<pre>sql=$sql</pre>");
     if ($resultSet === false) {
-        echo( "<br>Cannot get new_grp_num with <pre>" . $sql . "</pre> reason " . $dbConn->ErrorMsg() . "<br>");
+        echo( "<br>Cannot get new_grp_num with <pre>" . $sql . "</pre> reason " . $dbConn->errorInfo()[2] . "<br>");
         stacktrace(1);
         die();
     }
@@ -146,14 +144,14 @@ if (isSet($_POST['bsubmit'])) {
 
             $dbConn->log("sql=$sql");
             //echo $sql;
-            $resultSet = $dbConn->Execute($sql);
+            $resultSet = $dbConn->query($sql);
             if ($resultSet === false) {
-                echo( "<br>Cannot set project values with<pre>" . $sql . "</pre> reason " . $dbConn->ErrorMsg() . "<br>");
-                $dbConn->Execute("rollback");
+                echo( "<br>Cannot set project values with<pre>" . $sql . "</pre> reason " . $dbConn->errorInfo()[2] . "<br>");
+                $dbConn->query("rollback");
                 stacktrace(1);
                 die();
             } else {
-                $dbConn->Execute("commit");
+                $dbConn->query("commit");
             }
         }
     }
@@ -169,16 +167,16 @@ if ($ot_userid === $peer_id) {
 } else {
     $submit_button = '';
 }
-$resultSet = $dbConn->execute("select count(*) as participants from prj_grp join prj_tutor using(prjtg_id) where prjm_id=$prjm_id");
-extract($resultSet->fields);
+$resultSet = $dbConn->query("select count(*) as participants from prj_grp join prj_tutor using(prjtg_id) where prjm_id=$prjm_id");
+extract($resultSet->fetch());
 // generating output
 $page = new PageContainer();
 $page->setTitle('Select participating student_class');
 $page_opening = "Select the student_class of the participating students";
 $nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
 $page->addBodyComponent($nav);
-$resultSet = $dbConn->Execute("select afko,description from project where prj_id=$prj_id");
-extract($resultSet->fields);
+$resultSet = $dbConn->query("select afko,description from project where prj_id=$prj_id");
+extract($resultSet->fetch());
 $form1Form = new HtmlContainer("<div id='projectsel'>");
 $prjSel->setJoin(" (select distinct prjm_id from prj_milestone natural join project  where owner_id=$peer_id) p_mil using (prjm_id)");
 //$dbConn->log($prjSel->getQuery());

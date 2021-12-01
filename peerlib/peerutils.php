@@ -25,21 +25,20 @@ require_once('languagemap.php');
  * @param $sql query string for this datum
  * @return $resultSet: resultSet to use for any next items.
  */
-function getFirstRecordSetFields( $dbConn, $sql ) {
-    $resultSet = $dbConn->Execute( $sql );
-    if ( $resultSet === false ) {
-        $msg = $dbConn->ErrorMsg();
-        echo "Cannot execute select statement \"" . $sql . "\", cause=" . $msg . "\n";
-        stacktrace( 2 );
-        exit;
-    }
-    if ( $resultSet->EOF ) {
-        die( "peerutil: cannot get data with query $sql because it is empty" );
-    } else {
-        // copy to arr
-    }
-    return $resultSet;
-}
+//function getFirstRecordSetFields( PDO $dbConn, string $sql ): array {
+//    $pstm = $dbConn->query( $sql );
+//    if ( $pstm === false ) {
+//        $msg = $dbConn->errorInfo()[2];
+//        echo "Cannot execute select statement \"{$sql}\", cause={$msg}\n";
+//        stacktrace( 2 );
+//        exit;
+//    }
+//    if ( ($row=$pstm->fetch()) ===false ) {
+//        die( "peerutil: cannot get data with query $sql because it is empty" );
+//    } else {
+//        return $row;
+//    }
+//}
 
 /**
  * Get a file type ico png for a file name
@@ -157,7 +156,7 @@ function hasstudentCap( $snummer, $cap, $prjm_id, $grp_num = 0 ) {
     }
     $resultSet = $dbConn->Execute( $sql );
     if ( $resultSet === null ) {
-        $msg = $dbConn->ErrorMsg();
+        $msg = $dbConn->errorInfo()[ 2 ];
         echo "Cannot execute select statement \"" . $sql . "\", cause=" . $msg . "\n";
         stacktrace( 2 );
         die();
@@ -197,18 +196,18 @@ function optionList( $dbConn, $query, $selected_value, $preload = array() ) {
     echo getOptionList( $dbConn, $query, $selected_value );
 }
 
-function getOptionList( $dbConn, $query, $selected_value, $preload = array() ) {
+function getOptionList( PDO $dbConn, string $query, string $selected_value, array $preload = array() ): string {
     $result = '';
-    $resultSet = $dbConn->Execute( $query );
-    if ( $resultSet === false ) {
-        echo $dbConn->ErrorMsg() . ": cannot execute query <pre style='color:red'>$query</pre>\nat\n";
+    $pstm = $dbConn->query( $query );
+    if ( $pstm === false ) {
+        echo $dbConn->errorInfo()[ 2 ] . ": cannot execute query <pre style='color:red'>$query</pre>\nat\n";
         stacktrace( 1 );
         return $result;
     }
-    return getOptionListFromResultSet( $resultSet, $selected_value, $preload );
+    return getOptionListFromResultSet( $pstm, $selected_value, $preload );
 }
 
-function getOptionListFromResultSet( $resultSet, $selected_value, $preload = array() ) {
+function getOptionListFromResultSet( PDOStatement $pstm, $selected_value, $preload = array() ) {
     $result = '';
     $arr = array();
     // trim $selected_value for comparison
@@ -216,17 +215,17 @@ function getOptionListFromResultSet( $resultSet, $selected_value, $preload = arr
     for ( $i = 0; $i < count( $preload ); $i++ ) {
         $result .= "\t\t" . '<option value="' . $preload[ $i ][ 'value' ] . '">' . $preload[ $i ][ 'name' ] . '</option>' . "\n";
     }
-    $resultSet->MoveFirst();
-    while ( !$resultSet->EOF ) {
-        $value = trim( $resultSet->fields[ 'value' ] );
-        if ( isSet( $resultSet->fields[ 'style' ] ) ) {
-            $style = "style='" . $resultSet->fields[ 'style' ] . "'";
+//    $pstm->MoveFirst();
+    while ( ($row = $pstm->fetch()) !== false ) {
+        $value = trim( $row[ 'value' ] );
+        if ( isSet( $row[ 'style' ] ) ) {
+            $style = "style='" . $row[ 'style' ] . "'";
         } else {
             $style = '';
         }
         $selected = ($value == $selected_value) ? "selected" : "";
-        $result .= "\t\t<option $selected value=\"" . $value . "\" $style>" . htmlspecialchars( $resultSet->fields[ 'name' ] ) . "</option>\n";
-        $resultSet->moveNext();
+        $result .= "\t\t<option $selected value=\"" . $value . "\" $style>" . htmlspecialchars( $row[ 'name' ] ) . "</option>\n";
+//        $pstm->moveNext();
     }
     return $result;
 }
@@ -244,7 +243,7 @@ function getOptionListGrouped( PDO $dbConn, string $query, string $selected_valu
     $result = "\n";
     $sth = $dbConn->query( $query );
     if ( $sth === false ) {
-        echo "Error {$dbConn->errorInfo()[2]}: cannot execute query <pre style='color:#080'>$query</pre>";
+        echo "Error {$dbConn->errorInfo()[ 2 ]}: cannot execute query <pre style='color:#080'>$query</pre>";
         return $result;
     }
     return getOptionListGroupedFromResultSet( $sth, $selected_value, $selectColumn, $preload );
@@ -263,7 +262,7 @@ function getOptionListGroupedFromResultSet( PDOStatement $pstm, string $selected
     }
     $grpContinue = '';
     $grpCount = 0;
-    while ( ($row=$pstm->fetch()) !== false ) {
+    while ( ($row = $pstm->fetch()) !== false ) {
         $value = trim( $row[ 'value' ] );
         $disabled = (isSet( $row[ 'disabled' ] ) && ($row[ 'disabled' ] == 'disabled')) ? ' disabled' : '';
         $selected = '';
@@ -333,7 +332,7 @@ function getQueryToTableChecked( $dbConn, $query, $numerate, $watchColumn, $rb, 
     $nr = 0;
     $resultSet = $dbConn->Execute( $query );
     if ( $resultSet === false ) {
-        $result .= "<pre>Cannot read table data \nreason \n\t" . $dbConn->ErrorMsg() . " at <br/>\n";
+        $result .= "<pre>Cannot read table data \nreason \n\t" . $dbConn->errorInfo()[ 2 ] . " at <br/>\n";
         stacktrace( 1 );
         $result .= "</pre>";
         return $result;
@@ -454,7 +453,7 @@ function prepareQuery( $dbConn, $query, &$resultString ) {
     ob_start();
     $resultSet = $dbConn->Execute( $query );
     if ( $resultSet === false ) {
-        echo ("Cannot execute select statement\n\nreason" . $dbConn->ErrorMsg());
+        echo ("Cannot execute select statement\n\nreason" . $dbConn->errorInfo()[ 2 ]);
         stacktrace( 2 );
         ob_end_flush();
         exit;
@@ -489,7 +488,7 @@ function doUpdate( $dbConn, $query, &$resultString ) {
     $resultString = '';
     @ $resultSet = $dbConn->Execute( $query );
     if ( $resultSet === false ) {
-        $msg = $dbConn->ErrorMsg();
+        $msg = $dbConn->errorInfo()[ 2 ];
         $msg = "Cannot execute select statement $query\n cause $msg\n";
         //      $dbConn->log($msg);
         $resultString = $msg . stacktracestring( 2 );
@@ -565,7 +564,7 @@ function getCriteria( $prjm ) {
     $sql = "select criterium_id as criterium,nl_short,de_short,en_short,nl,de,en,prjm_id from criteria_pm where prjm_id='$prjm' order by criterium";
     $resultSet = $dbConn->Execute( $sql );
     if ( $resultSet === false ) {
-        die( "getCriteria: cannot get data for $sql : " . $dbConn->ErrorMsg() . "<br/>\n" );
+        die( "getCriteria: cannot get data for $sql : " . $dbConn->errorInfo()[ 2 ] . "<br/>\n" );
     } else
         while ( !$resultSet->EOF ) {
             $criteria[ $resultSet->fields[ 'criterium' ] ] = $resultSet->fields;
@@ -794,7 +793,7 @@ function groupAssessmentTableH( $dbConn, $sql, $inputs, $header, $criteria, $lan
     $resultSet2 = $dbConn->Execute( $sql );
     $oldContestant = 0;
     if ( $resultSet2 === false ) {
-        $dbConn->logError( "cannot get resultTable with $sql, reason: " . $dbConn->ErrorMsg() );
+        $dbConn->logError( "cannot get resultTable with $sql, reason: " . $dbConn->errorInfo()[ 2 ] );
         return;
     } else if ( $resultSet2->EOF ) {
         echo "<h1>Sorry, no data yet</h1>\n";
@@ -877,7 +876,7 @@ function getIndividualResultTable( $dbConn, $lang, $prjtg_id, $snummer, $gg, $ra
 
     $resultSet = $dbConn->Execute( $sql );
     if ( $resultSet === false ) {
-        $result .= ('Error: ' . $dbConn->ErrorMsg() . ' with <pre>' . $sql . "</pre>\n");
+        $result .= ('Error: ' . $dbConn->errorInfo()[ 2 ] . ' with <pre>' . $sql . "</pre>\n");
         stacktrace( 1 );
         die();
     }
@@ -912,7 +911,7 @@ function getIndividualResultTable( $dbConn, $lang, $prjtg_id, $snummer, $gg, $ra
             " where snummer=$snummer and prjtg_id=$prjtg_id";
     $resultSet = $dbConn->Execute( $sql );
     if ( $resultSet === false ) {
-        die( 'Error: ' . $dbConn->ErrorMsg() . ' with ' . $sql );
+        die( 'Error: ' . $dbConn->errorInfo()[ 2 ] . ' with ' . $sql );
     }
     if ( !$resultSet->EOF )
         extract( $resultSet->fields );
@@ -1083,23 +1082,25 @@ function dopeermail( $to, $sub, $msg, $head, $altto = ADMIN_EMAILADDRESS ) {
  * @return resultset.
  * if prj_id < 0 then the max prject in the set is taken
  */
-function getTutorOwnerData( $dbConn, $prj_id ) {
+function getTutorOwnerData( PDO $dbConn, $prj_id ) {
     $sql = "select * from project join tutor on(owner_id=userid) join student_email on(userid=snummer)\n";
     if ( $prj_id >= 0 ) {
-        $sql .= " where prj_id=$prj_id";
+        $sql .= " where prj_id=?";
+        $pstm = $dbConn->prepare( $sql );
+        $pstm->execute( [ $prj_id ] );
     } else {
         $sql .= " where prj_id=(select max(prj_id) as prj_id from project)";
+        $pstm = $dbConn->query( $sql );
     }
-    $resultSet = $dbConn->Execute( $sql );
-    if ( $resultSet === false ) {
-        echo( "<br>Cannot get Tutor owner data with with $sql, cause " . $dbConn->ErrorMsg() . "<br>");
+    if ( $pstm === false ) {
+        echo( "<br>Cannot get Tutor owner data with with $sql, cause {$dbConn->errorInfo()[ 2 ]}<br>");
         stacktrace( 1 );
         die();
     }
-    if ( $resultSet->EOF ) {
+    if ( ($row = $pstm->fetch()) === false ) {
         return array();
     } else {
-        return $resultSet->fields;
+        return $row;
     }
 }
 
@@ -1117,16 +1118,16 @@ function getTutorOwnerData2( $dbConn, $prjm_id ) {
     } else {
         $sql .= " where prjm_id=(select max(prjm_id) as prjm_id from prj_milestone)";
     }
-    $resultSet = $dbConn->Execute( $sql );
+    $resultSet = $dbConn->query( $sql );
     if ( $resultSet === false ) {
-        echo( "<br>Cannot get Tutor owner data with with $sql, cause " . $dbConn->ErrorMsg() . "<br>");
+        echo( "<br>Cannot get Tutor owner data with with $sql, cause " . $dbConn->errorInfo()[ 2 ] . "<br>");
         stacktrace( 1 );
         die();
     }
-    if ( $resultSet->EOF ) {
+    if ( ($row = $resultSet->fetch()) === false ) {
         return array();
     } else {
-        return $resultSet->fields;
+        return $row;
     }
 }
 
@@ -1217,7 +1218,7 @@ function getEmailAddress( $dbConn, $recipient, $istutor ) {
     }
     $resultSet = $dbConn->Execute( $sql );
     if ( $resultSet === false ) {
-        echo ("getCriteria: cannot get data for $sql : " . $dbConn->ErrorMsg() . "\n");
+        echo ("getCriteria: cannot get data for $sql : " . $dbConn->errorInfo()[ 2 ] . "\n");
     } else if ( !$resultSet->EOF ) {
         extract( $resultSet->fields );
         $result = trim( $email1 );
@@ -1237,7 +1238,7 @@ function getEmailAddresses( $dbConn, $recipients ) {
     $sql = "select distinct roepnaam||' '||coalesce(tussenvoegsel||' ','')||achternaam||' <'||trim(email1)||'>' as email from student_email where snummer in ($recps)";
     $resultSet = $dbConn->Execute( $sql );
     if ( $resultSet === false ) {
-        echo ("getEmailAddresses: cannot get data for $sql : " . $dbConn->ErrorMsg() . "\n");
+        echo ("getEmailAddresses: cannot get data for $sql : " . $dbConn->errorInfo()[ 2 ] . "\n");
     } else
         while ( !$resultSet->EOF ) {
             $result .= $con . $resultSet->fields[ 'email' ];
@@ -1297,7 +1298,7 @@ $system_settings = array();
 $set_log_unknown_names = 0;
 $set_log_validation_failures = 0;
 if ( $stmt === false ) {
-    echo( "<br>Cannot get settings values with $sql, cause " . $dbConn->ErrorMsg() . "<br>");
+    echo( "<br>Cannot get settings values with $sql, cause " . $dbConn->errorInfo()[ 2 ] . "<br>");
     stacktrace( 1 );
     die();
 }

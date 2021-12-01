@@ -8,7 +8,7 @@ require_once 'validators.php';
 
 class PrjMilestoneSelector2 {
 
-    private $dbConn;
+    private PDO $dbConn;
     private $isAdmin = false;
     private $extraJoin = '';
     private $whereClause = '';
@@ -53,7 +53,7 @@ class PrjMilestoneSelector2 {
      * @param type $prjm_id the prj milestone
      * @param type $selName the name of the selector in the form and input name.
      */
-    function __construct( $conn, $peer_id, $prjm_id = 0, $selName = 'prjm_id' ) {
+    function __construct( PDO $conn, int $peer_id, int $prjm_id = 0, string $selName = 'prjm_id' ) {
         global $_SESSION;
         global $_REQUEST;
         $this->dbConn = $conn;
@@ -82,11 +82,11 @@ class PrjMilestoneSelector2 {
         }
     }
 
-    public function setSelectorName( $n ) {
+    public function setSelectorName( string $n ) {
         $this->selectorName = $n;
     }
 
-    function getQuery() {
+    function getQuery(): string {
         if ( $this->prjm_id === 0 || $this->prjm_id === '' ) { // only guess if undefined.
             $this->prjm_id = $this->guessPrjMid( $this->peer_id );
         }
@@ -152,7 +152,13 @@ class PrjMilestoneSelector2 {
             stacktrace( 1 );
             die();
         }
-        $this->dataCache = $sth->fetch();
+        $row = $sth->fetch();
+        if ( $row !== false ) {
+            $this->dataCache = $row;
+        } else {
+            $this->dataCache = [];
+            die($sql);
+        }
         return $this->dataCache;
     }
 

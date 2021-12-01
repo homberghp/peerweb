@@ -9,7 +9,7 @@ require_once('MenuField.class.php');
  */
 class Menu {
 
-    var $dbConn;
+    var PDO $dbConn;
     var $menuName;
     var $menuItems;
     var $columnCount;
@@ -19,7 +19,7 @@ class Menu {
     var $requiredCap;
     private $logString = '';
 
-    function setFieldPrefix($p) {
+    function setFieldPrefix( $p ) {
         $this->fieldPrefix = $p;
     }
 
@@ -31,8 +31,8 @@ class Menu {
      * @param type $s
      * @return this menu
      */
-    public function setSubRel($s) {
-        if ($s !== '') {
+    public function setSubRel( $s ) {
+        if ( $s !== '' ) {
             $this->subRel = $s;
         }
         return $this;
@@ -43,8 +43,8 @@ class Menu {
      * @param array. Keys are left hand, values right hand column names $a
      * @return this menu
      */
-    public function setSubRelJoinColumns($a) {
-        if (is_array($a)) {
+    public function setSubRelJoinColumns( $a ) {
+        if ( is_array( $a ) ) {
             $this->subRelJoinColumns = $a;
         }
         return $this;
@@ -53,48 +53,48 @@ class Menu {
     var $itemDefQuery;
     var $page;
 
-    function __construct($val, $page) {
+    function __construct( $val, $page ) {
         //    echo '<br> created Menu';
-        $this->setFieldPrefix('veld');
+        $this->setFieldPrefix( 'veld' );
         $this->itemValidator = $val;
         $this->page = $page;
     }
 
-    function setItemDefQuery($q) {
+    function setItemDefQuery( $q ) {
         $this->itemDefQuery = $q;
     }
 
-    function setValue($name, $value) {
-        if (isSet($this->menuItems[$name])) {
-            $this->menuItems[$name]->setValue($value);
+    function setValue( $name, $value ) {
+        if ( isSet( $this->menuItems[ $name ] ) ) {
+            $this->menuItems[ $name ]->setValue( $value );
         }
     }
 
-    function getValue($name) {
-        if (isSet($this->menuItems[$name])) {
-            return $this->menuItems[$name]->getValue();
+    function getValue( $name ) {
+        if ( isSet( $this->menuItems[ $name ] ) ) {
+            return $this->menuItems[ $name ]->getValue();
         }
         return NULL;
     }
 
-    function setDBConn(&$con) {
+    function setDBConn( &$con ) {
         $this->dbConn = $con;
         return $this;
     }
 
     private $relation;
 
-    function setMenuRelation($r) {
+    function setMenuRelation( $r ) {
         $this->relation = $r;
         return $this;
     }
 
     protected $rawNames = null;
 
-    function setRawNames($ar) {
+    function setRawNames( $ar ) {
         $this->rawNames = array();
-        foreach ($ar as $name) {
-            $this->rawNames[$name] = '';
+        foreach ( $ar as $name ) {
+            $this->rawNames[ $name ] = '';
         }
     }
 
@@ -102,30 +102,34 @@ class Menu {
      * @paramn name String
      * sets the menu name and by that the field definitions
      */
-    function setMenuName($name) {
+    function setMenuName( string $name ) {
         $this->menuName = $name;
         $this->menuItems = array();
         // get the field definitions from the database
         // and generate the menuitem defs
         $dbMessage = '';
         $sql = $this->itemDefQuery;
-        $resultSet = getFirstRecordSetFields($this->dbConn, $sql);
-        while (!$resultSet->EOF) {
-            $name = trim($resultSet->fields['column_name']);
-            //echo "myname=".$name. ",";
-            $edit_type = trim($resultSet->fields['edit_type']);
-            if ($edit_type == 'B') { /* handle bitsets seperately, they expand into a set of items */
+//        $resultSet = getFirstRecordSetFields( $this->dbConn, $sql );
+        $pstm=$this->dbConn->query($sql);
+        
+        while ( ($row=$pstm->fetch()) !== false ) {
+            $name = trim( $row[ 'column_name' ] );
+            $edit_type = trim( $row[ 'edit_type' ] );
+            if ( $edit_type == 'B' ) { /* handle bitsets seperately, they expand into a set of items */
                 $dbM2 = '';
-                $sql2 = "select query from menu_option_queries where menu_name='$this->menuName' and column_name='$name'";
-                $resultSet2 = getFirstRecordSetFields($this->dbConn, $sql2);
-                $nameList = trim(',', $resultSet2->fields['query']);
+                $sql2 = "select query from menu_option_queries where menu_name=? and column_name=?";
+                $pstm2= $this->dbConn->prepare();
+                $pstm2->execute([$this->menuName, $name]);
+                $row2 = $pstm2->fetch();//getFirstRecordSetFields( $this->dbConn, $sql2 );
+                $nameList = trim( ',', $row2[ 'query' ] );
             } else {
-                $mi = new MenuField($this->dbConn, $this->itemValidator, $this->page);
-                $mi->setDef($resultSet->fields);
-                $mi->setName($name);
-                $this->menuItems[$name] = $mi;
+                $mi = new MenuField( $this->dbConn, $this->itemValidator, $this->page );
+                $mi->setDef( $resultSet->fields );
+                $mi->setName( $name );
+                $this->menuItems[ $name ] = $mi;
             }
-            $resultSet->moveNext();
+            
+//            $resultSet->moveNext();
         }
     }
 
@@ -141,21 +145,21 @@ class Menu {
         return $this->menuValues;
     }
 
-    function setMenuValues(&$arr) {
+    function setMenuValues( &$arr ) {
         /* test precondition */
 
-        if (!isSet($this->menuItems)) {
-            die("Must first do a setMenuName()");
+        if ( !isSet( $this->menuItems ) ) {
+            die( "Must first do a setMenuName()" );
         }
         /* cache */
         $this->menuValues = $arr;
         //    reset($arr);
-        foreach ($arr as $key => $val ){
-            $name = trim($key);
+        foreach ( $arr as $key => $val ) {
+            $name = trim( $key );
             // test if this 'name' is present
-            if (isSet($this->menuItems[$name])) {
-                $value = trim($val);
-                $this->menuItems[$name]->setValue($value);
+            if ( isSet( $this->menuItems[ $name ] ) ) {
+                $value = trim( $val );
+                $this->menuItems[ $name ]->setValue( $value );
             }
         }
     }
@@ -166,8 +170,8 @@ class Menu {
     function getColumnNames() {
         $result = array();
         $i = 0;
-        foreach ($this->menuItems as $name => $value) {
-            $result[$i++] = $name;
+        foreach ( $this->menuItems as $name => $value ) {
+            $result[ $i++ ] = $name;
         }
         return $result;
     }
@@ -175,12 +179,12 @@ class Menu {
     /**
      * gets values of the named columns from the menuItems
      */
-    function getColumnValues($columnNames) {
+    function getColumnValues( $columnNames ) {
         $result = array();
-        for ($i = 0; $i < count($columnNames); $i++) {
-            $name = $columnNames[$i];
-            if (isSet($this->menuItems[$name])) {
-                $result[$name] = $this->menuItems[$name]->getValue();
+        for ( $i = 0; $i < count( $columnNames ); $i++ ) {
+            $name = $columnNames[ $i ];
+            if ( isSet( $this->menuItems[ $name ] ) ) {
+                $result[ $name ] = $this->menuItems[ $name ]->getValue();
             }
         }
         return $result;
@@ -189,7 +193,7 @@ class Menu {
     /**
      * the contents of the file is included/evaluated in the generate process
      */
-    function setTemplateFileName($name) {
+    function setTemplateFileName( $name ) {
         $this->templateFileName = $name;
     }
 
@@ -199,14 +203,14 @@ class Menu {
      * @param $resultBuffer buffer to append any error text to.
      */
 
-    function prepareForInsert(&$resultBuffer) {
+    function prepareForInsert( &$resultBuffer ) {
         /* for all items do it */
         $result = true;
         $columnNames = $this->getColumnNames();
-        for ($i = 0; $i < count($columnNames); $i++) {
-            $name = $columnNames[$i];
+        for ( $i = 0; $i < count( $columnNames ); $i++ ) {
+            $name = $columnNames[ $i ];
             // AND all the values in next line with &=. Any failure (false) will set result false.
-            $result &= $this->menuItems[$name]->prepareForInsert($resultBuffer);
+            $result &= $this->menuItems[ $name ]->prepareForInsert( $resultBuffer );
         }
         return $result;
     }
@@ -216,14 +220,14 @@ class Menu {
      * @param $resultBuffer buffer to append any error text to.
      */
 
-    function prepareForUpdate(&$resultBuffer) {
+    function prepareForUpdate( &$resultBuffer ) {
         /* for all items do it */
         $result = true;
         $columnNames = $this->getColumnNames();
-        for ($i = 0; $i < count($columnNames); $i++) {
-            $name = $columnNames[$i];
+        for ( $i = 0; $i < count( $columnNames ); $i++ ) {
+            $name = $columnNames[ $i ];
             // AND all the values in next line with &=. Any failure (false) will set result false.
-            $result &= $this->menuItems[$name]->prepareForUpdate($resultBuffer);
+            $result &= $this->menuItems[ $name ]->prepareForUpdate( $resultBuffer );
         }
         return $result;
     }
@@ -234,13 +238,13 @@ class Menu {
     var $expandedMenuItems;
 
     function expand() {
-        if (!isSet($this->menuItems)) {
+        if ( !isSet( $this->menuItems ) ) {
             return;
         }
         $this->expandedMenuItems = array();
-        reset($this->menuItems);
-        foreach ($this->menuItems as $miName => $menuItem ) {
-            $this->expandedMenuItems[$miName] = $menuItem->expand();
+        reset( $this->menuItems );
+        foreach ( $this->menuItems as $miName => $menuItem ) {
+            $this->expandedMenuItems[ $miName ] = $menuItem->expand();
         }
     }
 
@@ -252,15 +256,15 @@ class Menu {
     function generate() {
         $this->expand();
         //$this->logString .= "<br/>menu.generate <pre>" . print_r($this->expandedMenuItems, true) . "</pre><br/>";
-        if (isSet($this->rawNames)) {
-            extract($this->rawNames, EXTR_PREFIX_ALL, 'raw');
+        if ( isSet( $this->rawNames ) ) {
+            extract( $this->rawNames, EXTR_PREFIX_ALL, 'raw' );
         }
-        extract($this->expandedMenuItems, EXTR_PREFIX_ALL, $this->fieldPrefix);
+        extract( $this->expandedMenuItems, EXTR_PREFIX_ALL, $this->fieldPrefix );
         echo $this->getSubRelData();
-        extract($this->getSubRelData(), EXTR_PREFIX_ALL, 'supp');
+        extract( $this->getSubRelData(), EXTR_PREFIX_ALL, 'supp' );
 
         include($this->templateFileName);
-        unSet($this->expandedMenuItems); // discard
+        unSet( $this->expandedMenuItems ); // discard
     }
 
     /**
@@ -268,11 +272,11 @@ class Menu {
      */
     function toString() {
         $result = 'Menu ' . $this->menuName . ' itemlist: ' . "\n\t";
-        reset($this->menuItems);
-        foreach ( $this->menuItems as $key){
-            $result .=$this->menuItems[$key]->toString();
+        reset( $this->menuItems );
+        foreach ( $this->menuItems as $key ) {
+            $result .= $this->menuItems[ $key ]->toString();
         }
-        reset($this->menuItems);
+        reset( $this->menuItems );
         return $result;
     }
 
@@ -281,16 +285,16 @@ class Menu {
     }
 
     function getSubRelData() {
-        if (!isSet($this->subRel) || !isSet($this->subRelJoinColumns)) {
+        if ( !isSet( $this->subRel ) || !isSet( $this->subRelJoinColumns ) ) {
             // return empty result.
             return array();
         }
-        $query = new SearchQuery($this->dbConn, $this->relation);
-        $query->setSubRel($this->subRel)
-                ->setSubRelJoinColumns($this->subRelJoinColumns);
+        $query = new SearchQuery( $this->dbConn, $this->relation );
+        $query->setSubRel( $this->subRel )
+                ->setSubRelJoinColumns( $this->subRelJoinColumns );
         $sql = $query->getSubRelQuery();
         $this->logString .= 'subrel:' . $sql;
-        return $this->dbConn->Execute($sql)->fields;
+        return $this->dbConn->Execute( $sql )->fields;
     }
 
     function getLogString() {
@@ -309,16 +313,16 @@ class SupportingMenu extends Menu {
     var $supportingRelation;
     var $supportingJoinList;
 
-    function setSupportingJoinList($sjl) {
+    function setSupportingJoinList( $sjl ) {
         $this->supportingJoinList = $sjl;
     }
 
-    function setSupportingRelation($rel) {
+    function setSupportingRelation( $rel ) {
 
-        $this->setItemDefQuery("select column_name,data_type,data_length," .
+        $this->setItemDefQuery( "select column_name,data_type,data_length," .
                 " 'Z' as edit_type,'' as query,0 as capability " .
-                "from all_tab_columns  where table_name='$rel'");
-        $this->setMenuName($rel);
+                "from all_tab_columns  where table_name='$rel'" );
+        $this->setMenuName( $rel );
         // echo '<pre>'.bvar_dump($this->menuItems).'</pre>';
     }
 
@@ -331,19 +335,19 @@ class SupportingMenu extends Menu {
      */
     var $joinValues;
 
-    function setJoinValues(&$arr) {
-        if (isSet($this->menuName) && isSet($arr)) {
+    function setJoinValues( &$arr ) {
+        if ( isSet( $this->menuName ) && isSet( $arr ) ) {
             $this->joinValues = $arr;
             $sjq = new SupportingJoinQuery();
-            $sjq->setRelation($this->menuName);
-            $sjq->setKeyMap($this->supportingJoinList);
-            $sjq->setSubmitValueSet($this->joinValues);
+            $sjq->setRelation( $this->menuName );
+            $sjq->setKeyMap( $this->supportingJoinList );
+            $sjq->setSubmitValueSet( $this->joinValues );
             $sql = $sjq->getQuery();
-            if ($sql != '') {
+            if ( $sql != '' ) {
                 $dbMessage = '';
                 $larr = array();
-                $rs = $this->dbConn->Execute($sql);
-                $this->setMenuValues($rs->fields);
+                $rs = $this->dbConn->Execute( $sql );
+                $this->setMenuValues( $rs->fields );
                 echo $sql;
             }
         }
@@ -358,31 +362,31 @@ class ExtendedMenu extends Menu {
 
     var $supportingMenu;
 
-    function __construct($val, &$page) {
-        parent::__construct($val, $page);
-        $this->supportingMenu = new SupportingMenu($val, $page);
+    function __construct( $val, &$page ) {
+        parent::__construct( $val, $page );
+        $this->supportingMenu = new SupportingMenu( $val, $page );
     }
 
-    function setSupportingRelation($rel) {
-        $this->supportingMenu->setSupportingRelation($rel);
+    function setSupportingRelation( $rel ) {
+        $this->supportingMenu->setSupportingRelation( $rel );
         return $this;
     }
 
     var $supportingJoinList;
 
-    function setSupportingJoinList($sjl) {
-        $this->supportingMenu->setSupportingJoinList($sjl);
+    function setSupportingJoinList( $sjl ) {
+        $this->supportingMenu->setSupportingJoinList( $sjl );
         return $this;
     }
 
-    function setSupportingValues(&$arr) {
-        $this->supportingMenu->setMenuValues($arr);
+    function setSupportingValues( &$arr ) {
+        $this->supportingMenu->setMenuValues( $arr );
         return $this;
     }
 
-    function setDBConn(&$con) {
+    function setDBConn( &$con ) {
         $this->dbConn = $con;
-        $this->supportingMenu->setDBConn($con);
+        $this->supportingMenu->setDBConn( $con );
         return $this;
     }
 
@@ -393,22 +397,22 @@ class ExtendedMenu extends Menu {
      * then thes values are evaluated into the template.
      */
     function generate() {
-        $this->supportingMenu->setJoinValues($this->menuValues);
+        $this->supportingMenu->setJoinValues( $this->menuValues );
         $this->expand();
-        extract($this->expandedMenuItems, EXTR_PREFIX_ALL, 'veld');
-        if (isSet($this->menuValues)) {
-            extract($this->menuValues, EXTR_PREFIX_ALL, 'raw');
-        } else if (isSet($this->rawNames)) {
-            extract($this->rawNames, EXTR_PREFIX_ALL, 'raw');
+        extract( $this->expandedMenuItems, EXTR_PREFIX_ALL, 'veld' );
+        if ( isSet( $this->menuValues ) ) {
+            extract( $this->menuValues, EXTR_PREFIX_ALL, 'raw' );
+        } else if ( isSet( $this->rawNames ) ) {
+            extract( $this->rawNames, EXTR_PREFIX_ALL, 'raw' );
         }
 
 
         $this->supportingMenu->expand();
-        if (isSet($this->supportingMenu->expandedMenuItems)) {
-            extract($this->getSubRelData(), EXTR_PREFIX_ALL, 'supp');
+        if ( isSet( $this->supportingMenu->expandedMenuItems ) ) {
+            extract( $this->getSubRelData(), EXTR_PREFIX_ALL, 'supp' );
         }
         include($this->templateFileName);
-        unSet($this->expandedMenuItems); // discard
+        unSet( $this->expandedMenuItems ); // discard
     }
 
 }

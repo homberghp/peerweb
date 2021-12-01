@@ -1,5 +1,5 @@
 <?php
-requireCap(CAP_TUTOR);
+requireCap( CAP_TUTOR );
 require_once('navigation2.php');
 require_once 'prjMilestoneSelector2.php';
 require_once 'SpreadSheetWriter.php';
@@ -7,13 +7,13 @@ require_once 'SpreadSheetWriter.php';
 $prj_id = 1;
 $milestone = 1;
 $prjm_id = 0;
-extract($_SESSION);
+extract( $_SESSION );
 
-$prjSel = new PrjMilestoneSelector2($dbConn, $peer_id, $prjm_id);
-extract($prjSel->getSelectedData());
-$_SESSION['prj_id'] = $prj_id;
-$_SESSION['prjm_id'] = $prjm_id;
-$_SESSION['milestone'] = $milestone;
+$prjSel = new PrjMilestoneSelector2( $dbConn, $peer_id, $prjm_id );
+extract( $prjSel->getSelectedData() );
+$_SESSION[ 'prj_id' ] = $prj_id;
+$_SESSION[ 'prjm_id' ] = $prjm_id;
+$_SESSION[ 'milestone' ] = $milestone;
 $sqlhead = "select distinct prj_id,milestone,afko,year,grp_num,tutor,rtrim(alias) as alias,long_name,productname,\n"
         . "  snummer as gm_snumber,roepnaam||coalesce(' '||tussenvoegsel||' ',' ')||achternaam as gm_name,rtrim(email1) as gm_email,\n"
         . "  website,"
@@ -24,51 +24,51 @@ $sqlhead = "select distinct prj_id,milestone,afko,year,grp_num,tutor,rtrim(alias
         . " where prjm_id=$prjm_id) sr using(snummer) join student_email s using(snummer) where prjm_id=$prjm_id and rolenum=1) gm using (prjtg_id)\n"
         . " where (now()::date < valid_until) and (apt.prjm_id = $prjm_id)\n"
         . " order by grp_num ";
-$spreadSheetWriter = new SpreadSheetWriter($dbConn
-        , $sqlhead);
+$spreadSheetWriter = new SpreadSheetWriter( $dbConn
+        , $sqlhead );
 $filename = 'group_defs';
 $title = 'Group definitions';
-$spreadSheetWriter->setFilename($filename)
-        ->setLinkUrl($server_url . __FILE__ . '?prjm_id=' . $prjm_id)
-        ->setTitle($title)
-        ->setAutoZebra(true);
+$spreadSheetWriter->setFilename( $filename )
+        ->setLinkUrl( $server_url . __FILE__ . '?prjm_id=' . $prjm_id )
+        ->setTitle( $title )
+        ->setAutoZebra( true );
 
 $spreadSheetWriter->processRequest();
 
 $spreadSheetWidget = $spreadSheetWriter->getWidget();
 
 //$dbConn->log("prj mile etc $prj_id, $prjm_id, $milestone");
-pagehead('Select group count and tutors');
+pagehead( 'Select group count and tutors' );
 $grp_count = 5;
 $tutor_id = $peer_id;
 // determine the number of groups currently present 
 // to advise about the number of tutur-grp pairs
-$isTutorOwner = checkTutorOwnerMilestone($dbConn, $prjm_id, $peer_id);
+$isTutorOwner = checkTutorOwnerMilestone( $dbConn, $prjm_id, $peer_id );
 //// check if this is tutor_owner of this project
 //$dbConn->log('istutorowner='.$isTutorOwner."<br/>\n");
 $sql = "select count(distinct grp_num) as org_grp_count from prj_grp join prj_tutor using(prjtg_id) where prjm_id = $prjm_id";
-$resultSet = $dbConn->Execute($sql);
-if ($resultSet === false) {
+$resultSet = $dbConn->query( $sql );
+if ( $resultSet === false ) {
     echo( "<br>Cannot get group count with with <pre>\"" . $sql . '"</pre>, cause ' . $dbConn->ErrorMsg() . "<br>");
-    stacktrace(1);
+    stacktrace( 1 );
     die();
 }
-extract($resultSet->fields);
+extract( $resultSet->fetch() );
 
 $sql = "select count(snummer) as student_count from prj_grp join prj_tutor using(prjtg_id) where prjm_id=$prjm_id";
-$resultSet = $dbConn->Execute($sql);
-if ($resultSet === false) {
+$resultSet = $dbConn->query( $sql );
+if ( $resultSet === false ) {
     echo( "<br>Cannot set prj tutors with <pre>\"" . $sql . '"</pre>, cause ' . $dbConn->ErrorMsg() . "<br>");
-    stacktrace(1);
+    stacktrace( 1 );
     die();
 }
-extract($resultSet->fields);
+extract( $resultSet->fetch() );
 $oldmaxgrp = 0;
-if ($isTutorOwner && isSet($VREQUEST['bgcount'])) {
-    $grp_count = $VREQUEST['grp_count'];
+if ( $isTutorOwner && isSet( $VREQUEST[ 'bgcount' ] ) ) {
+    $grp_count = $VREQUEST[ 'grp_count' ];
     // to prevent orphaning of groups, make the new group count the minimally equal to the
     // original group count
-    if ($grp_count < $org_grp_count) {
+    if ( $grp_count < $org_grp_count ) {
         $grp_count = $org_grp_count;
     }
     // first get max group
@@ -76,14 +76,14 @@ if ($isTutorOwner && isSet($VREQUEST['bgcount'])) {
     //    echo "<pre>\n";
     //    echo "$sql\n";
     //    echo "<pre>\n";
-    $resultSet = $dbConn->Execute($sql);
-    if ($resultSet === false) {
+    $resultSet = $dbConn->Execute( $sql );
+    if ( $resultSet === false ) {
         echo( "<br>Cannot set prj tutors with <pre>\"" . $sql . '"</pre>, cause ' . $dbConn->ErrorMsg() . "<br>");
-        stacktrace(1);
+        stacktrace( 1 );
         die();
     }
-    if (!$resultSet->EOF) {
-        extract($resultSet->fields);
+    if ( !$resultSet->EOF ) {
+        extract( $resultSet->fields );
     }
     //    echo "grp count=$grp_count old max = $oldmaxgrp<br/>";
     $newmaxgrp = $grp_count;
@@ -99,13 +99,13 @@ if ($isTutorOwner && isSet($VREQUEST['bgcount'])) {
     $oldmaxgrp++;
     $grp_num = $oldmaxgrp;
     $numsize = 1;
-    if ($newmaxgrp >= 100) {
+    if ( $newmaxgrp >= 100 ) {
         $numsize = 3;
-    } else if ($newmaxgrp >= 10) {
+    } else if ( $newmaxgrp >= 10 ) {
         $numsize = 2;
     }
-    while ($grp_num <= $newmaxgrp) {
-        $grp_name = ($grp_num == $newmaxgrp) ? 'Attic' : 'g' . str_pad($grp_num, $numsize, '0', STR_PAD_LEFT);
+    while ( $grp_num <= $newmaxgrp ) {
+        $grp_name = ($grp_num == $newmaxgrp) ? 'Attic' : 'g' . str_pad( $grp_num, $numsize, '0', STR_PAD_LEFT );
         $sql .= "insert into prj_tutor (prjm_id,tutor_id,grp_num,grp_name) " .
                 "select $prjm_id,$tutor_id,$grp_num,'{$grp_name}' from tutor where userid='$tutor_id';\n";
         $grp_num++;
@@ -113,69 +113,69 @@ if ($isTutorOwner && isSet($VREQUEST['bgcount'])) {
 
     $sql .= "commit\n";
 
-    $resultSet = $dbConn->Execute($sql);
-    if ($resultSet === false) {
+    $resultSet = $dbConn->Execute( $sql );
+    if ( $resultSet === false ) {
         echo( "<br>Cannot set number of project tutors with <pre>\"" .
         $sql . '"</pre>, cause ' . $dbConn->ErrorMsg() . "<br>");
-        stacktrace(1);
-        $resultSet = $dbConn->Execute("rollback");
+        stacktrace( 1 );
+        $resultSet = $dbConn->Execute( "rollback" );
     } else {
-        $resultSet = $dbConn->Execute("commit");
+        $resultSet = $dbConn->Execute( "commit" );
     }
 }
 $sql = "select count( distinct grp_num) as grp_count from prj_tutor where prjm_id=$prjm_id group by prjm_id";
-$resultSet = $dbConn->Execute($sql);
-if ($resultSet === false) {
+$resultSet = $dbConn->query( $sql );
+if ( $resultSet === false ) {
     echo( "<br>Cannot get group count with <pre>\"" . $sql . '"</pre>, cause ' . $dbConn->ErrorMsg() . "<br>");
-    stacktrace(1);
+    stacktrace( 1 );
     die();
 }
-if (!$resultSet->EOF) {
-    extract($resultSet->fields);
+if ( ($row = !$resultSet->fetch()) != false ) {
+    extract( $row );
 }
 //echo "grp_num count=$grp_count<br/>\n";
-if ($grp_count > 0) {
+if ( $grp_count > 0 ) {
     $sql = "select count(*)/$grp_count as grp_size from prj_grp join prj_tutor using(prjtg_id) where prjm_id=$prjm_id";
-    $resultSet = $dbConn->Execute($sql);
-    if ($resultSet === false) {
+    $resultSet = $dbConn->query( $sql );
+    if ( $resultSet === false ) {
         echo( "<br>Cannot get prj tutors with <pre>\"" . $sql . '"</pre>, cause ' . $dbConn->ErrorMsg() . "<br>");
-        stacktrace(1);
+        stacktrace( 1 );
         die();
     }
-    extract($resultSet->fields);
+    extract( $resultSet->fetch() );
 } else {
     $grp_size = 0;
 }
-if ($isTutorOwner && isSet($VREQUEST['btutor'])) {
-    $tutors = $VREQUEST['tutor_id'];
-    $prjtg_ids = $VREQUEST['prjtg_id'];
-    $grp_names = $VREQUEST['grp_name'];
+if ( $isTutorOwner && isSet( $VREQUEST[ 'btutor' ] ) ) {
+    $tutors = $VREQUEST[ 'tutor_id' ];
+    $prjtg_ids = $VREQUEST[ 'prjtg_id' ];
+    $grp_names = $VREQUEST[ 'grp_name' ];
     $sql = "begin work;\n";
-    for ($i = 0; $i < count($tutors); $i++) {
-        $grp_names[$i] = pg_escape_string($grp_names[$i]);
-        $sql .= "update prj_tutor set tutor_id= {$tutors[$i]},grp_name='{$grp_names[$i]}' where prjtg_id=$prjtg_ids[$i];\n";
+    for ( $i = 0; $i < count( $tutors ); $i++ ) {
+        $grp_names[ $i ] = pg_escape_string( $grp_names[ $i ] );
+        $sql .= "update prj_tutor set tutor_id= {$tutors[ $i ]},grp_name='{$grp_names[ $i ]}' where prjtg_id={$prjtg_ids[ $i ]};\n";
     }
 
     $sql .= "commit;";
     //echo "<pre>$sql</pre>";
-    $resultSet = $dbConn->Execute($sql);
-    if ($resultSet === false) {
+    $resultSet = $dbConn->Execute( $sql );
+    if ( $resultSet === false ) {
         echo( "<br>Cannot set prj tutors with <pre>\"" . $sql . '"</pre>, cause ' . $dbConn->ErrorMsg() . "<br>");
-        stacktrace(1);
+        stacktrace( 1 );
         die();
     }
 }
 $sql = "select assessment_due from prj_milestone where prjm_id=$prjm_id";
-$resultSet = $dbConn->Execute($sql);
-if ($resultSet === false) {
-    $dbConn->log('<br>Cannot set prj tutors with <pre>' . $sql . '</pre> cause ' . $dbConn->ErrorMsg() . "<br/>" .
-            stacktracestring(1));
-} else if (!$resultSet->EOF) {
-    extract($resultSet->fields);
+$resultSet = $dbConn->query( $sql );
+if ( $resultSet === false ) {
+    $dbConn->log( '<br>Cannot set prj tutors with <pre>' . $sql . '</pre> cause ' . $dbConn->ErrorMsg() . "<br/>" .
+            stacktracestring( 1 ) );
+} else if ( ($row = $resultSet->fetch()) !== false ) {
+    extract( $row );
 }
 $page_opening = "Select the number of groups and allocate the tutors. prjm_id $prjm_id prj_id $prj_id milestone $milestone";
-$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
-$nav->setInterestMap($tabInterestCount);
+$nav = new Navigation( $tutor_navtable, basename( __FILE__ ), $page_opening );
+$nav->setInterestMap( $tabInterestCount );
 $sqltut = "select prjtg_id,t.tutor,pt.tutor_id,pt.grp_num, "
         . "gs.size as scount, rtrim(grp_name) as grp_name\n"
         . " from prj_tutor pt \n"
@@ -186,33 +186,33 @@ $sqltut = "select prjtg_id,t.tutor,pt.tutor_id,pt.grp_num, "
         . "order by grp_num asc";
 //echo "<pre>$sqltut</pre>";
 
-$resultSet = $dbConn->Execute($sqltut);
-if ($resultSet === false) {
+$resultSet = $dbConn->query( $sqltut );
+if ( $resultSet === false ) {
     echo( "<br>Cannot get groups with \"" . $sqltut . '", cause ' . $dbConn->ErrorMsg() . "<br>");
-    stacktrace(1);
+    stacktrace( 1 );
     die();
 }
 $rowCounter = 1;
 $rows = '';
-while (!$resultSet->EOF) {
-    extract($resultSet->fields);
+while ( ($row= $resultSet->fetch())!== false ) {
+    extract( $row );
     $rowClass = (($rowCounter % 2) === 0) ? 'even' : 'odd';
-    if ($isTutorOwner) {
+    if ( $isTutorOwner ) {
         $tutorList = "\t\t<select name='tutor_id[]'>\n" .
-                getOptionListGrouped($dbConn, "select achternaam||', '||roepnaam||' '||coalesce(tussenvoegsel,'')" .
+                getOptionListGrouped( $dbConn, "select achternaam||', '||roepnaam||' '||coalesce(tussenvoegsel,'')" .
                         "||' ('||tutor||')'||t.userid as name,\n" .
                         " t.userid as value,\n" .
                         " f.faculty_short||'-'||team   as namegrp" .
                         " from tutor t join student_email s on (userid=snummer)\n" .
                         " join faculty f on (t.faculty_id=f.faculty_id)\n" .
-                        " order by namegrp,achternaam,roepnaam", $tutor_id) .
+                        " order by namegrp,achternaam,roepnaam", $tutor_id ) .
                 "\t\t</select>\n";
     } else {
         $sql = "select achternaam||', '||roepnaam||' '||coalesce(tussenvoegsel,'')||' ('||tutor||')' as name\n" .
                 " from tutor join student_email on (userid=snummer)\n" .
                 "where tutor='$tutor'";
-        $resultSet2 = $dbConn->doOrDie($sql);
-        $tutorList = $resultSet2->fields['name'];
+        $resultSet2 = $dbConn->query( $sql );
+        $tutorList = $resultSet2->fetch()[ 'name' ];
     }
 
     $rows .= "\t<tr class='$rowClass'>"
@@ -225,10 +225,10 @@ while (!$resultSet->EOF) {
             . "<td rowspan='1'><input type='text' name='grp_name[]' value='$grp_name' title='short name' size='9' maxlength='15'/></td>"
             . "\n\t</tr>\n";
 
-    $resultSet->moveNext();
+//    $resultSet->moveNext();
     $rowCounter++;
 }
-if ($isTutorOwner) {
+if ( $isTutorOwner ) {
     $rows .= "<tr><td>&nbsp;</td>\n"
             . "<td>"
             . "    <input type='hidden' name='grp_count' value='<?= $grp_count ?>'/>"
@@ -239,13 +239,13 @@ if ($isTutorOwner) {
 }
 
 $thead = "               <thead><tr><th>G</th><th>Tutor</th><th align='right'>no</th><th>prjtg</th><th>group name</th></tr></thead>";
-$self = basename(__FILE__);
+$self = basename( __FILE__ );
 ?>
 <?= $nav->show() ?>
 <div id='navmain' style='padding:1em;'>
     <p>Use this page to determine the size of the groups and to allocate the tutors.</p>
     <?= $prjSel->getWidget() ?>
-    <?php if ($isTutorOwner) { ?>
+    <?php if ( $isTutorOwner ) { ?>
         <fieldset><legend>Select number of group tutors</legend>
             <form name='grpcount' method='post' action='<?= $self ?>'>
                 <input type='text' size='2' align='right' name='grp_count' value='<?= $grp_count ?>'/>
