@@ -1,5 +1,5 @@
 <?php
-requireCap(CAP_TUTOR);
+requireCap( CAP_TUTOR );
 require_once('validators.php');
 require_once('navigation2.php');
 include 'simplequerytable.php';
@@ -9,21 +9,22 @@ require_once 'SpreadSheetWriter.php';
 $class_id = 1;
 
 $fileExtension = 'xls';
-if (isSet($_REQUEST['class_id'])) {
-    $_SESSION['class_id'] = $class_id = validate($_REQUEST['class_id'], 'integer', 1);
+if ( isSet( $_REQUEST[ 'class_id' ] ) ) {
+    $_SESSION[ 'class_id' ] = $class_id = validate( $_REQUEST[ 'class_id' ], 'integer', 1 );
 }
-extract($_SESSION);
+extract( $_SESSION );
 
-$classSelectorClass = new ClassSelectorClass($dbConn, $class_id);
-$oldClassSelector = $classSelectorClass->addConstraint('sort1 < 10 and student_count <>0')->setAutoSubmit(true)->getSelector();
+$classSelectorClass = new ClassSelectorClass( $dbConn, $class_id );
+$oldClassSelector = $classSelectorClass->addConstraint( 'sort1 < 10 and student_count <>0' )->setAutoSubmit( true )->getSelector();
 
-
-if (isSet($class_id)) {
-    $sql = "select trim(faculty_short) as faculty_short,trim(sclass) as sclass\n" .
-            " from student_class join faculty using(faculty_id) where class_id=$class_id";
-    $resultSet = $dbConn->Execute($sql);
-    if ($resultSet !== false) {
-        extract($resultSet->fields);
+if ( isSet( $class_id ) ) {
+    $sql = <<<'SQL'
+            select trim(faculty_short) as faculty_short,trim(sclass) as sclass
+            from student_class join faculty using(faculty_id) where class_id=?
+            SQL;
+    $sth = $dbConn->prepare( $sql );
+    if ( $sth->execute( [ $class_id ] ) !== false ) {
+        extract( $sth->fetch() );
     }
 }
 
@@ -51,22 +52,21 @@ $sqltail = " join student_class using(class_id) left join tutor t on (s.slb=t.us
         . " left join sebi_stick using(snummer)\n"
         . "where class_id={$class_id} order by achternaam,roepnaam";
 
-
-$fdate = date('Y-m-d');
+$fdate = date( 'Y-m-d' );
 $filename = 'class_list_' . $faculty_short . '_' . $sclass . '-' . $fdate;
 
-$spreadSheetWriter = new SpreadSheetWriter($dbConn, $sqlhead1 . ' student_email s left join alt_email aem using(snummer) ' . $sqltail);
+$spreadSheetWriter = new SpreadSheetWriter( $dbConn, $sqlhead1 . ' student_email s left join alt_email aem using(snummer) ' . $sqltail );
 
-$spreadSheetWriter->setTitle("Class list  $faculty_short $sclass $fdate")
-        ->setLinkUrl($server_url . basename(__FILE__). '?class_id=' . $class_id)
-        ->setFilename($filename)
-        ->setAutoZebra(true);
+$spreadSheetWriter->setTitle( "Class list  $faculty_short $sclass $fdate" )
+        ->setLinkUrl( $server_url . basename( __FILE__ ) . '?class_id=' . $class_id )
+        ->setFilename( $filename )
+        ->setAutoZebra( true );
 
 $spreadSheetWriter->processRequest();
 $spreadSheetWidget = $spreadSheetWriter->getWidget();
 
 $sqlhead2 = "select distinct '<a href=''student_admin.php?snummer='||snummer||''' target=''_blank''>'||snummer||'</a>' as snummer,"
-          . "'<img src='''||photo||''' style=''height:24px;width:auto;''/>' as foto,\n"
+        . "'<img src='''||photo||''' style=''height:24px;width:auto;''/>' as foto,\n"
         . "achternaam ,roepnaam, tussenvoegsel as tussenvoegsel," .
         "pcn,"
         . "lang,"
@@ -95,28 +95,27 @@ $scripts = '<script type="text/javascript" src="js/jquery.min.js"></script>
     <link rel=\'stylesheet\' type=\'text/css\' href=\'' . SITEROOT . '/style/tablesorterstyle.css\'/>
 ';
 
-
-pagehead2('Get class list', $scripts);
+pagehead2( 'Get class list', $scripts );
 $page_opening = "Class list for class $faculty_short:$sclass ($class_id) ";
-$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
-$nav->setInterestMap($tabInterestCount);
-$maillisthead = strtolower($faculty_short) . '.' . strtolower($sclass);
+$nav = new Navigation( $tutor_navtable, basename( __FILE__ ), $page_opening );
+$nav->setInterestMap( $tabInterestCount );
+$maillisthead = strtolower( $faculty_short ) . '.' . strtolower( $sclass );
 $known_maillist = '/home/maillists/' . $maillisthead . '.maillist';
 $class_mail_address = 'no email list exists';
 $filename = $known_maillist;
 $filetime = 'never';
-if (file_exists($filename)) {
-    $filetime = date("Y-m-d H:i:s", filemtime($filename));
+if ( file_exists( $filename ) ) {
+    $filetime = date( "Y-m-d H:i:s", filemtime( $filename ) );
     $class_mail_address = "Existing class email address:&nbsp;<a href='mailto:$maillisthead@fontysvenlo.org'><tt style='fontsize:120%;color:#008;font-weight:bold'>"
             . "$maillisthead@fontysvenlo.org</tt></a> last update {$filetime}";
 }
- $nav->show() ;
-         ?>
+$nav->show();
+?>
 <div id='navmain' style='padding:1em;'>
     <fieldset><legend>Select class</legend>
         <p>Choose the class of which you want to retrieve the data.</p>
         <p>If you want to retrieve the date as a <strong>spread sheet</strong>, select the spreadsheet option below.</p>
-        <form method="get" name="project" action="<?= basename(__FILE__); ?>">
+        <form method="get" name="project" action="<?= basename( __FILE__ ); ?>">
             <?= $oldClassSelector ?>
             <input type='submit' name='get' value='Get class' />&nbsp;<?= $spreadSheetWidget ?>
         </form>
@@ -125,8 +124,8 @@ if (file_exists($filename)) {
     <?= $class_mail_address ?>
     <div align='center'>
         <?php
-        simpletable($dbConn, $sql2, "<table id='myTable' class='tablesorter' summary='your requested data'"
-                . " style='empty-cells:show;border-collapse:collapse' border='1'>");
+        simpletable( $dbConn, $sql2, "<table id='myTable' class='tablesorter' summary='your requested data'"
+                . " style='empty-cells:show;border-collapse:collapse' border='1'>" );
         ?>
     </div>
     <?= $class_mail_address ?>
