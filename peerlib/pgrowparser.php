@@ -9,20 +9,22 @@ interface RowParser {
 
     /**
      * @param mixed $pgResultSet postgresql resultset with possibly arrays.
-     * @return array of result
+     * @return array of result or false at end
      */
-    function parse( $pgResultSet );
+    function parse( PDOStatement $pgResultSet ): mixed;
 
     /**
      * Produces an array of strings to be used as headers for a table.
      */
-    function parseToTableHeader( $pgResultSet, $headers = null );
+    function parseToTableHeader( PDOStatement $pstm, array $headers = null ): array;
 
     /**
      *  Retrieves the data types for the row columns, assuming them all the same.
      * Returns the Adodb type identifiers. see {http://phplens.com/lens/adodb/docs-adodb.htm#metatype} 
      */
-    function parseTypes( $pgResultSet );
+    function parseTypes( PDOStatement $pstm ): array;
+
+    function done( PDOStatement $pstm ): bool;
 }
 
 /**
@@ -30,30 +32,38 @@ interface RowParser {
  */
 class DefaultRowParser implements RowParser {
 
-    public function parse( $pgResultSet ) {
-        return $pgResultSet->fields;
+    private $completed = false;
+
+    public function parse( PDOStatement $pgResultSet ): mixed {
+        $result = $pgResultSet->fetch();
+        $this->completed = ($result === false);
+        return $result;
     }
 
-    public function parseToTableHeader( $pgResultSet, $headers = null ) {
+    public function parseToTableHeader( PDOStatement $pstm, array $headers = null ): array {
         $result = array();
-        $colcount = $pgResultSet->FieldCount();
+        $colcount = $pstm->columnCount();
         for ( $i = 0; $i < $colcount; $i++ ) {
-            $name = $pgResultSet->FieldName( $i );
+            $fieldMeta = $pstm->getColumnMeta( $i );
+            $name = $fieldMeta[ 'name' ];
             array_push( $result, $name );
         }
         return $result;
     }
 
-    public function parseTypes( $pgResultSet ) {
-        global $dbConn;
+    public function parseTypes( PDOStatement $pstm ): array {
         $result = array();
-        $colcount = $pgResultSet->FieldCount();
+        $colcount = $pstm->columnCount();
 
         for ( $i = 0; $i < $colcount; $i++ ) {
-            $type = $pgResultSet->MetaType( $i );
+            $type = $pstm->getColumnMeta( $i )[ 'native_type' ];
             array_push( $result, $type );
         }
         return $result;
+    }
+
+    public function done( PDOStatement $pstm ): bool {
+        return $this->completed;
     }
 
 }
@@ -61,16 +71,22 @@ class DefaultRowParser implements RowParser {
 class RowWithArraysParser implements RowParser {
 
     private $columnCellCount;
+    private $completed = false;
 
     public function __construct() {
         $this->columnCellCount = array();
     }
 
-    public function parse( $pgResultSet ) {
+    public function parse( PDOStatement $pstm ): mixed {
         $result = array();
-        $colcount = $pgResultSet->FieldCount();
+        $colcount = $pstm->columnCount();
+        $nr = $pstm->fetch();
+        if ( $nr === $false ) {
+            $this->completed = true;
+            return $nr;
+        }
         for ( $i = 0; $i < $colcount; $i++ ) {
-            $field = $pgResultSet->fields[ $i ];
+            $field = $nr[ $i ];
             if ( '{' == substr( $field, 0, 1 ) && '}' == substr( $field, -1 ) ) {
                 $s = str_replace( '{', '', $field );
                 $s = str_replace( '}', '', $s );
@@ -90,13 +106,13 @@ class RowWithArraysParser implements RowParser {
         return $result;
     }
 
-    public function parseToTableHeader( $pgResultSet, $headers = null ) {
+    public function parseToTableHeader( PDOStatement $pstm, array $headers = null ): array {
         $result = array();
-        $colcount = $pgResultSet->FieldCount();
+        $colcount = $pstm->columnCount();
         for ( $i = 0; $i < $colcount; $i++ ) {
             $helper = array();
-            $fieldName = niceName( $pgResultSet->FieldName( $i ) );
-            $field = $pgResultSet->fields[ $i ];
+            $fieldName = niceName( $pstm->getColumnMeta( $i )[ 'name' ] );
+            $field = $pstm->fields[ $i ];
             if ( '{' == substr( $field, 0, 1 ) && '}' == substr( $field, -1 ) ) {
                 $s = str_replace( '{', '', $field );
                 $s = str_replace( '}', '', $s );
@@ -115,20 +131,19 @@ class RowWithArraysParser implements RowParser {
         return $result;
     }
 
-    public function parseTypes( $pgResultSet ) {
-        global $dbConn;
+    public function parseTypes( PDOStatement $pstm ): array {
         $result = array();
-        $colcount = $pgResultSet->FieldCount();
+        $colcount = $pstm->columnCount();
         for ( $i = 0; $i < $colcount; $i++ ) {
             //$fieldMeta = $pgResultSet->FetchField($i);
             //print_r($field);
-            $type = $pgResultSet->MetaType( $i );
-            $field = $pgResultSet->fields[ $i ];
+            $type = $pstm->getColumnMeta( $i )[ 'natural_type' ];
+            $field = $pstm->fields[ $i ];
             if ( '{' == substr( $field, 0, 1 ) && '}' == substr( $field, -1 ) ) {
                 error_log( "composite type=" . $type, 0 );
                 $s = str_replace( '{', '', $field );
                 $s = str_replace( '}', '', $s );
-                $helper= preg_split('/\s*,\s*/', $s);
+                $helper = preg_split( '/\s*,\s*/', $s );
                 $count = count( $helper );
 
                 for ( $j = 1; $j <= $count; $j++ ) {
@@ -139,6 +154,10 @@ class RowWithArraysParser implements RowParser {
             }
         }
         return $result;
+    }
+
+    public function done( PDOStatement $pstm ): bool {
+        return $this->completed;
     }
 
 }
@@ -162,7 +181,7 @@ class RowWithArraysPreHeadersParser extends RowWithArraysParser {
      * @param type $headers
      * @return array 
      */
-    public function parseToTableHeader( $pgResultSet, $headers = null ) {
+    public function parseToTableHeader( PDOStatement $pgResultSet, array $headers = null ): array {
         $result = array();
         $headers = $this->headers;
         $colcount = count( $headers );
@@ -178,5 +197,3 @@ class RowWithArraysPreHeadersParser extends RowWithArraysParser {
     }
 
 }
-
-?>

@@ -24,7 +24,7 @@ class XLSWriter {
     private $excelFormat = '';
     private $mimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
     private $filename = "excel.xlsx";
-    private $extension;
+    private string $extension;
     private $dbConn;
     private $rowParser;
     private $rainBow;
@@ -44,9 +44,9 @@ class XLSWriter {
 
     /**
      * Construct a writer for a query.
-     * @param type $dbC 
+     * @param type $dbC  connection
      */
-    public function __construct($dbC) {
+    public function __construct( PDO $dbC ) {
         $this->dbConn = $dbC;
         $this->rainBow = new RainBow();
     }
@@ -55,7 +55,7 @@ class XLSWriter {
      * Set creator. Default is peerweb service.
      * @param type $c 
      */
-    public function setCreator($c) {
+    public function setCreator( $c ) {
         $this->creator = $c;
         return $this;
     }
@@ -65,7 +65,7 @@ class XLSWriter {
      * @param type $a
      * @return $this
      */
-    public function setRainBow($a) {
+    public function setRainBow( $a ) {
         $this->rainBow = $a;
         return $this;
     }
@@ -73,7 +73,7 @@ class XLSWriter {
     /**
      * Set office doc property.
      */
-    public function setAuthor($a) {
+    public function setAuthor( $a ) {
         $this->author = $a;
         return $this;
     }
@@ -81,7 +81,7 @@ class XLSWriter {
     /**
      * Set office doc property.
      */
-    public function setTitle($t) {
+    public function setTitle( $t ) {
         $this->title = $t;
         return $this;
     }
@@ -89,7 +89,7 @@ class XLSWriter {
     /**
      * Set office doc property.
      */
-    public function setDescription($d) {
+    public function setDescription( $d ) {
         $this->description = $d;
         return $this;
     }
@@ -97,22 +97,22 @@ class XLSWriter {
     /**
      * Set office doc property.
      */
-    public function addKeywords($k) {
+    public function addKeywords( $k ) {
         $this->keywords .= $k;
         return $this;
     }
 
-    public function setLinkUrl($u) {
+    public function setLinkUrl( $u ) {
         $this->linkUrl = $u;
         return $this;
     }
 
-    public function setLinkText($t) {
+    public function setLinkText( $t ) {
         $this->linkText = $t;
         return $this;
     }
 
-    public function setSubject($s) {
+    public function setSubject( $s ) {
         $this->subject = $s;
         return $this;
     }
@@ -122,11 +122,11 @@ class XLSWriter {
      * @param type $f
      * @return $this
      */
-    public function setFilename($f) {
+    public function setFilename( string $f ) {
         $this->filename = $f;
-        $parts = explode('.', $this->filename);
-        if (count($parts)) {
-            $this->extension = end($parts);
+        $parts = explode( '.', $this->filename );
+        if ( count( $parts ) ) {
+            $this->extension = end( $parts );
         }
         return $this;
     }
@@ -136,7 +136,7 @@ class XLSWriter {
      * @param type $f
      * @return $this
      */
-    public function setExcelFormat($f) {
+    public function setExcelFormat( $f ) {
         $this->excelFormat = $f;
         return $this;
     }
@@ -146,7 +146,7 @@ class XLSWriter {
      * @param type $c
      * @return $this
      */
-    public function setColorChangerColumn($c) {
+    public function setColorChangerColumn( $c ) {
         $this->colorChangerColumn = $c;
         return $this;
     }
@@ -156,9 +156,9 @@ class XLSWriter {
      * @param type $az
      * @return $this
      */
-    public function setAutoZebra($az) {
+    public function setAutoZebra( $az ) {
         $this->autoZebra = $az;
-        if ($this->autoZebra) {
+        if ( $this->autoZebra ) {
             $this->rainBow = RainBow::aRGBZebra();
         }
         return $this;
@@ -169,7 +169,7 @@ class XLSWriter {
      * @param type $w weights array
      * @return \XLSWriter
      */
-    public function setWeights($w) {
+    public function setWeights( $w ) {
         $this->weights = $w;
         return $this;
     }
@@ -179,7 +179,7 @@ class XLSWriter {
      * @param type $c
      * @return \XLSWriter
      */
-    public function setFirstWeightColumn($c) {
+    public function setFirstWeightColumn( $c ) {
         $this->firstWeightColumn = $c;
         return $this;
     }
@@ -189,7 +189,7 @@ class XLSWriter {
      * @param type $weightedSumsColumn
      * @return $this
      */
-    public function setWeightedSumsColumn($weightedSumsColumn) {
+    public function setWeightedSumsColumn( $weightedSumsColumn ) {
         $this->weightedSumsColumn = $weightedSumsColumn;
         return $this;
     }
@@ -200,8 +200,8 @@ class XLSWriter {
      * @param type $row
      * @return type
      */
-    static function cellCoordinate($column, $row) {
-        return Cell\Coordinate::stringFromColumnIndex($column) . $row;
+    static function cellCoordinate( $column, $row ) {
+        return Cell\Coordinate::stringFromColumnIndex( $column ) . $row;
     }
 
     /**
@@ -210,8 +210,8 @@ class XLSWriter {
      * @param int $row, one based 
      * @return type string
      */
-    private static function cellCoordinateAbsoluteRow($column, $row) {
-        return Cell\Coordinate::stringFromColumnIndex($column) . '$' . $row;
+    private static function cellCoordinateAbsoluteRow( $column, $row ) {
+        return Cell\Coordinate::stringFromColumnIndex( $column ) . '$' . $row;
     }
 
     /**
@@ -220,42 +220,40 @@ class XLSWriter {
      * @param int $row, one based 
      * @return type string
      */
-    private static function cellCoordinateAbsolute($column, $row) {
-        return '$' . Cell\Coordinate::stringFromColumnIndex($column) . '$' . $row;
+    private static function cellCoordinateAbsolute( $column, $row ) {
+        return '$' . Cell\Coordinate::stringFromColumnIndex( $column ) . '$' . $row;
     }
 
     /**
      * Create sheet from query and dump named file to browser.
      * @param $query the query.
      */
-    function writeXlsx($query) {
-        Cell\Cell::setValueBinder(new Cell\AdvancedValueBinder());
+    function writeXlsx( string $query ): void {
+        Cell\Cell::setValueBinder( new Cell\AdvancedValueBinder() );
         $phpExcelInstance = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
-        if (!isSet($this->rowParser)) {
+        if ( !isSet( $this->rowParser ) ) {
             $this->rowParser = new DefaultRowParser();
         }
 
         // set office document properties
-        $phpExcelInstance->getProperties()->setCreator($this->creator);
-        $phpExcelInstance->getProperties()->setLastModifiedBy($this->author);
-        $phpExcelInstance->getProperties()->setTitle($this->title);
-        $phpExcelInstance->getProperties()->setSubject($this->subject);
-        $phpExcelInstance->getProperties()->setDescription($this->description);
-        $phpExcelInstance->getProperties()->setKeywords($this->keywords);
-        $phpExcelInstance->getProperties()->setCategory($this->catagory);
+        $phpExcelInstance->getProperties()->setCreator( $this->creator );
+        $phpExcelInstance->getProperties()->setLastModifiedBy( $this->author );
+        $phpExcelInstance->getProperties()->setTitle( $this->title );
+        $phpExcelInstance->getProperties()->setSubject( $this->subject );
+        $phpExcelInstance->getProperties()->setDescription( $this->description );
+        $phpExcelInstance->getProperties()->setKeywords( $this->keywords );
+        $phpExcelInstance->getProperties()->setCategory( $this->catagory );
 
-
-        global $ADODB_FETCH_MODE;
-        $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
-        $resultSet = $this->dbConn->Execute($query);
-        if ($resultSet === false) {
-            die("<br>Cannot get spreadsheet data with <pre>" . $query . "</pre> reason " .
-                    $this->dbConn->ErrorMsg() . "<br>");
+//        global $ADODB_FETCH_MODE;
+        $sth = $this->dbConn->query( $query );
+        if ( $sth === false ) {
+            die( "<br>Cannot get spreadsheet data with <pre>{$query}</pre> reason {$this->dbConn->errorInfo()[ 2 ]}<br>" );
         }
         // start writing in 3rd row, top isffor title and link.
         $row = 3;
-        $this->tableHeader = $this->rowParser->parseToTableHeader($resultSet);
-        $headCount = count($this->tableHeader);
+
+        $this->tableHeader = $this->rowParser->parseToTableHeader( $sth );
+        $headCount = count( $this->tableHeader );
         $headerStyles = [
             'font' => [
                 'bold' => true,
@@ -279,21 +277,19 @@ class XLSWriter {
                 ],
             ],
         ];
-        for ($i = 0; $i < $headCount; $i++) {
-            $name = $this->tableHeader[$i];
-            $coor = XLSWriter::cellCoordinate($i+1, $row);
-            $phpExcelInstance->getActiveSheet()->getStyle($coor)->applyFromArray($headerStyles);
-            $phpExcelInstance->getActiveSheet()->getCell($coor)->setValue($name);
+        for ( $i = 0; $i < $headCount; $i++ ) {
+            $name = $this->tableHeader[ $i ];
+            $coor = XLSWriter::cellCoordinate( $i + 1, $row );
+            $phpExcelInstance->getActiveSheet()->getStyle( $coor )->applyFromArray( $headerStyles );
+            $phpExcelInstance->getActiveSheet()->getCell( $coor )->setValue( $name );
         }
         $row++;
         // get types
-        $this->columnTypes = $this->rowParser->parseTypes($resultSet);
+        $this->columnTypes = $this->rowParser->parseTypes( $sth );
         $XlsTypes = array();
-        //error_log('there are ' . count($this->columnTypes) . ' types from db =' . print_r($this->columnTypes, true), 0);
-        for ($i = 0; $i < count($this->columnTypes); $i++) {
+        for ( $i = 0; $i < count( $this->columnTypes ); $i++ ) {
             $ftype = Cell\DataType::TYPE_NUMERIC;
-            //error_log("found  type = {$this->columnTypes[$i]} for column {$i}", 0);
-            switch ($this->columnTypes[$i]) {
+            switch ( $this->columnTypes[ $i ] ) {
                 case 'char':
                 case 'bpchar':
                 case 'varchar':
@@ -335,168 +331,165 @@ class XLSWriter {
         ];
         $oldValue = '';
 
-        if ($this->firstWeightColumn > 0) {// add weights row
+        if ( $this->firstWeightColumn > 0 ) {// add weights row
             $this->weigthsRow = $row;
-            $coor = XLSWriter::cellCoordinate($this->firstWeightColumn - 1, $row);
+            $coor = XLSWriter::cellCoordinate( $this->firstWeightColumn - 1, $row );
             $phpExcelInstance->getActiveSheet()
                     ->setCellValue(
-                            $coor, 'Weights', Cell\DataType::TYPE_STRING);
-            $phpExcelInstance->getActiveSheet()->getStyle($coor)->applyFromArray($headerStyles);
+                            $coor, 'Weights', Cell\DataType::TYPE_STRING );
+            $phpExcelInstance->getActiveSheet()->getStyle( $coor )->applyFromArray( $headerStyles );
             $weightSum = 0;
             $w = 0;
-            $weightLast = count($this->weights) - 1;
-            for (; $w < count($this->weights); $w++) {
-                $coor = XLSWriter::cellCoordinate($this->firstWeightColumn + $w, $row);
-                $weightSum += $this->weights[$w];
+            $weightLast = count( $this->weights ) - 1;
+            for (; $w < count( $this->weights ); $w++ ) {
+                $coor = XLSWriter::cellCoordinate( $this->firstWeightColumn + $w, $row );
+                $weightSum += $this->weights[ $w ];
                 $phpExcelInstance->getActiveSheet()
                         ->setCellValue(
-                                $coor, $this->weights[$w], Cell\DataType::TYPE_NUMERIC);
-                $phpExcelInstance->getActiveSheet()->getStyle($coor)->applyFromArray($headerStyles);
+                                $coor, $this->weights[ $w ], Cell\DataType::TYPE_NUMERIC );
+                $phpExcelInstance->getActiveSheet()->getStyle( $coor )->applyFromArray( $headerStyles );
             }
-            $coor = XLSWriter::cellCoordinate($this->weightedSumsColumn, $row);
-            $wBegin = XLSWriter::cellCoordinate($this->firstWeightColumn, $row);
-            $wEnd = XLSWriter::cellCoordinate($this->firstWeightColumn + $weightLast, $row);
+            $coor = XLSWriter::cellCoordinate( $this->weightedSumsColumn, $row );
+            $wBegin = XLSWriter::cellCoordinate( $this->firstWeightColumn, $row );
+            $wEnd = XLSWriter::cellCoordinate( $this->firstWeightColumn + $weightLast, $row );
             $formula = "=SUM($wBegin:$wEnd)";
             $phpExcelInstance->getActiveSheet()
                     ->setCellValue(
-                            $coor, $formula, Cell\DataType::TYPE_FORMULA);
-            $phpExcelInstance->getActiveSheet()->getStyle($coor)->applyFromArray($headerStyles);
-            $coor = XLSWriter::cellCoordinate($this->weightedSumsColumn, $row - 1);
+                            $coor, $formula, Cell\DataType::TYPE_FORMULA );
+            $phpExcelInstance->getActiveSheet()->getStyle( $coor )->applyFromArray( $headerStyles );
+            $coor = XLSWriter::cellCoordinate( $this->weightedSumsColumn, $row - 1 );
             $phpExcelInstance->getActiveSheet()
                     ->setCellValue(
-                            $coor, 'Total WT', Cell\DataType::TYPE_STRING);
-            $phpExcelInstance->getActiveSheet()->getStyle($coor)->applyFromArray($headerStyles);
+                            $coor, 'Total WT', Cell\DataType::TYPE_STRING );
+            $phpExcelInstance->getActiveSheet()->getStyle( $coor )->applyFromArray( $headerStyles );
             $row++;
         }
 
-        while (!$resultSet->EOF) {
-            $rowData = $this->rowParser->parse($resultSet);
+        while ( ($rowData=$this->rowParser->parse( $sth )) !== false ) {
+//            $rowData = $this->rowParser->parse( $sth );
 
-            $headCount = count($this->tableHeader); //$resultSet->FieldCount();
+            $headCount = count( $this->tableHeader );
             $changeColor = false;
-            if ($this->colorChangerColumn >= 0) {
-                if ($oldValue != $rowData[$this->colorChangerColumn]) {
+            if ( $this->colorChangerColumn >= 0 ) {
+                if ( $oldValue != $rowData[ $this->colorChangerColumn ] ) {
                     $changeColor = true;
-                    $oldValue = $rowData[$this->colorChangerColumn];
+                    $oldValue = $rowData[ $this->colorChangerColumn ];
                 }
-            } else if ($this->autoZebra) {
+            } else if ( $this->autoZebra ) {
                 $changeColor = true;
             }
-            if ($changeColor) {
-                $cellStyleArray['fill']['color']['argb'] = $this->rainBow->getCurrentAsARGBString();
+            if ( $changeColor ) {
+                $cellStyleArray[ 'fill' ][ 'color' ][ 'argb' ] = $this->rainBow->getCurrentAsARGBString();
                 $this->rainBow->getNext();
             }
             $i = 0;
-            for (; $i < $headCount; $i++) {
-                $value = $rowData[$i];
-                $coor = XLSWriter::cellCoordinate($i+1, $row);
-                $xlstype = isSet($XlsTypes[$i]) ? $XlsTypes[$i] : Cell\DataType::TYPE_STRING;
-                $cell=                $phpExcelInstance->getActiveSheet()
-                        ->getCellByColumnAndRow($i + 1, $row);
-                
-                $cell->setValue($value, $xlstype);
-                
-                if ($this->columnTypes[$i] == 'date') {
-                    $phpExcelInstance->getActiveSheet()->getStyle($coor)
+            for (; $i < $headCount; $i++ ) {
+                $value = $rowData[ $i ];
+                $coor = XLSWriter::cellCoordinate( $i + 1, $row );
+                $xlstype = isSet( $XlsTypes[ $i ] ) ? $XlsTypes[ $i ] : Cell\DataType::TYPE_STRING;
+                $cell = $phpExcelInstance->getActiveSheet()
+                        ->getCellByColumnAndRow( $i + 1, $row );
+
+                $cell->setValue( $value, $xlstype );
+
+                if ( $this->columnTypes[ $i ] == 'date' ) {
+                    $phpExcelInstance->getActiveSheet()->getStyle( $coor )
                             ->getNumberFormat()
-                            ->setFormatCode(Style\NumberFormat::FORMAT_DATE_YYYYMMDD2);
-                } else if ($this->columnTypes[$i] == 'time') {
-                    $phpExcelInstance->getActiveSheet()->getStyle($coor)
+                            ->setFormatCode( Style\NumberFormat::FORMAT_DATE_YYYYMMDD2 );
+                } else if ( $this->columnTypes[ $i ] == 'time' ) {
+                    $phpExcelInstance->getActiveSheet()->getStyle( $coor )
                             ->getNumberFormat()
-                            ->setFormatCode(Style\NumberFormat::FORMAT_DATE_TIME8);
+                            ->setFormatCode( Style\NumberFormat::FORMAT_DATE_TIME8 );
                 }
 
 
-                $phpExcelInstance->getActiveSheet()->getStyle($coor)
-                        ->applyFromArray($cellStyleArray);
+                $phpExcelInstance->getActiveSheet()->getStyle( $coor )
+                        ->applyFromArray( $cellStyleArray );
             }
-            if ($this->weightedSumsColumn >= 0) {
-                $weightLast = count($this->weights) - 1;
-                $coor = XLSWriter::cellCoordinate($this->weightedSumsColumn, $row);
-                $wBegin = XLSWriter::cellCoordinateAbsoluteRow($this->firstWeightColumn, $this->weigthsRow);
-                $wEnd = XLSWriter::cellCoordinateAbsoluteRow($this->firstWeightColumn + $weightLast, $this->weigthsRow);
-                $rBegin = XLSWriter::cellCoordinate($this->firstWeightColumn, $row);
-                $rEnd = XLSWriter::cellCoordinate($this->firstWeightColumn + $weightLast, $row);
-                $wSumCoor = XLSWriter::cellCoordinateAbsolute($this->weightedSumsColumn, $this->weigthsRow);
+            if ( $this->weightedSumsColumn >= 0 ) {
+                $weightLast = count( $this->weights ) - 1;
+                $coor = XLSWriter::cellCoordinate( $this->weightedSumsColumn, $row );
+                $wBegin = XLSWriter::cellCoordinateAbsoluteRow( $this->firstWeightColumn, $this->weigthsRow );
+                $wEnd = XLSWriter::cellCoordinateAbsoluteRow( $this->firstWeightColumn + $weightLast, $this->weigthsRow );
+                $rBegin = XLSWriter::cellCoordinate( $this->firstWeightColumn, $row );
+                $rEnd = XLSWriter::cellCoordinate( $this->firstWeightColumn + $weightLast, $row );
+                $wSumCoor = XLSWriter::cellCoordinateAbsolute( $this->weightedSumsColumn, $this->weigthsRow );
                 $formula = "=SUMPRODUCT({$wBegin}:{$wEnd},{$rBegin}:{$rEnd})/$wSumCoor";
                 $phpExcelInstance->getActiveSheet()
                         ->setCellValueExplicit(
-                                $coor, $formula, Cell\DataType::TYPE_FORMULA);
-                $phpExcelInstance->getActiveSheet()->getStyle($coor)->applyFromArray($cellStyleArray);
+                                $coor, $formula, Cell\DataType::TYPE_FORMULA );
+                $phpExcelInstance->getActiveSheet()->getStyle( $coor )->applyFromArray( $cellStyleArray );
             }
             $row++;
-            $resultSet->moveNext();
+//            $resultSet->moveNext();
         }
 
         $row = 1;
-        $phpExcelInstance->getActiveSheet()->getCell('A2')->setValue($this->linkText);
+        $phpExcelInstance->getActiveSheet()->getCell( 'A2' )->setValue( $this->linkText );
         $row++;
-        $phpExcelInstance->getActiveSheet()->getCell('A1')->setValue($this->title);
+        $phpExcelInstance->getActiveSheet()->getCell( 'A1' )->setValue( $this->title );
 
+        $phpExcelInstance->getActiveSheet()->getStyle( 'A' . $row )->applyFromArray( $headerStyles );
+        $phpExcelInstance->getActiveSheet()->getStyle( 'A1' )->applyFromArray( $headerStyles );
+        $rightCell1 = XLSWriter::cellCoordinate( $headCount, $row );
 
-        $phpExcelInstance->getActiveSheet()->getStyle('A' . $row)->applyFromArray($headerStyles);
-        $phpExcelInstance->getActiveSheet()->getStyle('A1')->applyFromArray($headerStyles);
-        $rightCell1 = XLSWriter::cellCoordinate($headCount , $row);
-
-        $phpExcelInstance->getActiveSheet()->mergeCells('A' . $row . ':' . $rightCell1);
-        $rightCell2 = XLSWriter::cellCoordinate($headCount , 1);
-        $phpExcelInstance->getActiveSheet()->mergeCells('A1:' . $rightCell2);
-
+        $phpExcelInstance->getActiveSheet()->mergeCells( 'A' . $row . ':' . $rightCell1 );
+        $rightCell2 = XLSWriter::cellCoordinate( $headCount, 1 );
+        $phpExcelInstance->getActiveSheet()->mergeCells( 'A1:' . $rightCell2 );
 
         // set format
         $phpExcelInstance->getActiveSheet()
-                ->getPageSetup()->setOrientation(Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
-        $phpExcelInstance->getActiveSheet()->getPageSetup()->setPaperSize(Worksheet\PageSetup::PAPERSIZE_A4);
+                ->getPageSetup()->setOrientation( Worksheet\PageSetup::ORIENTATION_LANDSCAPE );
+        $phpExcelInstance->getActiveSheet()->getPageSetup()->setPaperSize( Worksheet\PageSetup::PAPERSIZE_A4 );
 
-        $phpExcelInstance->getActiveSheet()->getPageSetup()->setFitToWidth(1);
-        $phpExcelInstance->getActiveSheet()->getPageSetup()->setFitToHeight(0);
+        $phpExcelInstance->getActiveSheet()->getPageSetup()->setFitToWidth( 1 );
+        $phpExcelInstance->getActiveSheet()->getPageSetup()->setFitToHeight( 0 );
 
-
-        for ($i = 'A', $j = 0; $i <= 'Z' && $j < $headCount; $i++, $j++) {
-            $phpExcelInstance->getActiveSheet()->getColumnDimension($i)->setAutoSize(true);
+        for ( $i = 'A', $j = 0; $i <= 'Z' && $j < $headCount; $i++, $j++ ) {
+            $phpExcelInstance->getActiveSheet()->getColumnDimension( $i )->setAutoSize( true );
         }
         Calculation\Calculation::getInstance()->clearCalculationCache();
         Calculation\Calculation::getInstance()->disableCalculationCache();
         Calculation\Calculation::getInstance()->calculate();
-        switch ($this->excelFormat) {
+        switch ( $this->excelFormat ) {
             case 'Excel2007':
-                $objWriter = new Writer\Xlsx($phpExcelInstance);
+                $objWriter = new Writer\Xlsx( $phpExcelInstance );
                 $this->mimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
                 break;
             case 'Excel5':
-                $objWriter = new Writer\Xls($phpExcelInstance);
+                $objWriter = new Writer\Xls( $phpExcelInstance );
                 $this->mimeType = 'application/vnd.ms-excel';
                 break;
             default:
-                $objWriter = new Writer\Csv($phpExcelInstance);
+                $objWriter = new Writer\Csv( $phpExcelInstance );
                 $this->mimeType = 'text/comma-separated-values';
                 break;
         }
 
-        $tempFile = tempnam('/tmp/', 'PHPEXCEL'); // '/tmp/'.$filename;
-        $objWriter->setPreCalculateFormulas(true);
-        $objWriter->save($tempFile);
+        $tempFile = tempnam( '/tmp/', 'PHPEXCEL' ); // '/tmp/'.$filename;
+        $objWriter->setPreCalculateFormulas( true );
+        $objWriter->save( $tempFile );
 
-        $fp = @fopen($tempFile, 'r');
-        if ($fp != false) {
+        $fp = @fopen( $tempFile, 'r' );
+        if ( $fp != false ) {
 
-            header("Content-type: " . $this->mimeType);
-            header("Pragma: public");
-            header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-            header("Content-Length: " . filesize($tempFile));
-            header("Content-Disposition: attachment; filename=\"$this->filename\"");
+            header( "Content-type: " . $this->mimeType );
+            header( "Pragma: public" );
+            header( "Cache-Control: must-revalidate, post-check=0, pre-check=0" );
+            header( "Content-Length: " . filesize( $tempFile ) );
+            header( "Content-Disposition: attachment; filename=\"$this->filename\"" );
 
-            fpassthru($fp);
-            fclose($fp);
+            fpassthru( $fp );
+            fclose( $fp );
             $phpExcelInstance->disconnectWorksheets();
-            unset($phpExcelInstance);
-            exit(0);
+            unset( $phpExcelInstance );
+            exit( 0 );
         } else {
             echo "cannot copy file $tempFile to out stream\n";
         }
     }
 
-    function setRowParser($p) {
+    function setRowParser( $p ) {
         $this->rowParser = $p;
         return $this;
     }
