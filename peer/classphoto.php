@@ -1,45 +1,45 @@
 <?php
-requireCap(CAP_TUTOR);
+requireCap( CAP_TUTOR );
 require_once('validators.php');
 require_once('navigation2.php');
 require_once 'ClassSelectorClass.php';
 
-define('MAXROW', '4');
-define('MAXCOL', '5');
+define( 'MAXROW', '4' );
+define( 'MAXCOL', '5' );
 $class_id = '1';
 $tutor = $tutor_code;
-extract($_SESSION);
-$year = date('Y');
+extract( $_SESSION );
+$year = date( 'Y' );
 # get actual course_year
 $sql = "select value as year from peer_settings where key='course_year'";
-$resultSet = $dbConn->Execute($sql);
-if (!$resultSet->EOF)
-    extract($resultSet->fields);
+$resultSet = $dbConn->query( $sql );
+if ( $resultSet !== false )
+    extract( $resultSet->fetch() );
 
-if (isSet($VREQUEST['class_id'])) {
-    $_SESSION['class_id'] = $class_id = validate($VREQUEST['class_id'], 'integer', '0');
+if ( isSet( $VREQUEST[ 'class_id' ] ) ) {
+    $_SESSION[ 'class_id' ] = $class_id = validate( $VREQUEST[ 'class_id' ], 'integer', '0' );
 }
 
-$style = file_get_contents('js/balloonscript.html');
+$style = file_get_contents( 'js/balloonscript.html' );
 
-pagehead2('class photos', $style);
+pagehead2( 'class photos', $style );
 
-$classSelectorClass = new ClassSelectorClass($dbConn, $class_id);
-$oldClassSelector = $classSelectorClass->setAutoSubmit(true)->addConstraint('sort1 < 10 and student_count <>0')->getSelector();
+$classSelectorClass = new ClassSelectorClass( $dbConn, $class_id );
+$oldClassSelector = $classSelectorClass->setAutoSubmit( true )->addConstraint( 'sort1 < 10 and student_count <>0' )->getSelector();
 
+$sql = 'select * from student_class natural join faculty where class_id=?';
+$sth = $dbConn->prepare( $sql );
 
-$sql = 'select * from student_class natural join faculty where class_id=$1';
-$resultSet = $dbConn->Prepare($sql)->execute(array($class_id));
-if ($resultSet === false) {
-    die("<br>Cannot get class data with " . $sql . " reason " . $dbConn->ErrorMsg() . "<br>");
+if ( $sth->execute( [ $class_id ] ) === false ) {
+    die( "<br>Cannot get class data with " . $sql . " reason {$dbConn->errorInfo()[ 2 ]}<br>" );
 }
-if (!$resultSet->EOF)
-    extract($resultSet->fields);
+
+extract( $sth->fetch() );
 $tablehead = "<h2><a href='photolist.php?class_id=$class_id'>"
         . "Class photos for class $faculty_short.$sclass $class_id: $year-" . ($year + 1) . "<img src='images/pdf_icon.png' border='0'/></a></h2>\n";
 $page_opening = "Class photos for class  $faculty_short.$sclass $class_id $year-" . ($year + 1);
-$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
-$nav->setInterestMap($tabInterestCount);
+$nav = new Navigation( $tutor_navtable, basename( __FILE__ ), $page_opening );
+$nav->setInterestMap( $tabInterestCount );
 $sql = <<<'SQL'
     SELECT distinct st.snummer as number, 
     st.roepnaam||' '||coalesce(regexp_replace(st.tussenvoegsel,'''','&rsquo;')||' ','')||st.achternaam as name, 
@@ -51,14 +51,14 @@ $sql = <<<'SQL'
      from student_email st  
     left join fontys_course fc on(st.opl=fc.course) 
     left join tutor_join_student td on (st.slb=td.snummer) 
-    where class_id=$1   
+    where class_id=?
     order by achternaam,roepnaam
 SQL;
-$self = basename(__FILE__);
+$self = basename( __FILE__ );
 //$dbConn->log($sql);
-$resultSet = $dbConn->Prepare($sql)->execute(array($class_id));
-if ($resultSet === false) {
-    die("<br>Cannot get student data with \"" . $sql . '", cause ' . $dbConn->ErrorMsg() . "<br>");
+$pstm = $dbConn->prepare( $sql );
+if ( false == $pstm->execute( array( $class_id ) ) ) {
+    die( "<br>Cannot get student data with <pre>{$sql}</pre> , cause {$dbConn->errorInfo()[ 2 ]}<br>" );
 }
 ?>
 <?= $nav->show() ?>
@@ -74,9 +74,9 @@ if ($resultSet === false) {
     $rowcount = 0;
 //    $browserIE = strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') ? true : false;
 
-    while (!$resultSet->EOF) {
-        if ($rowcount == 0 && $colcount == 0) {
-            echo "$tablehead\n<table><colgroup>\n"
+    while ( ($row = $pstm->fetch()) !== false ) {
+        if ( $rowcount == 0 && $colcount == 0 ) {
+            echo "{$tablehead}\n<table><colgroup>\n"
             . "<col width='140px'/>\n"
             . "<col width='140px'/>\n"
             . "<col width='140px'/>\n"
@@ -84,12 +84,12 @@ if ($resultSet === false) {
             . "<col width='140px'/>\n"
             . "</colgroup>\n";
         }
-        if ($colcount == 0) {
+        if ( $colcount == 0 ) {
             echo "<tr>\n";
         }
-        extract($resultSet->fields);
+        extract( $row );
 
-        if (file_exists('fotos/' . $number . '.jpg')) {
+        if ( file_exists( 'fotos/' . $number . '.jpg' ) ) {
             $photo = 'fotos/' . $number . '.jpg';
         } else {
             $photo = 'fotos/0.jpg';
@@ -115,21 +115,21 @@ if ($resultSet === false) {
         . "\n</th>\n";
 
         $colcount++;
-        if ($colcount >= MAXCOL) {
+        if ( $colcount >= MAXCOL ) {
             echo "</tr>\n";
             $colcount = 0;
             $rowcount++;
-            if ($rowcount >= MAXROW) {
+            if ( $rowcount >= MAXROW ) {
                 echo "</table>\n<p style='page-break-before: always;'><!--(continued)--></p>\n";
                 $rowcount = 0;
             }
         }
-        $resultSet->moveNext();
+//        $resultSet->moveNext();
     }
-    if ($colcount != 0) {
+    if ( $colcount != 0 ) {
         echo "</tr>\n";
     }
-    if ($rowcount != 0) {
+    if ( $rowcount != 0 ) {
         echo "</table>\n";
     }
     ?>

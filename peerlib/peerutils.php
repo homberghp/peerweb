@@ -106,10 +106,10 @@ function hasCap( $cap ) {
     //allways allow everyone if cap 0 is requested
     if ( $cap == 0 ) {
         $result = true;
-    } else if (isset($_SESSION['userCap'])){
+    } else if ( isset( $_SESSION[ 'userCap' ] ) ) {
         // otherwise test as bitmask
         return (($_SESSION[ 'userCap' ] & $cap) != 0);
-    } 
+    }
     //  if ($db_name!='peer') $dbConn->log( "requested cap=$cap, usercap=".$_SESSION['userCap']." result = $result \n");
     return $result;
 }
@@ -240,17 +240,17 @@ function getOptionListFromResultSet( $resultSet, $selected_value, $preload = arr
  * @param type $preload
  * @return string 
  */
-function getOptionListGrouped( $dbConn, $query, $selected_value, $selectColumn = 'value', $preload = array() ) {
+function getOptionListGrouped( PDO $dbConn, string $query, string $selected_value, string $selectColumn = 'value', array $preload = [] ): string {
     $result = "\n";
-    $resultSet = $dbConn->Execute( $query );
-    if ( $resultSet === false ) {
-        echo "Error " . $dbConn->ErrorMsg() . ": cannot execute query <pre style='color:#080'>$query</pre>";
+    $sth = $dbConn->query( $query );
+    if ( $sth === false ) {
+        echo "Error {$dbConn->errorInfo()[2]}: cannot execute query <pre style='color:#080'>$query</pre>";
         return $result;
     }
-    return getOptionListGroupedFromResultSet( $resultSet, $selected_value, $selectColumn, $preload );
+    return getOptionListGroupedFromResultSet( $sth, $selected_value, $selectColumn, $preload );
 }
 
-function getOptionListGroupedFromResultSet( $resultSet, $selected_value, $selectColumn = 'value', $preload = array() ) {
+function getOptionListGroupedFromResultSet( PDOStatement $pstm, string $selected_value, string $selectColumn = 'value', array $preload = [] ) {
     $result = "\n";
     $grpList = '';
     $oldGrp = '';
@@ -261,26 +261,23 @@ function getOptionListGroupedFromResultSet( $resultSet, $selected_value, $select
     for ( $i = 0; $i < count( $preload ); $i++ ) {
         $result .= "\t\t<option value='" . $preload[ $i ][ 'value' ] . "'>" . $preload[ $i ][ 'name' ] . "</option>" . "\n";
     }
-    //  if (empty($query)) {
-    //  return $result; //}
-    $resultSet->MoveFirst();
     $grpContinue = '';
     $grpCount = 0;
-    while ( !$resultSet->EOF ) {
-        $value = trim( $resultSet->fields[ 'value' ] );
-        $disabled = (isSet( $resultSet->fields[ 'disabled' ] ) && ($resultSet->fields[ 'disabled' ] == 'disabled')) ? ' disabled' : '';
+    while ( ($row=$pstm->fetch()) !== false ) {
+        $value = trim( $row[ 'value' ] );
+        $disabled = (isSet( $row[ 'disabled' ] ) && ($row[ 'disabled' ] == 'disabled')) ? ' disabled' : '';
         $selected = '';
-        $selected = ($resultSet->fields[ $selectColumn ] == $selected_value) ? "selected" : "";
+        $selected = ($row[ $selectColumn ] == $selected_value) ? "selected" : "";
         $optionClass = '';
-        if ( !isSet( $resultSet->fields[ 'css_class' ] ) ) {
+        if ( !isSet( $row[ 'css_class' ] ) ) {
             if ( $disabled != '' ) {
                 $optionClass = 'class=\'disabled\'';
             }
         } else {
-            $optionClass = 'class=\'' . $resultSet->fields[ 'css_class' ] . '\'';
+            $optionClass = 'class=\'' . $row[ 'css_class' ] . '\'';
         }
-        $name = $resultSet->fields[ 'name' ];
-        $grp = $resultSet->fields[ 'namegrp' ];
+        $name = $row[ 'name' ];
+        $grp = $row[ 'namegrp' ];
         if ( $grp != $oldGrp && $oldGrp != '' ) {
             $grpContinue = "\t\t</optgroup>\n";
             $seperator = "\t\t<optgroup label=\"" . $oldGrp . " (" . $grpCount . ")\">\n";
@@ -291,13 +288,13 @@ function getOptionListGroupedFromResultSet( $resultSet, $selected_value, $select
             $grpCount++;
         }
         $oldGrp = $grp;
-        if ( isSet( $resultSet->fields[ 'title' ] ) ) {
-            $title = " title='" . $resultSet->fields[ 'title' ] . "' ";
+        if ( isSet( $row[ 'title' ] ) ) {
+            $title = " title='" . $row[ 'title' ] . "' ";
         } else {
             $title = '';
         }
         $grpList .= "\t\t\t<option $selected value='$value' $disabled $title $optionClass>" . htmlspecialchars( $name ) . "</option>\n";
-        $resultSet->moveNext();
+        //$resultSet->moveNext();
     }
     $grpContinue = "\t\t</optgroup>\n";
     $seperator = "\n\t\t<optgroup label=\"" . $oldGrp . " (" . $grpCount . ")\">\n";
@@ -720,7 +717,7 @@ function authenticate( $uid, $pw ) {
     $sth = $dbConn->prepare( $sql );
     if ( $sth->execute( [ $uid ] ) === false ) {
         // if no result, fail
-        echo('Error: ' . $dbConn->erriorInfo90[2] . ' with <pre>' . $sql . "</pre>\n");
+        echo('Error: ' . $dbConn->erriorInfo90[ 2 ] . ' with <pre>' . $sql . "</pre>\n");
         return 3;
     }
     // f user not present fail
@@ -766,7 +763,7 @@ function authenticateCrypt( $uid, $pw ) {
     if ( false === $sth->execute( [ $uid, $pw ] ) ) {
         // if no result, fail
 //    if ( $resultSet === false ) {
-        echo('Error x: ' . $dbConn->errorInfo()[2] . ' with <pre>' . $sql . " and uid={$uid} and ps={$pw}</pre>\n");
+        echo('Error x: ' . $dbConn->errorInfo()[ 2 ] . ' with <pre>' . $sql . " and uid={$uid} and ps={$pw}</pre>\n");
         return 3;
     }
     return ($sth->fetch() === false) ? 5 : 0;
@@ -1279,14 +1276,14 @@ function requireScribeCap( $snummer ) {
  * @param array $params
  * @return array result
  */
-function oneRecordQuery(PDO $dbConn, string $sql, array $params): array{
-    $sth= $dbConn->prepare($sql);
-    if ($sth === false) {
-        error_log("query",0);
+function oneRecordQuery( PDO $dbConn, string $sql, array $params ): array {
+    $sth = $dbConn->prepare( $sql );
+    if ( $sth === false ) {
+        error_log( "query", 0 );
         return [];
     }
-    if ($sth->execute($params) === false) {
-        error_log("execute",0);
+    if ( $sth->execute( $params ) === false ) {
+        error_log( "execute", 0 );
         return [];
     }
     return $sth->fetch();
