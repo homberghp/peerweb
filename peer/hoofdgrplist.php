@@ -20,10 +20,10 @@ $oldClassSelector = hoofdgrpSelector($dbConn, 'hoofdgrp', $hoofdgrp);
 
 if (isSet($hoofdgrp)) {
     $sql = "select trim(f.faculty_short) as faculty_short,trim(hoofdgrp) as hoofdgrp\n" .
-            " from hoofdgrp_s h join faculty f using(faculty_id) where hoofdgrp='{$hoofdgrp}'";
-    $resultSet = $dbConn->Execute($sql);
-    if ($resultSet !== false && ! $resultSet->EOF) {
-        extract($resultSet->fields);
+            " from hoofdgrp_s h join faculty f using(faculty_id) where hoofdgrp=?";
+    $pstm = $dbConn->prepare($sql);
+    if ($pstm->execute([$hoofdgrp]) !== false) {
+        extract($pstm->fetch());
     }
     //    $dbConn->log($sql);
 }

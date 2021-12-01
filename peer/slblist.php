@@ -19,19 +19,19 @@ extract($_SESSION);
 $oldClassSelector = hoofdgrpSelector($dbConn, 'hoofdgrp', $hoofdgrp);
 
 if (isSet($hoofdgrp)) {
-    $sql = "select coalesce(trim(f.faculty_short),'') as faculty_short,coalesce(trim(hoofdgrp),'') as hoofdgrp\n" .
-            " from hoofdgrp_s h join faculty f using(faculty_id) where hoofdgrp='$hoofdgrp'";
-    $resultSet = $dbConn->Execute($sql);
-    if ($resultSet !== false) {
-        extract($resultSet->fields);
+    $sql = "select trim(f.faculty_short) as faculty_short,trim(hoofdgrp) as hoofdgrp\n" .
+            " from hoofdgrp_s h join faculty f using(faculty_id) where hoofdgrp=?";
+    $pstm = $dbConn->prepare($sql);
+    if ($pstm->execute([$hoofdgrp]) !== false) {
+        extract($pstm->fetch());
     }
     //    $dbConn->log($sql);
 }
 
 $fdate = date('Y-m-d');
 $sql = "select tutor from tutor where userid=$slb";
-$rs = $dbConn->Execute($sql);
-$tutorCode = $rs->fields['tutor'];
+$rs = $dbConn->query($sql);
+$tutorCode = $rs->fetch()['tutor'];
 
 $sqlhead = "select distinct snummer,"
         . "achternaam||rtrim(coalesce(', '||tussenvoegsel,'')::text) as achternaam ,roepnaam, "
