@@ -1,20 +1,22 @@
 <?php
 
-function simpleTableString($dbConn, $query, $tabledef = "<table summary='simple table'>") {
+function simpleTableString(PDO $dbConn, $query, $tabledef = "<table summary='simple table'>") {
     global $ADODB_FETCH_MODE;
     $result = '';
     $row = 1;
     $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
     $coltypes = array();
     $columnNames = array();
-    $resultSet = $dbConn->Execute($query);
+    $sth=            $dbConn->query($query);
+    $resultSet = $sth->fetchAll();
+    
     if ($resultSet === false) {
-        $result .= "Cannot read table data with \n\t<pre style='color:#800;'>" . $query . " </pre>\n\treason \n\t" . $dbConn->ErrorMsg() . "at\n";
+        $result .= "Cannot read table data with \n\t<pre style='color:#800;'>" . $query . " </pre>\n\treason \n\t" . $dbConn->errorInfo() . "at\n";
         stacktrace(1);
         $result .= "</pre>";
         return $result;
     }
-    $colcount = $resultSet->FieldCount();
+    $colcount = $sth->columnCount();
     $result .= "$tabledef\n";
     $result .= "<thead>\n<tr>\n";
     for ($i = 0; $i < $colcount; $i++) {

@@ -6,7 +6,7 @@ require_once 'TemplateWith.php';
  * prepended by all
  * if not logged in, append query string to $SELF, to present the parameters to the same page again
  */
-if ( session_status() === PHP_SESSION_NONE ){
+if ( session_status() === PHP_SESSION_NONE ) {
     session_start();
 }
 //require_once('peerutils.php');
@@ -24,9 +24,9 @@ if ( isSet( $_POST[ 'peer_id' ] ) && isSet( $_POST[ 'peer_pw' ] ) ) {
     }
     unset( $login_id );
 }
-if ( isSet( $_SESSION[ 'logfilename' ] ) ) {
-    $dbConn->setLogFilename( $_SESSION[ 'logfilename' ] );
-}
+//if ( isSet( $_SESSION[ 'logfilename' ] ) ) {
+//    $dbConn->setLogFilename( $_SESSION[ 'logfilename' ] );
+//}
 if ( isSet( $_SESSION[ 'peer_id' ] ) && isSet( $peer_pw ) && ( ($loginError = authenticate( $_SESSION[ 'peer_id' ], $peer_pw )) == 0) ) {
 
     restoresessiondata( $dbConn, $_SESSION[ 'peer_id' ] );
@@ -36,26 +36,30 @@ if ( isSet( $_SESSION[ 'peer_id' ] ) && isSet( $peer_pw ) && ( ($loginError = au
 
     $_SESSION[ 'auth_user' ] = $_SESSION[ 'peer_id' ];
     $_SESSION[ 'logfilename' ] = $site_home . '/log/log_u' . $_SESSION[ 'peer_id' ] . '_' . date( 'YmdHis' ) . '.txt';
-    $dbConn->setLogFilename( $_SESSION[ 'logfilename' ] );
+//    $dbConn->setLogFilename( $_SESSION[ 'logfilename' ] );
     // build a new peertree at login 
     unset( $_SESSION[ "NodesHasBeenAddedUrl" ] );
 
     // record login
     $from_ip = $_SERVER[ 'REMOTE_ADDR' ];
     if ( $loginattempt ) {
-        $sql1 = "select userid,date_trunc('seconds',since) as since,id,from_ip from logon where userid={$_SESSION[ 'peer_id' ]} order by id desc limit 1";
-        $resultSet = $dbConn->Execute( $sql1 );
-        if ( !($resultSet === false) && !$resultSet->EOF ) {
-            $_SESSION[ 'last_login_record' ] = $resultSet->fields;
+        $sql1 = <<<'SQL'
+                select userid,date_trunc('seconds',since) as since,id,from_ip 
+                    from logon where userid=? order by id desc limit 1
+                SQL;
+        $sth = $dbConn->prepare( $sql1 );
+
+        if ( $sth->execute( [ $_SESSION[ 'peer_id' ] ] ) ) {
+            $_SESSION[ 'last_login_record' ] = $sth->fetch();
         }
         $peer_id = $_SESSION[ 'peer_id' ];
-        $sql = "insert into logon (userid,from_ip) values ( $peer_id, '$from_ip' )";
-        $resultSet = $dbConn->Execute( $sql );
-        $resultSet = $dbConn->Execute( $sql1 );
-        if ( !($resultSet === false) && !$resultSet->EOF ) {
-            $_SESSION[ 'newest_login_record' ] = $resultSet->fields;
+        $sql = 'insert into logon (userid,from_ip) values ( ?,? ) returning *';
+        $sth = $dbConn->prepare( $sql );
+        if ( $sth->execute( [ $peer_id, $from_ip ] ) !== false ) {
+
+            $_SESSION[ 'newest_login_record' ] = $sth->fetch();
             if ( !isSet( $_SESSION[ 'last_login_record' ] ) )
-                $_SESSION[ 'last_login_record' ] = $resultSet->fields;
+                $_SESSION[ 'last_login_record' ] = $_SESSION[ 'newest_login_record' ];
         }
     }
     if ( !(isSet( $_SESSION[ 'prj_id' ] ) && isSet( $_SESSION[ 'milestone' ] )) ) {
@@ -76,7 +80,7 @@ if ( isSet( $_SESSION[ 'peer_id' ] ) && isSet( $peer_pw ) && ( ($loginError = au
         $_SESSION[ 'prj_id' ] = $prj_id;
         $_SESSION[ 'milestone' ] = $milestone;
     }
-} else if ( ( isSet( $_SESSION[ 'peer_id' ] ) && isSet( $_SESSION[ 'password' ] )) && authenticateCrypt( $_SESSION[ 'peer_id' ], $_SESSION[ 'password' ] ) != 0 ) {
+} else if ( ( isset( $_SESSION[ 'peer_id' ] ) && isset( $_SESSION[ 'password' ] )) && authenticateCrypt( $_SESSION[ 'peer_id' ], $_SESSION[ 'password' ] ) != 0 ) {
     unSet( $_SESSION[ 'auth_user' ] );
     unSet( $_SESSION[ 'peer_id' ] );
     unSet( $_SESSION[ 'password' ] );
@@ -110,13 +114,16 @@ if ( !isSet( $_SESSION[ 'auth_user' ] ) ) { // make login screen
     exit;
 } // else continue with includer
 // get login user data prefixed with login_
-$sql = "select * from student_email s left join tutor t on(s.snummer=t.userid) where snummer=$peer_id";
-$resultSet = $dbConn->Execute( $sql );
+$sql = 'select * from student_email s left join tutor t on(s.snummer=t.userid) where snummer=?';
+$sth = $dbConn->prepare( $sql );
 $LOGINDATA = array();
-if ( $resultSet !== false && !$resultSet->EOF ) {
-    $LOGINDATA = array_merge( $LOGINDATA, $resultSet->fields );
-    extract( $resultSet->fields, EXTR_PREFIX_ALL, 'login' );
+if ($sth->execute([$peer_id])!== false) {
+    $result=$sth->fetch();
+    $LOGINDATA = array_merge( $LOGINDATA, $result );
+    extract( $result, EXTR_PREFIX_ALL, 'login' );
 }
+//if ( $resultSet !== false && !$resultSet->EOF ) {
+//}
 if ( basename( filter_input( INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_URL ) ) == 'login.php' ) {
     header( "location: $root_url/index.php" );
 }

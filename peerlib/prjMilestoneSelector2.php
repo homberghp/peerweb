@@ -22,7 +22,7 @@ class PrjMilestoneSelector2 {
     private $selectorHelp = '';
     private $selectionChanged = false;
     private $extraInfo = '';
-    private $nullResult = array('first' => '99',
+    private $nullResult = array( 'first' => '99',
         'description' => 'no project',
         'year' => 0,
         'prjtg_id' => 0,
@@ -53,28 +53,28 @@ class PrjMilestoneSelector2 {
      * @param type $prjm_id the prj milestone
      * @param type $selName the name of the selector in the form and input name.
      */
-    function __construct($conn, $peer_id, $prjm_id = 0, $selName = 'prjm_id') {
+    function __construct( $conn, $peer_id, $prjm_id = 0, $selName = 'prjm_id' ) {
         global $_SESSION;
         global $_REQUEST;
         $this->dbConn = $conn;
         $this->peer_id = $peer_id;
         $this->prjm_id = $prjm_id;
         $this->selectorName = $selName;
-        if (isSet($_SESSION[$this->selectorName])) {
-            $this->prjm_id = $_SESSION[$this->selectorName];
+        if ( isSet( $_SESSION[ $this->selectorName ] ) ) {
+            $this->prjm_id = $_SESSION[ $this->selectorName ];
         }
-        if (isSet($_REQUEST[$this->selectorName])) {
-            $newSelect = validate($_REQUEST[$this->selectorName], 'integer', $this->prjm_id);
-            if ($this->prjm_id != $newSelect) {
+        if ( isSet( $_REQUEST[ $this->selectorName ] ) ) {
+            $newSelect = validate( $_REQUEST[ $this->selectorName ], 'integer', $this->prjm_id );
+            if ( $this->prjm_id != $newSelect ) {
                 $this->selectionChanged = true;
             }
             $this->prjm_id = $newSelect;
         }
-        if ($this->prjm_id === 0) { // only guess if undefined.
-            $this->prjm_id = $this->guessPrjMid($this->peer_id);
+        if ( $this->prjm_id === 0 ) { // only guess if undefined.
+            $this->prjm_id = $this->guessPrjMid( $this->peer_id );
         }
 
-        if (hasCap(CAP_SELECT_ALL)) {
+        if ( hasCap( CAP_SELECT_ALL ) ) {
             $this->isAdmin = 'true';
         } else {
             //$this->whereClause =" tutor_id={$peer_id} ";
@@ -82,13 +82,13 @@ class PrjMilestoneSelector2 {
         }
     }
 
-    public function setSelectorName($n) {
+    public function setSelectorName( $n ) {
         $this->selectorName = $n;
     }
 
     function getQuery() {
-        if ($this->prjm_id === 0 || $this->prjm_id === '') { // only guess if undefined.
-            $this->prjm_id = $this->guessPrjMid($this->peer_id);
+        if ( $this->prjm_id === 0 || $this->prjm_id === '' ) { // only guess if undefined.
+            $this->prjm_id = $this->guessPrjMid( $this->peer_id );
         }
 
         $sql = "select p.afko||'.'||trim(course_short)||': '||substr(p.description,1,12)||'('||p.year||')'||\n"
@@ -112,22 +112,22 @@ class PrjMilestoneSelector2 {
         $query = $this->getQuery();
         $result = "<!--prjMilestoneSelector2-->"
                 . "\n\t<select name='" . $this->selectorName . "' " . (($this->submitOnChange) ? (" onchange='submit()' ") : ("")) . ">\n" .
-                getOptionListGrouped($this->dbConn, $query, $this->prjm_id)
+                getOptionListGrouped( $this->dbConn, $query, $this->prjm_id )
                 . "\n\t</select>\n"
                 . "\n<!--/prjMilestoneSelector2-->\n";
         //        echo $query;
         return $result;
     }
 
-    function guessPrjMid($tutor_id) {
+    function guessPrjMid( $tutor_id ) {
         $sql = "select max(prjm_id) as guess from prj_tutor where tutor_id={$tutor_id} union select max(prjm_id) as guess from prj_tutor limit 1";
-        $resultSet = $this->dbConn->Execute($sql);
+        $resultSet = $this->dbConn->Execute( $sql );
         //echo "guessed {$resultSet->fields['guess']}";
-        return $resultSet->fields['guess'];
+        return $resultSet->fields[ 'guess' ];
     }
 
     function getSelectedData() {
-        if ($this->dataCache != null) {
+        if ( $this->dataCache != null ) {
             return $this->dataCache;
         }
         //echo "extra join <pre>{$this->extraJoin}</pre>";
@@ -136,7 +136,7 @@ class PrjMilestoneSelector2 {
                 . " from prj_milestone pm join project p using(prj_id) join tutor t on(owner_id=userid) join fontys_course fc on (p.course=fc.course)\n"
                 . (($this->extraJoin != '') ? ("\njoin " . $this->extraJoin . "\n") : '')
                 //. "join {$this->extraJoin} \n"
-                . " where pm.prjm_id=" . $this->prjm_id
+                . " where pm.prjm_id=?"
                 . (($this->whereClause != '') ? ("\n and " . $this->whereClause . "\n") : '')
                 . "\nunion\n"
                 . "select 1 as first,pm.prj_id,pm.prjm_id,pm.milestone,p.year,trim(p.afko) as afko,trim(p.description) as description"
@@ -145,23 +145,20 @@ class PrjMilestoneSelector2 {
                 . (($this->extraJoin != '') ? ("\njoin " . $this->extraJoin . "\n") : '')
                 . (($this->whereClause != '') ? ("\n where " . $this->whereClause . "\n") : '') . " order by first limit 1";
 //        echo "<pre style='color:#800;padding:2em'>{$sql}</pre>";
-        $resultSet = $this->dbConn->Execute($sql);
-        if ($resultSet === false) {
-            echo( "<br>Cannot get project data with <pre>\"" . $sql . '"</pre>, cause ' . $this->dbConn->ErrorMsg() . "<br>");
-            stacktrace(1);
+        $sth = $this->dbConn->prepare( $sql );
+
+        if ( $sth->execute( [ $this->prjm_id ] ) === false ) {
+            echo( "<br>Cannot get project data with <pre>\"" . $sql . '"</pre>, cause ' . $this->dbConn->errorInfo()[ 2 ] . "<br>");
+            stacktrace( 1 );
             die();
         }
-        if ($resultSet->EOF) {
-            return $this->nullResult;
-        } else {
-            $this->dataCache = $resultSet->fields;
-        }
+        $this->dataCache = $sth->fetch();
         return $this->dataCache;
     }
 
     function getWidget() {
         global $PHP_SELF;
-        extract($this->getSelectedData());
+        extract( $this->getSelectedData() );
         $result = "\n<!--start prjMilestoneSelector->getWidget() -->\n"
                 . "<fieldset><legend>" . $this->fieldsetLegend . "</legend><form method='get' action='$PHP_SELF'>\n"
                 . $this->getSelector()
@@ -184,8 +181,8 @@ class PrjMilestoneSelector2 {
 
     function getSelectionDetails() {
         $valid_until = '2000-01-01';
-        $assessment_due='1999-09-09';
-        extract($this->getSelectedData());
+        $assessment_due = '1999-09-09';
+        extract( $this->getSelectedData() );
         return "<table border='0'><tr><td>current selection</td><td style='font-size:160%'>" .
                 "<b>$afko.$course_short</b> $year<sub>(prj_id={$prj_id})</sub> milestone $milestone"
                 . " \"<i>$description</i>\" (prjm_id $prjm_id)</span></td></tr>"
@@ -193,14 +190,14 @@ class PrjMilestoneSelector2 {
                 . "project valid until: $valid_until, milestone assessment due $assessment_due</td></tr></table> ";
     }
 
-    function setWhere($w) {
+    function setWhere( $w ) {
         $this->whereClause = $w;
         $this->dataCache = null;
         return $this;
     }
 
-    function setJoin($j) {
-        if ('' === $this->extraJoin) {
+    function setJoin( $j ) {
+        if ( '' === $this->extraJoin ) {
             $this->extraJoin = $j;
         } else {
             $this->extraJoin .= ' join ' . $j;
@@ -209,7 +206,7 @@ class PrjMilestoneSelector2 {
         return $this;
     }
 
-    function setOrderBy($o) {
+    function setOrderBy( $o ) {
         $this->orderBy = $o;
         return $this;
     }
@@ -218,23 +215,23 @@ class PrjMilestoneSelector2 {
         return 'prjMilestoneSelector2 for sql' . $this->getQuery();
     }
 
-    public function setSubmitOnChange($b) {
+    public function setSubmitOnChange( $b ) {
         $this->submitOnChange = $b;
         return $this;
     }
 
-    public function setPrjmId($pm) {
+    public function setPrjmId( $pm ) {
         $this->prjm_id = $pm;
         $this->dataCache = null;
         return $this;
     }
 
-    public function setFieldsetLegend($l) {
+    public function setFieldsetLegend( $l ) {
         $this->fieldSetLegend = $l;
         return $this;
     }
 
-    public function setSelectorHelp($h) {
+    public function setSelectorHelp( $h ) {
         $this->selectorHelp = $h;
         return $this;
     }
@@ -249,7 +246,7 @@ class PrjMilestoneSelector2 {
         return $this;
     }
 
-    public function setExtraInfo($extraInfo) {
+    public function setExtraInfo( $extraInfo ) {
         $this->extraInfo = $extraInfo;
         return $this;
     }

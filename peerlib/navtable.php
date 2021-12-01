@@ -1,4 +1,5 @@
 <?php
+require_once('peerutils.php');
 $tabInterestCount = array();
 $tabInterestCount['all'] = 1;
 $tabInterestCount['tutor'] = hasCap(CAP_TUTOR) ? 1 : 0;
@@ -27,22 +28,16 @@ $tabInterestCount['sync'] = hasCap(CAP_SYNC_PROGRESS) ? 1 : 0;
 $tabInterestCount['set_slb'] = hasCap(CAP_ASSIGN_SLB) ? 1 : 0;
 $tabInterestCount['experimental'] = hasCap(CAP_EXPERIMENTAL) ? 1 : 0;
 $tabInterestCount['none'] = 0;
-$sql = "select opl from student_email where snummer=$peer_id";
-$resultSet = $dbConn->Execute($sql);
-if ($resultSet === false) {
-    die('Error: ' . $dbConn->ErrorMsg() . ' with ' . $sql);
-}
 $tabInterestCount['sharing'] = hasCap(CAP_SHARING);
 $tabInterestCount['sharing_tutor'] = $tabInterestCount['tutor'] && $tabInterestCount['sharing'];
-$tabInterestCount['act_participant'] = ($resultSet->fields['opl'] == 112);
-$opl = $resultSet->fields['opl'];
+$sql = "select opl from student_email where snummer=?";
+$opl = oneRecordQuery( $dbConn, $sql, [$peer_id])[0];
+$tabInterestCount['act_participant'] = ($opl == 112);
 $snummer = $_SESSION['snummer'];
-$sql = "select count(*) as scribe_count from all_project_scribe where scribe=$peer_id";
-$resultSet = $dbConn->Execute($sql);
-if ($resultSet === false) {
-    die('Error: ' . $dbConn->ErrorMsg() . ' with ' . $sql);
-}
-$tabInterestCount['project_scribe'] = ( $resultSet->fields['scribe_count'] > 0 || hasCap(CAP_TUTOR));
+//$sql = "select count(*) as scribe_count from all_project_scribe where scribe=$peer_id";
+$sql = 'select count(*) as scribe_count from all_project_scribe where scribe=?';
+$scribe_count=oneRecordQuery( $dbConn, $sql, [$peer_id] )['scribe_count'];
+$tabInterestCount['project_scribe'] = ( $scribe_count > 0 || hasCap(CAP_TUTOR));
 
 $tabInterestCount['deliverable_count'] = 1; //$resultSet->fields['nav_deliverable_count'];
 

@@ -54,30 +54,33 @@ define('BODY_CLASS', $body_class);
 
 /* Database connection stuff. */
 
-require_once('peerpgdbconnection.php');
-$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
+//$ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 require_once "{$etc_dir}/peerpassword";
+//require_once 'peerpgdbconnection2.php';
 isset($dbhost) || $dbhost = '';
 $dbproto = 'pgsql';
 $tutor_code = '';
-$dbConn = new PeerPGDBConnection($dbproto);
-if (!$dbConn->Connect($dbhost, $dbUser, $pass, $db_name)) {
+//$dbConn = new PeerPGDBConnection($dbproto);
+$dbConn= new PDO("pgsql:host=localhost;port=5432;dbname={$db_name}", $dbUser, $pass);
+try{
+     foreach($dbConn->query('SELECT now()') as $row) {
+//        print_r($row);
+    }
+} catch(PDOException $e){
     die("sorry, cannot connect to database $db_name because " . $dbConn->ErrorMsg());
+    
 }
-// get database time
-$sql = "select date_trunc('seconds',now()) as database_time";
-$resultSet = $dbConn->Execute($sql);
-extract($resultSet->fields);
-//$dbConn->setLogFilename($site_home.'/log/updatelog.txt');
-$dbConn->setSqlLogModifyingQuery(true);
-$dbConn->setSqlLogging(true);
 
+//extract($resultSet->fields);
+//$dbConn->setLogFilename($site_home.'/log/updatelog.txt');
+//$dbConn->setSqlLogModifyingQuery(true);
+//$dbConn->setSqlLogging(true);
 
 require_once 'peerutils.php';
 //$dbConn->setLogFilename($site_home.'/log/updatelog.txt');
-$dbConn->setSqlLogModifyingQuery(true);
+//$dbConn->setSqlLogModifyingQuery(true);
 
-$dbConn->setSqlLogging(true);
+//$dbConn->setSqlLogging(true);
 // must include next line before any session start
 include_once("treeviewclasses.php");
 // login starts a session

@@ -26,8 +26,8 @@ $sqlt = "select s.snummer,achternaam,roepnaam,tussenvoegsel,gebdat,grp_num,grade
         . " join all_prj_tutor using(prjtg_id) \n"
         . " join student_email s using(snummer) order by grp_num,achternaam";
 //echo "<pre>$sqlt</pre>\n";
-global $ADODB_FETCH_MODE;
-$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
+//global $ADODB_FETCH_MODE;
+//$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 
 $spreadSheetWriter = new SpreadSheetWriter($dbConn, $sqlt);
 
