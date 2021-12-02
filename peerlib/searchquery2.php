@@ -114,7 +114,6 @@ class SearchQuery {
         $this->dataTypes = array();
         $pstm = $this->dbConn->prepare( $query );
         $pstm->execute( [ $this->relation ] );
-//        $rs = $this->dbConn->Execute( $query );
         while ( ($row = $pstm->fetch()) !== false ) {
             $name = trim( $row[ 'column_name' ] );
             $this->matchColumnSet[] = $name;
@@ -380,9 +379,10 @@ class SearchQuery {
      * @throws SQLPrepareException on prepared text error
      * @throws SQLExevuteException on execution error
      */
-    public function executeExtendedQuery() {
+    public function executeExtendedQuery(): PDOStatement {
         $qt = $this->getExtendedQuery();
-        $rs = $this->dbConn->Prepare( $qt )->execute( $this->values );
+        $rs = $this->dbConn->prepare( $qt );
+        $rs->execute( $this->values );
         return $rs;
     }
 
@@ -487,18 +487,20 @@ class SearchQuery {
         return $this;
     }
 
-    public function executeAllQuery2() {
+    public function executeAllQuery2(): PDOStatement {
         $q = "select * from " . $this->getQueryTailText(); //.' limit 1';
-        return $this->dbConn->Prepare( $q )->execute( $this->values );
+        $pstm = $this->dbConn->prepare( $q );
+        $pstm->execute( $this->values );
+        return $pstm;
     }
 
-    public function getSubRelQuery() {
+    public function getSubRelQuery(): string {
         return 'select sub_rel.* '
                 . " \n from \n"
                 . $this->getExtendedQueryTail();
     }
 
-    public function subRelExpression() {
+    public function subRelExpression(): string {
 
         $subRelExpr = '';
         $rpf = $this->relPrefix;

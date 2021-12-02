@@ -610,11 +610,11 @@ class SimpleTableEditor {
         echo $headRow;
         echo "<tbody>\n";
         $counter = 1;
-        while ( !$rs->EOF ) {
+        while ( ($row = $rs->fetch()) !== false ) {
             $continuation = '?';
             $itsMe = '';
             $itsMeStyle = '';
-            if ( $this->keyColumnsEqual( $rs->fields ) ) {
+            if ( $this->keyColumnsEqual( $row ) ) {
                 $itsMe = '<img src="' . IMAGEROOT . '/right-arrow.gif" alt=">>"/>';
                 $itsMeStyle = 'style=\'background:#fff;font-weight:bold\'';
             }
@@ -624,17 +624,16 @@ class SimpleTableEditor {
             "\t\t<a href=\"" . htmlspecialchars( $this->formAction );
             $urlTail = '';
             for ( $i = 0; $i < count( $this->keyColumns ); $i++ ) {
-                $urlTail .= $continuation . strtolower( $this->keyColumns[ $i ] ) . '=' . trim( $rs->fields[ strtolower( $this->keyColumns[ $i ] ) ] );
+                $urlTail .= $continuation . strtolower( $this->keyColumns[ $i ] ) . '=' . trim( $row[ strtolower( $this->keyColumns[ $i ] ) ] );
                 $continuation = '&amp;';
             }
             echo $urlTail . "\">\n\t\t\t";
-            echo trim( $rs->fields[ 'result_name' ] ) . "\n\t\t</a>\n\t</td>\n";
+            echo trim( $row[ 'result_name' ] ) . "\n\t\t</a>\n\t</td>\n";
             if ( isSet( $this->listRowTemplate ) ) {
-                echo $this->getHtmlListCells( $rs->fields );
+                echo $this->getHtmlListCells( $row );
             }
             echo "</tr>\n";
             $counter++;
-            $rs->moveNext();
         } /* while OCI */
         echo "</tbody>\n</table>\n";
     }
@@ -781,12 +780,16 @@ class SimpleTableEditor {
         //print_r($this->searchQuery);
         $rs = $this->searchQuery->executeAllQuery2();
         //echo "<span style=' color:#f0f;font-size:120%' >  aha {$rs}</span>" ;
-        if ( $rs !== false && !$rs->EOF ) {
+        if ( $rs !== false ) {
             /* if search succeeded, load the first hit */
-            $rowCount = $rs->rowCount();
+            $rows = $rs->fetchAll();
+
+            $rowCount = count( $rows );
             $this->addDbMessage( "found {$rowCount} row" . ($rowCount == 1 ? '' : 's') );
-            $this->setMenuValues( $rs->fields );
-            $this->keyValues = $this->getKeyValues( $rs->fields );
+            if ( $rowCount > 0 ) {
+                $this->setMenuValues( $rows[ 0 ] );
+                $this->keyValues = $this->getKeyValues( $rows[ 0 ] );
+            }
             //$_SESSION['searchQueryValues'] = $this->searchQueryValues = $this->searchQuery->getSubmitValueSet();
             $_SESSION[ 'searchQueryValues' ] = $this->searchQuery->getSubmitValueSet();
             //echo  "<pre>".print_r($_SESSION['searchQueryValues'],true)."</pre>";
@@ -913,7 +916,7 @@ class SimpleTableEditor {
              */
             if ( count( $_GET ) > 0 ) {
                 $this->searchQuery->setSubmitValueSet( $_GET );
-            } else if (array_key_exists('searchQueryValues', $_SESSION) ) {
+            } else if ( array_key_exists( 'searchQueryValues', $_SESSION ) ) {
                 $this->searchQuery->setSubmitValueSet( $_SESSION[ 'searchQueryValues' ] );
             }
             if ( $this->searchQuery->areKeyColumnsSet() ) {
@@ -921,12 +924,13 @@ class SimpleTableEditor {
                 try {
 
                     $rs = $this->searchQuery->executeAllQuery2();
-                    $rowCount = $rs->rowCount();
+                    $rows=$rs->fetchAll();
+                    $rowCount = count($rows);
                     $this->addDbMessage( "found {$rowCount} row" . ($rowCount == 1) ? '' : 's'  );
-                    if ( $rs !== false && !$rs->EOF ) {
-                        $this->setMenuValues( $rs->fields );
+                    if ( $rowCount> 0 ) {
+                        $this->setMenuValues( $rows[0] );
                         //$this->addDbMessage("<pre> filling menu " . print_r($rs->fields, true) . "</pre><br>");
-                        $this->keyValues = $this->getKeyValues( $rs->fields );
+                        $this->keyValues = $this->getKeyValues( $rows[0] );
                     }
                 } catch ( SQLExecuteException $se ) {
                     $this->addError( "search failed with {$se->getMessage()}" );
