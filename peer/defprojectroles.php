@@ -1,4 +1,5 @@
 <?php
+
 requireCap( CAP_TUTOR );
 require_once('validators.php');
 require_once('querytotable.php');
@@ -19,7 +20,6 @@ $_SESSION[ 'prj_id' ] = $prj_id;
 $_SESSION[ 'prjm_id' ] = $prjm_id;
 $_SESSION[ 'milestone' ] = $milestone;
 
-
 extract( $_SESSION );
 
 $doctype_set = array();
@@ -39,22 +39,22 @@ if ( $isTutorOwner && isSet( $_GET[ 'copyroles' ] ) && isSet( $_GET[ 'roprj_id' 
             . "from project_roles where prj_id={$roprj_id} and ({$target_prj_id},rolenum) not in (select prj_id,rolenum  from project_roles)";
     echo $sql;
     //exit(1);
-    $dbConn->execute( $sql );
+    $dbConn->exec( $sql );
 }
 if ( ($isTutorOwner || $isGroupTutor ) && isSet( $_REQUEST[ 'broles' ] ) && isSet( $_REQUEST[ 'rolenum' ] ) ) {
     $memberset = '\'' . implode( "','", $_REQUEST[ 'sactor' ] ) . '\'';
-    $sql = array();
-    $sql[] = "delete from student_role where prjm_id=$prjm_id\n" .
+    $sql = "begin work;\n";
+    $sql .= "delete from student_role where prjm_id=$prjm_id\n" .
             " and snummer in ($memberset);\n";
 
     for ( $i = 0; $i < count( $_REQUEST[ 'sactor' ] ); $i++ ) {
         $sactor = $_REQUEST[ 'sactor' ][ $i ];
         $rolenum = $_REQUEST[ 'rolenum' ][ $i ];
-        $sql[] = "insert into student_role (snummer,rolenum,prjm_id)\n" .
+        $sql .= "insert into student_role (snummer,rolenum,prjm_id)\n" .
                 "\t values($sactor,$rolenum,$prjm_id);\n";
     }
-    $affected_rows = $dbConn->executeQueryList( $sql );
-    // number of rows could be shown.
+    $sql .="commit;\n";
+    $affected_rows = $dbConn->exec( $sql );
 }
 
 if ( $isTutorOwner && isSet( $_REQUEST[ 'setdefrole' ] ) ) {
@@ -79,20 +79,20 @@ if ( $isTutorOwner && isSet( $_REQUEST[ 'baddtype' ] ) &&
     $description = pg_escape_string( $_REQUEST[ 'role_description' ] );
     $short = pg_escape_string( $_REQUEST[ 'role_short' ] );
     $sql = "select max(rolenum)+1 as nextval from project_roles where prj_id=$prj_id";
-    $resultSet = $dbConn->execute( $sql );
+    $resultSet = $dbConn->query( $sql );
     if ( $resultSet === false ) {
         die( "<br>Cannot get sequence next value with <pre>$sql</pre>" . $dbConn->ErrorMsg() . "<br>" );
     }
     $id = 0;
-    if ( !$resultSet->EOF && isSet( $resultSet->fields[ 'nextval' ] ) ) {
-        $id = $resultSet->fields[ 'nextval' ];
+    if ( (($row = $resultSet->fetch()) !== false) && isSet( $row[ 'nextval' ] ) ) {
+        $id = $row[ 'nextval' ];
     }
     $sql = "begin work;\n" .
             "insert into project_roles (prj_id,role,rolenum,short) values ($prj_id,'$description',$id,'$short');\n";
     $sql .= 'commit;';
-    if ( $db_name == 'peer2' )
-        $dbConn->log( "<pre>$sql</pre>" );
-    $resultSet = $dbConn->execute( $sql );
+//    if ( $db_name == 'peer2' )
+//        $dbConn->log( "<pre>$sql</pre>" );
+    $resultSet = $dbConn->exec( $sql );
     if ( $resultSet === false ) {
         echo "<br>Cannot insert new role with <pre>" . $sql . "</pre> reason " . $dbConn->ErrorMsg() . "<br>";
     }
@@ -113,27 +113,27 @@ if ( $isTutorOwner &&
     }
     $sql .= 'commit;';
     if ( $db_name == 'peer2' )
-        $dbConn->log( $sql );
-    $resultSet = $dbConn->execute( $sql );
+//        $dbConn->log( $sql );
+        $resultSet = $dbConn->exec( $sql );
     if ( $resultSet === false ) {
         echo "<br>Cannot update roles types with <pre>" . $sql . "</pre> reason " . $dbConn->ErrorMsg() . "<br>";
     }
 }
 
 $sql = "select tutor as tutor_owner from project join tutor on (userid=owner_id) where prj_id=$prj_id";
-$resultSet = $dbConn->execute( $sql );
+$resultSet = $dbConn->query( $sql );
 if ( $resultSet === false ) {
     echo "<br>Cannot get tutor owner <pre>" . $sql . "</pre> reason " . $dbConn->ErrorMsg() . "<br>";
 }
-extract( $resultSet->fields );
+extract( $resultSet->fetch() );
 
 $prjSel->setJoin( 'milestone_grp using (prj_id,milestone)' );
 //if ($db_name =='peer2') $dbConn->log($prjSel->getQuery());
 $prj_id_selector = $prjSel->getSimpleForm();
 $copy_form = '';
 $sql = "select count(1) as role_count from project_roles where prj_id={$prj_id}";
-$resultSet = $dbConn->execute( $sql );
-$has_roles = $resultSet->fields[ 'role_count' ] > 0;
+$resultSet = $dbConn->query( $sql );
+$has_roles = $resultSet->fetch()[ 'role_count' ] > 0;
 if ( !$has_roles ) {
     $copyselector = getProjectSelector( $dbConn, $peer_id, $prj_id, 'roprj_id', ' prj_id in (select distinct prj_id from project_roles)' );
     $copy_form = "<fieldset><legend>copy roles from other project</legend><form id='copyform' method='get'>\n"
@@ -167,13 +167,13 @@ $sqltut = "select s.snummer,achternaam,roepnaam,tussenvoegsel,\n" .
         " where pt.prjm_id=$prjm_id and pt.grp_num=$grp_num\n" .
         " order by achternaam asc,roepnaam asc";
 //$dbConn->log($sqltut);
-$resultSet = $dbConn->Execute( $sqltut );
+$resultSet = $dbConn->query( $sqltut );
 if ( $resultSet === false ) {
     die( "<br>Cannot get groups with \"<pre>" . $sqltut . '</pre>", cause ' . $dbConn->ErrorMsg() . "<br>" );
 }
 //echo "<pre>$sqltut</pre>";
-while (!$resultSet->EOF) {
-    extract( $resultSet->fields );
+while ( ($row = $resultSet->fetch()) !== false ) {
+    extract( $row );
     if ( $isGroupTutor || $isTutorOwner ) {
         $roleList = "<select name='rolenum[]' style='background:#FF8'>\n" .
                 getOptionList( $dbConn, "select rolenum as value, role as name from project_roles\n" .
@@ -188,7 +188,6 @@ while (!$resultSet->EOF) {
             "\t\t<td $tdattrib>{$capabilities}</td>\n" .
             "\t\t<td $tdattrib>{$roleList} <input type='hidden' name='sactor[]' value='{$snummer}'/></td>" .
             "\n\t</tr>\n";
-    $resultSet->moveNext();
 }
 if ( $isGroupTutor || $isTutorOwner ) {
     $submitButton = "<input type='submit' name='broles' value='set roles' />";

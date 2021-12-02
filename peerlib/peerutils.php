@@ -196,7 +196,7 @@ function optionList( $dbConn, $query, $selected_value, $preload = array() ) {
     echo getOptionList( $dbConn, $query, $selected_value );
 }
 
-function getOptionList( PDO $dbConn, string $query, string $selected_value, array $preload = array() ): string {
+function getOptionList( PDO $dbConn, string $query, string $selected_value=null, array $preload = array() ): string {
     $result = '';
     $pstm = $dbConn->query( $query );
     if ( $pstm === false ) {
@@ -349,10 +349,10 @@ function getQueryToTableChecked( PDO $dbConn, string $query, bool $numerate, int
     for ( $i = 0; $i < $colcount; $i++ ) {
         $columnMeta = $pstm->getColumnMeta( $i );
 //        $field = $pstm->FetchField( $i );
-        $name=$columnMeta['name'];
+        $name = $columnMeta[ 'name' ];
         $columnNames[ $i ] = $name;
         $result .= "\t\t<th class='tabledata head' style='text-algin:left;'>" . niceName( $name ) . "</th>\n";
-        $columntypes[ $i ] = $columnMeta['native_type'];
+        $columntypes[ $i ] = $columnMeta[ 'native_type' ];
         $sums[ $i ] = 0;
     }
     $result .= "</tr>\n</thead>\n";
@@ -401,7 +401,7 @@ function getQueryToTableChecked( PDO $dbConn, string $query, bool $numerate, int
         $result .= "\t</tr>\n";
 //        $pstm->MoveNext();
     }
-   $result .= "</table>\n<!-- end queryTableChecked -->";
+    $result .= "</table>\n<!-- end queryTableChecked -->";
 
 //    $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
     return $result;
@@ -1154,26 +1154,26 @@ function rmDirAll( $target ) {
  * @param tutor_code
  * @return true if tutor_owner or has syscap
  */
-function checkTutorOwner( $dbConn, $prj_id, $tutor_id ) {
+function checkTutorOwner( PDO $dbConn, $prj_id, $tutor_id ) {
     if ( hasCap( CAP_SYSTEM ) )
         return true;
     $sql = "select owner_id from project where prj_id=$prj_id and owner_id=$tutor_id";
-    $resultSet = $dbConn->Execute( $sql );
-    return (!$resultSet->EOF);
+    $resultSet = $dbConn->query( $sql );
+    return $resultSet->fetch() !== false;
 }
 
-function checkTutorOwnerMilestone( $dbConn, $prjm_id, $tutor_id ) {
+function checkTutorOwnerMilestone( PDO $dbConn, $prjm_id, $tutor_id ) {
     if ( hasCap( CAP_SYSTEM ) )
         return true;
     $sql = "select count(1) from project natural join prj_milestone where prjm_id=$prjm_id and owner_id=$tutor_id";
-    $resultSet = $dbConn->Execute( $sql );
-    return (!$resultSet->EOF);
+    $resultSet = $dbConn->query( $sql );
+    return $resultSet->fetch() !== false;
 }
 
-function checkGroupTutor( $dbConn, $prjtg_id, $tutor_id ) {
+function checkGroupTutor( PDO $dbConn, $prjtg_id, $tutor_id ) {
     $sql = "select count(1) as tutor_count from prj_tutor where prjtg_id={$prjtg_id} and tutor_id={$tutor_id}";
-    $resultSet = $dbConn->Execute( $sql );
-    return ($resultSet->fields[ 'tutor_count' ] == 1);
+    $resultSet = $dbConn->query( $sql );
+    return ($resultSet->fetch()[ 'tutor_count' ] == 1);
 }
 
 /**

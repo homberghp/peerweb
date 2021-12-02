@@ -37,8 +37,8 @@ function getQueryToTableChecked2( PDO $dbConn, $query, $numerate, $watchColumn, 
         $result .= "</pre>";
     }
     $colcount = $pstm->columnCount();
-    if ( !$pstm->EOF && $watchColumn >= 0 && $watchColumn < $colcount )
-        $watchVal = $pstm->fields[ $watchColumn ];
+    if ( (($row = $pstm->fetch()) !== false) && ($watchColumn >= 0) && ($watchColumn < $colcount) )
+        $watchVal = $row[ $watchColumn ];
     //  $rb = new RainBow(0xFF8844,-20,20,40);
     $result .= "<table class='tabledata' border='1' width='100%' style='empty-cells:show; border-collapse:collapse;' summary='query table'>\n";
     $result .= "<tr>\n";
@@ -55,8 +55,8 @@ function getQueryToTableChecked2( PDO $dbConn, $query, $numerate, $watchColumn, 
             $hide = false;
         }
         if ( !$hide )
-            $result .= "\t\t<th class='tabledata head' style='text-algin:left;'>" . niceName( $fieldMeta->name ) . "</th>\n";
-        $columntypes[ $i ] = $fieldMeta[ 'natural_type' ];
+            $result .= "\t\t<th class='tabledata head' style='text-algin:left;'>" . niceName( $fieldMeta[ 'name' ] ) . "</th>\n";
+        $columntypes[ $i ] = $fieldMeta[ 'native_type' ];
         $sums[ $i ] = 0;
     }
     $result .= "</tr>\n";
