@@ -8,12 +8,12 @@
  * @param type $class_ids the submitted current set ogf class ids, selected
  * @return type rendered html string.
  */
- function classMultiSelector($dbConn, $sql,$submit_button, $class_ids = array()) {
+ function classMultiSelector( PDO $dbConn, string $sql, string $submit_button, array $class_ids = array()): string {
 
-    $resultSet = $dbConn->Execute($sql);
+    $pstm = $dbConn->query($sql);
 
-    if ($resultSet === false) {
-        die("<br>Cannot get groups with \"" . $sql . '", cause ' . $dbConn->ErrorMsg() . "<br>");
+    if ($pstm === false) {
+    die("<br>Cannot get groups with {$sql} cause {$dbConn->errorInfo()[2]}<br>");
     }
 //ob_start();
     $opl_afko = '';
@@ -23,18 +23,18 @@
     $result = '';
     $row = '';
     $cluster_name = '';
-    if (!$resultSet->EOF) {
-        $opl_afko = $resultSet->fields['opl_afko'];
-        $sort1 = $resultSet->fields['sort1'];
-        $sort2 = $resultSet->fields['sort2'];
-        $cluster_name = $resultSet->fields['cluster_name'];
+    if (($row=$pstm->fetch()) !== false) {
+        $opl_afko = $row['opl_afko'];
+        $sort1 = $row['sort1'];
+        $sort2 = $row['sort2'];
+        $cluster_name = $row['cluster_name'];
     }
     $divcount = 0;
     $cluster_name = '';
     $tablist = ""."<!-- classMultiSelector Start -->\n<div id='tabs'>\n<ul>\n";
-    while (!$resultSet->EOF) {
-        $opl_afko = $resultSet->fields['opl_afko'];
-        if ($cluster_name != $resultSet->fields['cluster_name']) {
+    while (($row=$pstm->fetch()) !== false) {
+        $opl_afko = $row['opl_afko'];
+        if ($cluster_name != $row['cluster_name']) {
             // close cluster
             // append last row
             if ($curriculum != '') {
@@ -48,8 +48,8 @@
                         "<br/><b>Legend:class name [class size]</b>\n</div><!-- end tabs-${divcount} -->\n";
             }
             $divcount++;
-            $faculty_short = $resultSet->fields['faculty_short'];
-            $cluster_name = $resultSet->fields['cluster_name'];
+            $faculty_short = $row['faculty_short'];
+            $cluster_name = $row['cluster_name'];
             $curriculum .= "<div id='tabs-${divcount}'>\n<table border='1' style='border-collapse:collapse;'>\n"
                     . "\t<thead><tr>"
                     . "<th colspan='6' style='align:center'>"
@@ -58,7 +58,7 @@
             $colcount = 0;
             $tablist .= "\t\t<li><a href='#tabs-${divcount}'>$faculty_short/$cluster_name</a></li>\n";
         }
-        extract($resultSet->fields);
+        extract($row);
 
         $checked = '';
         if (in_array($class_id, $class_ids)) {
@@ -72,7 +72,6 @@
             $curriculum .= "\n\t\t</tr>\n";
             $colcount = 0;
         }
-        $resultSet->moveNext();
     }
     if ($colcount > 0) {
         $colsleft = (6 - $colcount);

@@ -1,74 +1,75 @@
 <?php
-requireCap(CAP_TUTOR);
+
+requireCap( CAP_TUTOR );
 
 require_once('peerutils.php');
 require_once('navigation2.php');
 require_once('prjMilestoneSelector2.php');
 require_once('classMultiSelector.php');
 
-requireCap(CAP_TUTOR);
-extract($_SESSION);
-$year = date('Y');
-if (date('m') < '07') {
+requireCap( CAP_TUTOR );
+extract( $_SESSION );
+$year = date( 'Y' );
+if ( date( 'm' ) < '07' ) {
     $year -= 1;
 }
 $tutor = $tutor_code;
 $milestone = 1;
 $class_ids = array();
-$prjSel = new PrjMilestoneSelector2($dbConn, $peer_id, $prjm_id);
-$prjSel->setWhere('valid_until > now()::date')
-        ->setExtraInfo("<strong>"
+$prjSel = new PrjMilestoneSelector2( $dbConn, $peer_id, $prjm_id );
+$prjSel->setWhere( 'valid_until > now()::date' )
+        ->setExtraInfo( "<strong>"
                 . "<p>Note that you can only select "
                 . "<a href='alterproject.php'>project</a>s "
-                . "which have a <b>valid until</b> date that is in the future.</p></strong><br/>");
+                . "which have a <b>valid until</b> date that is in the future.</p></strong><br/>" );
 
-extract($prjSel->getSelectedData());
-$_SESSION['prj_id'] = $prj_id;
-$_SESSION['prjm_id'] = $prjm_id;
-$_SESSION['milestone'] = $milestone;
+extract( $prjSel->getSelectedData() );
+$_SESSION[ 'prj_id' ] = $prj_id;
+$_SESSION[ 'prjm_id' ] = $prjm_id;
+$_SESSION[ 'milestone' ] = $milestone;
 
-if (isSet($_SESSION['prjm_id'])) {
+if ( isSet( $_SESSION[ 'prjm_id' ] ) ) {
     $sql = "select distinct class_id,cl.sclass as sclass \n" .
             "from prj_grp join student_email using (snummer) join prj_tutor using(prjtg_id)\n" .
             "  join student_class cl using(class_id)\n" .
             "where prjm_id=$prjm_id\n" .
             " order by sclass,class_id asc";
-    $resultSet = $dbConn->query($sql);
-    if ($resultSet === false) {
-        die("<br>Cannot get groups with \"" . $sql . '", cause ' . $dbConn->errorInfo()[2] . "<br>");
+    $resultSet = $dbConn->query( $sql );
+    if ( $resultSet === false ) {
+        die( "<br>Cannot get groups with \"" . $sql . '", cause ' . $dbConn->errorInfo()[ 2 ] . "<br>" );
     }
     $gcount = 0;
-    while (($row=$resultSet->fetch()) !==false) {
-        $sclass = $row['sclass'];
-        $class_id = $row['class_id'];
-        $class_ids[$gcount] = $class_id;
+    while ( ($row = $resultSet->fetch()) !== false ) {
+        $sclass = $row[ 'sclass' ];
+        $class_id = $row[ 'class_id' ];
+        $class_ids[ $gcount ] = $class_id;
         $gcount++;
     }
-    $_SESSION['class_ids'] = $class_ids;
+    $_SESSION[ 'class_ids' ] = $class_ids;
 } else {
 
     // smart guess
     $sql = "select prj_id,afko,year,description from project\n" .
             " where prj_id=(select max(prj_id) as prj_id from project)";
-    $resultSet = $dbConn->query($sql);
-    if ($resultSet === false) {
-        die("<br>Cannot get smart project data with $sql, cause" . $dbConn->errorInfo()[2] . "<br>");
+    $resultSet = $dbConn->query( $sql );
+    if ( $resultSet === false ) {
+        die( "<br>Cannot get smart project data with $sql, cause" . $dbConn->errorInfo()[ 2 ] . "<br>" );
     }
 
-    if (($row=$resultSet->fetch()) ===false) {
+    if ( ($row = $resultSet->fetch()) === false ) {
         $prj_id = 0;
     } else {
-        extract($row);
+        extract( $row );
     }
-    $_SESSION['prj_id'] = $prj_id;
+    $_SESSION[ 'prj_id' ] = $prj_id;
 }
 
 //array_walk($_POST,myprint);
-if (isSet($_POST['bsubmit'])) {
-    if (isSet($_POST['class_ids'])) {
-        $class_ids = $_POST['class_ids'];
+if ( isSet( $_POST[ 'bsubmit' ] ) ) {
+    if ( isSet( $_POST[ 'class_ids' ] ) ) {
+        $class_ids = $_POST[ 'class_ids' ];
         //	array_walk($class_ids,myprint);
-        $sstudent_classet = implode(",", $class_ids);
+        $sstudent_classet = implode( ",", $class_ids );
         //	echo "sstudent_classet=$sstudent_classet<br>\n";
         // how to change the set of grps.
         // possible elements (U) = ABCDE
@@ -82,19 +83,19 @@ if (isSet($_POST['bsubmit'])) {
                 . "(snummer not in (select snummer from fixed_student2 where prjm_id=$prjm_id ));\n"
                 . "commit";
         //		echo "<br/>sql=$sql<br/>";
-        $dbConn->log($sql);
-        $resultSet = $dbConn->Execute($sql);
-        if ($resultSet === false) {
-            die("<br>Cannot delete group members " . $sql . " reason " . $dbConn->errorInfo()[2] . "<br>");
+        $dbConn->log( $sql );
+        $resultSet = $dbConn->Execute( $sql );
+        if ( $resultSet === false ) {
+            die( "<br>Cannot delete group members " . $sql . " reason " . $dbConn->errorInfo()[ 2 ] . "<br>" );
         }
     } else {
         $class_ids = array();
         $sql = "delete from prj_grp where prjtg_id in (select prjtg_id from prj_tutor where prjm_id=$prjm_id)";
         //	echo "<br/>sql=$sql<br/>";
-        $resultSet = $dbConn->Execute($sql);
-        if ($resultSet === false) {
-            echo( "<br>Cannot delete prj/milestone " . $sql . " reason " . $dbConn->errorInfo()[2] . "<br>");
-            stacktrace(1);
+        $resultSet = $dbConn->Execute( $sql );
+        if ( $resultSet === false ) {
+            echo( "<br>Cannot delete prj/milestone " . $sql . " reason " . $dbConn->errorInfo()[ 2 ] . "<br>");
+            stacktrace( 1 );
             die();
         }
     }
@@ -105,36 +106,36 @@ if (isSet($_POST['bsubmit'])) {
             "prjm_id=$prjm_id)";
     //    echo "<br/>sql=$sql<br/>";
     $curSet = array();
-    $resultSet = $dbConn->Execute($sql);
-    if ($resultSet === false) {
-        die("<br>Cannot get project values with " . $sql . " reason " . $dbConn->errorInfo()[2] . "<br>");
+    $resultSet = $dbConn->Execute( $sql );
+    if ( $resultSet === false ) {
+        die( "<br>Cannot get project values with " . $sql . " reason " . $dbConn->errorInfo()[ 2 ] . "<br>" );
     }
-    while (!$resultSet->EOF) {
-        $curSet[] = $resultSet->fields['class_id'];
+    while ( !$resultSet->EOF ) {
+        $curSet[] = $resultSet->fields[ 'class_id' ];
         $resultSet->moveNext();
     }
     //    echo "<br> current set".implode(",",$curSet)."<br>\n";
-    $toAdd = implode(",", array_diff($class_ids, $curSet));
+    $toAdd = implode( ",", array_diff( $class_ids, $curSet ) );
     //echo "toadd=$toAdd<br/>\n";
     // insert new student_class in new prj_grp
     // and give them to a 'new' project_tutor.
     $sql = "select max(grp_num) as new_grp_num from prj_tutor\n" .
             " where prjm_id=$prjm_id";
-    $resultSet = $dbConn->Execute($sql);
+    $resultSet = $dbConn->Execute( $sql );
     //    $dbConn->log("<pre>sql=$sql</pre>");
-    if ($resultSet === false) {
-        echo( "<br>Cannot get new_grp_num with <pre>" . $sql . "</pre> reason " . $dbConn->errorInfo()[2] . "<br>");
-        stacktrace(1);
+    if ( $resultSet === false ) {
+        echo( "<br>Cannot get new_grp_num with <pre>" . $sql . "</pre> reason " . $dbConn->errorInfo()[ 2 ] . "<br>");
+        stacktrace( 1 );
         die();
     }
-    if (!$resultSet->EOF) {
-        $new_grp_num = $resultSet->fields['new_grp_num'];
+    if ( !$resultSet->EOF ) {
+        $new_grp_num = $resultSet->fields[ 'new_grp_num' ];
         //echo "re use group [$new_grp_num]<br/>";
     }
 
-    if (isSet($new_grp_num)) {
+    if ( isSet( $new_grp_num ) ) {
         //$dbConn->log( "toadd = $toAdd<br/>" );
-        if ($toAdd != '') {
+        if ( $toAdd != '' ) {
             $sql = "begin work;\n";
             $sql .= "insert into prj_grp (snummer, prjtg_id)\n"
                     . "select snummer, pt.prjtg_id \n"
@@ -142,49 +143,49 @@ if (isSet($_POST['bsubmit'])) {
                     . " ( select snummer from student_email where class_id in ($toAdd))  sc where \n"
                     . " sc.snummer not in (select snummer from prj_grp pg join prj_tutor using(prjtg_id) where prjm_id=$prjm_id)\n";
 
-            $dbConn->log("sql=$sql");
+            $dbConn->log( "sql=$sql" );
             //echo $sql;
-            $resultSet = $dbConn->query($sql);
-            if ($resultSet === false) {
-                echo( "<br>Cannot set project values with<pre>" . $sql . "</pre> reason " . $dbConn->errorInfo()[2] . "<br>");
-                $dbConn->query("rollback");
-                stacktrace(1);
+            $resultSet = $dbConn->query( $sql );
+            if ( $resultSet === false ) {
+                echo( "<br>Cannot set project values with<pre>" . $sql . "</pre> reason " . $dbConn->errorInfo()[ 2 ] . "<br>");
+                $dbConn->query( "rollback" );
+                stacktrace( 1 );
                 die();
             } else {
-                $dbConn->query("commit");
+                $dbConn->query( "commit" );
             }
         }
     }
     // insert into session
-    $_SESSION['class_ids'] = $class_ids;
+    $_SESSION[ 'class_ids' ] = $class_ids;
 }
-$prj_id = isSet($_SESSION['prj_id']) ? $_SESSION['prj_id'] : -1;
-extract(getTutorOwnerData($dbConn, $prj_id), EXTR_PREFIX_ALL, 'ot');
-$_SESSION['prj_id'] = $prj_id = $ot_prj_id;
+$prj_id = isSet( $_SESSION[ 'prj_id' ] ) ? $_SESSION[ 'prj_id' ] : -1;
+extract( getTutorOwnerData( $dbConn, $prj_id ), EXTR_PREFIX_ALL, 'ot' );
+$_SESSION[ 'prj_id' ] = $prj_id = $ot_prj_id;
 
-if ($ot_userid === $peer_id) {
+if ( $ot_userid === $peer_id ) {
     $submit_button = '<button name=\'bsubmit\' value=\'submit\'>Submit</button>';
 } else {
     $submit_button = '';
 }
-$resultSet = $dbConn->query("select count(*) as participants from prj_grp join prj_tutor using(prjtg_id) where prjm_id=$prjm_id");
-extract($resultSet->fetch());
+$resultSet = $dbConn->query( "select count(*) as participants from prj_grp join prj_tutor using(prjtg_id) where prjm_id=$prjm_id" );
+extract( $resultSet->fetch() );
 // generating output
 $page = new PageContainer();
-$page->setTitle('Select participating student_class');
+$page->setTitle( 'Select participating student_class' );
 $page_opening = "Select the student_class of the participating students";
-$nav = new Navigation($tutor_navtable, basename(__FILE__), $page_opening);
-$page->addBodyComponent($nav);
-$resultSet = $dbConn->query("select afko,description from project where prj_id=$prj_id");
-extract($resultSet->fetch());
-$form1Form = new HtmlContainer("<div id='projectsel'>");
-$prjSel->setJoin(" (select distinct prjm_id from prj_milestone natural join project  where owner_id=$peer_id) p_mil using (prjm_id)");
+$nav = new Navigation( $tutor_navtable, basename( __FILE__ ), $page_opening );
+$page->addBodyComponent( $nav );
+$resultSet = $dbConn->query( "select afko,description from project where prj_id=$prj_id" );
+extract( $resultSet->fetch() );
+$form1Form = new HtmlContainer( "<div id='projectsel'>" );
+$prjSel->setJoin( " (select distinct prjm_id from prj_milestone natural join project  where owner_id=$peer_id) p_mil using (prjm_id)" );
 //$dbConn->log($prjSel->getQuery());
 
-$form1Form->addText($prjSel->getWidget());
+$form1Form->addText( $prjSel->getWidget() );
 
-$self=basename(__FILE__);
-$form2Form = new HtmlContainer("<form method='post' name='group_def' action='$self'>");
+$self = basename( __FILE__ );
+$form2Form = new HtmlContainer( "<form method='post' name='group_def' action='$self'>" );
 
 //$form2Form->addText( "Legend:class name [class size]<br/>\n" );
 $sql = "select distinct rtrim(student_class.sclass) as sclass,class_id,sort1,sort2,sort_order,\n" .
@@ -197,22 +198,25 @@ $sql = "select distinct rtrim(student_class.sclass) as sclass,class_id,sort1,sor
         "where sort2 < 9 and sclass not like 'UIT%' \n" .
         "order by sort_order,faculty_short desc,cluster_name,sort1,sort2,sclass asc";
 
-$classmultiselector = classMultiSelector($dbConn, $sql, $submit_button,$class_ids); //$tablist.$curriculum;
+$classmultiselector = classMultiSelector( $dbConn, $sql, $submit_button, $class_ids ); //$tablist.$curriculum;
 //$classmultiselector = $tablist.$curriculum;
-$sqlCount = "select count(*) as membercount from prj_grp join prj_tutor using(prjtg_id) where prjm_id=$prjm_id";
-$rsc = $dbConn->Execute($sqlCount);
-$membercount = $rsc->fields['membercount'];
+$sqlCount = "select count(*) as membercount from prj_grp join prj_tutor using(prjtg_id) where prjm_id=?";
 
-$form2Form->addText($classmultiselector);
+$pstm = $dbConn->prepare( $sqlCount );
+$pstm->execute( [ $prjm_id ] );
+$row=$pstm->fetch();
+$membercount = $row[ 'membercount' ];
+
+$form2Form->addText( $classmultiselector );
 
 //$form1Table->add( $form1Form );
-$form2Fieldset = new HtmlContainer("<div id='demo' style='margin:2em;background:rgba(255,255,255,0.5);'><b>Current member count =$membercount</b>");
-$form2Fieldset->add($form2Form);
-$page->addBodyComponent($form1Form);
-$page->addBodyComponent($form2Fieldset);
+$form2Fieldset = new HtmlContainer( "<div id='demo' style='margin:2em;background:rgba(255,255,255,0.5);'><b>Current member count =$membercount</b>" );
+$form2Fieldset->add( $form2Form );
+$page->addBodyComponent( $form1Form );
+$page->addBodyComponent( $form2Fieldset );
 
-$page->addBodyComponent(new Component('<!-- db_name=$db_name $Id: defgroup.php 1829 2014-12-28 19:40:37Z hom $ -->'));
-$page->addHeadText('
+$page->addBodyComponent( new Component( '<!-- db_name=$db_name $Id: defgroup.php 1829 2014-12-28 19:40:37Z hom $ -->' ) );
+$page->addHeadText( '
 <link type="text/css" href="js/jquery-ui-custom/jquery-ui.css" rel="stylesheet" />	
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-custom/jquery-ui.min.js"></script>
@@ -221,6 +225,6 @@ $page->addHeadText('
 		$( "#tabs" ).tabs();
 	});
 	</script>
-');
+' );
 $page->show();
 ?>

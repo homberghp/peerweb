@@ -124,7 +124,7 @@ class Menu {
                 $nameList = trim( ',', $row2[ 'query' ] );
             } else {
                 $mi = new MenuField( $this->dbConn, $this->itemValidator, $this->page );
-                $mi->setDef( $resultSet->fields );
+                $mi->setDef( $pstm->fetch() );
                 $mi->setName( $name );
                 $this->menuItems[ $name ] = $mi;
             }

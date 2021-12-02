@@ -322,24 +322,24 @@ function queryToTable( $dbConn, $query, $numerate = 0, $watchColumn = -1, $rb ) 
  * @param $inputColumn array columns that are inputs. In array, type and width is defined
  * @return the table rendered as string.
  */
-function getQueryToTableChecked( $dbConn, $query, $numerate, $watchColumn, $rb, $checkColumn, $checkName, $checkSet = array(), $inputColumns = array(), $summary = 'list of data' ) {
+function getQueryToTableChecked( PDO $dbConn, string $query, bool $numerate, int $watchColumn, RainBow $rb, int $checkColumn, string $checkName,
+        array $checkSet = array(), array $inputColumns = array(), string $summary = 'list of data' ): string {
     global $ADODB_FETCH_MODE;
     $result = "<!-- start queryTableChecked -->\n";
-    $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
     $coltypes = array();
     $sums = array();
     $watchVal = '';
     $nr = 0;
-    $resultSet = $dbConn->Execute( $query );
-    if ( $resultSet === false ) {
+    $pstm = $dbConn->query( $query );
+    if ( $pstm === false ) {
         $result .= "<pre>Cannot read table data \nreason \n\t" . $dbConn->errorInfo()[ 2 ] . " at <br/>\n";
         stacktrace( 1 );
         $result .= "</pre>";
         return $result;
     }
-    $colcount = $resultSet->FieldCount();
-    if ( !$resultSet->EOF && ($watchColumn >= 0) && ($watchColumn < $colcount) )
-        $watchVal = $resultSet->fields[ $watchColumn ];
+    $colcount = $pstm->columnCount();
+    if ( (($row = $pstm->fetch()) !== false) && ($watchColumn >= 0) && ($watchColumn < $colcount) )
+        $watchVal = $row[ $watchColumn ];
     //  $rb = new RainBow(0xFF8844,-20,20,40);
     $result .= "<table summary='$summary' id='myTable' class='tablesorter' border='1' style='empty-cells:show; border-collapse:collapse;'>\n";
     $result .= "<thead>\n<tr>\n";
@@ -347,29 +347,31 @@ function getQueryToTableChecked( $dbConn, $query, $numerate, $watchColumn, $rb, 
         $result .= "\t\t<th class='tabledata head num'>#</th>\n";
     $columnNames = array();
     for ( $i = 0; $i < $colcount; $i++ ) {
-        $field = $resultSet->FetchField( $i );
-        $columnNames[ $i ] = $field->name;
-        $result .= "\t\t<th class='tabledata head' style='text-algin:left;'>" . niceName( $field->name ) . "</th>\n";
-        $columntypes[ $i ] = $resultSet->MetaType( $i );
+        $columnMeta = $pstm->getColumnMeta( $i );
+//        $field = $pstm->FetchField( $i );
+        $name=$columnMeta['name'];
+        $columnNames[ $i ] = $name;
+        $result .= "\t\t<th class='tabledata head' style='text-algin:left;'>" . niceName( $name ) . "</th>\n";
+        $columntypes[ $i ] = $columnMeta['native_type'];
         $sums[ $i ] = 0;
     }
     $result .= "</tr>\n</thead>\n";
     $rowColor = $rb->restart();
     $textstyle = " style='background-color:" . $rowColor . "'";
-    while ( !$resultSet->EOF ) {
+    while ( ($row = $pstm->fetch()) !== false ) {
         $nr++;
         if ( $watchColumn >= 0 ) {
-            if ( $resultSet->fields[ $watchColumn ] != $watchVal ) {
+            if ( $row[ $watchColumn ] != $watchVal ) {
                 $rowColor = $rb->getNext();
             }
-            $watchVal = $resultSet->fields[ $watchColumn ];
+            $watchVal = $row[ $watchColumn ];
         }
         $textstyle = " style='background-color:" . $rowColor . "'";
         $result .= "\t<tr $textstyle>\n";
         if ( $numerate )
             $result .= "\t\t<td class='tabledata num'>" . $nr . "</td>\n";
-        for ( $i = 0, $max = $resultSet->FieldCount(); $i < $max; $i++ ) {
-            $val = (isSet( $resultSet->fields[ $i ] )) ? trim( $resultSet->fields[ $i ] ) : '';
+        for ( $i = 0; $i < $colcount; $i++ ) {
+            $val = (isSet( $row[ $i ] )) ? trim( $row[ $i ] ) : '';
             $tdclass = 'tabledata';
             switch ( $columntypes[ $i ] ) {
                 case 'int2':
@@ -397,29 +399,11 @@ function getQueryToTableChecked( $dbConn, $query, $numerate, $watchColumn, $rb, 
             $result .= "\t\t<td class='$tdclass'>" . $val . "</td>\n";
         }
         $result .= "\t</tr>\n";
-        $resultSet->MoveNext();
+//        $pstm->MoveNext();
     }
-    /* $result .=  "\t<tr>\n";
-      if ($numerate) $result .=  "\t\t<th class='tabledata head'></th>\n";
-      for ($i=0; $i < $colcount; $i++) {
-      $val = '';
-      $tdclass='tabledata head';
-      switch ($columntypes[$i]) {
-      case 'I':
-      case 'N':
-      $val=$sums[$i];
-      $tdclass .=' num';
-      break;
-      default:
-      $val = '';
-      break;
-      }
-      $result .=  "\t\t<th class='$tdclass'>".$val."</th>\n";
-      }
-      $result .=  "\t</tr>\n"; */
-    $result .= "</table>\n<!-- end queryTableChecked -->";
+   $result .= "</table>\n<!-- end queryTableChecked -->";
 
-    $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
+//    $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
     return $result;
 }
 

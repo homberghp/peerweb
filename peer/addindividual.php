@@ -105,7 +105,7 @@ $sql = "select distinct snummer,achternaam,roepnaam,tussenvoegsel,pt.grp_num, al
         "  order by grp_num desc,achternaam,roepnaam";
 $rainbow = new RainBow();
 $memberTable = getQueryToTableChecked( $dbConn, $sql, true, 4, $rainbow, -1, '',
-        '' );
+        [] );
 
 pagehead( 'Add individual student.' );
 $page_opening = "Add individual student to a project. <span style='font-size:6pt;'>prj_id $prj_id milestone $milestone </span>";

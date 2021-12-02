@@ -11,19 +11,19 @@ class StudentPicker {
     private $newsnummer = 0;
     private $searchString = '';
     private $presentQuery;
-    private $dbConn;
+    private PDO $dbConn;
     private $autoFocus = '';
     private $inputName = 'newsnummer';
     private $showAcceptButton = true;
     private $selectOnFocus = false;
     private $autosubmit = false;
 
-    function __construct(&$con, $newsnummer, $name = 'Add student') {
+    function __construct( PDO $con, $newsnummer, $name = 'Add student' ) {
         $this->dbConn = $con;
         $this->newsnummer = $newsnummer;
         $this->pickerName = $name;
-        if (isSet($_REQUEST['searchname']) && !preg_match('/;/', $_REQUEST['searchname'])) {
-            $this->searchString = validate($_REQUEST['searchname'], 'anything','xyz');
+        if ( isSet( $_REQUEST[ 'searchname' ] ) && !preg_match( '/;/', $_REQUEST[ 'searchname' ] ) ) {
+            $this->searchString = validate( $_REQUEST[ 'searchname' ], 'anything', 'xyz' );
         }
     }
 
@@ -31,32 +31,32 @@ class StudentPicker {
      * present query tests for presence of student.
      * present query must yield a relation that is joinable by snummer.
      */
-    function setPresentQuery($pq) {
+    function setPresentQuery( $pq ) {
         $this->presentQuery = $pq;
         return $this;
     }
 
-    function setShowAcceptButton($b) {
+    function setShowAcceptButton( $b ) {
         $this->showAcceptButton = $b;
         return $this;
     }
 
-    function setSearchString($ss) {
+    function setSearchString( $ss ) {
         $this->searchString = $ss;
-        if (($ss != '') && ($this->newsnummer == 0)) {
+        if ( ($ss != '') && ($this->newsnummer == 0) ) {
             $this->newsnummer = $this->findStudentNumber();
         }
     }
 
     function buildWhereClause() {
 
-        if (preg_match('/,/', $this->searchString)) {
-            list($last, $first) = explode(',', $this->searchString);
-            $last = trim($last);
-            $first = trim($first);
+        if ( preg_match( '/,/', $this->searchString ) ) {
+            list($last, $first) = explode( ',', $this->searchString );
+            $last = trim( $last );
+            $first = trim( $first );
             $result = "achternaam ~* '^$last.*' and roepnaam ~* '^$first.*' ";
         } else {
-            $result = "achternaam ~* '^" . trim($this->searchString) . ".*' ";
+            $result = "achternaam ~* '^" . trim( $this->searchString ) . ".*' ";
         }
         return $result;
     }
@@ -64,9 +64,9 @@ class StudentPicker {
     function findStudentNumber() {
         $result = 0;
         $sql = "select snummer from student_email where " . $this->buildWhereClause() . " order by achternaam,roepnaam";
-        $rs = $this->dbConn->Execute($sql);
-        if ($rs !== false && !$rs->EOF) {
-            $result = $rs->fields['snummer'];
+        $rs = $this->dbConn->Execute( $sql );
+        if ( $rs !== false && !$rs->EOF ) {
+            $result = $rs->fields[ 'snummer' ];
         }
         return $result;
     }
@@ -92,15 +92,14 @@ class StudentPicker {
         $selall = $this->selectOnFocus ? "onFocus='this.select()'" : "";
         $auto = $this->autosubmit ? "onkeydown='if (event.keyCode == 13) document.getElementById(\"baccept\").click()'" : '';
         $result = '<!-- Start output StudentPicker \$Id\$ -->' . "\n";
-        $result .=
-                "<form id='addStudent' method='post' name='addStudent' action='$PHP_SELF'>\n" .
+        $result .= "<form id='addStudent' method='post' name='addStudent' action='$PHP_SELF'>\n" .
                 "<table summary='student data'>\n\t<tr>\n\t\t<th align='right'>Peerweb user number</th>\n" .
                 "\t\t<td>\n" .
                 "\t\t\t<input type='text' id='{$this->inputName}' name='{$this->inputName}' size= '8' value='{$this->newsnummer}' {$this->autoFocus} {$selall} {$auto}/>\n" .
                 "\t\t\t<input type='submit' name='bsubmit' value='get'/>(integer, between 1 and 8 digits)\n" .
                 "\t\t</td>\n" .
                 "\t</tr>\n";
-        if ($this->newsnummer != 0) {
+        if ( $this->newsnummer != 0 ) {
             $sql = "select distinct roepnaam,tussenvoegsel,voorletters,achternaam,email1,hoofdgrp,cl.sclass as sclass,"
                     . "course_description,"
                     . "foo.snummer as foo_snummer\n"
@@ -108,14 +107,14 @@ class StudentPicker {
                     . "join student_class cl using(class_id) left join fontys_course on(opl=course)\n"
                     . "left join ($this->presentQuery) as foo using(snummer)\n"
                     . " where snummer=$this->newsnummer order by sclass";
-            $resultSet = $this->dbConn->execute($sql);
-            $this->dbConn->log($sql);
-            if ($resultSet === false) {
-                $result .= "error with $sql, cause " . $this->dbConn->ErrorMsg();
+            $pstm = $this->dbConn->query( $sql );
+//            $this->dbConn->log($sql);
+            if ( $pstm === false ) {
+                $result .= "error with $sql, cause " . $this->dbConn->errorInfo()[ 2 ];
             }
 
-            if (!$resultSet->EOF) {
-                extract($resultSet->fields);
+            if ( ($row = $pstm->fetch()) !== false ) {
+                extract( $row );
                 $acceptbutton = ($this->newsnummer == $foo_snummer) ? "<span style='color:#080'>Student is in project</span><input type='submit'" .
                         " name='bdelete' value='Delete'/>" : "<input type='submit' id='baccept' name='baccept' value='accept' accesskey='A'/>";
 
@@ -126,19 +125,19 @@ class StudentPicker {
                         "\t<tr><th align='right'>email</th><td>$email1</td></tr>\n" .
                         "\t<tr><th align='right'>class</th><td>$sclass</td></tr>\n" .
                         "\t<tr><th align='right'>(major) course</th><td>$course_description</td></tr>\n";
-                if ($this->showAcceptButton) {
+                if ( $this->showAcceptButton ) {
                     $result .= "\t<tr><th align='right'>This is ok</th><td>$acceptbutton</td></tr>\n";
                 }
             }
         }
 
-        if ($this->presentQuery != '') {
+        if ( $this->presentQuery != '' ) {
             $sql = 'select count(*) as listsize from (' . $this->presentQuery . ') as foo';
-            $rs = $this->dbConn->execute($sql);
-            if ($rs === false) {
-                $result .= "error with $sql, cause " . $this->dbConn->ErrorMsg();
+            $rs = $this->dbConn->query( $sql );
+            if ( $rs === false ) {
+                $result .= "error with $sql, cause " . $this->dbConn->errorInfo()[2];
             } else {
-                $result .= "\t<tr><th>current list size</th><td>" . $rs->fields['listsize'] . "&nbsp;participants</td></tr>\n";
+                $result .= "\t<tr><th>current list size</th><td>" . $rs->fetch()[ 'listsize' ] . "&nbsp;participants</td></tr>\n";
             }
         }
 
@@ -158,7 +157,7 @@ class StudentPicker {
                 "</table>\n" .
                 "</form>\n";
 
-        if ($this->searchString != '') {
+        if ( $this->searchString != '' ) {
             $searchsql = "select '<a href=''$PHP_SELF?newsnummer='||snummer||'''>'||snummer||'</a>' as snummer,\n"
                     . " achternaam,roepnaam,tussenvoegsel,voorletters,email1,cl.sclass as sclass"
                     . " from student_email "
@@ -166,8 +165,8 @@ class StudentPicker {
                     . " where " . $this->buildWhereClause() . " order by achternaam,roepnaam";
             #        $this->dbConn->log($searchsql);
 
-            $result .= simpleTableString($this->dbConn, $searchsql
-                    , "<table summary='students found' border='1' style='border-collapse:collapse'>");
+            $result .= simpleTableString( $this->dbConn, $searchsql
+                    , "<table summary='students found' border='1' style='border-collapse:collapse'>" );
         }
 
         $result .= '<!-- End output StudentPicker $Id: studentpicker.php 1853 2015-07-25 14:17:12Z hom $ -->';
@@ -181,41 +180,41 @@ class StudentPicker {
         return $this->getPickerWidget(); // "studentpicker";
     }
 
-    public function setInputName($s) {
+    public function setInputName( $s ) {
         $this->inputName = $s;
     }
 
     public function processRequest() {
         $result = 0;
-        if (isSet($_GET['newsnummer'])) {
-            unset($_POST['newsnummer']);
-            $_REQUEST['newsnummer'] = $this->newsnummer = validate($_GET['newsnummer'], 'integer', '0');
+        if ( isSet( $_GET[ 'newsnummer' ] ) ) {
+            unset( $_POST[ 'newsnummer' ] );
+            $_REQUEST[ 'newsnummer' ] = $this->newsnummer = validate( $_GET[ 'newsnummer' ], 'integer', '0' );
             //    $dbConn->log('GET '.$newsnummer);
-        } else if (isSet($_POST['newsnummer'])) {
-            unset($_GET['newsnummer']);
-            $_REQUEST['newsnummer'] = $this->newsnummer = validate($_POST['newsnummer'], 'integer', '0');
+        } else if ( isSet( $_POST[ 'newsnummer' ] ) ) {
+            unset( $_GET[ 'newsnummer' ] );
+            $_REQUEST[ 'newsnummer' ] = $this->newsnummer = validate( $_POST[ 'newsnummer' ], 'integer', '0' );
             //    $dbConn->log('POST '.$newsnummer);
         } else {
-            unset($_POST['newsnummer']);
-            unset($_REQUEST['newsnummer']);
-            unset($_GET['newsnummer']);
+            unset( $_POST[ 'newsnummer' ] );
+            unset( $_REQUEST[ 'newsnummer' ] );
+            unset( $_GET[ 'newsnummer' ] );
         }
 
-        if (isSet($_REQUEST['searchname'])) {
-            if (!preg_match('/;/', $_REQUEST['searchname'])) {
-                $searchname = $_REQUEST['searchname'];
-                $this->setSearchString($searchname);
-                if (!isSet($_REQUEST['newsnummer'])) {
+        if ( isSet( $_REQUEST[ 'searchname' ] ) ) {
+            if ( !preg_match( '/;/', $_REQUEST[ 'searchname' ] ) ) {
+                $searchname = $_REQUEST[ 'searchname' ];
+                $this->setSearchString( $searchname );
+                if ( !isSet( $_REQUEST[ 'newsnummer' ] ) ) {
                     $this->newsnummer = $this->findStudentNumber();
-                    $this->dbConn->log($this->newsnummer);
+                    $this->dbConn->log( $this->newsnummer );
                 }
             } else {
                 $searchname = '';
             }
-            $_SESSION['searchname'] = $searchname;
+            $_SESSION[ 'searchname' ] = $searchname;
         } else {
-            if (isSet($_SESSION['searchname'])) {
-                $this->setSearchString($_SESSION['searchname']);
+            if ( isSet( $_SESSION[ 'searchname' ] ) ) {
+                $this->setSearchString( $_SESSION[ 'searchname' ] );
             }
         }
         return $this->newsnummer;
@@ -225,7 +224,7 @@ class StudentPicker {
         return $this->autoFocus;
     }
 
-    public function setAutoFocus($autoFocus) {
+    public function setAutoFocus( $autoFocus ) {
         $this->autoFocus = $autoFocus;
         return $this;
     }
