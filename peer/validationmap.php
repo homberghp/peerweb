@@ -18,4 +18,3 @@ if ($rs=== false){
 }
 $log_unknown_names=true;
 $log_validation_failures=true;
-?>
