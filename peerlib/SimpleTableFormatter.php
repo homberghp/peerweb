@@ -11,7 +11,7 @@ require_once'rainbow.php';
  */
 class SimpleTableFormatter {
 
-    private $dbConn;
+    private PDO $dbConn;
     private $page;
     private $query;
     private $checkName = 'snummer[]';
@@ -25,12 +25,12 @@ class SimpleTableFormatter {
      * @param type $colorChangerColumn column number (0 based ) of column to check for value changes.
      * @return \SimpleTableFormatter 
      */
-    public function setColorChangerColumn($colorChangerColumn) {
+    public function setColorChangerColumn( $colorChangerColumn ) {
         $this->colorChangerColumn = $colorChangerColumn;
         return $this;
     }
 
-    public function setTabledef($tabledef) {
+    public function setTabledef( $tabledef ) {
         $this->tabledef = $tabledef;
         return $this;
     }
@@ -47,7 +47,7 @@ class SimpleTableFormatter {
      * Set the name of the checkbox name for the check javascript.
      * @param the checkbox name .
      */
-    public function setCheckName($checkName) {
+    public function setCheckName( $checkName ) {
         $this->checkName = $checkName;
         return $this;
     }
@@ -56,7 +56,7 @@ class SimpleTableFormatter {
         return $this->checkColumn;
     }
 
-    public function setCheckColumn($checkColumn) {
+    public function setCheckColumn( $checkColumn ) {
         $this->checkColumn = $checkColumn;
         return $this;
     }
@@ -67,7 +67,7 @@ class SimpleTableFormatter {
      * @param type $query to reterive table data.
      * @param type $page the page to attach scripts to.
      */
-    public function __construct($dbConn, $query, $page = null) {
+    public function __construct( PDO $dbConn, $query, $page = null ) {
         $this->dbConn = $dbConn;
         $this->page = $page;
         $this->query = $query;
@@ -82,24 +82,24 @@ class SimpleTableFormatter {
         global $ADODB_FETCH_MODE;
         $result = '';
         $rowCount = 1;
-        $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
+//        $ADODB_FETCH_MODE = ADODB_FETCH_NUM;
         $coltypes = array();
         $columnNames = array();
-        $resultSet = $this->dbConn->Execute($this->query);
-        if ($resultSet === false) {
+        $pstm = $this->dbConn->query( $this->query );
+        if ( $pstm === false ) {
             $result .= "<pre style='color:800'>Cannot read table data with \n\t"
                     . $this->query . " </pre>\n\treason \n\t"
-                    . $this->dbConn->ErrorMsg() . " at\n";
-            stacktrace(1);
+                    . $this->dbConn->errotInfo()[ 2 ] . " at\n";
+            stacktrace( 1 );
             $result .= "</pre>";
             return $result;
         }
 
-        $colcount = $resultSet->FieldCount();
+        $colcount = $pstm->columnCount();
         $result .= $this->tabledef . "\n";
         $result .= "<thead>\n";
-        if ($this->checkColumn >= 0 && $this->page != null) {
-            $this->page->addHeadText(' 
+        if ( $this->checkColumn >= 0 && $this->page != null ) {
+            $this->page->addHeadText( ' 
        <script type="text/javascript">
           function checkThem(ref,state){
             var checks = document.getElementsByName(ref);
@@ -119,9 +119,9 @@ class SimpleTableFormatter {
               document.getElementById("cnt").innerHTML=cnt;
           }
          </script>'
-         );
+            );
             $checkRow = "<tr style='background:rgba(255,128,0,0.4)'>";
-            if ($this->checkColumn > 0) {
+            if ( $this->checkColumn > 0 ) {
                 $checkRow .= "<td colspan='" . $this->checkColumn . "'>";
             }
             $checkBox = "<input name='checkAll' name='checker' type='checkbox' onclick='javascript:checkThem(\""
@@ -132,42 +132,43 @@ class SimpleTableFormatter {
             $result .= $checkRow;
         }
         $result .= "<th>#</th>";
-        for ($i = 0; $i < $colcount; $i++) {
-            $field = $resultSet->FetchField($i);
-            $columnNames[$i] = $field->name;
-            $result .= "\t\t<th class='tabledata head' style='text-algin:left;'>" . niceName($field->name) . "</th>\n";
-            $columntypes[$i] = $resultSet->MetaType($i);
+        for ( $i = 0; $i < $colcount; $i++ ) {
+            $field = $pstm->getColumnMeta( $i );
+            $columnNames[ $i ] = $field[ 'name' ];
+            $result .= "\t\t<th class='tabledata head' style='text-algin:left;'>" . niceName( $field[ 'name' ] ) . "</th>\n";
+            $columntypes[ $i ] = $field[ 'native_type' ];
         }
+        $dbcolumnCount = $pstm->columnCount();
         $result .= "</tr>\n</thead>\n<tbody>\n";
         $oldValue = '';
         $rowColor = $this->rainbow->restart();
-        if (!$resultSet->EOF) {
-            if ($this->colorChangerColumn >= 0 && isSet($resultSet->fields[$this->colorChangerColumn])) {
-                $oldValue = $resultSet->fields[$this->colorChangerColumn];
-            }
-        }
-        while (!$resultSet->EOF) {
-            if ($this->colorChangerColumn >= 0 && isSet($resultSet->fields[$this->colorChangerColumn]) && $oldValue != $resultSet->fields[$this->colorChangerColumn]) {
+//        if (!$pstm->EOF) {
+//            if ($this->colorChangerColumn >= 0 && isSet($pstm->fields[$this->colorChangerColumn])) {
+//                $oldValue = $pstm->fields[$this->colorChangerColumn];
+//            }
+//        }
+        while ( ($row = $pstm->fetch()) !== false ) {
+            if ( $this->colorChangerColumn >= 0 && isSet( $row[ $this->colorChangerColumn ] ) && $oldValue != $row[ $this->colorChangerColumn ] ) {
                 $rowColor = $this->rainbow->getNext();
 
-                $oldValue = $resultSet->fields[$this->colorChangerColumn];
+                $oldValue = $pstm->fields[ $this->colorChangerColumn ];
             }
             $result .= "\t<tr style='background:$rowColor'>\n"
                     . "<td align='right'>" . ($rowCount++) . "</td>";
-            for ($i = 0, $max = $resultSet->FieldCount(); $i < $max; $i++) {
+            for ( $i = 0; $i < $dbcolumnCount; $i++ ) {
 
-                $val = (isSet($resultSet->fields[$i])) ? trim($resultSet->fields[$i]) : '';
-                if (substr($val, 0, 1) != '<') {
+                $val = (isSet( $row[ $i ] )) ? trim( $row[ $i ] ) : '';
+                if ( substr( $val, 0, 1 ) != '<' ) {
                     $val = $val;
                 }
-                if ((substr($val, 0, 1) == '{') && (substr($val, -1) == '}')) {
-                    $val = substr($val, 1, strlen($val) - 2);
-                    $val = substr($val, 0, strlen($val) - 2);
-                    $a = explode(',', $val);
-                    $val = '<td>' . implode('</td><td>', $a) . '</td>';
+                if ( (substr( $val, 0, 1 ) == '{') && (substr( $val, -1 ) == '}') ) {
+                    $val = substr( $val, 1, strlen( $val ) - 2 );
+                    $val = substr( $val, 0, strlen( $val ) - 2 );
+                    $a = explode( ',', $val );
+                    $val = '<td>' . implode( '</td><td>', $a ) . '</td>';
                 }
                 $tdclass = 'tabledata';
-                switch ($columntypes[$i]) {
+                switch ( $columntypes[ $i ] ) {
                     case 'int2':
                     case 'integer':
                     case 'numeric':
@@ -182,10 +183,9 @@ class SimpleTableFormatter {
                 $result .= "\t\t<td class='$tdclass'>" . $val . "</td>\n";
             }
             $result .= "\t</tr>\n";
-            $resultSet->MoveNext();
+//            $pstm->MoveNext();
         }
         $result .= "</tbody>\n</table>\n";
-        $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
         return $result;
     }
 

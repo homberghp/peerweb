@@ -40,11 +40,11 @@ $pp['oldprjtg_id'] = $_SESSION['oldprjtg_id'];
 if (isSet($_POST['update']) && isSet($_POST['studenten'])) {
     $memberset = '\'' . implode("','", $_POST['studenten']) . '\'';
     $sql0 = "select grp_num from prj_tutor where prjtg_id=$newprjtg_id";
-    $resultSet0 = $dbConn->Execute($sql0);
+    $resultSet0 = $dbConn->query($sql0);
     if ($resultSet0 === false) {
         die("<br>Cannot read grp_num with " . $sql0 . " reason " . $dbConn->ErrorMsg() . "<br>");
     }
-    $grp_num = $resultSet0->fields['grp_num'];
+    $grp_num = $resultSet0->fetch()['grp_num'];
     $sql = "BEGIN work;\n" .
             "DELETE FROM assessment where prjtg_id=$oldprjtg_id \n" .
             " AND (judge IN ($memberset) OR contestant IN ($memberset));\n" .
@@ -52,7 +52,7 @@ if (isSet($_POST['update']) && isSet($_POST['studenten'])) {
             " AND snummer IN ($memberset);\n" .
             "update prj_milestone set prj_milestone_open=false where prjm_id=$prjm_id;\n" .
             "COMMIT";
-    $resultSet = $dbConn->Execute($sql);
+    $resultSet = $dbConn->exec($sql);
     if ($resultSet === false) {
         die("<br>Cannot update project groups with " . $sql . " reason " . $dbConn->ErrorMsg() . "<br>");
     }
@@ -65,7 +65,7 @@ if (isSet($_POST['update']) && isSet($_POST['studenten'])) {
             " AND snummer IN ($memberset);\n" .
             "update prj_milestone set prj_milestone_open=false where prjm_id=$prjm_id;\n" .
             "COMMIT";
-    $resultSet = $dbConn->Execute($sql);
+    $resultSet = $dbConn->exec($sql);
     if ($resultSet === false) {
         die("<br>Cannot delete project groups with " . $sql . " reason " . $dbConn->ErrorMsg() . "<br>");
     }
@@ -131,7 +131,7 @@ $sql = "SELECT '<input type=''checkbox''  name=''studenten[]'' value='''||st.snu
         . "natural join portrait \n"
         . "where prjtg_id=$oldprjtg_id "
         . "order by hoofdgrp,opl_code,sclass asc,achternaam,roepnaam";
-$dbConn->log($sql);
+//$dbConn->log($sql);
 $tableFormatter = new SimpleTableFormatter($dbConn, $sql, $page);
 $tableFormatter->setCheckName('studenten[]');
 $tableFormatter->setCheckColumn(0);
@@ -142,4 +142,3 @@ $pp['memberTable'] = $tableFormatter->getTable();
 $page->addHtmlFragment('../templates/defgroupmembersalt.html', $pp);
 
 $page->show();
-?>
