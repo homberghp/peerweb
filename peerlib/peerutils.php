@@ -45,7 +45,7 @@ require_once('languagemap.php');
  * @param string $product filename
  * @return string pointing to a png mime type icon
  */
-function getMimeTypeIcon( $product ) {
+function getMimeTypeIcon( string $product ): string {
     $finfo = finfo_open( FILEINFO_MIME_TYPE );
     $mimetype = finfo_file( $finfo, $product );
     $image = 'images/mimetypes/' . preg_replace( '/\//', '-', $mimetype ) . '.png';
@@ -142,7 +142,7 @@ function requirestudentCap( $snummer, $cap, $prj_id, $milestone, $grp_num ) {
     }
 }
 
-function hasstudentCap( $snummer, $cap, $prjm_id, $grp_num = 0 ) {
+function hasstudentCap( int $snummer, int $cap, int $prjm_id, int $grp_num = 0 ): bool {
     global $dbConn;
     $sql = "select pr.capabilities from student_role\n " .
             "join prj_milestone using(prjm_id) \n" .
@@ -154,7 +154,7 @@ function hasstudentCap( $snummer, $cap, $prjm_id, $grp_num = 0 ) {
     if ( $grp_num != 0 ) {
         $sql .= " and grp_num=$grp_num";
     }
-    $resultSet = $dbConn->Execute( $sql );
+    $resultSet = $dbConn->query( $sql );
     if ( $resultSet === null ) {
         $msg = $dbConn->errorInfo()[ 2 ];
         echo "Cannot execute select statement \"" . $sql . "\", cause=" . $msg . "\n";
@@ -162,7 +162,7 @@ function hasstudentCap( $snummer, $cap, $prjm_id, $grp_num = 0 ) {
         die();
     }
     //$dbConn->log($sql."\nresult capabilities:[".$resultSet->fields['capabilities']."]\n");
-    return ((!$resultSet->EOF) && (($cap & $resultSet->fields[ 'capabilities' ]) != 0));
+    return ((($row=$resultSet->fetch()) !==false) && (($cap & $row[ 'capabilities' ]) != 0));
 }
 
 function hasstudentCap2( $snummer, $cap, $prjm_id, $grp_num = 0 ) {
@@ -179,9 +179,9 @@ function hasstudentCap2( $snummer, $cap, $prjm_id, $grp_num = 0 ) {
     if ( $grp_num != 0 ) {
         $sql .= " and grp_num=$grp_num";
     }
-    $resultSet = $dbConn->doSilent( $sql );
+    $resultSet = $dbConn->query( $sql );
     //  $dbConn->log($sql."\nresult capabilities:[".$resultSet->fields['capabilities']."]\n");
-    return ((!$resultSet->EOF) && (($cap & $resultSet->fields[ 'capabilities' ]) != 0));
+    return ((($row=$resultSet->fetch()) !==false) && (($cap & $row[ 'capabilities' ]) != 0));
 }
 
 /**
@@ -196,7 +196,7 @@ function optionList( $dbConn, $query, $selected_value, $preload = array() ) {
     echo getOptionList( $dbConn, $query, $selected_value );
 }
 
-function getOptionList( PDO $dbConn, string $query, string $selected_value=null, array $preload = array() ): string {
+function getOptionList( PDO $dbConn, string $query, string $selected_value = null, array $preload = array() ): string {
     $result = '';
     $pstm = $dbConn->query( $query );
     if ( $pstm === false ) {
@@ -306,8 +306,8 @@ function getOptionListGroupedFromResultSet( PDOStatement $pstm, string $selected
  * @param $query the query send to the db
  * @param $filename the name for the presented file
  */
-function queryToTable( $dbConn, $query, $numerate = 0, $watchColumn = -1, $rb ) {
-    queryToTableChecked( $dbConn, $query, $numerate = 0, $watchColumn = -1, $rb, -1, '' );
+function queryToTable( $dbConn, $query, $numerate = 0, $watchColumn = -1, $rb ):string  {
+    return queryToTableChecked( $dbConn, $query, $numerate = 0, $watchColumn = -1, $rb, -1, '' );
 }
 
 /**
@@ -432,10 +432,10 @@ function queryToTableChecked( $dbConn, $query, $numerate, $watchColumn, $rb, $ch
  * @param message buffer for db messages
  * @return resultSet to do the fetches on.
  */
-function prepareQuery( $dbConn, $query, &$resultString ) {
+function prepareQuery( $dbConn, $query, &$resultString ): PDOStatement {
     $resultString = '';
     ob_start();
-    $resultSet = $dbConn->Execute( $query );
+    $resultSet = $dbConn->query( $query );
     if ( $resultSet === false ) {
         echo ("Cannot execute select statement\n\nreason" . $dbConn->errorInfo()[ 2 ]);
         stacktrace( 2 );

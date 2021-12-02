@@ -14,3 +14,10 @@ $dbConn= new PDO("pgsql:host=localhost;port=5432;dbname={$db_name}", $dbUser, $p
 $include_path = ini_get('include_path');
 $include_path = $site_home . '/peerlib:' . $include_path .':'. $site_home.'/vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/';
 $include_path = ini_set('include_path', $include_path);
+
+$root_url = '/peertest'; // as seen from the browser for this instance 
+define('STYLEFILE', $root_url . '/style/peertreestyle.css');
+define('SITEROOT', $root_url);
+define('IMAGEROOT', $root_url . '/images');
+define('PHOTOROOT', $root_url . '/fotos');
+define('TREEVIEW_SOURCE', './');
