@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "adodb/adodb-php",
-            "version": "v5.22.0",
+            "version": "v5.22.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ADOdb/ADOdb.git",
-                "reference": "d99127b8811a9f949c00ab425065e380dce6bdc1"
+                "reference": "a568bfeb72d6b5942df747adc36b95165a083e60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ADOdb/ADOdb/zipball/d99127b8811a9f949c00ab425065e380dce6bdc1",
-                "reference": "d99127b8811a9f949c00ab425065e380dce6bdc1",
+                "url": "https://api.github.com/repos/ADOdb/ADOdb/zipball/a568bfeb72d6b5942df747adc36b95165a083e60",
+                "reference": "a568bfeb72d6b5942df747adc36b95165a083e60",
                 "shasum": ""
             },
             "require": {
@@ -65,7 +65,7 @@
                 "issues": "https://github.com/ADOdb/ADOdb/issues",
                 "source": "https://github.com/ADOdb/ADOdb"
             },
-            "time": "2022-02-07T23:42:42+00:00"
+            "time": "2025-05-01T11:49:24+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -781,5 +781,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }
